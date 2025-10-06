@@ -1,0 +1,45 @@
+name: 文書のリリース
+
+on:
+  push:
+    tags:
+      - "*/v[0-9]+.[0-9]+"
+
+permissions:
+  contents: write
+
+jobs:
+  get-name:
+    name: 文書の名前を取得
+    runs-on: ubuntu-latest
+    outputs:
+      name: ${{steps.get-name.outputs.name}}
+    steps:
+      - id: get-name
+        run: |
+          if [[ $GITHUB_REF_NAME =~ ^(.+)/v[0-9]+\.[0-9]+$ ]]; then
+            echo name=${BASH_REMATCH[1]} >> $GITHUB_OUTPUT
+          else
+            exit 1
+          fi
+  latex:
+    name: LaTeX文書をコンパイル
+    runs-on: macos-latest
+    needs: get-name
+    steps:
+      - uses: actions/checkout@v5
+      - run: sudo chown root /opt/homebrew/bin/gtar
+      - run: sudo chmod u+s /opt/homebrew/bin/gtar
+      - uses: actions/cache/restore@v4
+        with:
+          path: /usr/local/texlive
+          key: 0
+          enableCrossOsArchive: true
+      - run: sudo /usr/local/texlive/2025/bin/universal-darwin/tlmgr path add
+      - run: latexmk -lualatex ${{needs.get-name.outputs.name}}.tex
+        working-directory: docs
+      - uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          files: docs/${{needs.get-name.outputs.name}}.pdf

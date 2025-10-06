@@ -1,0 +1,59 @@
+name: Pull Requestの自動確認
+
+on: [pull_request]
+
+permissions:
+  contents: write
+  pull-requests: write
+  statuses: write
+
+jobs:
+  format:
+    name: フォーマッタの実行
+    runs-on: ubuntu-latest
+    outputs:
+      commit_hash: ${{steps.commit.outputs.commit_hash}}
+    steps:
+      - run: npm i -g pnpm
+      - uses: actions/checkout@v5
+      - uses: technote-space/get-diff-action@v6
+      - run: pnpm i
+      - run: pnpm exec eslint ${{env.GIT_DIFF}} --ext ts --fix
+        if: env.GIT_DIFF
+        continue-on-error: true
+      - run: pnpm exec textlint ${{env.GIT_DIFF}} --fix
+        if: env.GIT_DIFF
+        continue-on-error: true
+      - run: pnpm exec prettier ${{env.GIT_DIFF}} --ignore-unknown --write
+        if: env.GIT_DIFF
+      - id: commit
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_author: ${{github.actor_id != 29139614 && format('{0} <{1}+{0}', github.actor, github.actor_id) || 'github-actions[bot] <41898282+github-actions[bot]'}}@users.noreply.github.com>
+          commit_message: フォーマッタの実行結果を適用
+      - run: |
+          gh api -X POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/statuses/${{steps.commit.outputs.commit_hash || github.sha}} -f state=pending -f context=マージ許可
+        env:
+          GH_TOKEN: ${{github.token}}
+  reviewdog:
+    name: Reviewdogによる自動レビュ
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm i -g pnpm
+      - run: curl -L http://download.savannah.gnu.org/releases/chktex/${{vars.CHKTEX}}.tar.gz | tar xzf -
+      - run: ./configure && make && sed -i '/^install:/ s/ ChkTeX.dvi//' Makefile && sudo make install
+        working-directory: ${{vars.CHKTEX}}
+      - uses: actions/checkout@v5
+      - run: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/fd59714416d6d9a1c0692d872e38e7f8448df4fc/install.sh | sh -s -- -b . v0.18.1
+      - run: pnpm i
+      - run: pnpm exec tsx resources/ts/ci/reviewdog.ts ${{secrets.GITHUB_TOKEN}}
+  status:
+    name: ステータス更新
+    needs: [format, reviewdog]
+    if: ${{!cancelled()}}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          gh api -X POST -H 'Accept: application/vnd.github+json' /repos/${{github.repository}}/statuses/${{needs.format.outputs.commit_hash || github.sha}} -f state=${{contains(needs.*.result, 'failure') && 'failure' || 'success'}} -f context=マージ許可
+        env:
+          GH_TOKEN: ${{github.token}}

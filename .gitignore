@@ -1,0 +1,4 @@
+!/.vscode/
+.clasp.json
+.env
+/node_modules/

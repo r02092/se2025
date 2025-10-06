@@ -1,0 +1,72 @@
+\LoadClass{jlreq}
+\RequirePackage[bold-style=ISO,math-style=ISO]{unicode-math}
+\RequirePackage{color,etoolbox,luacode,luatexja-otf}
+\if"\directlua{tex.print(os.getenv("GITHUB_ACTIONS"))}"
+	\RequirePackage[2004jis,bold,deluxe,expert,haranoaji,jfm_tate=jlreqv,jfm_yoko=jlreq,match]{luatexja-preset}
+	\RequirePackage{draftwatermark}
+	\setmainfont{TeXGyreTermes}
+	\setsansfont{TeXGyreHeros}
+	\setmonofont{TeXGyreCursor}[Ligatures=NoCommon]
+	\SetWatermarkText{下書き}
+\else
+	\RequirePackage[2004jis,bold,deluxe,expert,hiragino-pron,jfm_tate=jlreqv,jfm_yoko=jlreq,match]{luatexja-preset}
+	\setmainfont{TimesNewRoman}
+	\setsansfont{HelveticaNeue}
+	\setmonofont{CourierNew}[Ligatures=NoCommon]
+	\makeatletter
+	\patchcmd\@dottedtocline%
+	{\null\inhibitglue ・\inhibitglue\null}%
+	{\null\inhibitglue\CID{9778}\hspace{-.5\zw}\inhibitglue\null}%
+	{}{}
+	\makeatother
+\fi
+\setmathfont{TeXGyreTermesMath}
+\renewcommand\emph[1]{\textbf{\textsf{#1}}}
+\begin{luacode*}
+	function print_ver()
+		tex.sprint(os.getenv("GITHUB_ACTIONS") and string.match(os.getenv("GITHUB_REF_NAME"), "%d+%.%d+$") or "\\colorbox{red}{下書き}")
+	end
+\end{luacode*}
+\let\oldtitle\title
+\makeatletter
+\renewcommand\@dotsep{0}
+\renewcommand\title[1]{
+	\oldtitle{#1}
+	\usepackage[
+		bookmarks=true,
+		bookmarksdepth=tocdepth,
+		bookmarksnumbered=true,
+		hidelinks,
+		unicode,
+		pdftitle={#1},
+		pdfauthor={\@author},
+	]{hyperref}
+}
+\AtBeginDocument{
+	\begin{titlepage}
+		\begin{center}
+			\vspace*{5cm}
+			\textsf{
+				\textbf{
+					\Huge
+					システム名\\
+					\vspace{1cm}
+					\@title\\
+				}
+				\vspace{3cm}
+				{
+					\huge
+					第\directlua{print_ver()}版
+					\vfill
+					\@date\\
+				}
+				\vspace{2cm}
+				\textbf{\LARGE\@author}
+			}
+		\end{center}
+	\end{titlepage}
+	\tableofcontents
+	\newpage
+}
+\makeatother
+\author{Share}

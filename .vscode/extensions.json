@@ -1,0 +1,9 @@
+{
+	"recommendations": [
+		"3w36zj6.textlint",
+		"EditorConfig.EditorConfig",
+		"James-Yu.latex-workshop",
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode"
+	]
+}
