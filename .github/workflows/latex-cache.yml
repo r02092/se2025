@@ -1,0 +1,34 @@
+name: キャッシュの作成
+
+on:
+  schedule:
+    - cron: 0 0 */6 * *
+  workflow_dispatch:
+
+jobs:
+  cache:
+    name: キャッシュの存在確認
+    runs-on: ubuntu-latest
+    outputs:
+      cache-hit: ${{steps.cache.outputs.cache-hit}}
+    steps:
+      - id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: /usr/local/texlive
+          key: 0
+          enableCrossOsArchive: true
+          lookup-only: true
+  install:
+    name: MacTeXのインストール
+    runs-on: macos-latest
+    needs: cache
+    if: needs.cache.outputs.cache-hit != 'true'
+    steps:
+      - run: brew install mactex-no-gui
+        timeout-minutes: 9
+      - uses: actions/cache/save@v4
+        with:
+          path: /usr/local/texlive
+          key: 0
+          enableCrossOsArchive: true

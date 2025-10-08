@@ -1,0 +1,6 @@
+services:
+  app:
+    build: dev
+    volumes:
+      - ./:/workspace:z
+    tty: true

@@ -1,0 +1,63 @@
+{
+	$schema: "https://docs.renovatebot.com/renovate-schema.json",
+	extends: [
+		"config:recommended",
+		":disableDependencyDashboard",
+		":semanticCommitsDisabled",
+	],
+	timezone: "Asia/Tokyo",
+	baseBranchPatterns: ["main"],
+	commitMessageAction: null,
+	commitMessageTopic: "{{depName}}",
+	commitMessageExtra: "を {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}} に更新",
+	labels: ["🆙依存関係"],
+	prBodyColumns: ["パッケージ", "種別", "更新", "変更", "保留"],
+	prBodyDefinitions: {
+		パッケージ: "{{{depNameLinked}}}{{#if newName}}{{#unless (equals depName newName)}} → {{{newNameLinked}}}{{/unless}}{{/if}}",
+		種別: "{{{depType}}}",
+		更新: "{{{updateType}}}",
+		変更: "`{{{displayFrom}}}` → `{{{displayTo}}}`",
+		保留: "{{{displayPending}}}",
+		経過時間: "{{#if newVersion}}[![経過時間](https://developer.mend.io/api/mc/badges/age/{{datasource}}/{{replace '/' '%2f' packageName}}/{{{newVersion}}}?slim=true)](https://docs.renovatebot.com/merge-confidence/){{/if}}",
+		信頼度: "{{#if newVersion}}[![信頼度](https://developer.mend.io/api/mc/badges/confidence/{{datasource}}/{{replace '/' '%2f' packageName}}/{{{currentVersion}}}/{{{newVersion}}}?slim=true)](https://docs.renovatebot.com/merge-confidence/){{/if}}",
+	},
+	prFooter: "このPull Requestは[Renovate Bot](https://github.com/renovatebot/renovate)によって自動で生成されました。",
+	packageRules: [
+		{
+			matchDatasources: ["docker"],
+			enabled: false,
+		},
+		{
+			matchManagers: ["npm"],
+			addLabels: ["💻フロントエンド"],
+			prBodyColumns: ["パッケージ", "変更", "経過時間", "信頼度"],
+		},
+		{
+			matchManagers: ["github-actions"],
+			addLabels: ["👷CI/CD"],
+		},
+		{
+			matchUpdateTypes: [
+				"minor",
+				"patch",
+				"pin",
+				"pinDigest",
+				"digest",
+				"lockFileMaintenance",
+			],
+			automerge: true,
+		},
+	],
+	digest: {
+		branchTopic: "{{{depNameSanitized}}}-digest",
+		commitMessageExtra: "を {{newDigestShort}} に更新",
+	},
+	replacement: {
+		branchTopic: "{{{depNameSanitized}}}-replacement",
+		commitMessageExtra: "を {{newName}} {{#if isMajor}}{{{prettyNewMajor}}}{{else}}{{#if isSingleVersion}}{{{prettyNewVersion}}}{{else}}{{{newValue}}}{{/if}}{{/if}} に置き換え",
+		prBodyNotes: [
+			"これはコミュニティが提案した最小限の安定した代替バージョンに`{{{depName}}}`を置き換える特別なPull Requestです。",
+		],
+	},
+	configMigration: true,
+}
