@@ -16,6 +16,8 @@ jobs:
     steps:
       - run: npm i -g pnpm
       - uses: actions/checkout@v5
+        with:
+          ref: ${{github.event.pull_request.head.ref}}
       - uses: technote-space/get-diff-action@v6
       - run: pnpm i
       - run: pnpm exec eslint ${{env.GIT_DIFF}} --ext ts --fix
