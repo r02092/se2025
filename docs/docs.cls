@@ -48,20 +48,26 @@
 			\vspace*{5cm}
 			\textsf{
 				\textbf{
-					\Huge
-					システム名\\
-					\vspace{1cm}
-					\@title\\
+					{
+						\huge
+						聖地巡礼サポートシステム\\
+					}
+					{
+						\Huge
+						SceneTrip\\
+						\vspace{1cm}
+						\@title\\
+					}
 				}
 				\vspace{3cm}
 				{
-					\huge
+					\LARGE
 					第\directlua{print_ver()}版
 					\vfill
 					\@date\\
 				}
 				\vspace{2cm}
-				\textbf{\LARGE\@author}
+				\textbf{\Large\@author}
 			}
 		\end{center}
 	\end{titlepage}
