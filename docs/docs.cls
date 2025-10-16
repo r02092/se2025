@@ -38,7 +38,7 @@
 		bookmarksnumbered=true,
 		hidelinks,
 		unicode,
-		pdftitle={#1},
+		pdftitle={聖地巡礼サポートシステムSceneTrip #1 第\directlua{print_ver()}版},
 		pdfauthor={\@author},
 	]{hyperref}
 }
