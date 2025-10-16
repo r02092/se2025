@@ -1,4 +1,4 @@
-\LoadClass{jlreq}
+\LoadClass[line_length=45zw,number_of_lines=41]{jlreq}
 \RequirePackage[bold-style=ISO,math-style=ISO]{unicode-math}
 \RequirePackage{color,etoolbox,luacode,luatexja-otf}
 \if"\directlua{tex.print(os.getenv("GITHUB_ACTIONS"))}"
