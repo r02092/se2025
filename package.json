@@ -34,13 +34,6 @@
 	"textlint": {
 		"plugins": [
 			"latex2e"
-		],
-		"rules": {
-			"preset-ja-technical-writing": {
-				"ja-no-mixed-period": {
-					"forceAppendPeriod": true
-				}
-			}
-		}
+		]
 	}
 }
