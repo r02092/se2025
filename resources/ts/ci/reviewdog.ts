@@ -165,9 +165,6 @@ type RdJsonDiagnostic = {
 		}),
 	);
 	reviewdog.stdin.end();
-	reviewdog.on("exit", code => {
-		process.exit(code ?? 0);
-	});
 })();
 async function getStdout(
 	cp: childProcess.ChildProcessByStdio<null, Stream.Readable, null>,
