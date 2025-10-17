@@ -20,7 +20,11 @@ type RdJsonDiagnostic = {
 (async () => {
 	const gitDiff = childProcess.spawn(
 		"git",
-		["diff", "--name-only", "FETCH_HEAD"],
+		[
+			"diff",
+			"--name-only",
+			...(process.env.GITHUB_ACTIONS ? [process.argv[2]] : []),
+		],
 		{
 			stdio: ["ignore", "pipe", "inherit"],
 		},
@@ -112,11 +116,12 @@ type RdJsonDiagnostic = {
 			: containerArgs.concat([
 					"reviewdog",
 					"-f=rdjson",
-					"-diff=git diff FETCH_HEAD",
+					"-diff=git diff" +
+						(process.env.GITHUB_ACTIONS ? " " + process.argv[2] : ""),
 				]),
 		{
 			...(process.env.GITHUB_ACTIONS
-				? {env: {...process.env, REVIEWDOG_GITHUB_API_TOKEN: process.argv[2]}}
+				? {env: {...process.env, REVIEWDOG_GITHUB_API_TOKEN: process.argv[3]}}
 				: {}),
 			stdio: ["pipe", "inherit", "inherit"],
 		},
