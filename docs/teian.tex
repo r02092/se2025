@@ -121,7 +121,7 @@
 \subsection{前提条件}
 %--- システムが動作するための前提条件を箇条書きで記述。---%
 \begin{itemize}
-	\item 利用者がインターネット接続可能なスマートフォンを所有していること。
+	\item 利用者がインターネット接続可能なPCまたはスマートフォンを所有していること。
 	\item 利用者が本システムの利用規約に同意していること。
 	\item 一部の機能は会員登録が必須であること。
 \end{itemize}
@@ -191,12 +191,15 @@
 	\caption{ソフトウェア構成}\label{tab:software}
 	\begin{tabularx}{0.9\textwidth}{|l|X|X|}
 		\hline
-		\emph{項目} & \emph{ソフトウェア} & \emph{備考} \\ \hline
-		Webサーバ & Apache, Nginxなど & \\ \hline
-		データベース & MySQL, PostgreSQLなど & \\ \hline
-		バックエンド & Python (Django), Ruby (Rails)など & \\ \hline
-		フロントエンド & React, Vue.jsなど & \\ \hline
-		利用者端末OS & Android, iOS & \\ \hline
+		\textbf{項目} & \textbf{ソフトウェア} & \textbf{備考} \\ \hline
+		Webサーバ & Nginx & \\ \hline
+		データベース & MariaDB & \\ \hline
+		バックエンド & PHP（Laravel） & \\ \hline
+		フロントエンド & TypeScript & \\ \hline
+		端末OS & Android、Linux、Windows、iOS、macOS & \\ \hline
+		端末ブラウザ & Firefox、Google Chrome & \\ \hline
+		LLM & Google AI Studio & \\ \hline
+		地図 & OpenStreetMap & \\ \hline
 	\end{tabularx}
 \end{table}
 
