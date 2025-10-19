@@ -37,6 +37,8 @@ jobs:
           enableCrossOsArchive: true
       - run: sudo /usr/local/texlive/2025/bin/universal-darwin/tlmgr path add
       - run: latexmk -lualatex ${{needs.get-name.outputs.name}}.tex
+        env:
+          TZ: Asia/Tokyo
         working-directory: docs
       - uses: softprops/action-gh-release@v2
         env:
