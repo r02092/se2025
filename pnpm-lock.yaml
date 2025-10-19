@@ -19,7 +19,7 @@ importers:
         version: 7.4.0
       '@types/google-apps-script':
         specifier: ^2.0.4
-        version: 2.0.5
+        version: 2.0.7
       '@types/node':
         specifier: ~22.18
         version: 22.18.11
@@ -604,8 +604,8 @@ packages:
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
-  '@types/google-apps-script@2.0.5':
-    resolution: {integrity: sha512-70H/wO+fVv4+ye1ju+lNDLyfFoDJUfvyxqka1HYWns5J7qV+J9gHRJLGEdQNd/qF/G2lhuQDTZrMf7Pmron0Cw==}
+  '@types/google-apps-script@2.0.7':
+    resolution: {integrity: sha512-Yd5ham8GJNPoKSMt9Ep+B5IJzmfsvSNkOF1DWGQDyz66+1O/Jw/TEe6fltJcTKRvNlCCH5ZaGmmYDOgadA8QYQ==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -3207,7 +3207,7 @@ snapshots:
 
   '@types/estree@1.0.8': {}
 
-  '@types/google-apps-script@2.0.5': {}
+  '@types/google-apps-script@2.0.7': {}
 
   '@types/json-schema@7.0.15': {}
 
