@@ -40,6 +40,9 @@
 				"ja-no-mixed-period": false,
 				"max-comma": false,
 				"max-kanji-continuous-len": false,
+				"max-ten": {
+					"max": 4
+				},
 				"no-exclamation-question-mark": false,
 				"no-unmatched-pair": false,
 				"no-doubled-joshi": false,
