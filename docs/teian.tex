@@ -1,11 +1,13 @@
 \documentclass{docs}
 
 %--- 基本パッケージ ---%
+\usepackage{makecell} % 表のセルの配置
 \usepackage{tabularx} % 表の幅を調整
 \usepackage{here} % 図や表の位置を固定 (H)
 
 %--- 文書情報 ---%
 \title{システム提案書}
+\renewcommand\theadfont\bfseries
 
 \begin{document}
 
@@ -176,7 +178,7 @@
 	\caption{ハードウェア構成}\label{tab:hardware}
 	\begin{tabularx}{0.9\textwidth}{|l|p{9\zw}|X|p{10\zw}|}
 		\hline
-		\emph{項目} & \emph{種類} & \emph{数量} & \emph{備考} \\ \hline
+		\thead{項目} & \thead{種類} & \thead{数量} & \thead{備考} \\ \hline
 		メインサーバ & OCI Compute & 1台 & Always Freeサービス（無料枠）\\ \hline
 		データベースサーバ & OCI Compute & 1台 & Always Freeサービス（無料枠）\\ \hline
 		管理者端末 & PCおよびスマートフォン & 管理者数 & \\ \hline
@@ -191,7 +193,7 @@
 	\caption{ソフトウェア構成}\label{tab:software}
 	\begin{tabularx}{0.9\textwidth}{|l|l|X|}
 		\hline
-		\textbf{項目} & \textbf{ソフトウェア} & \textbf{備考} \\ \hline
+		\thead{項目} & \thead{ソフトウェア} & \thead{備考} \\ \hline
 		Webサーバ & Nginx & \\ \hline
 		データベース & MariaDB & \\ \hline
 		バックエンド & PHP（Laravel） & \\ \hline
