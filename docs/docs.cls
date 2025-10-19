@@ -44,8 +44,10 @@
 	\usepackage[nameinlink]{cleveref}
 	\crefname{figure}{図}{図}
 	\crefname{table}{表}{表}
+	\crefname{section}{第}{第}
 }
 \AtBeginDocument{
+	\creflabelformat{section}{#2#1節#3}
 	\begin{titlepage}
 		\begin{center}
 			\vspace*{5cm}

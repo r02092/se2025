@@ -15,7 +15,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 1. 現状の課題
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{現状の課題}
+\section{現状の課題}\label{sec:issues}
 %--- システム開発に至った背景や、解決したい社会課題の概要を記述。---%
 令和6年に高知県を訪れた県外観光客入込数は、対前年比94.3\,\%、約268,000人減の
 4,453,000人と推計され、過去最高である前年に比べて減少とはなりましたが、
@@ -227,49 +227,52 @@
 \section{費用対効果}
 \subsection{効果}
 %--- システム導入によって得られる定性的な効果を記述。---%
-
+システムの導入により、\cref{sec:issues}に挙げた
+各ステークホルダーの視点での課題が解決すると考えられます。
 
 \subsection{収益}
 %--- 5年間など、特定の期間における収益モデルと予測金額を記述。---%
 収益は、事業者からの月額利用料、広告収入、行政からの手数料を想定します。
 \begin{itemize}
-	\item \emph{事業者利用料:} $\text{xxxx円/月}\times\text{xxx事業者}
-	\times\text{xxヶ月}=\text{xxxxx円}$
-	\item \emph{広告収入:} $\text{xxxx円/月}\times\text{xxヶ月}
-	=\text{xxxxx円}$
-	\item \emph{手数料収入:} $\cdots$
+	\item \emph{事業者利用料:} $\text{3,000円/月}\times\text{300事業者}
+	\times\text{60ヶ月}=\text{54,000,000円}$
+	\item \emph{広告収入:} $\text{100,000円/月}\times\text{60ヶ月}
+	=\text{6,000,000円}$
+	\item \emph{データ利用手数料:} $\text{50,000円/月}\times\text{60ヶ月}
+	=\text{3,000,000円}$
 \end{itemize}
-\emph{5年間の総収益: XX,XXX,XXX 円}
+\emph{5年間の総収益: 63,000,000円}
 
 \subsection{費用}
 %--- 開発にかかる初期費用と、運用にかかる費用を表や数式で示します。---%
 \begin{itemize}
 	\item \emph{初期費用（開発費）:}
 		\begin{itemize}
-			\item 人件費: $\text{7人日/月}\times\text{7名}\times\text{5ヶ月}
-			=\cdots$
-			\item その他（機材費など）: $\cdots$
+			\item 人件費: $\text{10,000,000円/年}\times\text{7名}\times\text{5ヶ月}
+			\sim\text{29,166,667円}$
+			\item その他（機材費など）: 0円\\
+			（開発に関わる環境や機材の費用は人件費に含む）
 		\end{itemize}
-		\emph{初期費用合計: XX,XXX,XXX 円}
+		\emph{初期費用合計: 29,166,667円}
 	\item \emph{運用費用（5年間）:}
 		\begin{itemize}
-			\item サーバ費用: $\text{xxxxx円/月}\times\text{xxヶ月}
-			=\text{xxxxx円}$
-			\item 維持管理費（人件費など）: $\cdots$
+			\item サーバ費用: $\text{0円/月}\times\text{60ヶ月}
+			=\text{0円}$
+			\item 維持管理費（人件費など）: $\text{2,916,667円/年}\times\text{5年}
+			\sim\text{14,583,333円}$\\
+			（年間費用は初期費用の1割として計算）
 		\end{itemize}
-		\emph{5年間の運用費用合計: X,XXX,XXX 円}
+		\emph{5年間の運用費用合計: 14,583,333円}
 \end{itemize}
-\emph{5年間の総費用: XX,XXX,XXX 円}
+\emph{5年間の総費用: 43,750,000円}
 
 \subsection{利益}
 %--- 5年間など、特定の期間における利益を計算。---%
 5年間で得られる利益は以下の通りです。
-$$
-\text{総収益} - \text{総費用} = \text{利益}
-$$
-$$
-\text{XX,XXX,XXX円} - \text{XX,XXX,XXX円} = \text{XX,XXX,XXX円}
-$$
+\begin{gather*}
+	\text{総収益} - \text{総費用} = \text{利益}\\
+	\text{63,000,000円} - \text{43,750,000円} = \text{19,250,000円}
+\end{gather*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 9. 開発体制と工程計画
