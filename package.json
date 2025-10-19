@@ -40,6 +40,8 @@
 				"ja-no-mixed-period": false,
 				"max-comma": false,
 				"max-kanji-continuous-len": false,
+				"no-exclamation-question-mark": false,
+				"no-unmatched-pair": false,
 				"no-doubled-joshi": false,
 				"sentence-length": false
 			}

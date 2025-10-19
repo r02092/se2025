@@ -2,6 +2,7 @@
 
 %--- 基本パッケージ ---%
 \usepackage{makecell} % 表のセルの配置
+\usepackage{pgfgantt} % ガントチャート作成
 \usepackage{tabularx} % 表の幅を調整
 \usepackage{here} % 図や表の位置を固定 (H)
 
@@ -282,10 +283,64 @@ $$
 \section{開発体制と工程計画}
 
 %--- 開発チームの体制について記述. ---%
-本システムの開発は、高知工科大学の学生7名からなるチームShareで行います..。
+本システムの開発は、高知工科大学情報学群の学生7名からなるグループShareが行います。
 
 %--- 開発スケジュール（ガントチャートなど）を図で示す。---%
-
+また、開発モデルとしてウォーターフォールモデルを採用し、
+\cref{fig:gantt}に示す工程で開発します。
+\begin{figure}[H]
+	\centering
+	\begin{ganttchart}[
+		canvas/.append style={fill=none,ultra thick},
+		title/.append style={fill=none},
+		title height=1,
+		title label text={\emph{#1}},
+		hgrid={draw},
+		x unit=16pt,
+		y unit chart=34pt,
+		bar/.style={},
+		bar label node/.append style={font=\normalsize,align=right},
+		left label/.style={
+			bar/.style={draw,thick,fill=gray!60},
+			bar inline label anchor=west,
+			bar inline label node/.style={anchor=east},
+			inline,
+		},
+		right label/.style={
+			bar inline label anchor=east,
+			bar inline label node/.style={anchor=west},
+			inline,
+		},
+	]{0}{20}
+		\gantttitle{2025年}{14}
+		\gantttitle{2026年}{7}\\
+		\gantttitle{9月}{2}
+		\gantttitle{10月}{4}
+		\gantttitle{11月}{4}
+		\gantttitle{12月}{4}
+		\gantttitle{1月}{4}
+		\gantttitle{2月}{3}\\
+		\ganttbar{要求分析}{0}{0}
+		\ganttbar[left label]{10/2}{2}{5}
+		\ganttbar[right label]{10/30}{2}{5}\\
+		\ganttbar{外部設計}{0}{0}
+		\ganttbar[left label]{10/30}{6}{9}
+		\ganttbar[right label]{12/1}{6}{9}\\
+		\ganttbar{内部設計}{0}{0}
+		\ganttbar[left label]{12/1}{10}{12}
+		\ganttbar[right label]{12/22}{10}{12}\\
+		\ganttbar{コーディング\&\\単体テスト}{0}{0}
+		\ganttbar[left label]{12/22}{13}{15}
+		\ganttbar[right label]{1/15}{13}{15}\\
+		\ganttbar{結合・総合テスト}{0}{0}
+		\ganttbar[left label]{1/15}{16}{16}
+		\ganttbar[right label]{1/22}{16}{16}\\
+		\ganttbar{βテスト}{0}{0}
+		\ganttbar[left label]{1/22}{17}{18}
+		\ganttbar[right label]{2/5}{17}{18}
+	\end{ganttchart}
+	\caption{工程計画}\label{fig:gantt}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 10. システムのアピールポイント

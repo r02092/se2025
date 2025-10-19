@@ -41,6 +41,9 @@
 		pdftitle={聖地巡礼サポートシステムSceneTrip #1 第\directlua{print_ver()}版},
 		pdfauthor={\@author},
 	]{hyperref}
+	\usepackage[nameinlink]{cleveref}
+	\crefname{figure}{図}{図}
+	\crefname{table}{表}{表}
 }
 \AtBeginDocument{
 	\begin{titlepage}
