@@ -13,12 +13,10 @@
 	\setmainfont{TimesNewRoman}
 	\setsansfont{HelveticaNeue}
 	\setmonofont{CourierNew}[Ligatures=NoCommon]
-	\makeatletter
 	\patchcmd\@dottedtocline%
 	{\null\inhibitglue ・\inhibitglue\null}%
 	{\null\inhibitglue\CID{9778}\hspace{-.5\zw}\inhibitglue\null}%
 	{}{}
-	\makeatother
 \fi
 \setmathfont{TeXGyreTermesMath}
 \renewcommand\emph[1]{\textbf{\textsf{#1}}}
@@ -28,8 +26,6 @@
 	end
 \end{luacode*}
 \let\oldtitle\title
-\makeatletter
-\renewcommand\@dotsep{0}
 \renewcommand\title[1]{
 	\oldtitle{#1}
 	\usepackage[
@@ -79,6 +75,6 @@
 	\tableofcontents
 	\newpage
 }
-\makeatother
+\renewcommand\@dotsep{0}
 \author{Share}
 \graphicspath{{figure}}
