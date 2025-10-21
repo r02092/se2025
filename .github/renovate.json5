@@ -28,13 +28,16 @@
 			enabled: false,
 		},
 		{
-			matchManagers: ["npm"],
-			addLabels: ["💻フロントエンド"],
-			prBodyColumns: ["パッケージ", "変更", "経過時間", "信頼度"],
+			matchCategories: ["ci"],
+			addLabels: ["👷CI/CD"],
 		},
 		{
-			matchManagers: ["github-actions"],
-			addLabels: ["👷CI/CD"],
+			matchCategories: ["js"],
+			addLabels: ["💻フロントエンド"],
+		},
+		{
+			matchManagers: ["npm"],
+			prBodyColumns: ["パッケージ", "変更", "経過時間", "信頼度"],
 		},
 		{
 			matchUpdateTypes: [
