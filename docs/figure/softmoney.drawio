@@ -1,0 +1,55 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" border="50" scale="3" compressed="false" locked="false" version="28.2.7">
+  <diagram id="ErI-VfCkA8yiaAztduq6" name="ページ2">
+    <mxGraphModel dx="463" dy="745" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="430" pageHeight="430" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c22cKI5DZR_p66FqYPib-1" value="運営(Share)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontFamily=Nimbus Sans;" parent="1" vertex="1">
+          <mxGeometry x="172" y="202" width="87" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="myS0w5q1qFaNtxmHbI0u-2" value="事業者" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="40" y="100" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="myS0w5q1qFaNtxmHbI0u-3" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;" parent="1" source="myS0w5q1qFaNtxmHbI0u-2" target="c22cKI5DZR_p66FqYPib-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="290" as="sourcePoint" />
+            <mxPoint x="270" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="myS0w5q1qFaNtxmHbI0u-4" value="月額使用料・広告料" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="myS0w5q1qFaNtxmHbI0u-3" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="myS0w5q1qFaNtxmHbI0u-6" value="行政" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="330" y="100" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="myS0w5q1qFaNtxmHbI0u-7" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" parent="1" source="myS0w5q1qFaNtxmHbI0u-6" target="c22cKI5DZR_p66FqYPib-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="290" as="sourcePoint" />
+            <mxPoint x="270" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="myS0w5q1qFaNtxmHbI0u-8" value="データ利用料" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="myS0w5q1qFaNtxmHbI0u-7" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="myS0w5q1qFaNtxmHbI0u-11" value="利用者" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="40" y="300" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="myS0w5q1qFaNtxmHbI0u-14" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="myS0w5q1qFaNtxmHbI0u-2" target="myS0w5q1qFaNtxmHbI0u-11" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="170" y="290" as="sourcePoint" />
+            <mxPoint x="270" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="myS0w5q1qFaNtxmHbI0u-15" value="商品・サービス購入費&lt;div&gt;クーポン提供&lt;/div&gt;" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="myS0w5q1qFaNtxmHbI0u-14" connectable="0" vertex="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="myS0w5q1qFaNtxmHbI0u-16" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" target="myS0w5q1qFaNtxmHbI0u-2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="75" y="200" as="sourcePoint" />
+            <mxPoint x="250" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
