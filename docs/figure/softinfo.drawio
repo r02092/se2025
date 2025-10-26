@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" border="50" scale="3" compressed="false" locked="false" version="27.2.0">
   <diagram name="Blank" id="YmL12bMKpDGza6XwsDPr">
-    <mxGraphModel dx="1844" dy="122" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="430" pageHeight="430" background="none" math="1" shadow="0">
+    <mxGraphModel dx="1686" dy="34" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="430" pageHeight="430" background="none" math="1" shadow="0">
       <root>
         <mxCell id="X5NqExCQtvZxIxQ7pmgY-0" />
         <mxCell id="1" parent="X5NqExCQtvZxIxQ7pmgY-0" />
@@ -19,7 +19,7 @@
         <mxCell id="9TQWKPpuY63w6WXeoJ6Y-16" value="店舗・聖地情報登録" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="9TQWKPpuY63w6WXeoJ6Y-15" connectable="0" vertex="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="9TQWKPpuY63w6WXeoJ6Y-29" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="9TQWKPpuY63w6WXeoJ6Y-3" target="y73NlEopzASggbsdGK2k-3" edge="1">
+        <mxCell id="9TQWKPpuY63w6WXeoJ6Y-29" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" parent="1" source="9TQWKPpuY63w6WXeoJ6Y-3" target="y73NlEopzASggbsdGK2k-3" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-560" y="780" as="sourcePoint" />
             <mxPoint x="-740" y="773" as="targetPoint" />
@@ -31,13 +31,13 @@
         <mxCell id="9TQWKPpuY63w6WXeoJ6Y-30" value="ルート提案・案内" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="9TQWKPpuY63w6WXeoJ6Y-29" connectable="0" vertex="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="9TQWKPpuY63w6WXeoJ6Y-31" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" parent="1" source="9TQWKPpuY63w6WXeoJ6Y-3" target="y73NlEopzASggbsdGK2k-17" edge="1">
+        <mxCell id="9TQWKPpuY63w6WXeoJ6Y-31" value="" style="endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;startArrow=classic;startFill=1;endFill=0;" parent="1" source="9TQWKPpuY63w6WXeoJ6Y-3" target="y73NlEopzASggbsdGK2k-17" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-548" y="760" as="sourcePoint" />
             <mxPoint x="-790" y="590" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="9TQWKPpuY63w6WXeoJ6Y-32" value="地図・交通情報" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="9TQWKPpuY63w6WXeoJ6Y-31" connectable="0" vertex="1">
+        <mxCell id="9TQWKPpuY63w6WXeoJ6Y-32" value="交通情報" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="9TQWKPpuY63w6WXeoJ6Y-31" connectable="0" vertex="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="9TQWKPpuY63w6WXeoJ6Y-36" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="y73NlEopzASggbsdGK2k-3" target="9TQWKPpuY63w6WXeoJ6Y-3" edge="1">
@@ -64,7 +64,7 @@
         <mxCell id="9TQWKPpuY63w6WXeoJ6Y-40" value="分析データ(事業者向け)" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;fontFamily=Nimbus Sans;" parent="9TQWKPpuY63w6WXeoJ6Y-39" connectable="0" vertex="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="9TQWKPpuY63w6WXeoJ6Y-43" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="9TQWKPpuY63w6WXeoJ6Y-3" target="y73NlEopzASggbsdGK2k-2" edge="1">
+        <mxCell id="9TQWKPpuY63w6WXeoJ6Y-43" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="9TQWKPpuY63w6WXeoJ6Y-3" target="y73NlEopzASggbsdGK2k-2" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-656" y="727" as="sourcePoint" />
             <mxPoint x="-670" y="620" as="targetPoint" />
@@ -93,8 +93,32 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="y73NlEopzASggbsdGK2k-17" value="外部API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontFamily=Nimbus Sans;" parent="1" vertex="1">
+        <mxCell id="y73NlEopzASggbsdGK2k-17" value="交通量API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontFamily=Nimbus Sans;" parent="1" vertex="1">
           <mxGeometry x="-500" y="490" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="PShMriyvmbtMAqW03iJk-12" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" edge="1" target="PShMriyvmbtMAqW03iJk-14" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-620" y="624" as="sourcePoint" />
+            <mxPoint x="-810" y="569" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PShMriyvmbtMAqW03iJk-13" value="対話" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="PShMriyvmbtMAqW03iJk-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PShMriyvmbtMAqW03iJk-14" value="LLMのAPI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontFamily=Nimbus Sans;" vertex="1" parent="1">
+          <mxGeometry x="-590" y="490" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="PShMriyvmbtMAqW03iJk-15" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;startArrow=classic;startFill=1;endFill=0;" edge="1" target="PShMriyvmbtMAqW03iJk-17" parent="1" source="y73NlEopzASggbsdGK2k-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-600" y="786" as="sourcePoint" />
+            <mxPoint x="-790" y="731" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PShMriyvmbtMAqW03iJk-16" value="地図" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="PShMriyvmbtMAqW03iJk-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PShMriyvmbtMAqW03iJk-17" value="地図タイル" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontFamily=Nimbus Sans;" vertex="1" parent="1">
+          <mxGeometry x="-500" y="630" width="70" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
