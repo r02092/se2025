@@ -130,7 +130,7 @@ type RdJsonDiagnostic = {
 		JSON.stringify({
 			diagnostics: await Promise.all(
 				diagnostics.map(async (d: RdJsonDiagnostic) => {
-					if (!d.message.includes("。")) {
+					if (!/[ぁ-ヿ]/.test(d.message)) {
 						d.message +=
 							(process.env.GITHUB_ACTIONS
 								? "\n**日本語訳**: "
