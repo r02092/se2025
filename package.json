@@ -39,6 +39,13 @@
 			"preset-ja-technical-writing": {
 				"arabic-kanji-numbers": false,
 				"ja-no-mixed-period": false,
+				"ja-no-redundant-expression": {
+					"dictOptions": {
+						"dict5": {
+							"disabled": true
+						}
+					}
+				},
 				"max-comma": false,
 				"max-kanji-continuous-len": false,
 				"max-ten": {
