@@ -37,6 +37,7 @@
 		],
 		"rules": {
 			"preset-ja-technical-writing": {
+				"arabic-kanji-numbers": false,
 				"ja-no-mixed-period": false,
 				"max-comma": false,
 				"max-kanji-continuous-len": false,
