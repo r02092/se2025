@@ -14,10 +14,13 @@ jobs:
     outputs:
       commit_hash: ${{steps.commit.outputs.commit_hash}}
     steps:
-      - run: npm i -g pnpm
       - uses: actions/checkout@v5
         with:
           ref: ${{github.event.pull_request.head.ref}}
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+      - run: npm i -g pnpm
       - uses: technote-space/get-diff-action@v6
       - run: pnpm i
       - run: pnpm exec eslint ${{env.GIT_DIFF}} --ext ts --fix
@@ -41,16 +44,19 @@ jobs:
     name: Reviewdogによる自動レビュ
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
       - run: npm i -g pnpm
       - run: curl -L http://download.savannah.gnu.org/releases/chktex/${{vars.CHKTEX}}.tar.gz | tar xzf -
       - run: ./configure && make && sed -i '/^install:/ s/ ChkTeX.dvi//' Makefile && sudo make install
         working-directory: ${{vars.CHKTEX}}
-      - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
       - run: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/fd59714416d6d9a1c0692d872e38e7f8448df4fc/install.sh | sh -s -- -b . v0.18.1
       - run: pnpm i
-      - run: pnpm exec tsx resources/ts/ci/reviewdog.ts ${{github.event.before != '' && github.event.before || 'HEAD^'}} ${{secrets.GITHUB_TOKEN}}
+      - run: node resources/ts/ci/reviewdog.ts ${{github.event.before != '' && github.event.before || 'HEAD^'}} ${{secrets.GITHUB_TOKEN}}
   status:
     name: ステータス更新
     needs: [format, reviewdog]
