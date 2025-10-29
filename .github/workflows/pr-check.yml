@@ -56,7 +56,7 @@ jobs:
         working-directory: ${{vars.CHKTEX}}
       - run: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/fd59714416d6d9a1c0692d872e38e7f8448df4fc/install.sh | sh -s -- -b . v0.18.1
       - run: pnpm i
-      - run: pnpm exec tsx resources/ts/ci/reviewdog.ts ${{github.event.before != '' && github.event.before || 'HEAD^'}} ${{secrets.GITHUB_TOKEN}}
+      - run: node resources/ts/ci/reviewdog.ts ${{github.event.before != '' && github.event.before || 'HEAD^'}} ${{secrets.GITHUB_TOKEN}}
   status:
     name: ステータス更新
     needs: [format, reviewdog]
