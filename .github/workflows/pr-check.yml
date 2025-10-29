@@ -14,6 +14,9 @@ jobs:
     outputs:
       commit_hash: ${{steps.commit.outputs.commit_hash}}
     steps:
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
       - run: npm i -g pnpm
       - uses: actions/checkout@v5
         with:
@@ -41,6 +44,9 @@ jobs:
     name: Reviewdogによる自動レビュ
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
       - run: npm i -g pnpm
       - run: curl -L http://download.savannah.gnu.org/releases/chktex/${{vars.CHKTEX}}.tar.gz | tar xzf -
       - run: ./configure && make && sed -i '/^install:/ s/ ChkTeX.dvi//' Makefile && sudo make install

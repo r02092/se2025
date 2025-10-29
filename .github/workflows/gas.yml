@@ -17,6 +17,9 @@ jobs:
     name: Google Apps Scriptをデプロイ
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
       - run: npm i -g pnpm
       - run: |
           PNPM_HOME=/home/runner/.local/share/pnpm
