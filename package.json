@@ -45,6 +45,7 @@
 						}
 					}
 				},
+				"ja-no-successive-word": false,
 				"max-comma": false,
 				"max-kanji-continuous-len": false,
 				"max-ten": {
