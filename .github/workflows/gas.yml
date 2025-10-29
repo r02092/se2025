@@ -17,6 +17,7 @@ jobs:
     name: Google Apps Scriptをデプロイ
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
@@ -26,7 +27,6 @@ jobs:
           echo PNPM_HOME=$PNPM_HOME >> $GITHUB_ENV
           echo $PNPM_HOME >> $GITHUB_PATH
       - run: pnpm i -g @google/clasp
-      - uses: actions/checkout@v5
       - run: |
           cat << EOF > .clasp.json
           {
