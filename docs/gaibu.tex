@@ -1,10 +1,94 @@
 \documentclass{docs}
 
+%--- 基本パッケージ ---%
+\usepackage{tikz} % 図の作成
+
+%--- TikZライブラリ ---%
+\usetikzlibrary{arrows.meta} % 矢印
+\usetikzlibrary{shapes.geometric} % 幾何学図形
+
 %--- 文書情報 ---%
 \title{外部設計書}
+
+% アクティビティ図を描画するマクロ
+% \adiagram{パーティション名}{縦の長さ}{流れ}{追加する描画命令}
+% パーティション名: 上部に表示されるパーティション名を","で区切って記述
+% 縦の長さ　　　　: アクションごとに縦に進む長さ
+% 本筋のフロー　　: パーティション番号
+% 　　　　　　　　  0:アクション or 1:分岐
+% 　　　　　　　　  アクション名 or 分岐の本筋側の名前
+% 　　　　　　　　  上記の3つを"/"で区切り、それを","で区切って記述
+% 　　　　　　　　  作成される各アクションのnodeは
+% 　　　　　　　　  "action<通し番号>"という名前で
+% 　　　　　　　　  (パーティション番号,-通し番号)の座標に配置される
+% 追加する描画命令: 追加で描画するTikZの形式の命令
+% 　　　　　　　　  条件分岐で別れた本筋以外のフローの描画などに使用
+\newcommand\adiagram[4]{
+	\begin{tikzpicture}[
+		action/.style={draw,thick,rounded corners},
+		decision/.style={draw,thick,diamond,inner sep=8pt},
+		arrow/.style={-Stealth},
+		label/.style={fill=white,inner sep=0pt},
+		xscale=5
+	]
+		\foreach\t[count=\i from 0]in{#1}{
+			\node at(\i,1.5){\emph{\t}};
+			\xdef\nps{\i}
+		}
+		\begin{scope}[yscale=#2]
+			\node[fill,inner sep=8pt,shape=circle](action0)at(0,0){};
+			\xdef\ot{}
+			\xdef\ox{0}
+			\xdef\oi{0}
+			\foreach\x/\e/\t[count=\i from 1]in{#3}{
+				\ifnum\e=0
+					\node[action](action\i)at(\x,-\i){\textsf{\t}};
+				\else
+					\node[decision](action\i)at(\x,.25-\i){};
+				\fi
+				\draw[arrow](action\oi)
+				\if"\ot"
+					\ifnum\x=\ox--\else-|\fi(action\i);
+				\else
+					\ifnum\x=\ox--node[label]{\textsf{\ot}}\else-|node{\textsf{\ot}}\fi(action\i);
+					\xdef\ot{}
+				\fi
+				\ifnum\e=1\xdef\ot{\t}\fi
+				\xdef\ox{\x}
+				\xdef\oi{\i}
+			}
+			\node[draw,double distance=2pt,thick,fill,inner sep=8pt,shape=circle](end)at(\ox,-1-\oi){};
+			\draw[arrow](action\oi)--(end);
+		\end{scope}
+		\foreach\i in{-.5,...,\nps.5}
+			\draw[ultra thick](\i,1)--(\i,-2.5-\oi*1.5);
+		\begin{scope}[yscale=#2]
+			#4
+		\end{scope}
+	\end{tikzpicture}
+}
 
 \begin{document}
 \section{はじめに}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 本書では、我々がシステム提案書にて提案した「SceneTrip」の
 詳細について記述します。
+\section{機能設計}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\centering
+	\adiagram{利用者,システム,データベース}{1.5}{
+		0/0/検索クエリを入力,
+		0/0/検索ボタンをクリック,
+		1/0/SQLクエリを生成,
+		2/0/検索を実行,
+		2/0/結果を返す,
+		1/1/観光地・施設が存在する,
+		1/0/結果を表示,
+		0/0/結果を確認
+	}{
+		\node[action](decision0)at(1,-8){\textsf{存在しない旨を表示}};
+		\draw[arrow](action6)-|(1.45,-8)node[label,pos=.57]{\textsf{存在しない}}|-(decision0);
+		\draw[arrow](decision0)--(action8);
+	}
+	\caption{観光地・施設検索}\label{fig:act-spot_search}
+\end{figure}
 \end{document}
