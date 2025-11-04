@@ -27,14 +27,14 @@
 % 　　　　　　　　  条件分岐で別れた本筋以外のフローの描画などに使用
 \newcommand\adiagram[4]{
 	\begin{tikzpicture}[
-		action/.style={draw,thick,rounded corners},
+		action/.style={draw,thick,rounded corners,font=\sffamily},
 		decision/.style={draw,thick,diamond,inner sep=8pt},
 		arrow/.style={-Stealth},
-		label/.style={fill=white,inner sep=0pt},
+		label/.style={fill=white,inner sep=0pt,font=\sffamily},
 		xscale=5
 	]
 		\foreach\t[count=\i from 0]in{#1}{
-			\node at(\i,1.5){\emph{\t}};
+			\node[font=\bfseries\sffamily]at(\i,1.5){\t};
 			\xdef\nps{\i}
 		}
 		\begin{scope}[yscale=#2]
@@ -44,7 +44,7 @@
 			\xdef\oi{0}
 			\foreach\x/\e/\t[count=\i from 1]in{#3}{
 				\ifnum\e=0
-					\node[action](action\i)at(\x,-\i){\textsf{\t}};
+					\node[action](action\i)at(\x,-\i){\t};
 				\else
 					\node[decision](action\i)at(\x,.25-\i){};
 				\fi
@@ -52,7 +52,7 @@
 				\if"\ot"
 					\ifnum\x=\ox--\else-|\fi(action\i);
 				\else
-					\ifnum\x=\ox--node[label]{\textsf{\ot}}\else-|node{\textsf{\ot}}\fi(action\i);
+					\ifnum\x=\ox--node[label]{\ot}\else-|node[label]{\ot}\fi(action\i);
 					\xdef\ot{}
 				\fi
 				\ifnum\e=1\xdef\ot{\t}\fi
@@ -87,8 +87,8 @@
 		1/0/結果を表示,
 		0/0/結果を確認
 	}{
-		\node[action](decision0)at(1,-8){\textsf{存在しない旨を表示}};
-		\draw[arrow](action6)-|(1.45,-8)node[label,pos=.57]{\textsf{存在しない}}|-(decision0);
+		\node[action](decision0)at(1,-8){存在しない旨を表示};
+		\draw[arrow](action6)-|(1.45,-8)node[label,pos=.57]{存在しない}|-(decision0);
 		\draw[arrow](decision0)--(action8);
 	}
 	\caption{観光地・施設検索}\label{fig:act-spot_search}
