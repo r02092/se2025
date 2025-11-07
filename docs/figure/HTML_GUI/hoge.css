@@ -47,19 +47,18 @@ body {
 .main-area {
 	padding: 0;
 	background: #00ccff;
-	height: 350px;
+	height: 320px;
 	width: 100vw;
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
 	justify-content: flex-start;
 }
-
-.main-map {
+#map {
 	width: 100vw;
+	height: 320px;
 	min-width: 100%;
 	max-width: 100vw;
-	height: 350px;
 	border: 0;
 	display: block;
 }
