@@ -5,6 +5,12 @@
 		<title>SceneTrip</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="hoge.css" />
+		<!-- MapLibre CDN -->
+		<link
+			href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css"
+			rel="stylesheet"
+		/>
+		<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
 	</head>
 	<body>
 		<div class="container">
@@ -22,13 +28,7 @@
 			<!-- <div class="gradient-top"></div> -->
 
 			<div class="main-area" style="padding: 0">
-				<iframe
-					class="main-map"
-					src="https://www.openstreetmap.org/export/embed.html?bbox=132.48138427734378%2C32.844981178306114%2C134.48913574218753%2C33.83848275599514&amp;layer=mapnik"
-					frameborder="0"
-					allowfullscreen
-					scrolling="no"
-				></iframe>
+				<div id="map"></div>
 			</div>
 
 			<div class="search-bar-area">
@@ -66,5 +66,35 @@
 			<!-- <div class="gradient-bottom"></div> -->
 			<div class="bottom-bar"></div>
 		</div>
+		<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
+		<script>
+			const map = new maplibregl.Map({
+				container: "map",
+				style: {
+					version: 8,
+					sources: {
+						rtile: {
+							type: "raster",
+							tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+							tileSize: 256,
+							attribution:
+								'©<a href="https://www.openstreetmap.org/copyright/ja">OpenStreetMap</a> contributors',
+						},
+					},
+					layers: [
+						{
+							id: "raster-tiles",
+							type: "raster",
+							source: "rtile",
+							minzoom: 0,
+							maxzoom: 18,
+						},
+					],
+				},
+				center: [133.56, 33.3], // [経度, 緯度] 四国周辺
+				zoom: 7.2,
+			});
+			map.addControl(new maplibregl.NavigationControl(), "top-right");
+		</script>
 	</body>
 </html>
