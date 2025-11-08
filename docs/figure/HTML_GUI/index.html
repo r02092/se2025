@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<title>SceneTrip</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="hoge.css" />
+		<!-- MapLibre CDN -->
+		<link
+			href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css"
+			rel="stylesheet"
+		/>
+		<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header-bar">
+				<!-- <div class="hamburger">
+					<div class="hamburger-bars">
+						<div class="bar"></div>
+						<div class="bar"></div>
+						<div class="bar"></div>
+					</div>
+				</div> -->
+				<div class="title">SceneTrip</div>
+			</div>
+			<!-- グラデーション トップ -->
+			<!-- <div class="gradient-top"></div> -->
+
+			<div class="main-area" style="padding: 0">
+				<div id="map"></div>
+			</div>
+
+			<div class="search-bar-area">
+				<input type="text" placeholder="場所・キーワード検索" />
+				<!-- <svg class="search-icon" viewBox="0 0 32 32">
+					<circle
+						cx="15"
+						cy="15"
+						r="13"
+						stroke="#14b888"
+						stroke-width="4"
+						fill="none"
+					/>
+					<ellipse
+						cx="15"
+						cy="15"
+						rx="9"
+						ry="9"
+						stroke="#14b888"
+						stroke-width="3"
+						fill="none"
+					/>
+					<rect
+						x="25"
+						y="25"
+						width="8"
+						height="4"
+						rx="2"
+						transform="rotate(45 25 25)"
+						fill="#14b888"
+					/>
+				</svg> -->
+			</div>
+			<!-- グラデーション ボトム -->
+			<!-- <div class="gradient-bottom"></div> -->
+			<div class="bottom-bar"></div>
+		</div>
+		<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
+		<script>
+			const map = new maplibregl.Map({
+				container: "map",
+				style: {
+					version: 8,
+					sources: {
+						rtile: {
+							type: "raster",
+							tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+							tileSize: 256,
+							attribution:
+								'©<a href="https://www.openstreetmap.org/copyright/ja">OpenStreetMap</a> contributors',
+						},
+					},
+					layers: [
+						{
+							id: "raster-tiles",
+							type: "raster",
+							source: "rtile",
+							minzoom: 0,
+							maxzoom: 18,
+						},
+					],
+				},
+				center: [133.56, 33.3], // [経度, 緯度] 四国周辺
+				zoom: 7.2,
+			});
+			map.addControl(new maplibregl.NavigationControl(), "top-right");
+		</script>
+	</body>
+</html>
