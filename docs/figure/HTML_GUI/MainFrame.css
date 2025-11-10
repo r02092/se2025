@@ -8,26 +8,26 @@ body {
 	height: 42px;
 	display: flex;
 	align-items: center;
-	padding: 0 24px;
+	padding: 0;
 	box-sizing: border-box;
 	position: relative;
 	color: white;
 }
 .hamburger {
-	width: 48px;
+	width: 50px;
 	height: 42px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
-	margin-right: 16px;
 }
 .hamburger-bars {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	height: 24px;
-	width: 32px;
+	width: 24px;
+	padding: 2px 00px 00px;
 }
 .bar {
 	background: #fff;
@@ -35,14 +35,24 @@ body {
 	border-radius: 2px;
 	margin: 0 0 4px 0;
 	width: 100%;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 .title {
 	font-size: 20px;
 	font-weight: 700;
 	letter-spacing: 2px;
-	margin-left: 8px;
 	font-family: "Noto Sans JP", sans-serif;
-	margin: 0 auto;
+	position: absolute; /* fixedでも可だが、header-bar内に収めたいならabsolute推奨 */
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+	pointer-events: none;
 }
 .main-area {
 	padding: 0;
@@ -91,7 +101,7 @@ body {
 }
 .bottom-bar {
 	background: #fff;
-	height: 47px;
+	height: 55px;
 	position: absolute;
 	bottom: 0;
 	width: 100%;
