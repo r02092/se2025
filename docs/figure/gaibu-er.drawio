@@ -1206,7 +1206,7 @@
             <mxRectangle width="30" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="H-AQuFChhPTMcho7vHMO-110" value="spot_from_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontFamily=Nimbus Sans;" parent="H-AQuFChhPTMcho7vHMO-108" vertex="1">
+        <mxCell id="H-AQuFChhPTMcho7vHMO-110" value="from_spot_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontFamily=Nimbus Sans;" parent="H-AQuFChhPTMcho7vHMO-108" vertex="1">
           <mxGeometry x="30" width="150" height="30" as="geometry">
             <mxRectangle width="150" height="30" as="alternateBounds" />
           </mxGeometry>
@@ -1219,7 +1219,7 @@
             <mxRectangle width="30" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="H-AQuFChhPTMcho7vHMO-113" value="spot_to_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontFamily=Nimbus Sans;" parent="H-AQuFChhPTMcho7vHMO-111" vertex="1">
+        <mxCell id="H-AQuFChhPTMcho7vHMO-113" value="to_spot_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;fontFamily=Nimbus Sans;" parent="H-AQuFChhPTMcho7vHMO-111" vertex="1">
           <mxGeometry x="30" width="150" height="30" as="geometry">
             <mxRectangle width="150" height="30" as="alternateBounds" />
           </mxGeometry>
