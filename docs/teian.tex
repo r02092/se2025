@@ -2,6 +2,7 @@
 
 %--- 基本パッケージ ---%
 \usepackage{makecell} % 表のセルの配置
+\usepackage{nameref}  % 名前で参照
 \usepackage{pgfgantt} % ガントチャート作成
 \usepackage{tabularx} % 表の幅を調整
 
@@ -262,7 +263,7 @@ UGCとゲーム的な要素を組み合わせます。
 
 また、事業者および行政向けに、以下の機能を提供します。
 \begin{itemize}
-    \item \emph{観光データの分析・提供:} （「7.2 収益」で後述する、より詳細な
+    \item \emph{観光データの分析・提供:} （「\hyperref[sec:syueki]{\ref*{sec:syueki} \nameref*{sec:syueki}}」で後述する、より詳細な
     分析データを有料で提供します）
     \item \emph{API連携機能}
 \end{itemize}
@@ -389,7 +390,7 @@ UGCとゲーム的な要素を組み合わせます。
 システムの導入により、\cref{sec:issues}に挙げた
 各ステークホルダーの視点での課題が解決すると考えられます。
 
-\subsection{収益}
+\subsection{収益}\label{sec:syueki}
 %--- 5年間など、特定の期間における収益モデルと予測金額を記述。---%
 収益は、事業者からの月額利用料（スタンダードプランおよびプレミアムプラン）、
 および観光データ利用手数料を想定します。
