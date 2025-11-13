@@ -51,6 +51,7 @@
 				"max-ten": {
 					"max": 4
 				},
+				"no-doubled-conjunction": false,
 				"no-exclamation-question-mark": false,
 				"no-mix-dearu-desumasu": {
 					"preferInHeader": "ですます",
