@@ -1,0 +1,76 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" version="28.2.9">
+  <diagram name="ページ1" id="IiGEaKWat_fVQX5sofIm">
+    <mxGraphModel dx="883" dy="363" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-1" value="ログイン画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="170" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-2" target="Q7dnCPgLNTW_xvB6DcCM-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-2" target="Q7dnCPgLNTW_xvB6DcCM-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-2" target="Q7dnCPgLNTW_xvB6DcCM-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="60" />
+              <mxPoint x="350" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="Q7dnCPgLNTW_xvB6DcCM-21">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="60" as="sourcePoint" />
+            <mxPoint x="240" y="420" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="350" y="60" />
+              <mxPoint x="350" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-2" value="ホーム画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-4" target="Q7dnCPgLNTW_xvB6DcCM-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-4" target="Q7dnCPgLNTW_xvB6DcCM-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-4" target="Q7dnCPgLNTW_xvB6DcCM-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-4" value="観光地・施設検索画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="410" y="40" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-7" target="Q7dnCPgLNTW_xvB6DcCM-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-7" value="観光経路チャット要求" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="40" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-16" value="AI経路提案画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="40" width="136" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-19" value="観光提案" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="410" y="290" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-21" value="観光提案" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="410" y="400" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-23" target="Q7dnCPgLNTW_xvB6DcCM-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-23" value="経由地検索画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="40" width="106" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-35" value="口コミ、フォトスポット共有" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="150" width="180" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
