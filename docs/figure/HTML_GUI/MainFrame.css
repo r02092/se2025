@@ -68,12 +68,15 @@ body {
 .main-area {
 	padding: 0;
 	background: #eee;
-	height: 100%;
+	height: 95vh;
 	width: 100vw;
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
 	justify-content: flex-start;
+}
+.main-area h1 {
+	text-align: center;
 }
 #map {
 	width: 100vw;
@@ -117,7 +120,7 @@ body {
 	bottom: 0;
 	width: 100%;
 	left: 0;
-	box-shadow: 0 0 8px rgba(90, 90, 90);
+	box-shadow: 0 0 8px rgba(90, 90, 90, 0.6);
 }
 .gradient-top {
 	position: absolute;
