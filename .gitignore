@@ -2,3 +2,4 @@
 .clasp.json
 .env
 /node_modules/
+/tstex_modules/_api.ts
