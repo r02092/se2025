@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="24mm"
+   height="24mm"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   sodipodi:docname="seal.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="4.2835116"
+     inkscape:cx="42.255051"
+     inkscape:cy="56.028796"
+     inkscape:window-width="1920"
+     inkscape:window-height="1052"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#e54300;stroke-width:0.4;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4"
+       width="23.6"
+       height="23.6"
+       x="0.2"
+       y="0.2"
+       rx="1" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.8507px;line-height:0px;font-family:'Ro Kointai Std';-inkscape-font-specification:'Ro Kointai Std';text-align:start;letter-spacing:0.40942px;writing-mode:tb-rl;direction:ltr;text-anchor:start;fill:#e54300;fill-opacity:1;stroke:none;stroke-width:0.465387;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1"
+       x="5.1825614"
+       y="0.32755351"
+       id="text9"
+       transform="scale(0.85949963,1.1634676)"><tspan
+         sodipodi:role="line"
+         id="tspan9"
+         style="font-size:9.8507px;stroke-width:0.465387"
+         x="5.1825614"
+         y="0.32755351">之印</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.50018px;line-height:0px;font-family:'Ro Kointai Std';-inkscape-font-specification:'Ro Kointai Std';text-align:start;letter-spacing:0.311726px;writing-mode:tb-rl;direction:ltr;text-anchor:start;fill:#e54300;fill-opacity:1;stroke:none;stroke-width:0.354339;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1"
+       x="10.622667"
+       y="0.7463631"
+       id="text10"
+       transform="scale(1.1288624,0.88584758)"><tspan
+         sodipodi:role="line"
+         id="tspan10"
+         style="font-size:7.50018px;stroke-width:0.354339"
+         x="10.622667"
+         y="0.7463631">Share</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.10279px;line-height:0px;font-family:'Ro Kointai Std';-inkscape-font-specification:'Ro Kointai Std';text-align:start;letter-spacing:0.253647px;writing-mode:tb-rl;direction:ltr;text-anchor:start;fill:#e54300;fill-opacity:1;stroke:none;stroke-width:0.288321;stroke-linecap:square;stroke-dasharray:none;stroke-opacity:1"
+       x="13.710181"
+       y="1.167648"
+       id="text11"
+       transform="scale(1.3873442,0.72080167)"><tspan
+         sodipodi:role="line"
+         id="tspan11"
+         style="font-size:6.10279px;stroke-width:0.288321"
+         x="13.710181"
+         y="1.167648">グループ２</tspan></text>
+  </g>
+</svg>
