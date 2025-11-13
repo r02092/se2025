@@ -19,7 +19,7 @@
 		"textlint-rule-preset-ja-technical-writing": "^12.0.2",
 		"typescript-eslint": "^8.45.0",
 		"vite": "^7.1.9",
-		"which": "^5.0.0"
+		"which": "^6.0.0"
 	},
 	"type": "module",
 	"scripts": {
