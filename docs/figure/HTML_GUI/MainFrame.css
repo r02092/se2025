@@ -12,6 +12,7 @@ body {
 	box-sizing: border-box;
 	position: relative;
 	color: white;
+	box-shadow: 0 0 8px rgba(90, 90, 90);
 }
 .hamburger {
 	width: 50px;
@@ -54,10 +55,20 @@ body {
 	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 	pointer-events: none;
 }
-.main-area {
+.map-area {
 	padding: 0;
 	background: #00ccff;
 	height: 320px;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: flex-start;
+}
+.main-area {
+	padding: 0;
+	background: #eee;
+	height: 100%;
 	width: 100vw;
 	display: flex;
 	flex-direction: column;
@@ -106,29 +117,16 @@ body {
 	bottom: 0;
 	width: 100%;
 	left: 0;
+	box-shadow: 0 0 8px rgba(90, 90, 90);
 }
 .gradient-top {
 	position: absolute;
 	width: 100%;
 	height: 8px;
-	top: 0;
+	top: 42px;
 	left: 0;
 	background-image: linear-gradient(
 		to bottom,
-		#999 0%,
-		rgba(255, 255, 255, 0) 95%
-	);
-	mix-blend-mode: multiply;
-	z-index: 1;
-}
-.gradient-bottom {
-	position: absolute;
-	width: 100%;
-	height: 8px;
-	bottom: 47px;
-	left: 0;
-	background-image: linear-gradient(
-		to top,
 		#999 0%,
 		rgba(255, 255, 255, 0) 95%
 	);

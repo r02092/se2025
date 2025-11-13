@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<title>SceneTrip</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="MainFrame.css" />
+		<link rel="stylesheet" href="login.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="header-bar">
+				<div class="title">SceneTrip</div>
+				<div class="hamburger">
+					<div class="hamburger-bars">
+						<div class="bar"></div>
+						<div class="bar"></div>
+						<div class="bar"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="login-container">
+				<h2>アカウント作成</h2>
+				<form>
+					<label for="username">ユーザー名</label>
+					<input type="text" id="username" name="username" required />
+
+					<label for="email">メールアドレス</label>
+					<input type="email" id="email" name="email" required />
+
+					<label for="password">パスワード</label>
+					<input type="password" id="password" name="password" required />
+
+					<label for="confirm-password">パスワード（確認用）</label>
+					<input
+						type="password"
+						id="confirm-password"
+						name="confirm-password"
+						required
+					/>
+
+					<button type="submit">アカウント作成</button>
+				</form>
+				<h5>既にアカウントをお持ちの方は <a href="login.html">こちら</a></h5>
+			</div>
+
+			<div class="bottom-bar">hoge</div>
+		</div>
+		<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
+		<script>
+			const map = new maplibregl.Map({
+				container: "map",
+				style: {
+					version: 8,
+					sources: {
+						rtile: {
+							type: "raster",
+							tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+							tileSize: 256,
+							attribution:
+								'©<a href="https://www.openstreetmap.org/copyright/ja">OpenStreetMap</a> contributors',
+						},
+					},
+					layers: [
+						{
+							id: "raster-tiles",
+							type: "raster",
+							source: "rtile",
+							minzoom: 0,
+							maxzoom: 18,
+						},
+					],
+				},
+				center: [133.56, 33.3], // [経度, 緯度] 四国周辺
+				zoom: 7.2,
+			});
+			map.addControl(new maplibregl.NavigationControl(), "top-right");
+		</script>
+	</body>
+</html>
