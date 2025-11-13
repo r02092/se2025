@@ -1,6 +1,6 @@
 \LoadClass[fontsize=11pt,line_length=41zw,number_of_lines=37]{jlreq}
 \RequirePackage[bold-style=ISO,math-style=ISO]{unicode-math}
-\RequirePackage{color,etoolbox,graphicx,here,luacode,luatexja-otf}
+\RequirePackage{color,etoolbox,graphicx,here,luacode,luatexja-otf,makecell}
 \if"\directlua{tex.print(os.getenv("GITHUB_ACTIONS"))}"
 	\RequirePackage[2004jis,bold,deluxe,expert,haranoaji,jfm_tate=jlreqv,jfm_yoko=jlreq,match]{luatexja-preset}
 	\RequirePackage{draftwatermark}
@@ -78,3 +78,4 @@
 \renewcommand\@dotsep{0}
 \author{Share}
 \graphicspath{{figure}}
+\renewcommand\theadfont{\bfseries\sffamily}
