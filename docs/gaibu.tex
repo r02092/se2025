@@ -103,12 +103,307 @@
 \section{ユーザインタフェース設計}
 
 \section{データベース設計}
+\subsection{ER図}
+IE記法によるデータベースのER図を\cref{fig:er}に示します。
 \begin{figure}[H]
 	\centering
 	\includegraphics[bb=16.652460 159.317995 824.542569 586.835982,clip,scale=.55]{gaibu-er.pdf}
 	\caption{ER図}\label{fig:er}
 \end{figure}
+\subsection{テーブルとカラムの詳細}
+各テーブルおよびカラムの詳細を示します。
+IDについて特筆なきものは、AUTO INCREMENT属性を
+指定することで自動で採番を行うものとします。
+経緯度については、以下に示す式を用いて度単位の値を変換し、
+得られた値を格納します。
+\[
+	\text{[データベースに格納する値]}=\frac{\text{[元の値]}-\text{[最小値]}}{\text{[最大値]}-\text{[最小値]}}(2^{32}-1)
+\]
 
+経路検索のために、システムは
+鉄道（軌道を含む）や国道（高速道路を含む）および
+それらを接続する主な道路を模したグラフをデータベースに
+保持します。nodesテーブル（\cref{tb:db-nodes}）は
+グラフのノードを、edgesテーブル（\cref{tb:db-edges}）は
+グラフのエッジをそれぞれ保存するテーブルとなっています。
+\begin{table}[H]
+	\centering
+	\caption{nodesテーブル（グラフのノード）}\label{tb:db-nodes}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		type & TINYINT UNSIGNED & UK, NOT NULL & 種別 \\ \hline
+		code & INT UNSIGNED & UK, NOT NULL & コード \\ \hline
+		name & VARCHAR(255) & NOT NULL & 地点名 \\ \hline
+		lng & INT UNSIGNED & NOT NULL & 経度 \\ \hline
+		lat & INT UNSIGNED & NOT NULL & 緯度 \\ \hline
+	\end{tabular}
+\end{table}
+nodesテーブルのIDは、typeカラムおよびcodeカラムの
+値からSHA3-224で生成したハッシュ値の先頭4バイトを使用して
+採番します。また、typeカラムの値の意味とtypeカラムの
+値ごとのcodeカラムの意味を\cref{tb:db-nodes-type}に示します。
+\begin{table}[H]
+	\centering
+	\caption{nodesテーブルのtypeカラムおよびcodeカラムについて}\label{tb:db-nodes-type}
+	\begin{tabular}{|r|l|l|}
+		\hline
+		\thead{type} & \thead{意味} & \thead{codeの値の意味} \\ \hline
+		0 & 交差点 &
+		\begin{tabular}{l}
+			$\text{[市区町村コード]}\times 1000$\\
+			${}+\text{[独自に定めた市区町村内で一意の値]}$
+		\end{tabular}
+		\\ \hline
+		1 & 鉄道（軌道を含む）の駅 &
+		\begin{tabular}{l}
+			「緯度経度付き全国沿線・駅データベース」で\\
+			定められた駅コード
+		\end{tabular}
+		\\ \hline
+		2 & 高速道路のIC &
+		\begin{tabular}{l}
+			$\text{[各路線に対し独自に定めた一意の値]}\times 10000$\\
+			${}+\text{[IC番号]}\times 10+\text{[IC番号の枝番]}$
+		\end{tabular}
+		\\ \hline
+		3 & 常時観測点 &
+		\begin{tabular}{l}
+			「国土交通省交通量API」で提供される\\
+			常時観測点コード
+		\end{tabular}
+		\\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{edgesテーブル（グラフのエッジ）}\label{tb:db-edges}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		node1\_id & INT UNSIGNED & FK, UK, NOT NULL & 1つ目のノード \\ \hline
+		node2\_id & INT UNSIGNED & UK, NOT NULL & 2つ目のノード \\ \hline
+		time & INT UNSIGNED & NOT NULL & ノード間の所要時間 \\ \hline
+	\end{tabular}
+\end{table}
+このシステムでは、管理者や事業者を含む全ての利用者を
+共通のusersテーブル（\cref{tb:db-users}）で
+扱い、\cref{tb:db-users-type}に示すようにtypeカラムの値により
+それらを区別します。
+また、ログイン時にRFC 6238に準拠したTOTPによる二要素認証を
+行えるようにするためのカラムを設けています。
+総当たり攻撃を防ぐため、直近の認証時の時刻と
+認証回数を保持するカラムも設けており、
+高頻度な認証操作を制限できます。OTPの更新頻度は30秒と
+するため、直近の認証時の時刻は、UNIX時刻を30で
+割った値として保存し、認証回数も30秒ごとに数え直すものと
+します。
+\begin{table}[H]
+	\centering
+	\caption{usersテーブル（管理者や事業者を含む利用者）}\label{tb:db-users}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		login\_name & VARCHAR(255) & UK, NOT NULL & ログイン名 \\ \hline
+		password & VARCHAR(255) & NOT NULL & ハッシュ化されたパスワード \\ \hline
+		type & TINYINT UNSIGNED & NOT NULL & 種別 \\ \hline
+		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
+		points & INT UNSIGNED & NOT NULL & ポイント数 \\ \hline
+		totp\_secret & BINARY(20) & & TOTPのシークレット \\ \hline
+		totp\_iv & BINARY(12) & & TOTPの初期ベクトル \\ \hline
+		totp\_tag & BINARY(16) & & TOTPの認証タグ \\ \hline
+		totp\_last\_time & INT UNSIGNED & & TOTPの直近の認証時の時刻 \\ \hline
+		totp\_counter & TINYINT UNSIGNED & & TOTPの30秒ごとの認証回数 \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{usersテーブルのtypeカラムについて}\label{tb:db-users-type}
+	\begin{tabular}{|r|l|}
+		\hline
+		\thead{type} & \thead{意味} \\ \hline
+		0 & 管理者 \\ \hline
+		1 & 一般の利用者 \\ \hline
+		2 & スタンダードプランの事業者 \\ \hline
+		3 & プレミアムプランの事業者 \\ \hline
+	\end{tabular}
+\end{table}
+パスワードのハッシュ化にはPHPの\verb|password_hash()|関数を
+使用し、暗号学的ハッシュ関数であるArgon2idを用い、かつ
+ソルトを使用することで、安全にパスワードを保存します。
+
+観光地や観光施設、店などのスポットを
+保存するspotsテーブル（\cref{tb:db-spots}）は、
+近隣のグラフのノードに関連付けることで、
+経路検索にスポットを使用できるようにします。
+また、keywordsテーブル（\cref{tb:db-keywords}）
+スポットにはキーワードを関連付けることができます。
+このキーワードはAI検索時のLLMのシステムプロンプトの構成などに
+使用されます。
+\begin{table}[H]
+	\centering
+	\caption{spotsテーブル（観光地や観光施設、店などのスポット）}\label{tb:db-spots}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		node\_id & INT UNSIGNED & FK, NOT NULL & 関連付けたノード \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 地点の登録者 \\ \hline
+		type & TINYINT UNSIGNED & NOT NULL & 種別 \\ \hline
+		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
+		lng & INT UNSIGNED & NOT NULL & 経度 \\ \hline
+		lat & INT UNSIGNED & NOT NULL & 緯度 \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{keywordsテーブル（スポットに関連付けるキーワード）}\label{tb:db-keywords}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		spot\_id & INT UNSIGNED & FK, UK, NOT NULL & 関連付けたスポット \\ \hline
+		keyword & VARCHAR(255) & UK, NOT NULL & キーワード \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+スポットに対する口コミは、reviewsテーブル（\cref{tb:db-reviews}）に
+保存します。段階的な評価および文章を入力できます。
+また、閲覧数も記録され、事業者は閲覧されている口コミを
+確認できます。
+\begin{table}[H]
+	\centering
+	\caption{reviewsテーブル（スポットに対する口コミ）}\label{tb:db-reviews}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		spot\_id & INT UNSIGNED & FK, NOT NULL & 関連付けたスポット \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 関連付けた利用者 \\ \hline
+		rate & TINYINT UNSIGNED & NOT NULL & 評価 \\ \hline
+		comment & TEXT & NOT NULL & 本文 \\ \hline
+		views & INT UNSIGNED & NOT NULL & 閲覧数 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+事業者が発行したクーポンはcouponsテーブル（\cref{tb:db-coupons}）に
+保存します。クーポンを手に入れるために行く必要のあるスポットも
+記録します。
+また、利用者が手に入れたクーポンはuser\_couponsテーブル（\cref{tb:db-user_coupons}）に
+保存します。クーポンの入手時に確認用キーが生成され、
+これを含む二次元コードを事業者に提示することで
+正規のクーポンであることを証明します。
+\begin{table}[H]
+	\centering
+	\caption{couponsテーブル（スポットに対して作成されたクーポン）}\label{tb:db-coupons}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		spot\_id & INT UNSIGNED & FK, NOT NULL & 関連付けたスポット \\ \hline
+		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
+		cond\_spot\_id & INT UNSIGNED & NOT NULL & 行く必要のあるスポット \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{user\_couponsテーブル（利用者が手に入れたクーポン）}\label{tb:db-user_coupons}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		coupon\_id & INT UNSIGNED & FK, UK1, NOT NULL & 関連付けたクーポン \\ \hline
+		user\_id & INT UNSIGNED & FK, UK1, NOT NULL & 関連付けた利用者 \\ \hline
+		key & BIGINT UNSIGNED & UK2, NOT NULL & 確認用キー \\ \hline
+		is\_used & TINYINT UNSIGNED & NOT NULL & 使用されたか \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+	\end{tabular}
+\end{table}
+利用者が手に入れたスタンプはstampsテーブル（\cref{tb:db-stamps}）に
+保存します。スタンプの画像はファイルシステムに保存するため、
+それに対応するテーブルやカラムは存在しません。
+\begin{table}[H]
+	\centering
+	\caption{stampsテーブル（利用者が手に入れたスタンプ）}\label{tb:db-stamps}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		spot\_id & INT UNSIGNED & FK, UK, NOT NULL & 関連付けたスポット \\ \hline
+		user\_id & INT UNSIGNED & FK, UK, NOT NULL & 関連付けた利用者 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+	\end{tabular}
+\end{table}
+利用者の検索クエリは、事業者の分析に
+使用するため、queriesテーブル（\cref{tb:db-queries}）に
+保存されます。経路検索を伴う場合は、その出発点および目的地も
+保存されます。
+\begin{table}[H]
+	\centering
+	\caption{queriesテーブル（利用者の検索クエリ）}\label{tb:db-queries}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 関連付けた利用者 \\ \hline
+		query & TEXT & NOT NULL & 検索クエリ \\ \hline
+		from\_spot\_id & INT UNSIGNED & & 出発地 \\ \hline
+		to\_spot\_id & INT UNSIGNED & & 目的地 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+	\end{tabular}
+\end{table}
+利用者の投稿した写真は、photosテーブル（\cref{tb:db-photos}）に
+保存されます。地図上に表示するため、写真の経緯度を保存します。
+また、画像の拡張子も保存します。拡張子を除いた
+ファイル名はIDから生成可能なものとします。
+\begin{table}[H]
+	\centering
+	\caption{photosテーブル（利用者の投稿した写真）}\label{tb:db-photos}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 関連付けた利用者 \\ \hline
+		lng & INT UNSIGNED & NOT NULL & 経度 \\ \hline
+		lat & INT UNSIGNED & NOT NULL & 緯度 \\ \hline
+		img\_ext & VARCHAR(4) & NOT NULL & 画像の拡張子 \\ \hline
+		comment & TEXT & NOT NULL & 写真に付けた文 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
 \section{ネットワーク設計}
 
 \end{document}

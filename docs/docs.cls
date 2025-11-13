@@ -78,4 +78,4 @@
 \renewcommand\@dotsep{0}
 \author{Share}
 \graphicspath{{figure}}
-\renewcommand\theadfont\bfseries
+\renewcommand\theadfont{\bfseries\sffamily}
