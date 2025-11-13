@@ -10,12 +10,10 @@
 	gap: 10px;
 	cursor: pointer;
 }
-
 .checkin-box h2 {
 	text-align: center;
 	width: 100%;
 }
-
 .marker-icon {
 	width: 15%; /* 親の幅に対する15%表示 */
 	min-width: 30px; /* モバイルや小画面対策で最小値も入れると良い */
