@@ -1,74 +1,119 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" version="28.2.9">
   <diagram name="ページ1" id="IiGEaKWat_fVQX5sofIm">
-    <mxGraphModel dx="883" dy="363" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1068" dy="580" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-1" value="ログイン画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="170" width="100" height="40" as="geometry" />
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-1" value="ログイン画面" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="60" y="730" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-2" target="Q7dnCPgLNTW_xvB6DcCM-1">
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-2" target="Q7dnCPgLNTW_xvB6DcCM-1" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-2" target="Q7dnCPgLNTW_xvB6DcCM-4">
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-2" target="Q7dnCPgLNTW_xvB6DcCM-4" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-2" target="Q7dnCPgLNTW_xvB6DcCM-19">
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-2" target="Q7dnCPgLNTW_xvB6DcCM-19" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="350" y="60" />
-              <mxPoint x="350" y="310" />
+              <mxPoint x="370" y="620" />
+              <mxPoint x="370" y="870" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="Q7dnCPgLNTW_xvB6DcCM-21">
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="Q7dnCPgLNTW_xvB6DcCM-21" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="150" y="60" as="sourcePoint" />
-            <mxPoint x="240" y="420" as="targetPoint" />
+            <mxPoint x="170" y="620" as="sourcePoint" />
+            <mxPoint x="260" y="980" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="350" y="60" />
-              <mxPoint x="350" y="420" />
+              <mxPoint x="370" y="620" />
+              <mxPoint x="370" y="980" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-2" value="ホーム画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="40" width="100" height="40" as="geometry" />
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-2" value="ホーム画面" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="60" y="600" width="100" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-4" target="Q7dnCPgLNTW_xvB6DcCM-23">
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="ouUaGdfMyl-1RVhS3J3K-3" target="Q7dnCPgLNTW_xvB6DcCM-35" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-4" target="Q7dnCPgLNTW_xvB6DcCM-7">
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-4" target="ouUaGdfMyl-1RVhS3J3K-3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-4" target="Q7dnCPgLNTW_xvB6DcCM-35">
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-4" target="Q7dnCPgLNTW_xvB6DcCM-7">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-4" value="観光地・施設検索画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="410" y="40" width="140" height="40" as="geometry" />
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-4" value="観光地・施設検索画面" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="430" y="600" width="140" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-7" target="Q7dnCPgLNTW_xvB6DcCM-16">
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-7" target="Q7dnCPgLNTW_xvB6DcCM-16" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-7" value="観光経路チャット要求" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="780" y="40" width="160" height="40" as="geometry" />
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-7" value="観光経路チャット要求" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="980" y="600" width="160" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-16" value="AI経路提案画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="990" y="40" width="136" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-19" value="観光提案" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="410" y="290" width="90" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-21" value="観光提案" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="410" y="400" width="90" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-23" target="Q7dnCPgLNTW_xvB6DcCM-7">
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-16" target="ouUaGdfMyl-1RVhS3J3K-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-23" value="経由地検索画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="610" y="40" width="106" height="40" as="geometry" />
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-16" value="AI経路提案画面" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1190" y="600" width="136" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-35" value="口コミ、フォトスポット共有" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="390" y="150" width="180" height="40" as="geometry" />
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-19" value="観光提案" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="430" y="850" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-21" value="観光提案" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="430" y="960" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-23" target="Q7dnCPgLNTW_xvB6DcCM-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-23" target="ouUaGdfMyl-1RVhS3J3K-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-23" value="経由地検索画面" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="830" y="600" width="106" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-35" target="ouUaGdfMyl-1RVhS3J3K-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Q7dnCPgLNTW_xvB6DcCM-35" target="ouUaGdfMyl-1RVhS3J3K-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Q7dnCPgLNTW_xvB6DcCM-35" value="観光地・施設情報詳細" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="606" y="690" width="184" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-1" value="Googleマップの地図画面" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;" vertex="1" parent="1">
+          <mxGeometry x="1173" y="700" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ouUaGdfMyl-1RVhS3J3K-3" target="Q7dnCPgLNTW_xvB6DcCM-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-3" value="観光地・施設情報リスト画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="606" y="600" width="184" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-8" value="評価・口コミ・写真投稿画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="606" y="780" width="184" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-10" value="お得情報" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="830" y="780" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-12" value="画面遷移図（利用者）" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="520" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-13" value="画面遷移図（事業者）" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1065" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-14" value="画面遷移図（共通）" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="20" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-15" value="ログイン画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="160" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ouUaGdfMyl-1RVhS3J3K-17" target="ouUaGdfMyl-1RVhS3J3K-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ouUaGdfMyl-1RVhS3J3K-17" value="ホーム画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="70" width="100" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
