@@ -445,7 +445,7 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
 		id & INT UNSIGNED & PK & ID \\ \hline
 		spot\_id & INT UNSIGNED & FK, NOT NULL & 関連付けたスポット \\ \hline
-		user\_id & INT UNSIGNED & FK, NOT NULL & 関連付けた利用者 \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 投稿者 \\ \hline
 		rate & TINYINT UNSIGNED & NOT NULL & 評価 \\ \hline
 		comment & TEXT & NOT NULL & 本文 \\ \hline
 		views & INT UNSIGNED & NOT NULL & 閲覧数 \\ \hline
@@ -471,7 +471,7 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
 		id & INT UNSIGNED & PK & ID \\ \hline
-		spot\_id & INT UNSIGNED & FK, NOT NULL & 関連付けたスポット \\ \hline
+		spot\_id & INT UNSIGNED & FK, NOT NULL & 使用できるスポット \\ \hline
 		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
 		cond\_spot\_id & INT UNSIGNED & NOT NULL & 行く必要のあるスポット \\ \hline
 		created\_at & DATETIME & & 作成時刻 \\ \hline
@@ -487,7 +487,7 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
 		id & INT UNSIGNED & PK & ID \\ \hline
 		coupon\_id & INT UNSIGNED & FK, UK1, NOT NULL & 関連付けたクーポン \\ \hline
-		user\_id & INT UNSIGNED & FK, UK1, NOT NULL & 関連付けた利用者 \\ \hline
+		user\_id & INT UNSIGNED & FK, UK1, NOT NULL & 手に入れた利用者 \\ \hline
 		key & BIGINT UNSIGNED & UK2, NOT NULL & 確認用キー \\ \hline
 		is\_used & TINYINT UNSIGNED & NOT NULL & 使用されたか \\ \hline
 		created\_at & DATETIME & & 作成時刻 \\ \hline
@@ -505,7 +505,7 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
 		id & INT UNSIGNED & PK & ID \\ \hline
 		spot\_id & INT UNSIGNED & FK, UK, NOT NULL & 関連付けたスポット \\ \hline
-		user\_id & INT UNSIGNED & FK, UK, NOT NULL & 関連付けた利用者 \\ \hline
+		user\_id & INT UNSIGNED & FK, UK, NOT NULL & 手に入れた利用者 \\ \hline
 		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
 		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
 		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
@@ -524,7 +524,7 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
 		id & INT UNSIGNED & PK & ID \\ \hline
-		user\_id & INT UNSIGNED & FK, NOT NULL & 関連付けた利用者 \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 検索した利用者 \\ \hline
 		query & TEXT & NOT NULL & 検索クエリ \\ \hline
 		from\_spot\_id & INT UNSIGNED & & 出発地 \\ \hline
 		to\_spot\_id & INT UNSIGNED & & 目的地 \\ \hline
@@ -546,7 +546,7 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
 		id & INT UNSIGNED & PK & ID \\ \hline
-		user\_id & INT UNSIGNED & FK, NOT NULL & 関連付けた利用者 \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 投稿者 \\ \hline
 		lng & INT UNSIGNED & NOT NULL & 経度 \\ \hline
 		lat & INT UNSIGNED & NOT NULL & 緯度 \\ \hline
 		img\_ext & VARCHAR(4) & NOT NULL & 画像の拡張子 \\ \hline
