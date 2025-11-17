@@ -116,8 +116,8 @@
 具体的には、ユーザー情報の登録、編集、削除などの操作が可能です。
 これにより、システムのユーザー情報を適切に管理できます。
 
-\subsubsection{UGC監視・管理機能}
-管理者は、UGC監視・管理できます。
+\subsubsection{UGCの監視・管理機能}
+管理者は、UGCの監視・管理できます。
 具体的には、利用者が投稿した口コミやフォトスポット投稿を監視し、
 利用規約違反が確認されたアカウントの利用停止や削除を行うことが可能です。
 これにより、UGCを適切に管理できます。
@@ -147,7 +147,7 @@
 検索結果には、観光地や施設の詳細情報が表示されます。
 
 \subsection{利用者(ログイン必須機能)}
-\subsection{利用者アカウント作成機能}
+\subsubsection{利用者アカウント作成機能}
 利用者は、システムを利用するためのアカウントを作成できます。
 作成の際には、ユーザー名、パスワード等の情報を登録します。
 
@@ -179,7 +179,7 @@
 
 \subsection{事業者}
 
-\subsection{事業者アカウント作成機能}
+\subsubsection{事業者アカウント作成機能}
 店舗や施設などの事業者が、システムを利用するための
 アカウントを作成できます。
 作成の際には、店舗名、業種、所在地、メールアドレス、
@@ -364,6 +364,8 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		type & TINYINT UNSIGNED & NOT NULL & 種別 \\ \hline
 		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
 		points & INT UNSIGNED & NOT NULL & ポイント数 \\ \hline
+		num\_plan\_std & INT UNSIGNED & NOT NULL & スタンダードプランの契約数 \\ \hline
+		num\_plan\_prm & INT UNSIGNED & NOT NULL & プレミアムプランの契約数 \\ \hline
 		postal\_code & INT UNSIGNED & & 郵便番号 \\ \hline
 		addr\_city & INT UNSIGNED & & 市区町村コード \\ \hline
 		addr\_detail & VARCHAR(255) & & 市区町村名の後に続く住所 \\ \hline
@@ -384,9 +386,7 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		\hline
 		\thead{type} & \thead{意味} \\ \hline
 		0 & 管理者 \\ \hline
-		1 & 一般の利用者 \\ \hline
-		2 & スタンダードプランの事業者 \\ \hline
-		3 & プレミアムプランの事業者 \\ \hline
+		1 & 利用者（事業者を含む） \\ \hline
 	\end{tabular}
 \end{table}
 パスワードのハッシュ化にはPHPの\verb|password_hash()|関数を

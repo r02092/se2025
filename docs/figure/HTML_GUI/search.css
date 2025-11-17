@@ -1,0 +1,27 @@
+.search-bar-area {
+	background: #fff;
+	border: 2px solid #14b888;
+	border-radius: 8px;
+	width: 70%;
+	height: 42px;
+	margin: 20px auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	box-sizing: border-box;
+}
+.search-bar-area input {
+	border: none;
+	outline: none;
+	height: 80%;
+	width: 80%;
+	margin-left: 16px;
+	font-size: 1rem;
+	background: transparent;
+}
+.search-icon {
+	width: 28px;
+	margin-right: 16px;
+	fill: #14b888;
+}
