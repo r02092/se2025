@@ -364,6 +364,8 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		type & TINYINT UNSIGNED & NOT NULL & 種別 \\ \hline
 		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
 		points & INT UNSIGNED & NOT NULL & ポイント数 \\ \hline
+		num\_plan\_std & INT UNSIGNED & NOT NULL & スタンダードプランの契約数 \\ \hline
+		num\_plan\_prm & INT UNSIGNED & NOT NULL & プレミアムプランの契約数 \\ \hline
 		postal\_code & INT UNSIGNED & & 郵便番号 \\ \hline
 		addr\_city & INT UNSIGNED & & 市区町村コード \\ \hline
 		addr\_detail & VARCHAR(255) & & 市区町村名の後に続く住所 \\ \hline
@@ -384,9 +386,7 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		\hline
 		\thead{type} & \thead{意味} \\ \hline
 		0 & 管理者 \\ \hline
-		1 & 一般の利用者 \\ \hline
-		2 & スタンダードプランの事業者 \\ \hline
-		3 & プレミアムプランの事業者 \\ \hline
+		1 & 利用者（事業者を含む） \\ \hline
 	\end{tabular}
 \end{table}
 パスワードのハッシュ化にはPHPの\verb|password_hash()|関数を
