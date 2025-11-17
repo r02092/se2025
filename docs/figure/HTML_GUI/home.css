@@ -1,6 +1,6 @@
 .map-area {
 	padding: 0;
-	background: #00ccff;
+	background: #aad3df;
 	height: 320px;
 	width: 100vw;
 	display: flex;
@@ -43,4 +43,26 @@
 	width: 28px;
 	margin-right: 16px;
 	fill: #14b888;
+}
+
+.login {
+	background-color: #fff;
+	width: 80%;
+	margin: 1px auto;
+	padding: 1% 5% 1% 5%;
+	border-radius: 8px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+	text-align: center;
+}
+.login button[type="submit"] {
+	width: 80%;
+	padding: 10px 0;
+	margin: 0 auto 15px;
+	background-color: #14b888;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	font-size: 17px;
+	cursor: pointer;
+	font-weight: bold;
 }
