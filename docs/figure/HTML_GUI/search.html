@@ -5,13 +5,7 @@
 		<title>SceneTrip</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="MainFrame.css" />
-		<link rel="stylesheet" href="home.css" />
-		<!-- MapLibre CDN -->
-		<link
-			href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css"
-			rel="stylesheet"
-		/>
-		<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
+		<link rel="stylesheet" href="search.css" />
 	</head>
 	<body>
 		<div class="container">
@@ -25,14 +19,9 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="main-area">
-				<!-- グラデーション トップ -->
-				<div class="gradient-top"></div>
-
-				<div class="map-area" style="padding: 0">
-					<div id="map"></div>
-				</div>
-
+				<h1>検索</h1>
 				<div class="search-bar-area">
 					<input type="text" placeholder="場所・キーワード検索" />
 					<!-- <svg class="search-icon" viewBox="0 0 32 32">
@@ -65,9 +54,10 @@
 					</svg> -->
 				</div>
 			</div>
+
 			<div class="bottom-bar">
 				<nav class="bottom-menu">
-					<a href="home.html" class="bottom-btn selected">
+					<a href="home.html" class="bottom-btn">
 						<svg class="bottom-icon" viewBox="0 0 13.229166 13.229167">
 							<g transform="translate(-1.6666667e-7,0.58949768)">
 								<path
@@ -105,7 +95,7 @@
 						</svg>
 						<span class="bottom-label">投稿</span>
 					</a>
-					<a href="search.html" class="bottom-btn">
+					<a href="search.html" class="bottom-btn selected">
 						<svg class="bottom-icon" viewBox="0 0 13.229166 13.229167">
 							<g transform="translate(-1.6666667e-7,0.58949768)">
 								<path
@@ -165,35 +155,5 @@
 				</nav>
 			</div>
 		</div>
-		<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
-		<script>
-			const map = new maplibregl.Map({
-				container: "map",
-				style: {
-					version: 8,
-					sources: {
-						rtile: {
-							type: "raster",
-							tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-							tileSize: 256,
-							attribution:
-								'©<a href="https://www.openstreetmap.org/copyright/ja">OpenStreetMap</a> contributors',
-						},
-					},
-					layers: [
-						{
-							id: "raster-tiles",
-							type: "raster",
-							source: "rtile",
-							minzoom: 0,
-							maxzoom: 18,
-						},
-					],
-				},
-				center: [133.56, 33.3], // [経度, 緯度] 四国周辺
-				zoom: 7.2,
-			});
-			map.addControl(new maplibregl.NavigationControl(), "top-right");
-		</script>
 	</body>
 </html>
