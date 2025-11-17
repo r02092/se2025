@@ -252,7 +252,7 @@ APIを通じて、観光客の行動データや評価データなどを取得�
 IE記法によるデータベースのER図を\cref{fig:er}に示します。
 \begin{figure}[H]
 	\centering
-	\includegraphics[bb=16.668210 129.329996 825.112733 586.403982,clip,scale=.55]{gaibu-er.pdf}
+	\includegraphics[bb=16.65246 40.229999 824.542569 584.729982,clip,scale=.55]{gaibu-er.pdf}
 	\caption{ER図}\label{fig:er}
 \end{figure}
 \subsection{テーブルとカラムの詳細}
@@ -551,6 +551,28 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		lat & INT UNSIGNED & NOT NULL & 緯度 \\ \hline
 		img\_ext & VARCHAR(4) & NOT NULL & 画像の拡張子 \\ \hline
 		comment & TEXT & NOT NULL & 写真に付けた文 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+問い合わせ機能での管理者と利用者の
+会話は、contactsテーブル（\cref{tb:db-contacts}）に
+保存されます。利用者ごとに会話のスレッドが作成され、
+スレッドは他の利用者には閲覧できません。
+\begin{table}[H]
+	\centering
+	\caption{contactsテーブル（問い合わせ機能での会話）}\label{tb:db-contacts}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 投稿者 \\ \hline
+		thread\_user\_id & INT UNSIGNED & NOT NULL & どの利用者のスレッドか \\ \hline
+		comment & TEXT & NOT NULL & 投稿文 \\ \hline
 		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
 		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
 		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
