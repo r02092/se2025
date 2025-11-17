@@ -431,6 +431,23 @@ APIを通じて、観光客の行動データや評価データなどを取得�
 	\caption{AIによる観光地・施設推薦}\label{fig:act-chat_spot_recommendation}
 \end{figure}
 
+\begin{figure}[H]
+	\centering
+  \adiagram{利用者,システム,データベース}{1.5}{
+		0/0/特定のスタンプを獲得,
+    1/0/獲得したスタンプ情報を\\DBに問い合わせ,
+    2/0/スタンプ情報を基に\\入手可能なクーポンを検索,
+    2/0/結果を返す,
+    1/1/入手可能なクーポンが\\存在する場合,
+    2/0/クーポン情報を保存,
+    1/0/クーポン獲得を通知,
+    0/0/獲得したクーポンを確認
+      }{
+    % 不備がある場合の処理
+  }
+	\caption{クーポン受け取り}\label{fig:act-receive_coupon}
+\end{figure}
+
 \subsection{管理者}
 
 \begin{figure}[H]
