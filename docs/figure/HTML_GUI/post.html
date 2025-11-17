@@ -2,16 +2,10 @@
 <html lang="ja">
 	<head>
 		<meta charset="UTF-8" />
-		<title>SceneTrip</title>
+		<title>SceneTrip - クーポン</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="MainFrame.css" />
-		<link rel="stylesheet" href="home.css" />
-		<!-- MapLibre CDN -->
-		<link
-			href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css"
-			rel="stylesheet"
-		/>
-		<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
+		<link rel="stylesheet" href="post.css" />
 	</head>
 	<body>
 		<div class="container">
@@ -30,58 +24,14 @@
 					</button>
 				</div>
 			</div>
+
 			<div class="main-area">
-				<!-- グラデーション トップ -->
-				<div class="gradient-top"></div>
-
-				<div class="map-area" style="padding: 0">
-					<div id="map"></div>
-				</div>
-
-				<div class="search-bar-area">
-					<input type="text" placeholder="場所・キーワード検索" />
-					<!-- <svg class="search-icon" viewBox="0 0 32 32">
-						<circle
-							cx="15"
-							cy="15"
-							r="13"
-							stroke="#14b888"
-							stroke-width="4"
-							fill="none"
-						/>
-						<ellipse
-							cx="15"
-							cy="15"
-							rx="9"
-							ry="9"
-							stroke="#14b888"
-							stroke-width="3"
-							fill="none"
-						/>
-						<rect
-							x="25"
-							y="25"
-							width="8"
-							height="4"
-							rx="2"
-							transform="rotate(45 25 25)"
-							fill="#14b888"
-						/>
-					</svg> -->
-				</div>
-
-				<div class="suggest"></div>
-
-				<div class="login">
-					<h4>アカウントのお持ちの方</h4>
-					<button type="submit" onclick="location.href='login.html'">
-						ログインする
-					</button>
-				</div>
+				<h1>みんなの投稿</h1>
 			</div>
+
 			<div class="bottom-bar">
 				<nav class="bottom-menu">
-					<a href="home.html" class="bottom-btn selected">
+					<a href="home.html" class="bottom-btn">
 						<svg class="bottom-icon" viewBox="0 0 132.29166 132.29167" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
 						  <g transform="translate(0,1.9843775)">
 						    <path style="opacity:1;fill:#000000;stroke-width:0.264583" d="M 66.145832,0 0,38.1031 V 51.326065 L 66.145832,13.229166 132.29166,51.326065 V 38.1031 Z"/>
@@ -91,8 +41,8 @@
 						</svg>
 						<span class="bottom-label">ホーム</span>
 					</a>
-
-					<a href="post.html" class="bottom-btn">
+						
+					<a href="post.html" class="bottom-btn selected">
 						<svg class="bottom-icon" viewBox="0 0 512 512" aria-hidden="true">
 							<g>
 								<path fill="#000" d="M276.255,347.165c74.54-23.448,127.262-80.992,127.262-148.309c0-88.155-90.329-159.607-201.756-159.607
@@ -138,7 +88,7 @@
 						</svg>
 						<span class="bottom-label">クーポン</span>
 					</a>
-					
+
 					<a href="funpage.html" class="bottom-btn">
 						<svg class="bottom-icon" viewBox="0 0 13.229166 13.229167">
 							<g transform="translate(-1.6666667e-7,0.58949768)">
@@ -161,35 +111,5 @@
 				</nav>
 			</div>
 		</div>
-		<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
-		<script>
-			const map = new maplibregl.Map({
-				container: "map",
-				style: {
-					version: 8,
-					sources: {
-						rtile: {
-							type: "raster",
-							tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-							tileSize: 256,
-							attribution:
-								'©<a href="https://www.openstreetmap.org/copyright/ja">OpenStreetMap</a> contributors',
-						},
-					},
-					layers: [
-						{
-							id: "raster-tiles",
-							type: "raster",
-							source: "rtile",
-							minzoom: 0,
-							maxzoom: 18,
-						},
-					],
-				},
-				center: [133.56, 33.3], // [経度, 緯度] 四国周辺
-				zoom: 7.2,
-			});
-			map.addControl(new maplibregl.NavigationControl(), "top-right");
-		</script>
 	</body>
 </html>
