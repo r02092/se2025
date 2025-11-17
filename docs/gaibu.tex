@@ -27,7 +27,7 @@
 % 　　　　　　　　  条件分岐で別れた本筋以外のフローの描画などに使用
 \newcommand\adiagram[4]{
 	\begin{tikzpicture}[
-		action/.style={draw,thick,rounded corners,font=\sffamily},
+		action/.style={draw,thick,rounded corners,font=\sffamily,align=center},
 		decision/.style={draw,thick,diamond,inner sep=8pt},
 		arrow/.style={-Stealth},
 		label/.style={fill=white,inner sep=0pt,font=\sffamily},
@@ -223,7 +223,7 @@ APIを通じて、観光客の行動データや評価データなどを取得�
 		2/0/アカウント情報を保存,
     1/0/結果を表示,
 		0/0/アカウント作成完了の確認
-	}{ 
+	}{
     % 不備がある場合の処理
   }
 	\caption{アカウント作成}\label{fig:act-register_account}
@@ -243,7 +243,7 @@ APIを通じて、観光客の行動データや評価データなどを取得�
 		2/0/アカウント情報を保存,
     1/0/結果を表示,
 		0/0/アカウント編集完了の確認
-	}{ 
+	}{
     % 不備がある場合の処理
   }
 	\caption{パスワード更新}\label{fig:act-edit_account}
@@ -260,7 +260,7 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     2/1/ユーザー情報が存在する,
 		1/0/結果を表示,
 		0/0/結果を確認
-	}{ 
+	}{
     \node[action](decision0)at(1,-8){存在しない旨を表示};
 		\draw[arrow](action6)-|(1.45,-8)node[label,pos=.57]{存在しない}|-(decision0);
 		\draw[arrow](decision0)--(action8);
@@ -271,7 +271,7 @@ APIを通じて、観光客の行動データや評価データなどを取得�
 \begin{figure}[H]
 	\centering
   \adiagram{利用者,システム,データベース}{1.5}{
-		0/0/ログアウトボタンをクリック,
+		0/0/ログアウトボタンを\\クリック,
     1/0/SQLクエリを生成,
     2/0/削除を実行,
     2/0/結果を返す,
