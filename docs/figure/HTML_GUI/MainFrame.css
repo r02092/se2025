@@ -84,6 +84,7 @@ body {
 .main-area {
 	padding: 0;
 	padding-top: 42px; /* ← 追加（ヘッダー高さぶんずらす） */
+	padding-bottom: 55px; /*  ← ボトムバー分の余白 多分不要 */
 	background: #eee;
 	height: 100%;
 	width: 100vw;
@@ -99,9 +100,9 @@ body {
 .bottom-bar {
 	background: #fff;
 	height: 55px;
-	position: fixed; /* fixedに変更 */
+	position: fixed; 
 	bottom: 0;
-	width: 100vw; /* 画面幅に */
+	width: 100vw;
 	left: 0;
 	box-shadow: 0 0 8px rgba(90, 90, 90, 0.6);
 	display: flex;
