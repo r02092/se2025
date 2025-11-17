@@ -10,15 +10,112 @@
 	gap: 10px;
 	cursor: pointer;
 }
-
 .checkin-box h2 {
 	text-align: center;
 	width: 100%;
 }
-
 .marker-icon {
 	width: 15%; /* 親の幅に対する15%表示 */
 	min-width: 30px; /* モバイルや小画面対策で最小値も入れると良い */
 	max-width: 40px; /* 最大値も任意で */
 	height: auto;
+}
+
+/* --- achievement セクション（checkin-box と同じ枠スタイル） --- */
+.achievement {
+	background-color: #fff;
+	width: 90%;
+	margin: 40px auto 80px; /* 上は checkin と同じ、下はボトムバー回避 */
+	padding: 1% 5% 5% 5%;
+	border-radius: 8px;
+	box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+	box-sizing: border-box;
+}
+
+/* タイトルは .checkin-box h2 と同じ見た目 */
+.achievement h2 {
+	text-align: center;
+	width: 100%;
+	margin: 0;
+}
+
+/* 灰色の線（タイトルの下） */
+.achievement-divider {
+	height: 1px;
+	background-color: #e0e0e0;
+	width: 100%;
+	margin-top: 8px;
+	margin-bottom: 12px;
+	border-radius: 1px;
+}
+
+/* バッジ群（4列 × 2行 = 8個） */
+.achievement-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 18px;
+	align-items: start;
+	justify-items: center;
+	padding: 8px 4px 0 4px;
+}
+
+/* 個々のバッジラッパー */
+.achievement-item {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+}
+
+/* 丸いバッジスタイル（固定サイズ） */
+.achievement-badge {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #ffffff 0%, #f0f4f1 40%, #c8efd9 100%);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+	border: 2px solid rgba(20, 184, 136, 0.12);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	padding: 0;
+	outline: none;
+	transition:
+		transform 0.14s ease,
+		box-shadow 0.14s ease;
+}
+.badge-inner {
+	font-size: 18px;
+	font-weight: 700;
+	color: #0b6b4d;
+}
+.achievement-badge:hover,
+.achievement-badge:focus {
+	transform: translateY(-3px) scale(1.03);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+.achievement-label {
+	font-size: 12px;
+	color: #333;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+/* スクリーンリーダー用（必要なら使う） */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
 }
