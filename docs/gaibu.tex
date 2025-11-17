@@ -63,7 +63,7 @@
 			\draw[arrow](action\oi)--(end);
 		\end{scope}
 		\foreach\i in{-.5,...,\nps.5}
-			\draw[ultra thick](\i,1)--(\i,-2.5-\oi*1.5);
+			\draw[ultra thick](\i,1)--(\i,-2.5-\oi*#2);
 		\begin{scope}[yscale=#2]
 			#4
 		\end{scope}
