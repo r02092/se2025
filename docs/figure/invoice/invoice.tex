@@ -1,10 +1,20 @@
 \documentclass[fontsize=10.5bp]{jlreq}
-\usepackage{graphicx,luatexja-fontspec,luatexja-otf,textpos,tikz}
+\usepackage{graphicx,luatexja-fontspec,luatexja-otf,sepnum,textpos,tikz}
 \setmainfont{APOTFRyuminPr6N}
 \setsansfont{APOTFGothicMB101Pr6N}
 \setmainjfont{APOTFRyuminPr6N}[YokoFeatures={JFM=jlreq}]
 \setsansjfont{APOTFGothicMB101Pr6N}[YokoFeatures={JFM=jlreq}]
 \setlength\parindent{0pt}
+\newcommand\bizudpmincho{
+	\fontspec{BIZUDPMincho}\jfontspec{BIZUDPMincho}
+}
+\newcommand\insertedtext[1]{
+	{
+		\bizudpmincho\ltjsetparameter{kanjiskip=0pt}\ltjsetparameter{xkanjiskip=0pt}
+		#1
+		\par
+	}
+}
 \renewcommand\emph[1]{\textbf{\textgt{#1}}}
 \pagestyle{empty}
 \begin{document}
@@ -16,13 +26,25 @@
 		\includegraphics{seal.pdf}
 	\end{textblock*}
 	\begin{minipage}[t]{.6\textwidth}
-		\!\vspace{4\baselineskip}\\
+		\insertedtext{
+			\subsection*{\LARGE\jfontspec{BIZUDPMincho}[BoldFont={*}]○○\quad 御中} % 行取り
+			〒782–0003\\
+			高知県香美市土佐山田町宮ノ口185
+		}
+		\!\\
 		下記のとおり、御請求申し上げます。
 	\end{minipage}%
 	\begin{minipage}[t]{.4\textwidth}
 		請求書番号\\
-		発行日\\
-		\\
+		発行日
+		\vspace{-2\baselineskip}
+		\insertedtext{
+			\begin{flushright}
+				20251120-001\\
+				2025年11月20日
+			\end{flushright}
+		}
+		\!\\
 		〒782--0003\\
 		高知県香美市土佐山田町宮ノ口185\\
 		グループ２\quad Share
@@ -34,6 +56,7 @@
 			\draw(0,1)rectangle(11,0);
 			\draw(4,1)--(4,0);
 			\node at(2,.5){\emph{\LARGE 御請求金額}};
+			\node[right]at(4,.5){\LARGE\bizudpmincho ¥ 5,500};
 		\end{tikzpicture}
 		\\
 		\vspace{11pt}
@@ -54,12 +77,18 @@
 			\node at(\textwidth-.8pt-1cm,18.5){\emph{金額}};
 			\foreach\y in{18,...,4}
 				\draw(0,\y)--(\textwidth-.8pt,\y);
+			\node[right]at(0,17.5){\bizudpmincho SceneTrip プレミアムプラン};
+			\node[left]at(\textwidth-.8pt-4cm,17.5){\bizudpmincho 1};
+			\node[left]at(\textwidth-.8pt-2cm,17.5){\bizudpmincho ¥ 5,000};
+			\node[left]at(\textwidth-.8pt,17.5){\bizudpmincho ¥ 5,000};
 			\draw(12,3)--(12,0)--(\textwidth-.8pt,0)--(\textwidth-.8pt,3);
 			\foreach\y/\t in{2/小計,1/消費税}{
 				\node at({(\textwidth-.8pt)/2+5cm},\y+.5){\emph{\t}};
+				\node[left]at(\textwidth-.8pt,\y+.5){\bizudpmincho ¥ 5\ifnum\y=2,0\fi 00};
 				\draw(12,\y)--(\textwidth-.8pt,\y);
 			}
 			\node at({(\textwidth-.8pt)/2+5cm},.5){\emph{合計}};
+			\node[left]at(\textwidth-.8pt,.5){\bizudpmincho ¥ 5,500};
 		\end{tikzpicture}
 	\end{center}
 	お手数ですが、お支払いは下記銀行口座にお振込みくださいますようお願い申し上げます。
@@ -67,6 +96,8 @@
 	恐れ入りますが、振込手数料はお客様の御負担でお願いいたします。
 
 	\vspace{8pt}
+	\ltjsetparameter{kanjiskip=0pt}
+	\ltjsetparameter{xkanjiskip=0pt}
 	\begin{center}
 		\begin{tikzpicture}[
 			draw/.append style=thick,
@@ -88,6 +119,7 @@
 			};
 			\draw(0,1)--(14,1);
 			\node at(1.5,.5){\emph{お支払い期限}};
+			\node[right]at(3,.5){\bizudpmincho 2025年12月21日};
 		\end{tikzpicture}
 	\end{center}
 \end{document}
