@@ -184,7 +184,7 @@
 \subsubsection{事業者アカウント作成機能}
 店舗や施設などの事業者が、システムを利用するための
 アカウントを作成できます。
-作成の際には、店舗名、業種、所在地、メールアドレス、
+作成の際には、店舗名、カテゴリ、所在地、メールアドレス、
 パスワード等の情報を登録します。
 
 %\subsubsection{広告掲載機能}
@@ -412,7 +412,7 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		id & INT UNSIGNED & PK & ID \\ \hline
 		node\_id & INT UNSIGNED & FK, NOT NULL & 関連付けたノード \\ \hline
 		user\_id & INT UNSIGNED & FK, NOT NULL & 地点の登録者 \\ \hline
-		type & TINYINT UNSIGNED & NOT NULL & 種別 \\ \hline
+		type & TINYINT UNSIGNED & NOT NULL & カテゴリ \\ \hline
 		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
 		lng & INT UNSIGNED & NOT NULL & 経度 \\ \hline
 		lat & INT UNSIGNED & NOT NULL & 緯度 \\ \hline
