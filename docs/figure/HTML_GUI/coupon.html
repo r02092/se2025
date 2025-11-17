@@ -2,10 +2,10 @@
 <html lang="ja">
 	<head>
 		<meta charset="UTF-8" />
-		<title>SceneTrip - ログイン</title>
+		<title>SceneTrip - クーポン</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="MainFrame.css" />
-		<link rel="stylesheet" href="login.css" />
+		<link rel="stylesheet" href="search.css" />
 	</head>
 	<body>
 		<div class="container">
@@ -18,22 +18,15 @@
 						<div class="bar"></div>
 					</div>
 				</div>
+				<div class="header-login">
+					<button type="button" onclick="location.href='login.html'">
+						ログイン
+					</button>
+				</div>
 			</div>
 
 			<div class="main-area">
-				<div class="login-container">
-					<h2>ログイン</h2>
-					<form>
-						<label for="username">ユーザー名</label>
-						<input type="text" id="username" name="username" required />
-
-						<label for="password">パスワード</label>
-						<input type="password" id="password" name="password" required />
-
-						<button type="submit">ログイン</button>
-					</form>
-					<h5>アカウントをお持ちでない方は <a href="signup.html">こちら</a></h5>
-				</div>
+				<h1>クーポン</h1>
 			</div>
 
 			<div class="bottom-bar">
@@ -95,7 +88,7 @@
 						</svg>
 						<span class="bottom-label">検索</span>
 					</a>
-					<a href="coupon.html" class="bottom-btn">
+					<a href="coupon.html" class="bottom-btn selected">
 						<svg class="bottom-icon" viewBox="0 0 13.229166 13.229167">
 							<g transform="translate(-1.6666667e-7,0.58949768)">
 								<path

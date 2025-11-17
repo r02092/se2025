@@ -1,7 +1,6 @@
 body {
 	margin: 0;
 	background: #d1d1d1;
-	font-family: "Noto Sans JP", sans-serif;
 }
 .header-bar {
 	background: #27f2b6;
@@ -71,7 +70,7 @@ body {
 .header-login button {
 	background: rgba(255, 255, 255);
 	color: #14b888;
-	border: 1px solid rgba(255, 255, 255, 0);
+	border: 0px;
 	padding: 6px 10px;
 	border-radius: 4px;
 	cursor: pointer;
