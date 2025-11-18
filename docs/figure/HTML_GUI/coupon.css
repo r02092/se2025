@@ -1,4 +1,4 @@
-.post-titlebar{
+.coupon-titlebar{
     background-image: linear-gradient(#c2ebdc /* #eee */ 70%, transparent);
 	height: 88px;
     margin: 42px 0 20px;
@@ -12,11 +12,11 @@
 	color: #000;
 	z-index: 500; /* 他UIより上に */
 }
-.post-titlebar h1{
+.coupon-titlebar h1{
     text-align: center;
 	width: 100%;   
 }
-.post-titlebar-update {
+.coupon-titlebar-update {
 	position: absolute;
 	right: 8px;
 	top: 26px;
@@ -25,7 +25,7 @@
 	align-items: center;
 	justify-content: center;
 }
-.post-titlebar-update button {
+.coupon-titlebar-update button {
 	background: #14b888;
 	color: #fff;
 	border: 0px;
