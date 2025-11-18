@@ -613,9 +613,7 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     1/0/データを整形し\\APIレスポンスを送信,
     0/0/データを受信
   }{
-    \node[action](fail) at (1, -5.5) {認証失敗の\\エラーを返す};
-    \draw[arrow] (action3) -| node[label, pos=0.25] {認証失敗} (fail);
-    \draw[arrow] (fail) -- (action7);
+    % 認証が失敗した場合の処理
   }
   \caption{観光データ分析API}\label{fig:act-data_analysis_api}
 \end{figure}
@@ -633,8 +631,7 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     1/0/結果を表示,
     0/0/クーポン発行完了の確認
   }{
-    \node[action](fail) at (1, -7) {不備がある旨を表示};
-    \draw[arrow] (action5) -| node[label, pos=0.25] {不備がある} (fail);
+    % 不備がある場合の処理
   }
   \caption{クーポン発行}\label{fig:act-create_coupon}
 \end{figure}
