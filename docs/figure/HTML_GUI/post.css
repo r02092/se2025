@@ -1,0 +1,38 @@
+.post-titlebar{
+    background-image: linear-gradient(#c2ebdc 70%, transparent);
+	height: 88px;
+    margin: 42px 0 20px;
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	position: fixed; /* fixedに変更 */
+	top: 0; /* 画面上部に固定 */
+	left: 0;
+	width: 100vw;
+	color: #000;
+	/* box-shadow: 0 0 8px rgba(90, 90, 90); */
+	z-index: 500; /* 他UIより上に */
+}
+.post-titlebar h1{
+    text-align: center;
+	width: 100%;   
+}
+.post-titlebar-update {
+	position: absolute;
+	right: 8px;
+	top: 26px;
+	height: 42px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.post-titlebar-update button {
+	background: #14b888;
+	color: #fff;
+	border: 0px;
+	padding: 6px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-weight: 700;
+	font-size: 13px;
+}
