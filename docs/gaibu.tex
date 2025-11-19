@@ -75,7 +75,7 @@
 \section{はじめに}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 本書では、我々がシステム提案書にて提案した「SceneTrip」の
 詳細について記述します。まず、本システムの業務の流れを説明し、
-次に機能設計、ユーザインタフェース設計、データベース設計、
+次に機能設計、ユーザーインタフェース設計、データベース設計、
 ネットワーク設計について順に説明します。
 
 \section{利用の流れ}
@@ -103,8 +103,8 @@
 現在設定しているパスワードを再度入力することを条件にアカウント情報を再度設定できます。
 さらに、RFC 6238に準拠したTOTPによる二要素認証を設定できます。
 ログイン不要で利用できる機能は、観光地・施設への経路検索のみになります。
-ログインに成功すると、ユーザーはシステムの各種機能を利用でき、
-ログアウトを実行すると、ユーザーはシステムから退出します。
+ログインに成功すると、ユーザーはシステムの全ての機能を利用でき、
+ログアウトを行うと、ユーザーはログイン前の状態に戻れます。
 
 \subsection{管理者}
 \subsubsection{観光地・施設情報管理}
@@ -116,14 +116,9 @@
 ユーザー情報の登録、編集、削除などの操作が可能です。
 
 \subsubsection{UGCの監視・管理機能}
-UGCの監視・管理できます。
+UGCの監視・管理ができます。
 利用者が投稿した口コミやフォトスポット投稿を監視し、
 利用規約違反が確認されたアカウントの利用停止や削除を行うことが可能です。
-
-\subsubsection{システム管理}
-システム全体の設定や運用を管理できます。
-システムのパフォーマンス監視、バックアップ、
-セキュリティ設定などの操作が可能です。
 
 \subsubsection{データ分析・閲覧機能}
 データの閲覧・分析を行うことができます。
@@ -146,7 +141,7 @@ UGCの監視・管理できます。
 上記機能に加え以下の機能を利用できます。
 \subsubsection{利用者アカウント作成機能}
 システムを利用するためのアカウントを作成できます。
-アカウント作成の際には、ユーザー名、パスワード等の情報を登録します。
+作成の際には、ユーザー名、パスワード等の情報を登録します。
 
 \subsubsection{経路作成}
 訪れたい観光地や施設を選択し、
@@ -155,8 +150,7 @@ UGCの監視・管理できます。
 効率的なルートを提案します。
 
 \subsubsection{外部地図アプリ連携機能}
-作成した観光ルートをGoogle Mapsに連携させて表示できます。
-ルート作成後のナビゲーションやルート案内もGoogle Mapsで利用できます。
+作成した観光ルートをGoogle マップに転送して表示できます。
 
 \subsubsection{評価機能}
 訪れた観光地や施設に対して評価を行うことができます。
@@ -190,7 +184,7 @@ UGCの監視・管理できます。
 
 \subsubsection{事業者情報変更機能}
 登録した店舗情報(店舗名、所在地、営業時間、紹介文、店舗写真など)
-を変更する機能。
+を変更する機能です。
 
 \subsubsection{観光データ分析API}
 システムが提供する観光データ分析APIを利用できます。
@@ -225,8 +219,8 @@ APIを通じて、観光客の行動データや評価データなどを取得�
 	\centering
 	\adiagram{利用者,システム,データベース}{1}{
     0/0/会員登録タブ選択,
-    1/0/ユーザ属性選択画面表示,
-    0/0/ユーザ属性選択,
+    1/0/ユーザー属性選択画面表示,
+    0/0/ユーザー属性選択,
     1/0/会員登録画面表示,
 		0/0/必要情報を入力,
 		0/0/作成ボタンをクリック,
@@ -235,10 +229,12 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     2/0/結果を返す,
     1/1/入力値に不備がない,
 		2/0/アカウント情報を保存,
-    1/0/結果を表示,
-		0/0/アカウント作成完了の確認
+    1/0/作成完了の旨を表示,
+		0/0/結果の確認
 	}{
-    % 不備がある場合の処理
+    \node[action](decision0)at(1,-13){不備がある旨を表示};
+		\draw[arrow](action10)-|(1.45,-13)node[label,pos=.57]{不備あり}|-(decision0);
+		\draw[arrow](decision0)--(action13);
   }
 	\caption{アカウント作成}\label{fig:act-register_account}
 \end{figure}
@@ -246,21 +242,23 @@ APIを通じて、観光客の行動データや評価データなどを取得�
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
-    0/0/パスワード更新タブ選択,
-    1/0/パスワード更新画面表示,
-		0/0/新パスワード入力,
+    0/0/アカウント更新タブ選択,
+    1/0/アカウント更新画面表示,
+		0/0/更新情報入力,
 		0/0/更新ボタンをクリック,
 		1/0/入力値を検証,
 		2/0/入力不備チェック,
     2/0/結果を返す,
     1/1/入力値に不備がない,
 		2/0/アカウント情報を保存,
-    1/0/結果を表示,
+    1/0/更新完了の旨を表示,
 		0/0/アカウント編集完了の確認
 	}{
-    % 不備がある場合の処理
+    \node[action](decision0)at(1,-11){不備がある旨を表示};
+		\draw[arrow](action8)-|(1.45,-8)node[label,pos=.6]{不備あり}|-(decision0);
+		\draw[arrow](decision0)--(action11);
   }
-	\caption{パスワード更新}\label{fig:act-edit_account}
+	\caption{アカウント情報更新}\label{fig:act-edit_account}
 \end{figure}
 
 \begin{figure}[H]
@@ -275,29 +273,14 @@ APIを通じて、観光客の行動データや評価データなどを取得�
 		2/0/検索を実行,
     2/0/結果を返す,
     1/1/ユーザー情報が存在する,
-		1/0/結果を表示,
+		1/0/ログイン成功の旨を表示,
 		0/0/結果を確認
-    %TOTP認証フローの追加
 	}{
-    \node[action](decision0)at(1,-8){存在しない旨を表示};
-		\draw[arrow](action6)-|(1.45,-8)node[label,pos=.57]{存在しない}|-(decision0);
-		\draw[arrow](decision0)--(action8);
+    \node[action](decision0)at(1,-11){存在しない旨を表示};
+		\draw[arrow](action9)-|(1.45,-11)node[label,pos=.57]{存在しない}|-(decision0);
+		\draw[arrow](decision0)--(action11);
   }
 	\caption{ログイン}\label{fig:act-login}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\adiagram{利用者,システム}{1.5}{
-    0/0/ログインボタンをクリック,
-    1/0/ログイン画面表示,
-    0/0/ゲストログインを選択,
-    1/0/ゲストとして\\システム利用開始,
-    0/0/機能を利用
-	}{
-    % 不備がある場合の処理
-  }
-	\caption{ゲストログイン}\label{fig:act-guest_login}
 \end{figure}
 
 \begin{figure}[H]
@@ -328,11 +311,13 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     1/0/位置情報を取得,
     2/0/現在地情報と\\施設情報を照合,
     1/1/位置情報が一致する,
-    2/0/ユーザの\\スタンプ情報を更新,
-    1/0/結果の表示,
-		0/0/投稿完了の確認
+    2/0/ユーザーの\\スタンプ情報を更新,
+    1/0/スタンプ取得の表示,
+		0/0/結果の確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(1,-14){取得できない旨を表示};
+		\draw[arrow](action11)-|(1.45,-14)node[label,pos=.57]{一致しない}|-(decision0);
+		\draw[arrow](decision0)--(action14);
   }
 	\caption{スタンプ}\label{fig:act-post_stamp}
 \end{figure}
@@ -350,10 +335,12 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     2/0/追加処理を実行,
     2/0/結果を返す,
     1/1/入力に不備がない,
-    1/0/結果を表示,
+    1/0/追加完了の旨の表示,
     0/0/結果を確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(1,-10){追加できない旨を表示};
+		\draw[arrow](action8)-|(1.45,-10)node[label,pos=.57]{不備あり}|-(decision0);
+		\draw[arrow](decision0)--(action10);
   }
 	\caption{観光地・施設情報追加}\label{fig:act-add_spot}
 \end{figure}
@@ -369,10 +356,12 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     2/0/編集処理を実行,
     2/0/結果を返す,
     1/1/編集情報に不備がない,
-    1/0/結果を表示,
+    1/0/編集完了の旨を表示,
     0/0/結果を確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(1,-10){編集できない旨を表示};
+		\draw[arrow](action8)-|(1.45,-10)node[label,pos=.57]{不備あり}|-(decision0);
+		\draw[arrow](decision0)--(action10);
   }
 	\caption{観光地・施設情報編集}\label{fig:act-edit_spot}
 \end{figure}
@@ -383,14 +372,21 @@ APIを通じて、観光客の行動データや評価データなどを取得�
 		0/0/削除タブを選択,
     1/0/観光地・施設情報\\削除画面表示,
     0/0/削除ボタンをクリック,
+    0/0/操作の確認画面を表示,
+    0/1/削除を確定,
     1/0/SQLクエリを生成,
     2/0/削除を実行,
     2/0/結果を返す,
     1/1/削除が成功する,
-    1/0/結果を表示,
+    1/0/削除完了の旨を表示,
     0/0/結果を確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(0,-6){元の画面に戻る};
+		\draw[arrow](action5)-|(0.45,-6)node[label,pos=.7]{キャンセルを選択}|-(decision0);
+		\draw[arrow](decision0)-|(-0.45,-12)|-(end);
+    \node[action](decision1)at(1,-11){削除できない旨を表示};
+		\draw[arrow](action9)-|(1.45,-11)node[label,pos=.57]{不備あり}|-(decision1);
+		\draw[arrow](decision1)--(action11);
   }
 	\caption{観光地・施設情報削除}\label{fig:act-delete_spot}
 \end{figure}
@@ -399,48 +395,52 @@ APIを通じて、観光客の行動データや評価データなどを取得�
 	\centering
   \adiagram{利用者,システム,データベース}{1.5}{
 		0/0/追加タブ選択,
-    1/0/ユーザ情報追加画面表示,
+    1/0/ユーザー情報追加画面表示,
     0/0/必要情報を入力,
     0/0/追加ボタンをクリック,
     1/0/SQLクエリを生成,
     2/0/追加処理を実行,
     2/0/結果を返す,
     1/1/入力に不備がない,
-    1/0/結果を表示,
+    1/0/追加完了の旨を表示,
     0/0/結果を確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(1,-10){追加できない旨を表示};
+		\draw[arrow](action8)-|(1.45,-10)node[label,pos=.57]{不備あり}|-(decision0);
+		\draw[arrow](decision0)--(action10);
   }
-	\caption{ユーザ情報追加}\label{fig:act-add_user}
+	\caption{ユーザー情報追加}\label{fig:act-add_user}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
   \adiagram{利用者,システム,データベース}{1.5}{
 		0/0/編集タブを選択,
-    1/0/ユーザ情報編集画面表示,
+    1/0/ユーザー情報編集画面表示,
     0/0/情報を編集,
     0/0/編集ボタンをクリック,
     1/0/SQLクエリを生成,
     2/0/編集処理を実行,
     2/0/結果を返す,
     1/1/編集情報に不備がない,
-    1/0/結果を表示,
+    1/0/編集完了の旨を表示,
     0/0/結果を確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(1,-10){編集できない旨を表示};
+		\draw[arrow](action8)-|(1.45,-10)node[label,pos=.57]{不備あり}|-(decision0);
+		\draw[arrow](decision0)--(action10);
   }
-	\caption{ユーザ情報編集}\label{fig:act-edit_user}
+	\caption{ユーザー情報編集}\label{fig:act-edit_user}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
   \adiagram{利用者,システム,データベース}{1.5}{
 		0/0/削除タブを選択,
-    1/0/ユーザ情報削除画面表示,
+    1/0/ユーザー情報削除画面表示,
     0/0/削除ボタンをクリック,
-    1/0/本当に削除するか確認,
-    0/1/削除を確認,
+    1/0/操作の確認画面を表示,
+    0/1/削除を確定,
     1/0/SQLクエリを生成,
     2/0/削除を実行,
     2/0/結果を返す,
@@ -448,9 +448,14 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     1/0/結果を表示,
     0/0/結果を確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(0,-6){元の画面に戻る};
+		\draw[arrow](action5)-|(0.45,-6)node[label,pos=.7]{キャンセルを選択}|-(decision0);
+		\draw[arrow](decision0)-|(-0.45,-12)|-(end);
+    \node[action](decision1)at(1,-11){削除できない旨を表示};
+		\draw[arrow](action9)-|(1.45,-11)node[label,pos=.57]{不備あり}|-(decision1);
+		\draw[arrow](decision1)--(action11);
   }
-	\caption{ユーザ情報削除}\label{fig:act-delete_user}
+	\caption{ユーザー情報削除}\label{fig:act-delete_user}
 \end{figure}
 
 \begin{figure}[H]
@@ -458,18 +463,23 @@ APIを通じて、観光客の行動データや評価データなどを取得�
   \adiagram{管理者,システム,データベース}{1.5}{
 		0/0/UGC管理画面を開く,
     1/0/投稿一覧を表示,
-    0/0/不適切な投稿を選択,
-    0/0/削除/停止ボタンを\\クリック,
+    0/0/投稿を選択,
+    0/0/削除ボタンを\\クリック,
     1/0/操作の確認画面を表示,
-    0/0/操作を確定,
+    0/1/操作を確定,
     1/0/SQLクエリを生成,
-    2/0/削除/停止処理を実行,
+    2/0/削除処理を実行,
     2/0/結果を返す,
     1/1/処理が成功する,
-    1/0/結果を表示,
+    1/0/削除できた旨を表示,
     0/0/結果を確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(0,-7){元の画面に戻る};
+		\draw[arrow](action5)-|(0.45,-7)node[label,pos=.8]{キャンセルを選択}|-(decision0);
+		\draw[arrow](decision0)-|(-0.45,-13)|-(end);
+    \node[action](decision1)at(1,-12){削除できない旨を表示};
+		\draw[arrow](action10)-|(1.45,-12)node[label,pos=.57]{不備あり}|-(decision1);
+		\draw[arrow](decision1)--(action12);
   }
 	\caption{UGC監視・管理}\label{fig:act-manage_ugc}
 \end{figure}
@@ -489,13 +499,15 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     1/0/返信完了画面を表示,
     0/0/返信完了を確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision1)at(1,-11){返信できない旨を表示};
+		\draw[arrow](action8)-|(1.45,-11)node[label,pos=.57]{不備あり}|-(decision1);
+		\draw[arrow](decision1)--(action11);
   }
 	\caption{問い合わせ返信}\label{fig:act-reply_inquiry}
 \end{figure}
 
 \subsection{利用者}
-\subsubsection{ゲストログイン機能}
+\subsubsection{ログイン不要機能}
 
 \begin{figure}[H]
 	\centering
@@ -506,7 +518,7 @@ APIを通じて、観光客の行動データや評価データなどを取得�
 		2/0/検索を実行,
 		2/0/結果を返す,
 		1/1/観光地・施設が存在する,
-		1/0/結果を表示,
+		1/0/観光地・施設の\\情報を表示,
 		0/0/結果を確認
 	}{
 		\node[action](decision0)at(1,-8){存在しない旨を表示};
@@ -529,17 +541,19 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     2/0/入力値を検証,
     1/1/入力値に不備がない,
 		2/0/投稿内容を保存,
-    1/0/結果を表示,
-		0/0/投稿完了の確認
+    1/0/投稿完了を表示,
+		0/0/結果の確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(1,-10){不備がある旨を表示};
+		\draw[arrow](action7)-|(1.45,-10)node[label,pos=.57]{不備あり}|-(decision0);
+		\draw[arrow](decision0)--(action10);
   }
 	\caption{写真投稿・共有}\label{fig:act-post_spot}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-  \adiagram{利用者,システム,データベース}{1.5}{
+  \adiagram{利用者,システム,データベース}{1.6}{
 		0/0/経路に追加する\\スポットを選択,
     0/0/経路作成ボタンを\\クリック,
     1/0/経路作成画面を表示,
@@ -549,10 +563,9 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     2/0/結果を返す,
     1/0/最適な経路を計算,
     1/0/計算結果を表示,
-    0/0/Google Mapで\\開くボタンをクリック,
-    1/0/Google Map連携用\\URLを生成し転送
+    0/0/Google マップで\\開くボタンをクリック,
+    1/0/Google マップ連携用\\URLを生成し転送
       }{
-    % 不備がある場合の処理
   }
 	\caption{経路作成}\label{fig:act-create_route}
 \end{figure}
@@ -568,10 +581,12 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     1/1/入力値に不備がない,
     1/0/SQLクエリを生成,
 		2/0/投稿内容を保存,
-    1/0/結果を表示,
-		0/0/投稿完了を確認
+    1/0/投稿完了を表示,
+		0/0/結果を確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(1,-10){不備がある旨を表示};
+		\draw[arrow](action6)-|(1.45,-10)node[label,pos=.57]{不備あり}|-(decision0);
+		\draw[arrow](decision0)--(action10);
   }
 	\caption{施設評価}\label{fig:act-post_review}
 \end{figure}
@@ -589,7 +604,6 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     1/0/検索結果を\\チャットで表示,
 		0/0/提示された\\施設を確認
       }{
-    % 不備がある場合の処理
   }
 	\caption{AIによる観光地・施設推薦}\label{fig:act-chat_spot_recommendation}
 \end{figure}
@@ -606,7 +620,9 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     1/0/クーポン獲得を通知,
     0/0/獲得したクーポンを確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(1,-8){不備がある旨を表示};
+		\draw[arrow](action5)-|(1.45,-8)node[label,pos=.57]{不備あり}|-(decision0);
+		\draw[arrow](decision0)--(action8);
   }
 	\caption{クーポン受け取り}\label{fig:act-receive_coupon}
 \end{figure}
@@ -621,10 +637,12 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     1/0/入力値を検証,
     1/1/入力値に不備がない,
     2/0/問い合わせ内容を保存,
-    1/0/結果を表示,
-		0/0/問い合わせ完了の確認
+    1/0/問い合わせ送信完了\\の旨を表示,
+		0/0/問い合わせ送信\\完了の確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(1,-9){不備がある旨を表示};
+		\draw[arrow](action6)-|(1.45,-9)node[label,pos=.57]{不備あり}|-(decision0);
+		\draw[arrow](decision0)--(action9);
   }
 	\caption{問い合わせ対応}\label{fig:act-inquiry_response}
 \end{figure}
@@ -640,10 +658,12 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     1/0/入力値を検証,
     1/1/入力値に不備がない,
     2/0/スポット情報を保存,
-    1/0/結果を表示,
+    1/0/スポット情報を表示,
     0/0/スポット作成完了の確認
       }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(1,-9){不備がある旨を表示};
+		\draw[arrow](action6)-|(1.45,-9)node[label,pos=.57]{不備あり}|-(decision0);
+		\draw[arrow](decision0)--(action9);
   }
   \caption{スポット作成}\label{fig:act-create_spot}
 \end{figure}
@@ -661,7 +681,9 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     1/0/データを整形し\\APIレスポンスを送信,
     0/0/データを受信
   }{
-    % 認証が失敗した場合の処理
+    \node[action](decision0)at(1,-10){認証失敗の旨を表示};
+		\draw[arrow](action4)-|(1.45,-10)node[label,pos=.56]{認証失敗}|-(decision0);
+		\draw[arrow](decision0)--(end);
   }
   \caption{観光データ分析API}\label{fig:act-data_analysis_api}
 \end{figure}
@@ -676,15 +698,17 @@ APIを通じて、観光客の行動データや評価データなどを取得�
     1/0/入力値を検証,
     1/1/入力値に不備がない,
     2/0/クーポン情報を保存,
-    1/0/結果を表示,
-    0/0/クーポン発行完了の確認
+    1/0/クーポン発行\\の旨を表示,
+    0/0/結果の確認
   }{
-    % 不備がある場合の処理
+    \node[action](decision0)at(1,-9){クーポン発行失敗\\の旨を表示};
+		\draw[arrow](action6)-|(1.45,-9)node[label,pos=.57]{不備あり}|-(decision0);
+		\draw[arrow](decision0)--(action9);
   }
   \caption{クーポン発行}\label{fig:act-create_coupon}
 \end{figure}
 
-\section{ユーザインタフェース設計}
+\section{ユーザーインタフェース設計}
 \newpage
 \begin{figure}[H]
 	\centering
