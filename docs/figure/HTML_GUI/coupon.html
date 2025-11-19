@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<title>SceneTrip - クーポン</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="MainFrame.css" />
+		<link rel="stylesheet" href="coupon.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="header-bar">
+				<div class="title">SceneTrip</div>
+				<div class="hamburger">
+					<div class="hamburger-bars">
+						<div class="bar"></div>
+						<div class="bar"></div>
+						<div class="bar"></div>
+					</div>
+				</div>
+				<div class="header-login">
+					<button type="button" onclick="location.href='login.html'">
+						ログイン
+					</button>
+				</div>
+			</div>
+
+			<div class="main-area">
+				<!-- タイトルバー（ヘッダー下に固定しない） -->
+				<div class="coupon-titlebar">
+					<h1>クーポン</h1>
+					<div class="coupon-titlebar-update">
+						<button type="button" onclick="location.href='coupon.html'">
+							更新
+						</button>
+					</div>
+				</div>
+
+				<!-- フィルタ／ソート領域 -->
+				<div class="coupon-filter">
+					<div class="chip-group" role="tablist" aria-label="クーポンカテゴリ">
+						<button class="chip active" data-cat="all" aria-pressed="true">
+							すべて
+						</button>
+						<button class="chip" data-cat="food" aria-pressed="false">
+							飲食
+						</button>
+						<button class="chip" data-cat="shop" aria-pressed="false">
+							お土産
+						</button>
+						<button class="chip" data-cat="attraction" aria-pressed="false">
+							観光
+						</button>
+					</div>
+					<div class="sort-select">
+						<label for="sort">並び替え</label>
+						<select id="sort" name="sort">
+							<option value="recommended">おすすめ順</option>
+							<option value="new">新着順</option>
+							<option value="exp">期限が近い順</option>
+						</select>
+					</div>
+				</div>
+
+				<!-- クーポン一覧 -->
+				<section class="coupon-list" aria-label="クーポン一覧">
+					<!-- サンプルカード: 有効なクーポン -->
+					<article
+						class="coupon-card"
+						data-cat="food"
+						tabindex="0"
+						role="article"
+						aria-labelledby="coupon1-title"
+					>
+						<img
+							class="coupon-thumb"
+							src="images/bridge.jpg"
+							alt="赤い橋の写真"
+						/>
+						<div class="coupon-info">
+							<h2 id="coupon1-title" class="coupon-title">
+								高知城カフェ 10%OFF
+							</h2>
+							<p class="coupon-desc">
+								カフェメニューが10%オフ。会計時に画面提示で利用可。
+							</p>
+							<div class="coupon-meta">
+								<span class="coupon-tag">飲食</span>
+								<span class="coupon-exp">〜2025/12/31</span>
+								<span class="coupon-code" aria-hidden="true">CODE: KCI10</span>
+							</div>
+						</div>
+						<div class="coupon-action">
+							<button
+								class="btn-primary"
+								aria-label="クーポンを使う 高知城カフェ"
+							>
+								利用する
+							</button>
+							<button class="btn-ghost" aria-label="詳細を見る 高知城カフェ">
+								詳細
+							</button>
+						</div>
+					</article>
+
+					<!-- サンプルカード: 期限切れ -->
+					<article
+						class="coupon-card expired"
+						data-cat="shop"
+						tabindex="0"
+						role="article"
+						aria-labelledby="coupon2-title"
+					>
+						<img
+							class="coupon-thumb"
+							src="images/matsuyama.jpg"
+							alt="松山城の写真"
+						/>
+						<div class="coupon-info">
+							<h2 id="coupon2-title" class="coupon-title">
+								お土産ショップ 500円OFF
+							</h2>
+							<p class="coupon-desc">
+								お土産1,500円以上で使える割引クーポン（期限切れ）。
+							</p>
+							<div class="coupon-meta">
+								<span class="coupon-tag">お土産</span>
+								<span class="coupon-exp">期限: 2024/09/30</span>
+							</div>
+						</div>
+						<div class="coupon-action">
+							<span class="badge-muted">期限切れ</span>
+							<button class="btn-ghost" aria-label="詳細を見る 松山城クーポン">
+								詳細
+							</button>
+						</div>
+					</article>
+
+					<!-- サンプルカード: 利用済み -->
+					<article
+						class="coupon-card redeemed"
+						data-cat="attraction"
+						tabindex="0"
+						role="article"
+						aria-labelledby="coupon3-title"
+					>
+						<img
+							class="coupon-thumb"
+							src="images/ritsurin.jpg"
+							alt="栗林公園の写真"
+						/>
+						<div class="coupon-info">
+							<h2 id="coupon3-title" class="coupon-title">栗林公園入園割引</h2>
+							<p class="coupon-desc">
+								入園料100円引き。スタッフに画面を見せてください。
+							</p>
+							<div class="coupon-meta">
+								<span class="coupon-tag">観光</span>
+								<span class="coupon-exp">〜2025/06/30</span>
+							</div>
+						</div>
+						<div class="coupon-action">
+							<span class="badge-done">利用済み</span>
+							<button
+								class="btn-ghost"
+								aria-label="詳細を見る 栗林公園クーポン"
+							>
+								詳細
+							</button>
+						</div>
+					</article>
+
+					<!-- 必要に応じてここに more items -->
+				</section>
+			</div>
+
+			<div class="bottom-bar">
+				<nav class="bottom-menu">
+					<a href="home.html" class="bottom-btn">
+						<svg
+							class="bottom-icon"
+							viewBox="0 0 132.29166 132.29167"
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<g transform="translate(0,1.9843775)">
+								<path
+									style="opacity: 1; fill: #000000; stroke-width: 0.264583"
+									d="M 66.145832,0 0,38.1031 V 51.326065 L 66.145832,13.229166 132.29166,51.326065 V 38.1031 Z"
+								/>
+								<path
+									style="opacity: 1; fill: #000000; stroke-width: 0.298724"
+									d="M 66.145832,26.458333 19.84375,52.916666 V 119.0625 h 5.291666 l 0,-64.955216 23.8125,10.583332 v 2.778133 H 83.343749 V 119.0625 H 112.44792 V 52.916666 Z"
+								/>
+								<path
+									style="fill: #000000; stroke-width: 0.264583"
+									d="m 27.78125,58.208328 v 58.208332 11.90625 L 48.947916,119.0625 V 67.468749 Z"
+								/>
+							</g>
+						</svg>
+						<span class="bottom-label">ホーム</span>
+					</a>
+
+					<a href="post.html" class="bottom-btn">
+						<svg class="bottom-icon" viewBox="0 0 512 512" aria-hidden="true">
+							<g>
+								<path
+									fill="#000"
+									d="M276.255,347.165c74.54-23.448,127.262-80.992,127.262-148.309c0-88.155-90.329-159.607-201.756-159.607
+								C90.329,39.249,0,110.701,0,198.856c0,56.206,36.762,105.583,92.27,134.012l-31.284,69.955
+								C149.559,392.976,235.708,362.903,276.255,347.165z"
+								/>
+								<path
+									fill="#000"
+									d="M512,338.014c0-46.219-37.645-85.386-89.958-99.619c-15.756,59.151-66.36,108.483-137.895,131.216
+								c-7.915,3.066-17.252,6.55-27.685,10.248c13.991,25.511,40.297,45.82,73.054,56.122c26.784,10.404,83.692,30.267,142.202,36.77
+								l-20.666-46.21C487.715,407.765,512,375.147,512,338.014z"
+								/>
+							</g>
+						</svg>
+						<span class="bottom-label">投稿</span>
+					</a>
+
+					<a href="search.html" class="bottom-btn">
+						<svg class="bottom-icon" viewBox="0 0 512 512" aria-hidden="true">
+							<g>
+								<path
+									fill="#000"
+									d="M332.998,291.918c52.2-71.895,45.941-173.338-18.834-238.123c-71.736-71.728-188.468-71.728-260.195,0
+									c-71.746,71.745-71.746,188.458,0,260.204c64.775,64.775,166.218,71.034,238.104,18.844l14.222,14.203l40.916-40.916
+									L332.998,291.918z M278.488,278.333c-52.144,52.134-136.699,52.144-188.852,0c-52.152-52.153-52.152-136.717,0-188.861
+									c52.154-52.144,136.708-52.144,188.852,0C330.64,141.616,330.64,226.18,278.488,278.333z"
+								/>
+								<path
+									fill="#000"
+									d="M501.499,438.591L363.341,315.178l-47.98,47.98l123.403,138.168c12.548,16.234,35.144,13.848,55.447-6.456
+									C514.505,474.576,517.743,451.138,501.499,438.591z"
+								/>
+							</g>
+						</svg>
+						<span class="bottom-label">検索</span>
+					</a>
+
+					<a href="coupon.html" class="bottom-btn selected">
+						<svg class="bottom-icon" viewBox="0 0 512 512" aria-hidden="true">
+							<g
+								transform="matrix(0.83914572,0,0,0.83914572,82.357385,138.68221)"
+							>
+								<path
+									fill="#000"
+									d="m146.562,116.642c0,11.405-9.239,20.644-20.635,20.644-11.405,0-20.644-9.239-20.644-20.644H0v278.716h105.284
+									c0-11.405,9.239-20.644,20.644-20.644,11.396,0,20.635,9.239,20.635,20.644H512V116.642z m-20.634,229.687
+									c-11.405,0-20.644-9.247-20.644-20.652,0-11.405,9.239-20.644,20.644-20.644,11.396,0,20.635,9.239,20.635,20.644
+									-10e-4,11.405-9.239,20.652-20.635,20.652z m0-69.68c-11.405,0-20.644-9.239-20.644-20.644,0-11.397,9.239-20.652,20.644-20.652
+									11.396,0,20.635,9.255,20.635,20.652-10e-4,11.405-9.239,20.644-20.635,20.644z m0-69.682c-11.405,0-20.644-9.239-20.644-20.644
+									0-11.396,9.239-20.644,20.644-20.644,11.396,0,20.635,9.248,20.635,20.644-10e-4,11.405-9.239,20.644-20.635,20.644z"
+								/>
+							</g>
+							<g
+								transform="matrix(0.74968218,-0.37701746,0.37701746,0.74968218,-43.976071,151.85387)"
+							>
+								<path
+									fill="#000"
+									d="M512.00051 116.64261 L146.56254 116.64114 C146.56254 128.04614 137.32166 137.28635 125.92566 137.28635
+									C114.52066 137.28635 105.28358 128.04823 105.28358 116.64323 L -0.00028292634 116.64256 L -0.00046861371 306.52762
+									L 83.131387 141.22369 L 512.00005 356.90305 L 512.00051 116.64261 z"
+								/>
+							</g>
+						</svg>
+						<span class="bottom-label">クーポン</span>
+					</a>
+
+					<a href="funpage.html" class="bottom-btn">
+						<svg class="bottom-icon" viewBox="0 0 13.229166 13.229167">
+							<g transform="translate(-1.6666667e-7,0.58949768)">
+								<path
+									style="fill: #000000"
+									d="M 6.6145833,1.0583333 2.38125,3.175 6.6149109,5.433979 10.847917,3.175 Z"
+								/>
+								<path
+									style="fill: #000000"
+									d="M 2.38125,8.9958333 6.3500002,10.991838 6.35,5.8208333 2.38125,3.7041667 Z"
+								/>
+								<path
+									style="fill: #000000"
+									d="m 10.847917,8.9958333 -3.9687502,1.9960047 -1e-7,-5.1710047 3.9687503,-2.1166666 z"
+								/>
+							</g>
+						</svg>
+						<span class="bottom-label">お楽しみ機能</span>
+					</a>
+				</nav>
+			</div>
+		</div>
+	</body>
+</html>
