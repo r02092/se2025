@@ -1,0 +1,181 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="28.2.9">
+  <diagram name="ページ1" id="IiGEaKWat_fVQX5sofIm">
+    <mxGraphModel dx="1009" dy="1474" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="-ejt231Y5lqU7ST-vS26-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="ozLHcDcbgjPXyltU7WoX-6" target="-ejt231Y5lqU7ST-vS26-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-ejt231Y5lqU7ST-vS26-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="ozLHcDcbgjPXyltU7WoX-6" target="ozLHcDcbgjPXyltU7WoX-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-ejt231Y5lqU7ST-vS26-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="ozLHcDcbgjPXyltU7WoX-6" target="-ejt231Y5lqU7ST-vS26-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-ejt231Y5lqU7ST-vS26-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="ozLHcDcbgjPXyltU7WoX-6" target="ozLHcDcbgjPXyltU7WoX-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-ejt231Y5lqU7ST-vS26-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="ozLHcDcbgjPXyltU7WoX-6" target="ozLHcDcbgjPXyltU7WoX-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-6" value="ボトムバー" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="160" y="59.93" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="ozLHcDcbgjPXyltU7WoX-10" target="ozLHcDcbgjPXyltU7WoX-25" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="ozLHcDcbgjPXyltU7WoX-10" target="ozLHcDcbgjPXyltU7WoX-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-10" value="観光地・施設検索" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="400" y="620.01" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="ozLHcDcbgjPXyltU7WoX-12" target="ozLHcDcbgjPXyltU7WoX-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-12" value="経路AIチャット" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1030" y="620.01" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="ozLHcDcbgjPXyltU7WoX-14" target="ozLHcDcbgjPXyltU7WoX-23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-14" value="AI経路提案画面" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1230" y="620.01" width="136" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ozLHcDcbgjPXyltU7WoX-15" target="An1Yd7LlDJFU6XmhIcd--28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-15" value="お楽しみ機能" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="400" y="1145" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-16" value="クーポン" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="400" y="1315" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="ozLHcDcbgjPXyltU7WoX-19" target="ozLHcDcbgjPXyltU7WoX-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="ozLHcDcbgjPXyltU7WoX-19" target="ozLHcDcbgjPXyltU7WoX-23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-19" value="経由地検索画面" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="870" y="620.01" width="106" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--33" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ozLHcDcbgjPXyltU7WoX-22" target="-ejt231Y5lqU7ST-vS26-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-22" value="観光地・施設情報詳細" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="870" y="820" width="184" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-23" value="Googleマップ地図画面" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;" parent="1" vertex="1">
+          <mxGeometry x="1213" y="720.01" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="ozLHcDcbgjPXyltU7WoX-25" target="ozLHcDcbgjPXyltU7WoX-19" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--30" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="ozLHcDcbgjPXyltU7WoX-25" target="ozLHcDcbgjPXyltU7WoX-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ozLHcDcbgjPXyltU7WoX-25" target="ozLHcDcbgjPXyltU7WoX-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ozLHcDcbgjPXyltU7WoX-25" value="観光地・施設情報リスト" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600.5" y="620.01" width="184" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-ejt231Y5lqU7ST-vS26-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="-ejt231Y5lqU7ST-vS26-1" target="-ejt231Y5lqU7ST-vS26-19" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-ejt231Y5lqU7ST-vS26-1" value="投稿" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="400" y="980" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-ejt231Y5lqU7ST-vS26-3" value="評価・口コミ・写真投稿画面" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="870" y="980" width="184" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-ejt231Y5lqU7ST-vS26-12" target="An1Yd7LlDJFU6XmhIcd--6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="-ejt231Y5lqU7ST-vS26-12" target="-ejt231Y5lqU7ST-vS26-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="-ejt231Y5lqU7ST-vS26-12" target="An1Yd7LlDJFU6XmhIcd--24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-ejt231Y5lqU7ST-vS26-12" value="ホーム画面" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="400" y="59.93000000000001" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="-ejt231Y5lqU7ST-vS26-13" target="An1Yd7LlDJFU6XmhIcd--2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="-ejt231Y5lqU7ST-vS26-13" target="An1Yd7LlDJFU6XmhIcd--17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-ejt231Y5lqU7ST-vS26-13" value="ログイン画面" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600.5" y="170" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-ejt231Y5lqU7ST-vS26-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="-ejt231Y5lqU7ST-vS26-19" target="-ejt231Y5lqU7ST-vS26-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-ejt231Y5lqU7ST-vS26-19" value="投稿一覧（マップ上）" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="617.5" y="980" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="An1Yd7LlDJFU6XmhIcd--2" target="An1Yd7LlDJFU6XmhIcd--4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--2" value="アカウント作成画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="170" width="126" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--4" value="作成結果" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="170" width="128" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="An1Yd7LlDJFU6XmhIcd--6" target="An1Yd7LlDJFU6XmhIcd--11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--6" value="アカウント情報" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="599.5" y="59.93000000000001" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="An1Yd7LlDJFU6XmhIcd--11" target="An1Yd7LlDJFU6XmhIcd--13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--11" value="アカウント更新" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="779.5" y="59.93000000000001" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="An1Yd7LlDJFU6XmhIcd--13" target="An1Yd7LlDJFU6XmhIcd--15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--13" value="アカウント更新" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="973.5" y="59.93000000000001" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--15" value="更新結果" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1170.5" y="59.93000000000001" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--17" value="ログイン結果" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="779.5" y="280" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="An1Yd7LlDJFU6XmhIcd--24" target="An1Yd7LlDJFU6XmhIcd--26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--24" value="ログアウト" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600.5" y="420" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--26" value="ログアウト結果" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="780.5" y="420" width="119.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--35" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="An1Yd7LlDJFU6XmhIcd--28" target="An1Yd7LlDJFU6XmhIcd--34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--28" value="チェックイン画面" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="1145" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--37" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="An1Yd7LlDJFU6XmhIcd--34" target="An1Yd7LlDJFU6XmhIcd--36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--34" value="位置情報利用許可確認" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="790" y="1145" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="An1Yd7LlDJFU6XmhIcd--36" value="読み取り結果" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="1145" width="120" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
