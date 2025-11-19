@@ -36,24 +36,48 @@
 	font-size: 13px;
 }
 
+/* main-area の左右パディングは削除（要求どおり） */
 .main-area {
 	/* MainFrame.css で padding-top:42px されていますが、ここでタイトルバー分も追加 */
 	padding-top: 130px; /* 42 (header) + 88 (post-titlebar) = 130 */
 	background: #eee;
 }
 
-/* --- Composer のスタイル（既存ファイルの書き方に合わせ簡潔に） --- */
+/* 代替：main-area の直下要素に左右パディングを渡す（HTMLは変更せずに別の場でパディング確保） */
+.main-area > * {
+	padding-left: 12px;
+	padding-right: 12px;
+}
+
+/* --- Composer のスタイル --- */
 .composer {
 	display: flex;
 	gap: 12px;
 	margin-bottom: 16px;
 }
+
+/* Composer のアバター：内側パディングを追加。box-sizing:border-box にして幅高さは崩さない */
 .composer-left .avatar {
 	width: 48px;
 	height: 48px;
-	border-radius: 50%;
+	box-sizing: border-box; /* パディング込みで外寸が 48x48 になる */
+	border-radius: 20%;
+	background: #fff; /* パディング部分の背景 */
 	object-fit: cover;
+	display: block;
 }
+
+/* 投稿カード内のアバター（post-headで使用）も同様にパディング */
+.post-avatar {
+	width: 40px;
+	height: 40px;
+	box-sizing: border-box;
+	border-radius: 20%;
+	background: #fff;
+	object-fit: cover;
+	display: block;
+}
+
 .composer-right {
 	flex: 1;
 	background: #fff;
@@ -99,7 +123,7 @@
 
 /* preview */
 .composer-preview img {
-	width: 100vw;
+	width: 100%;
 	max-height: 300px;
 	object-fit: cover;
 	border-radius: 8px;
@@ -123,12 +147,6 @@
 	display: flex;
 	gap: 8px;
 	align-items: center;
-}
-.post-avatar {
-	width: 40px;
-	height: 40px;
-	border-radius: 50%;
-	object-fit: cover;
 }
 .post-meta {
 	font-size: 13px;
