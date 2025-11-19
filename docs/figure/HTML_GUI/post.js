@@ -182,8 +182,8 @@
     return [
       {
         id: 'p_sample_1',
-        author: 'S2666',
-        avatar: 'https://avatars.githubusercontent.com/u/3369400?v=4',
+        author: 'はりまや',
+        avatar: 'Harimaya_Bridge.jpg',
         time: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
         text: '先日行ったカフェが最高だった！窓際の席でゆっくりできます ☕️',
         image: '',
@@ -193,10 +193,10 @@
       },
       {
         id: 'p_sample_2',
-        author: 'bob',
-        avatar: 'https://avatars.githubusercontent.com/u/583231?v=4',
+        author: '南風',
+        avatar: 'Harimaya_Bridge.jpg',
         time: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-        text: 'この間読んだマンガが面白かった。おすすめです。',
+        text: 'ここの町並みがすごく綺麗でした。おすすめです。',
         image: '',
         likes: 1,
         liked: false,
