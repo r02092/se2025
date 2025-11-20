@@ -77,12 +77,12 @@
 }
 /* サムネイル画像 */
 .spot-thumb {
-	width: 96px;           /* 固定横幅 */
-	height: 72px;          /* 固定縦幅 */
-	object-fit: cover;     /* 切り取りで中央を表示 */
+	width: 96px; /* 固定横幅 */
+	height: 72px; /* 固定縦幅 */
+	object-fit: cover; /* 切り取りで中央を表示 */
 	border-radius: 8px;
-	flex-shrink: 0;        /* 縮小しない */
-	background: #ddd;      /* 画像読み込み前のプレースホルダ色 */
+	flex-shrink: 0; /* 縮小しない */
+	background: #ddd; /* 画像読み込み前のプレースホルダ色 */
 }
 /* テキスト領域を伸ばす */
 .spot-content {

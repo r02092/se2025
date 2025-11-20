@@ -53,8 +53,13 @@ body {
 	height: 36px;
 	border-radius: 50%;
 	overflow: hidden;
-	background: rgba(255,255,255,0.08); /* 背景（画像が透過している時のため） */
-	border: 2px solid rgba(255,255,255,0.12); /* 軽い枠線 */
+	background: rgba(
+		255,
+		255,
+		255,
+		0.08
+	); /* 背景（画像が透過している時のため） */
+	border: 2px solid rgba(255, 255, 255, 0.12); /* 軽い枠線 */
 	box-sizing: border-box;
 	cursor: pointer;
 	text-decoration: none;
