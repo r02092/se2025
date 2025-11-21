@@ -1,106 +1,91 @@
 <!doctype html>
 <html lang="ja">
-	<head>
-		<meta charset="UTF-8" />
-		<title>SceneTrip - 投稿</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="MainFrame.css" />
-		<link rel="stylesheet" href="post.css" />
-	</head>
-	<body>
-		<div class="container">
-			<div class="header-bar">
-				<div class="title"><img src="logo_white.svg" width="90" /></div>
-				<div class="hamburger">
-					<div class="hamburger-bars">
-						<div class="bar"></div>
-						<div class="bar"></div>
-						<div class="bar"></div>
-					</div>
-				</div>
-				<div class="header-login">
-					<button type="button" onclick="location.href='login.html'">
-						ログイン
-					</button>
-				</div>
-			</div>
+<head>
+  <meta charset="UTF-8" />
+  <title>SceneTrip - 投稿</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="MainFrame.css" />
+  <link rel="stylesheet" href="post.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header-bar">
+      <div class="title"><img src="logo_white.svg" width="90" /></div>
+      <div class="hamburger">
+        <div class="hamburger-bars">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="header-login">
+        <button type="button" onclick="location.href='login.html'">ログイン</button>
+      </div>
+    </div>
 
-			<div class="main-area">
-				<div class="post-titlebar">
-					<h1>みんなの投稿</h1>
-					<div class="post-titlebar-update">
-						<button type="button" onclick="location.href='post.html'">
-							内容更新
-						</button>
-					</div>
-				</div>
+    <div class="main-area">
+      <div class="post-titlebar">
+        <h1>みんなの投稿</h1>
+        <div class="post-titlebar-update">
+          <button type="button" onclick="location.href='post.html'">内容更新</button>
+        </div>
+      </div>
 
-				<!-- Composer（投稿入力） -->
-				<section class="composer">
-					<div class="composer-left">
-						<img class="avatar" src="Profile_pic.JPG" alt="avatar" />
-					</div>
-					<div class="composer-right">
-						<textarea
-							id="composer-text"
-							placeholder="いまどうしてる？"
-						></textarea>
-						<div class="composer-controls">
-							<label class="file-btn">
-								画像
-								<input id="composer-image" type="file" accept="image/*" />
-							</label>
-							<button id="post-btn" class="post-submit">投稿</button>
-						</div>
-						<div
-							id="composer-preview"
-							class="composer-preview"
-							aria-hidden="true"
-						></div>
-					</div>
-				</section>
+      <!-- Composer（投稿入力） -->
+      <section class="composer">
+        <div class="composer-left">
+          <img class="avatar" src="Profile_pic.JPG" alt="avatar" />
+        </div>
+        <div class="composer-right">
+          <textarea id="composer-text" placeholder="いまどうしてる？"></textarea>
+          <div class="composer-controls">
+            <label class="file-btn">
+              画像
+              <input id="composer-image" type="file" accept="image/*" />
+            </label>
+            <button id="post-btn" class="post-submit">投稿</button>
+          </div>
+          <div id="composer-preview" class="composer-preview" aria-hidden="true"></div>
+        </div>
+      </section>
 
-				<!-- フィード（投稿カードをここに差し込む） -->
-				<section id="feed" class="feed">
-					<!-- post.js がここに投稿カードを挿入します -->
-				</section>
+      <!-- フィード（投稿カードをここに差し込む） -->
+      <section id="feed" class="feed">
+        <!-- post.js がここに投稿カードを挿入します -->
+      </section>
 
-				<!-- 投稿カードのテンプレート（post.js がこれをクローンします） -->
-				<template id="post-template">
-					<article class="post-card">
-						<header class="post-head">
-							<img class="post-avatar" alt="avatar" />
-							<div class="post-meta">
-								<div class="post-author"></div>
-								<div class="post-time"></div>
-							</div>
-						</header>
-						<div class="post-body"></div>
-						<img class="post-image" alt="" />
-						<footer class="post-actions">
-							<!-- <button class="btn-like">
-								いいね <span class="like-count">0</span>
-							</button>
-							<button class="btn-comment">
-								コメント <span class="comment-count">0</span>
-							</button>
-							<button class="btn-share">シェア</button> -->
-						</footer>
-						<section class="comments" aria-hidden="true">
-							<div class="comments-list"></div>
-							<div class="comments-form">
-								<input class="comment-input" placeholder="コメントを入力..." />
-								<button class="comment-send">送信</button>
-							</div>
-						</section>
-					</article>
-				</template>
-			</div>
-			<!-- .main-area -->
+      <!-- 投稿カードのテンプレート（post.js がこれをクローンします） -->
+      <template id="post-template">
+        <article class="post-card">
+          <header class="post-head">
+            <img class="post-avatar" alt="avatar" />
+            <div class="post-meta">
+              <div class="post-author"></div>
+              <div class="post-time"></div>
+            </div>
+          </header>
+          <div class="post-body"></div>
+          <img class="post-image" alt="" />
+          <footer class="post-actions">
+            <button class="btn-like">いいね <span class="like-count">0</span></button>
+            <button class="btn-comment">コメント <span class="comment-count">0</span></button>
+            <button class="btn-share">シェア</button>
+          </footer>
+          <section class="comments" aria-hidden="true">
+            <div class="comments-list"></div>
+            <div class="comments-form">
+              <input class="comment-input" placeholder="コメントを入力..." />
+              <button class="comment-send">送信</button>
+            </div>
+          </section>
+        </article>
+      </template>
 
-			<div class="bottom-bar">
+    </div> <!-- .main-area -->
+
+    <div class="bottom-bar">
 				<nav class="bottom-menu">
-					<a href="home.html" class="bottom-btn selected">
+					<a href="home.html" class="bottom-btn">
 						<svg
 							class="bottom-icon"
 							viewBox="0 0 132.29166 132.29167"
@@ -125,7 +110,7 @@
 						<span class="bottom-label">ホーム</span>
 					</a>
 
-					<a href="post.html" class="bottom-btn">
+					<a href="post.html" class="bottom-btn selected">
 						<svg class="bottom-icon" viewBox="0 0 512 512" aria-hidden="true">
 							<g>
 								<path
@@ -215,10 +200,9 @@
 					</a>
 				</nav>
 			</div>
-		</div>
-		<!-- .container -->
+  </div> <!-- .container -->
 
-		<!-- スクリプトはここ（body 終了直前）で読み込む -->
-		<script src="post.js"></script>
-	</body>
+  <!-- スクリプトはここ（body 終了直前）で読み込む -->
+  <script src="post.js"></script>
+</body>
 </html>
