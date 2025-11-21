@@ -1,0 +1,205 @@
+.coupon-titlebar {
+	background-image: linear-gradient(#c2ebdc /* #eee */ 70%, transparent);
+	height: 88px;
+	margin: 42px 0 20px;
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	position: fixed; /* fixedに変更 */
+	top: 0; /* 画面上部に固定 */
+	left: 0;
+	width: 100vw;
+	color: #000;
+	z-index: 500; /* 他UIより上に */
+}
+.coupon-titlebar h1 {
+	text-align: center;
+	width: 100%;
+}
+.coupon-titlebar-update {
+	position: absolute;
+	right: 8px;
+	top: 26px;
+	height: 42px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.coupon-titlebar-update button {
+	background: #14b888;
+	color: #fff;
+	border: 0px;
+	padding: 6px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-weight: 700;
+	font-size: 13px;
+}
+
+.main-area {
+	/* MainFrame.css で padding-top:42px されていますが、ここでタイトルバー分も追加 */
+	padding-top: 130px; /* 42 (header) + 88 (post-titlebar) = 130 */
+	background: #eee;
+}
+
+/* フィルタ / ソート */
+.coupon-filter {
+	width: 90%;
+	margin: 0 auto 14px;
+	align-items: center;
+	gap: 12px;
+	justify-content: space-between;
+}
+.chip-group {
+	display: flex;
+	gap: 8px;
+}
+.chip {
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	padding: 6px 10px;
+	border-radius: 999px;
+	cursor: pointer;
+	font-size: 13px;
+}
+.chip.active {
+	background: #14b888;
+	color: #fff;
+	border-color: rgba(20, 184, 136, 0.6);
+}
+.sort-select {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+}
+.sort-select select {
+	padding: 6px;
+	border-radius: 6px;
+	border: 1px solid #ddd;
+}
+
+/* クーポン一覧のコンテナ */
+.coupon-list {
+	width: 90%;
+	margin: 0 auto 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding-bottom: 8px; /* 少し余白 */
+	box-sizing: border-box;
+}
+
+/* 個別カード */
+.coupon-card {
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+	display: flex;
+	align-items: center;
+	padding: 12px;
+	gap: 12px;
+	transition:
+		transform 0.12s ease,
+		box-shadow 0.12s ease;
+}
+.coupon-card:focus {
+	outline: 3px solid rgba(20, 184, 136, 0.18);
+}
+.coupon-card:hover {
+	transform: translateY(-3px);
+}
+
+/* サムネイル */
+.coupon-thumb {
+	width: 84px;
+	height: 84px;
+	object-fit: cover;
+	border-radius: 8px;
+	flex-shrink: 0;
+	background: #eee;
+}
+
+/* 情報領域 */
+.coupon-info {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+.coupon-title {
+	margin: 0 0 6px 0;
+	font-size: 16px;
+	color: #0b6b4d;
+}
+.coupon-desc {
+	margin: 0 0 8px 0;
+	color: #666;
+	font-size: 14px;
+}
+.coupon-meta {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	font-size: 13px;
+	color: #666;
+}
+.coupon-tag {
+	background: #f0f8f7;
+	color: #0b6b4d;
+	padding: 4px 8px;
+	border-radius: 999px;
+	font-weight: 700;
+	font-size: 12px;
+}
+.coupon-exp {
+	font-size: 12px;
+	color: #999;
+}
+
+/* アクション領域 */
+.coupon-action {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	align-items: flex-end;
+}
+.btn-primary {
+	background: #14b888;
+	color: #fff;
+	border: 0;
+	padding: 8px 12px;
+	border-radius: 6px;
+	cursor: pointer;
+	font-weight: 700;
+}
+.btn-ghost {
+	background: transparent;
+	color: #0b6b4d;
+	border: 1px solid #e0e0e0;
+	padding: 6px 10px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+/* 状態バッジ */
+.badge-muted {
+	background: #f0f0f0;
+	color: #999;
+	padding: 6px 10px;
+	border-radius: 6px;
+	font-weight: 700;
+}
+.badge-done {
+	background: #e8f7ef;
+	color: #14b888;
+	padding: 6px 10px;
+	border-radius: 6px;
+	font-weight: 700;
+}
+
+/* expired / redeemed の見た目 */
+.coupon-card.expired {
+	opacity: 0.6;
+}
+.coupon-card.redeemed {
+	opacity: 0.85;
+}
