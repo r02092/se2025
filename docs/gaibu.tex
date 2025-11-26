@@ -101,6 +101,7 @@
 本システムを利用するユーザーがログインおよびログアウトを行うための機能です。
 ユーザーは、ユーザー名とパスワードを設定してアカウント登録をすることでログインができ、
 現在設定しているパスワードを再度入力することを条件にアカウント情報を再度設定できます。
+また、Google アカウントによるソーシャルログインが可能です。
 さらに、RFC 6238に準拠したTOTPによる二要素認証を設定できます。
 ログイン不要で利用できる機能は、観光地・施設への経路検索のみになります。
 ログインに成功すると、ユーザーはシステムの全ての機能を利用でき、
@@ -819,8 +820,15 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 \end{table}
 このシステムでは、管理者や事業者を含む全ての利用者を
 共通のusersテーブル（\cref{tb:db-users}）で
-扱い、\cref{tb:db-users-type}に示すようにtypeカラムの値により
-それらを区別します。
+扱います。
+ログインにはGoogle アカウントも使用できるため、
+\cref{tb:db-users-provider}に値の意味を示すproviderカラムで
+アカウントのサービスプロバイダを区別し、
+識別子をlogin\_nameカラムに保存します。
+この設計により、ソーシャルログインの
+サービスプロバイダの将来的な拡張も容易となっています。
+管理者であるかどうかは、\cref{tb:db-users-permission}に示すようにpermissionカラムの値により
+区別します。
 事業者の場合、住所の登録を要するものとします。
 住所は郵便番号およびJIS X 0402:2020で
 定められた市区町村コード（JIS X 0401:1973で定められた
@@ -841,9 +849,10 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
 		id & INT UNSIGNED & PK & ID \\ \hline
+		provider & TINYINT UNSIGNED & UK, NOT NULL & サービスプロバイダ \\ \hline
 		login\_name & VARCHAR(255) & UK, NOT NULL & ログイン名 \\ \hline
-		password & VARCHAR(255) & NOT NULL & ハッシュ化されたパスワード \\ \hline
-		type & TINYINT UNSIGNED & NOT NULL & 種別 \\ \hline
+		password & VARCHAR(255) & & ハッシュ化されたパスワード \\ \hline
+		permission & TINYINT UNSIGNED & NOT NULL & 種別 \\ \hline
 		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
 		points & INT UNSIGNED & NOT NULL & ポイント数 \\ \hline
 		num\_plan\_std & INT UNSIGNED & NOT NULL & スタンダードプランの契約数 \\ \hline
@@ -863,10 +872,20 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 \end{table}
 \begin{table}[H]
 	\centering
-	\caption{usersテーブルのtypeカラムについて}\label{tb:db-users-type}
+	\caption{usersテーブルのproviderカラムについて}\label{tb:db-users-provider}
 	\begin{tabular}{|r|l|}
 		\hline
-		\thead{type} & \thead{意味} \\ \hline
+		\thead{provider} & \thead{意味} \\ \hline
+		0 & SceneTrip \\ \hline
+		1 & Google \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{usersテーブルのpermissionカラムについて}\label{tb:db-users-permission}
+	\begin{tabular}{|r|l|}
+		\hline
+		\thead{permission} & \thead{意味} \\ \hline
 		0 & 管理者 \\ \hline
 		1 & 利用者（事業者を含む） \\ \hline
 	\end{tabular}
