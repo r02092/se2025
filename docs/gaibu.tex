@@ -286,16 +286,23 @@ UGCの監視・管理ができます。
 		1/0/ログイン画面表示,
 		0/0/必要情報を入力,
 		0/0/送信ボタンをクリック,
+		1/0/入力値を検証,
+		1/1/不備がない,
 		1/0/SQLクエリを生成,
 		2/0/検索を実行,
-		2/0/結果を返す,
 		1/1/ユーザー情報が存在する,
 		1/0/ログイン成功の旨を表示,
 		0/0/結果を確認
 	}{
-		\node[action](decision0)at(1,-10){存在しない旨を表示};
-		\draw[arrow](action8)-|(1.45,-10)node[label,pos=.57]{存在しない}|-(decision0);
-		\draw[arrow](decision0)--(action10);
+		% --- 入力不備時のループ (追加した事前チェックのNGルート) ---
+        \node[action](errorInput)at(2.5,-6){不備がある旨\\を表示};
+        \draw[arrow](action6) -| node[label,pos=0.5]{不備がある} (errorInput);
+        \draw[arrow](errorInput) |- (action3);
+
+        % --- ユーザーが存在しない/パスワード違いのループ ---
+        \node[action](errorAuth)at(3.5,-9){認証失敗の旨\\を表示};
+        \draw[arrow](action9) -| node[label,pos=0.5]{一致しない} (errorAuth);
+        \draw[arrow](errorAuth) |- (action3)
 	}
 	\caption{ログイン}\label{fig:act-login}
 \end{figure}
