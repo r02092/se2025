@@ -213,6 +213,7 @@ UGCの監視・管理ができます。
 
 \subsection{共通機能}
 
+\subsubsection{利用規約同意}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム}{1.5}{
@@ -225,6 +226,7 @@ UGCの監視・管理ができます。
 	\caption{利用規約同意}\label{fig:act-agree_terms}
 \end{figure}
 
+\subsubsection{アカウント作成}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.2}{
@@ -250,6 +252,7 @@ UGCの監視・管理ができます。
 	\caption{アカウント作成}\label{fig:act-register_account}
 \end{figure}
 
+\subsubsection{アカウント情報更新}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
@@ -271,6 +274,7 @@ UGCの監視・管理ができます。
 	\caption{アカウント情報更新}\label{fig:act-edit_account}
 \end{figure}
 
+\subsubsection{ログイン}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
@@ -292,6 +296,7 @@ UGCの監視・管理ができます。
 	\caption{ログイン}\label{fig:act-login}
 \end{figure}
 
+\subsubsection{ログアウト}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
@@ -306,6 +311,7 @@ UGCの監視・管理ができます。
 	\caption{ログアウト}\label{fig:act-logout}
 \end{figure}
 
+\subsubsection{スタンプ}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.2}{
@@ -333,6 +339,7 @@ UGCの監視・管理ができます。
 
 \subsection{管理者}
 
+\subsubsection{観光地・施設情報追加}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
@@ -355,6 +362,7 @@ UGCの監視・管理ができます。
 	\caption{観光地・施設情報追加}\label{fig:act-add_spot}
 \end{figure}
 
+\subsubsection{観光地・施設情報編集}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
@@ -376,6 +384,7 @@ UGCの監視・管理ができます。
 	\caption{観光地・施設情報編集}\label{fig:act-edit_spot}
 \end{figure}
 
+\subsubsection{観光地・施設情報削除}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
@@ -401,6 +410,7 @@ UGCの監視・管理ができます。
 	\caption{観光地・施設情報削除}\label{fig:act-delete_spot}
 \end{figure}
 
+\subsubsection{ユーザー情報追加}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
@@ -423,6 +433,7 @@ UGCの監視・管理ができます。
 	\caption{ユーザー情報追加}\label{fig:act-add_user}
 \end{figure}
 
+\subsubsection{ユーザー情報編集}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
@@ -444,6 +455,7 @@ UGCの監視・管理ができます。
 	\caption{ユーザー情報編集}\label{fig:act-edit_user}
 \end{figure}
 
+\subsubsection{ユーザー情報削除}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
@@ -469,6 +481,7 @@ UGCの監視・管理ができます。
 	\caption{ユーザー情報削除}\label{fig:act-delete_user}
 \end{figure}
 
+\subsubsection{UGC監視・管理機能}
 \begin{figure}[H]
 	\centering
 	\adiagram{管理者,システム,データベース}{1.5}{
@@ -495,6 +508,7 @@ UGCの監視・管理ができます。
 	\caption{UGC監視・管理}\label{fig:act-manage_ugc}
 \end{figure}
 
+\subsubsection{問い合わせ返信}
 \begin{figure}[H]
 	\centering
 	\adiagram{管理者,システム,データベース}{1.5}{
@@ -518,8 +532,8 @@ UGCの監視・管理ができます。
 	\caption{問い合わせ返信}\label{fig:act-reply_inquiry}
 \end{figure}
 
-\subsection{利用者}
-\subsubsection{ログイン不要機能}
+\subsection{利用者(ログイン不要機能)}
+\subsubsection{観光地・施設検索}
 
 \begin{figure}[H]
 	\centering
@@ -540,7 +554,8 @@ UGCの監視・管理ができます。
 	\caption{観光地・施設検索}\label{fig:act-spot_search}
 \end{figure}
 
-\subsubsection{ログイン必須機能}
+\subsection{利用者(ログイン必須機能)}
+\subsubsection{写真投稿・共有}
 
 \begin{figure}[H]
 	\centering
@@ -563,6 +578,7 @@ UGCの監視・管理ができます。
 	\caption{写真投稿・共有}\label{fig:act-post_spot}
 \end{figure}
 
+\subsubsection{経路作成}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.6}{
@@ -582,6 +598,7 @@ UGCの監視・管理ができます。
 	\caption{経路作成}\label{fig:act-create_route}
 \end{figure}
 
+\subsubsection{施設評価}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
@@ -603,6 +620,7 @@ UGCの監視・管理ができます。
 	\caption{施設評価}\label{fig:act-post_review}
 \end{figure}
 
+\subsubsection{AIによる観光地・施設推薦}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,AI,データベース}{2.0}{
@@ -620,6 +638,7 @@ UGCの監視・管理ができます。
 	\caption{AIによる観光地・施設推薦}\label{fig:act-chat_spot_recommendation}
 \end{figure}
 
+\subsubsection{クーポン受け取り}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
@@ -639,6 +658,7 @@ UGCの監視・管理ができます。
 	\caption{クーポン受け取り}\label{fig:act-receive_coupon}
 \end{figure}
 
+\subsubsection{問い合わせ対応}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
@@ -661,6 +681,7 @@ UGCの監視・管理ができます。
 \end{figure}
 
 \subsection{事業者}
+\subsubsection{スポット作成}
 \begin{figure}[H]
 	\centering
 	\adiagram{利用者,システム,データベース}{1.5}{
@@ -682,6 +703,7 @@ UGCの監視・管理ができます。
 	\caption{スポット作成}\label{fig:act-create_spot}
 \end{figure}
 
+\subsubsection{観光データ分析API}
 \begin{figure}[H]
 	\centering
 	\adiagram{事業者,システム,データベース}{1.5}{
@@ -702,6 +724,7 @@ UGCの監視・管理ができます。
 	\caption{観光データ分析API}\label{fig:act-data_analysis_api}
 \end{figure}
 
+\subsubsection{クーポン発行}
 \begin{figure}[H]
 	\centering
 	\adiagram{事業者,システム,データベース}{1.5}{
