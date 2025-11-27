@@ -230,7 +230,7 @@ UGCの監視・管理ができます。
 \subsubsection{アカウント作成}
 \begin{figure}[H]
 	\centering
-	\adiagram{利用者,システム,データベース}{1.2}{
+	\adiagram{利用者,システム,データベース}{1.5}{
 		0/0/アカウント作成を選択,
 		1/0/ユーザー属性選択画面表示,
 		0/0/ユーザー属性選択,
@@ -238,20 +238,15 @@ UGCの監視・管理ができます。
 		0/0/必要情報を入力,
 		0/0/作成ボタンをクリック,
 		1/0/入力値を検証,
-		1/1/不備がない,
+		1/1/入力値に不備がない,
 		1/0/SQLクエリを生成,
-		2/0/入力値重複チェック,
-		2/1/重複がない,
 		2/0/アカウント情報を保存,
 		1/0/作成完了の旨を表示,
 		0/0/結果を確認
 	}{
-		% --- 重複エラー時の処理 (分岐2からのNGルート) ---
-        \node[action](error2)at(3.5,-11){登録済みである旨\\を表示};
-        % 分岐11からエラー表示へ
-        \draw[arrow](action11) -| node[label,pos=0.5]{重複あり} (error2);
-        % エラー表示から入力(action5)へ戻るループ線 (線が重ならないよう迂回)
-        \draw[arrow](error2) |- (action5);
+		\node[action](decision0)at(1,-12){追加できない旨を表示};
+		\draw[arrow](action8)-|(1.45,-12)node[label,pos=.5]{不備がある}|-(decision0);
+		\draw[arrow](decision0)--(action12);
 	}
 	\caption{アカウント作成}\label{fig:act-register_account}
 \end{figure}
@@ -273,7 +268,7 @@ UGCの監視・管理ができます。
 	}{
 		\node[action](decision0)at(1,-10){不備がある旨を表示};
 		\draw[arrow](action6)-|(1.45,-8)node[label,pos=.57]{不備がある}|-(decision0);
-		\draw[arrow](decision0)--(action10);
+		\draw[arrow](decision0)-|(0.45,-3)|-(action3);
 	}
 	\caption{アカウント情報更新}\label{fig:act-edit_account}
 \end{figure}
@@ -287,22 +282,19 @@ UGCの監視・管理ができます。
 		0/0/必要情報を入力,
 		0/0/送信ボタンをクリック,
 		1/0/入力値を検証,
-		1/1/不備がない,
+		1/1/入力値に不備がない,
 		1/0/SQLクエリを生成,
 		2/0/検索を実行,
 		1/1/ユーザー情報が存在する,
 		1/0/ログイン成功の旨を表示,
 		0/0/結果を確認
 	}{
-		% --- 入力不備時のループ (追加した事前チェックのNGルート) ---
-        \node[action](errorInput)at(2.5,-6){不備がある旨\\を表示};
-        \draw[arrow](action6) -| node[label,pos=0.5]{不備がある} (errorInput);
-        \draw[arrow](errorInput) |- (action3);
-
-        % --- ユーザーが存在しない/パスワード違いのループ ---
-        \node[action](errorAuth)at(3.5,-9){認証失敗の旨\\を表示};
-        \draw[arrow](action9) -| node[label,pos=0.5]{一致しない} (errorAuth);
-        \draw[arrow](errorAuth) |- (action3)
+		\node[action](decision0)at(1,-8){不備がある旨を表示};
+		\draw[arrow](action6)-|(1.45,-8)node[label,pos=.57]{不備がある}|-(decision0);
+		\draw[arrow](decision0)-|(0.45,-3)|-(action3);
+		\node[action](decision1)at(1,-12){存在しない旨を表示};
+		\draw[arrow](action10)-|(1.45,-12)node[label,pos=.57]{存在しない}|-(decision1);
+		\draw[arrow](decision1)-|(0.45,-3)|-(action12);
 	}
 	\caption{ログイン}\label{fig:act-login}
 \end{figure}
@@ -320,32 +312,6 @@ UGCの監視・管理ができます。
 		% 不備がある場合の処理
 	}
 	\caption{ログアウト}\label{fig:act-logout}
-\end{figure}
-
-\subsubsection{スタンプ}
-\begin{figure}[H]
-	\centering
-	\adiagram{利用者,システム,データベース}{1.2}{
-		0/0/お楽しみ機能タブを選択,
-		1/0/お楽しみ画面表示,
-		0/0/チェックイン画面を\\クリック,
-		1/0/カメラを起動,
-		0/0/カメラで\\二次元コードを読み取る,
-		1/0/施設情報を取得,
-		1/0/位置情報機能を起動,
-		0/0/位置情報の利用を許可,
-		1/0/位置情報を取得,
-		2/0/現在地情報と\\施設情報を照合,
-		1/1/位置情報が一致する,
-		2/0/ユーザーの\\スタンプ情報を更新,
-		1/0/スタンプ取得の表示,
-		0/0/結果を確認
-	}{
-		\node[action](decision0)at(1,-14){取得できない旨を表示};
-		\draw[arrow](action11)-|(1.45,-14)node[label,pos=.57]{一致しない}|-(decision0);
-		\draw[arrow](decision0)--(action14);
-	}
-	\caption{スタンプ}\label{fig:act-post_stamp}
 \end{figure}
 
 \subsection{管理者}
@@ -522,8 +488,11 @@ UGCの監視・管理ができます。
 \subsubsection{問い合わせ返信}
 \begin{figure}[H]
 	\centering
-	\adiagram{管理者,システム,データベース}{1.5}{
+	\adiagram{管理者,システム,データベース}{1.25}{
 		0/0/問い合わせ一覧画面を開く,
+		1/0/SQLクエリを生成,
+		2/0/問い合わせ一覧を検索,
+		2/0/結果を返す,
 		1/0/問い合わせ一覧を表示,
 		0/0/返信するユーザーを選択,
 		1/0/問い合わせ内容と\\返信フォームを表示,
@@ -536,9 +505,9 @@ UGCの監視・管理ができます。
 		1/0/返信完了画面を表示,
 		0/0/結果を確認
 	}{
-		\node[action](decision1)at(1,-12){返信できない旨を表示};
-		\draw[arrow](action8)-|(1.45,-11)node[label,pos=.57]{不備がある}|-(decision1);
-		\draw[arrow](decision1)--(action12);
+		\node[action](decision1)at(1,-15){返信できない旨を表示};
+		\draw[arrow](action10)-|(1.45,-15)node[label,pos=.57]{不備がある}|-(decision1);
+		\draw[arrow](decision1)-|(0.45,-8)|-(action8);
 	}
 	\caption{問い合わせ返信}\label{fig:act-reply_inquiry}
 \end{figure}
@@ -647,6 +616,32 @@ UGCの監視・管理ができます。
 	}{
 	}
 	\caption{AIによる観光地・施設推薦}\label{fig:act-chat_spot_recommendation}
+\end{figure}
+
+\subsubsection{スタンプ}
+\begin{figure}[H]
+	\centering
+	\adiagram{利用者,システム,データベース}{1.2}{
+		0/0/お楽しみ機能タブを選択,
+		1/0/お楽しみ画面表示,
+		0/0/チェックイン画面を\\クリック,
+		1/0/カメラを起動,
+		0/0/カメラで\\二次元コードを読み取る,
+		1/0/施設情報を取得,
+		1/0/位置情報機能を起動,
+		0/0/位置情報の利用を許可,
+		1/0/位置情報を取得,
+		2/0/現在地情報と\\施設情報を照合,
+		1/1/位置情報が一致する,
+		2/0/ユーザーの\\スタンプ情報を更新,
+		1/0/スタンプ取得の表示,
+		0/0/結果を確認
+	}{
+		\node[action](decision0)at(1,-14){取得できない旨を表示};
+		\draw[arrow](action11)-|(1.45,-14)node[label,pos=.57]{一致しない}|-(decision0);
+		\draw[arrow](decision0)--(action14);
+	}
+	\caption{スタンプ}\label{fig:act-post_stamp}
 \end{figure}
 
 \subsubsection{クーポン受け取り}
