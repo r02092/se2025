@@ -289,12 +289,12 @@ UGCの監視・管理ができます。
 		1/0/ログイン成功の旨を表示,
 		0/0/結果を確認
 	}{
-		\node[action](decision0)at(1,-8){不備がある旨を表示};
-		\draw[arrow](action6)-|(1.45,-8)node[label,pos=.57]{不備がある}|-(decision0);
+		\node[action](decision0)at(1,-7.7){不備がある旨を表示};
+		\draw[arrow](action6)-|(1.45,-7.7)node[label,pos=.57]{不備がある}|-(decision0);
 		\draw[arrow](decision0)-|(0.45,-3)|-(action3);
 		\node[action](decision1)at(1,-12){存在しない旨を表示};
-		\draw[arrow](action10)-|(1.45,-12)node[label,pos=.57]{存在しない}|-(decision1);
-		\draw[arrow](decision1)-|(0.45,-3)|-(action12);
+		\draw[arrow](action10)-|(1.45,-12)node[label,pos=.7]{存在しない}|-(decision1);
+		\draw[arrow](decision1)-|(0.45,-3)|-(action3);
 	}
 	\caption{ログイン}\label{fig:act-login}
 \end{figure}
