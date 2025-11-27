@@ -238,17 +238,20 @@ UGCの監視・管理ができます。
 		0/0/必要情報を入力,
 		0/0/作成ボタンをクリック,
 		1/0/入力値を検証,
+		1/1/不備がない,
 		1/0/SQLクエリを生成,
 		2/0/入力値重複チェック,
-		2/0/結果を返す,
-		1/1/入力値に不備がない,
+		2/1/重複がない,
 		2/0/アカウント情報を保存,
 		1/0/作成完了の旨を表示,
 		0/0/結果を確認
 	}{
-		\node[action](decision0)at(1,-14){不備がある旨を表示};
-		\draw[arrow](action11)-|(1.45,-14)node[label,pos=.57]{不備がある}|-(decision0);
-		\draw[arrow](decision0)--(action14);
+		% --- 重複エラー時の処理 (分岐2からのNGルート) ---
+        \node[action](error2)at(3.5,-11){登録済みである旨\\を表示};
+        % 分岐11からエラー表示へ
+        \draw[arrow](action11) -| node[label,pos=0.5]{重複あり} (error2);
+        % エラー表示から入力(action5)へ戻るループ線 (線が重ならないよう迂回)
+        \draw[arrow](error2) |- (action5);
 	}
 	\caption{アカウント作成}\label{fig:act-register_account}
 \end{figure}
