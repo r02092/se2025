@@ -1,5 +1,5 @@
 .post-titlebar {
-	background-image: linear-gradient(#c2ebdc /* #eee */ 70%, transparent);
+	background-image: linear-gradient(#eee 70%, transparent);
 	height: 88px;
 	margin: 42px 0 20px;
 	display: flex;

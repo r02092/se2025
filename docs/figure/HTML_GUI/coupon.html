@@ -26,18 +26,15 @@
 			</div>
 
 			<div class="main-area">
-				<!-- タイトルバー（ヘッダー下に固定しない） -->
+				<!-- タイトルバー（ヘッダー下に固定） -->
 				<div class="coupon-titlebar">
 					<h1>クーポン</h1>
-					<div class="coupon-titlebar-update">
-						<button type="button" onclick="location.href='coupon.html'">
-							更新
-						</button>
-					</div>
+					<!-- 更新ボタンをフィルタ領域に移動したのでここは空にしておきます -->
+					<div class="coupon-titlebar-update" aria-hidden="true"></div>
 				</div>
 
-				<!-- フィルタ／ソート領域 -->
-				<div class="coupon-filter">
+				<!-- フィルタ／ソート領域（タイトルバーの下に固定） -->
+				<div class="coupon-filter" role="region" aria-label="クーポンフィルタ">
 					<div class="chip-group" role="tablist" aria-label="クーポンカテゴリ">
 						<button class="chip active" data-cat="all" aria-pressed="true">
 							すべて
@@ -51,14 +48,31 @@
 						<button class="chip" data-cat="attraction" aria-pressed="false">
 							観光
 						</button>
+						<!-- サンプルで長めのカテゴリを追加して横スクロールを確認しやすく -->
+						<button class="chip" data-cat="experience" aria-pressed="false">
+							体験アクティビティ
+						</button>
+						<button class="chip" data-cat="stay" aria-pressed="false">
+							宿泊
+						</button>
 					</div>
-					<div class="sort-select">
-						<label for="sort">並び替え</label>
-						<select id="sort" name="sort">
-							<option value="recommended">おすすめ順</option>
-							<option value="new">新着順</option>
-							<option value="exp">期限が近い順</option>
-						</select>
+
+					<div class="sort-wrap">
+						<div class="sort-select">
+							<label for="sort">並び替え</label>
+							<select id="sort" name="sort">
+								<option value="recommended">おすすめ順</option>
+								<option value="new">新着順</option>
+								<option value="exp">期限が近い順</option>
+							</select>
+						</div>
+
+						<!-- 更新ボタンをここに配置 -->
+						<div class="coupon-filter-update">
+							<button type="button" onclick="location.href='coupon.html'">
+								更新
+							</button>
+						</div>
 					</div>
 				</div>
 

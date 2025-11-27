@@ -1,5 +1,5 @@
 .coupon-titlebar {
-	background-image: linear-gradient(#c2ebdc /* #eee */ 70%, transparent);
+	background-image: linear-gradient(#eee 70%, transparent);
 	height: 88px;
 	margin: 42px 0 20px;
 	display: flex;
@@ -38,22 +38,51 @@
 
 .main-area {
 	/* MainFrame.css で padding-top:42px されていますが、ここでタイトルバー分も追加 */
-	padding-top: 130px; /* 42 (header) + 88 (post-titlebar) = 130 */
+	padding-top: 220px;
 	background: #eee;
 }
 
 /* フィルタ / ソート */
 .coupon-filter {
-	width: 90%;
-	margin: 0 auto 14px;
-	align-items: center;
-	gap: 12px;
-	justify-content: space-between;
+	position: fixed;
+	top: 110px;
+	left: 0;
+	width: 100%;
+	z-index: 450; /* titlebarより下、コンテンツより上 */
+	box-sizing: border-box;
+	/* 背景をつけて下のコンテンツが見えにくいようにする（必要なら調整） */
+	padding: 8px 0;
 }
+
+/* 中身を中央に寄せるラッパー代わり */
+.coupon-filter > .chip-group,
+.coupon-filter > .sort-wrap {
+	width: 90%;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+/* chip-group を横スクロール可能に */
 .chip-group {
 	display: flex;
 	gap: 8px;
+	overflow-x: auto;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+	padding: 6px 4px;
+	/* optional: hide native scrollbar on modern browsers while keeping accessibility */
+	scrollbar-width: thin;
 }
+.chip-group::-webkit-scrollbar {
+	background: #fff;
+	height: 8px;
+}
+.chip-group::-webkit-scrollbar-thumb {
+	background: rgba(0, 0, 0, 0.08);
+	border-radius: 999px;
+}
+
+/* チップは横スクロール時に縮まないようにする */
 .chip {
 	background: #fff;
 	border: 1px solid #e0e0e0;
@@ -61,11 +90,21 @@
 	border-radius: 999px;
 	cursor: pointer;
 	font-size: 13px;
+	flex: 0 0 auto; /* これで横スクロール中に幅が保たれる */
 }
 .chip.active {
 	background: #14b888;
 	color: #fff;
 	border-color: rgba(20, 184, 136, 0.6);
+}
+
+/* sort-wrap: 並び替えと更新ボタンを横並びに */
+.sort-wrap {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 10px;
+	margin-top: 8px;
 }
 .sort-select {
 	display: flex;
@@ -77,6 +116,19 @@
 	padding: 6px;
 	border-radius: 6px;
 	border: 1px solid #ddd;
+	background: #fff;
+}
+
+/* 更新ボタン（フィルタ領域内） */
+.coupon-filter-update button {
+	background: #14b888;
+	color: #fff;
+	border: 0px;
+	padding: 6px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-weight: 700;
+	font-size: 13px;
 }
 
 /* クーポン一覧のコンテナ */
