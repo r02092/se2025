@@ -306,7 +306,7 @@ UGCの監視・管理ができます。
         % --- ユーザーが存在しない/パスワード違いのループ ---
         \node[action](errorAuth)at(3.5,-9){認証失敗の旨\\を表示};
         \draw[arrow](action9) -| node[label,pos=0.5]{一致しない} (errorAuth);
-        \draw[arrow](errorAuth) |- (action3)
+        \draw[arrow](errorAuth) |- (action3);
 	}
 	\caption{ログイン}\label{fig:act-login}
 \end{figure}
