@@ -892,7 +892,7 @@ UGCの監視・管理ができます。
 IE記法によるデータベースのER図を\cref{fig:er}に示します。
 \begin{figure}[H]
 	\centering
-	\includegraphics[bb=16.919437 15.39 689.334588 581.543982,clip,scale=.66]{gaibu-er.pdf}
+	\includegraphics[bb=16.408054 15.39 668.505917 581.561982,clip,scale=.66]{gaibu-er.pdf}
 	\caption{ER図}\label{fig:er}
 \end{figure}
 \subsection{テーブルとカラムの詳細}
@@ -1015,6 +1015,7 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		permission & TINYINT UNSIGNED & NOT NULL & 種別 \\ \hline
 		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
 		points & INT UNSIGNED & NOT NULL & ポイント数 \\ \hline
+		icon\_ext & VARCHAR(4) & NOT NULL & アイコンの拡張子 \\ \hline
 		num\_plan\_std & INT UNSIGNED & NOT NULL & スタンダードプランの契約数 \\ \hline
 		num\_plan\_prm & INT UNSIGNED & NOT NULL & プレミアムプランの契約数 \\ \hline
 		postal\_code & INT UNSIGNED & & 郵便番号 \\ \hline
@@ -1079,6 +1080,8 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
 		lng & INT UNSIGNED & NOT NULL & 経度 \\ \hline
 		lat & INT UNSIGNED & NOT NULL & 緯度 \\ \hline
+		img\_ext & VARCHAR(4) & NOT NULL & 画像の拡張子 \\ \hline
+		stamp\_key & BIGINT UNSIGNED & UK2, NOT NULL & スタンプ確認用キー \\ \hline
 		created\_at & DATETIME & & 作成時刻 \\ \hline
 		updated\_at & DATETIME & & 更新時刻 \\ \hline
 		deleted\_at & DATETIME & & 削除時刻 \\ \hline
@@ -1148,7 +1151,8 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		id & INT UNSIGNED & PK & ID \\ \hline
 		spot\_id & INT UNSIGNED & FK, NOT NULL & 使用できるスポット \\ \hline
 		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
-		cond\_spot\_id & INT UNSIGNED & NOT NULL & 行く必要のあるスポット \\ \hline
+		cond\_spot\_id & INT UNSIGNED & & 行く必要のあるスポット \\ \hline
+		expires\_at & DATETIME & & 期限切れ時刻 \\ \hline
 		created\_at & DATETIME & & 作成時刻 \\ \hline
 		updated\_at & DATETIME & & 更新時刻 \\ \hline
 		deleted\_at & DATETIME & & 削除時刻 \\ \hline
