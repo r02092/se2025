@@ -750,6 +750,7 @@ APIを通じて、観光客の行動データや評価データなどを取得�
 		\draw[Stealth-Stealth](coupon)   --(couponuse);
 		\node(couponusc)at(3,- 7){クーポン使用完了画面};
 		\draw[       -Stealth](couponuse)--(couponusc);
+		\draw[       -Stealth](couponusc)edge[bend left=45](coupon);
 		\node(funpage)  at(1,- 8){お楽しみ機能};
 		\draw[Stealth-Stealth](home)     |-(funpage);
 		\node(checkin)  at(2,- 8){チェックイン画面};
