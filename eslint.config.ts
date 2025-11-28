@@ -18,7 +18,6 @@ export default defineConfig([
 					allowDefaultProject: ["eslint.config.ts", "vite.config.ts"],
 				},
 				tsconfigRootDir: import.meta.dirname,
-				project: "tsconfig.json",
 			},
 		},
 	},

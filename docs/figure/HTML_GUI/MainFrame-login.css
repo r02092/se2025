@@ -1,3 +1,4 @@
+/* MainFrame.css (更新版) */
 body {
 	margin: 0;
 	background: #d1d1d1;
@@ -26,6 +27,8 @@ body {
 	align-items: center;
 	justify-content: center;
 }
+
+/* 既存のログインボタンスタイルは残す（未ログイン時に使用） */
 .header-login button {
 	background: rgba(255, 255, 255);
 	color: #14b888;
@@ -39,6 +42,50 @@ body {
 .header-login button:hover {
 	background: rgba(255, 255, 255, 0.7);
 }
+
+/* --- 追加: ログイン中のアバタースタイル --- */
+/* .header-profile はリンクやボタンとして使えます */
+.header-profile {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	overflow: hidden;
+	background: rgba(
+		255,
+		255,
+		255,
+		0.08
+	); /* 背景（画像が透過している時のため） */
+	border: 2px solid rgba(255, 255, 255, 0.12); /* 軽い枠線 */
+	box-sizing: border-box;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+/* アバター画像自体 */
+.header-profile img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* 切り取りで中央を表示 */
+	display: block;
+	border-radius: 50%;
+}
+
+/* 小さい画面で少し小さく */
+@media (max-width: 480px) {
+	.header-profile {
+		width: 32px;
+		height: 32px;
+	}
+	.header-login button {
+		padding: 5px 8px;
+		font-size: 12px;
+	}
+}
+
 .hamburger {
 	width: 50px;
 	height: 42px;
@@ -83,8 +130,8 @@ body {
 
 .main-area {
 	padding: 0;
-	padding-top: 42px; /* ← 追加（ヘッダー高さぶんずらす） */
-	padding-bottom: 55px; /*  ← ボトムバー分の余白 多分不要 */
+	padding-top: 42px;
+	padding-bottom: 55px;
 	background: #eee;
 	height: 100%;
 	width: 100vw;
@@ -108,7 +155,7 @@ body {
 	display: flex;
 	align-items: stretch;
 	justify-content: center;
-	z-index: 1000; /* ヘッダー同様に上に */
+	z-index: 1000;
 }
 .bottom-menu {
 	display: flex;
@@ -150,13 +197,13 @@ body {
 }
 
 .container {
-	width: 100vw; /* ビューポートの横幅いっぱい */
+	width: 100vw;
 	min-width: 0;
-	max-width: 100vw; /* 必要ならこれも */
+	max-width: 100vw;
 	margin: 0;
 	box-sizing: border-box;
-	border-radius: 0; /* 角丸をなくす場合 */
-	height: 100vh; /* 必要なら高さも画面いっぱい */
+	border-radius: 0;
+	height: 100vh;
 }
 @media (max-width: 480px) {
 	.container {
