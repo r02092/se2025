@@ -142,8 +142,10 @@
 訪れた観光地や施設の写真をシステムに投稿・共有できます。
 投稿された写真は、他の利用者が閲覧できます。
 
-\subsubsection{スタンプ機能}
+\subsubsection{チェックイン機能}
 訪れた観光地や施設のスタンプを入手できます。
+チェックインは、その場所にある二次元コードを読み込むことに
+より行います。
 
 \subsubsection{クーポンの受け取り機能}
 システム上で提供されるクーポンを受け取ることができます。
@@ -645,7 +647,7 @@ UGCの監視・管理ができます。
 		\draw[arrow](action11)-|(1.45,-14)node[label,pos=.57]{一致しない}|-(decision0);
 		\draw[arrow](decision0)--(action14);
 	}
-	\caption{スタンプ}\label{fig:act-post_stamp}
+	\caption{チェックイン}\label{fig:act-post_stamp}
 \end{figure}
 
 \subsubsection{クーポン受け取り}
