@@ -713,9 +713,6 @@ UGCの監視・管理ができます。
 		\draw[Stealth-Stealth](home)--(acdisplay);
 		\node(acup)     at(2,  0){アカウント情報編集};
 		\draw[Stealth-Stealth](acdisplay)--(acup);
-		\node(acupcomp) at(3,  0){アカウント情報更新完了};
-		\draw[       -Stealth](acup)     --(acupcomp);
-		\draw[       -Stealth](acupcomp)edge[bend right=45](home);
 		\node(businapp) at(2,- 1){事業者申込機能};
 		\draw[Stealth-Stealth](acdisplay)|-(businapp);
 		\node(login)    at(1,- 2){ログイン画面};
