@@ -748,6 +748,8 @@ UGCの監視・管理ができます。
 		\draw[Stealth-Stealth](home)     |-(adminhome);
 		\node(adminuser)at(2,- 9){ユーザー管理画面};
 		\draw[Stealth-Stealth](adminhome)--(adminuser);
+		\node(adminused)at(3,- 9){ユーザー詳細画面};
+		\draw[Stealth-Stealth](adminuser)--(adminused);
 		\node(adminmoni)at(2,-10){UGC監視・管理画面};
 		\draw[Stealth-Stealth](adminhome)|-(adminmoni);
 		\node(businspot)at(2,-11){スポット情報編集画面};
