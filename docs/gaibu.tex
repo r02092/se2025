@@ -746,22 +746,20 @@ UGCの監視・管理ができます。
 		\draw[       -Stealth](checkinco)edge[bend left=45](funpage);
 		\node(adminhome)at(1,- 9){管理者機能ホーム};
 		\draw[Stealth-Stealth](home)     |-(adminhome);
-		\node(adminspot)at(2,- 9){スポット情報編集画面};
-		\draw[Stealth-Stealth](adminhome)--(adminspot);
-		\node(adminuser)at(2,-10){ユーザー管理画面};
-		\draw[Stealth-Stealth](adminhome)|-(adminuser);
-		\node(adminmoni)at(2,-11){UGC監視・管理画面};
+		\node(adminuser)at(2,- 9){ユーザー管理画面};
+		\draw[Stealth-Stealth](adminhome)--(adminuser);
+		\node(adminmoni)at(2,-10){UGC監視・管理画面};
 		\draw[Stealth-Stealth](adminhome)|-(adminmoni);
+		\node(businspot)at(2,-11){スポット情報編集画面};
+		\draw[Stealth-Stealth](adminhome)|-(businspot);
 		\node(admindata)at(2,-12){観光データ確認画面};
 		\draw[Stealth-Stealth](adminhome)|-(admindata);
 		\node(businhome)at(1,-13){事業者機能ホーム};
 		\draw[Stealth-Stealth](home)     |-(businhome);
-		\node(businspot)at(2,-13){スポット情報編集画面};
-		\draw[Stealth-Stealth](businhome)--(businspot);
-		\node(businapi) at(2,-14){APIキー発行画面};
-		\draw[Stealth-Stealth](businhome)|-(businapi);
-		\node(busindata)at(2,-15){観光データ確認画面};
-		\draw[Stealth-Stealth](businhome)|-(busindata);
+		\draw[Stealth-Stealth](businhome)--(businspot.base west);
+		\draw[Stealth-Stealth](businhome)--(admindata.base west);
+		\node(businapi) at(2,-13){APIキー発行画面};
+		\draw[Stealth-Stealth](businhome)--(businapi);
 	\end{tikzpicture}
 	\caption{画面遷移図}\label{fig:stc}
 \end{figure}
