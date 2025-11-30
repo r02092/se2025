@@ -2,7 +2,6 @@
 <html lang="ja">
 	<head>
 		<meta charset="UTF-8" />
-		<title>SceneTrip - 投稿</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="MainFrame.css" />
 		<link rel="stylesheet" href="post.css" />
@@ -19,46 +18,25 @@
 					</div>
 				</div>
 				<div class="header-login">
-					<button type="button" onclick="location.href = 'login.html'">
-						ログイン
-					</button>
+					<a
+						href="profile.html"
+						class="header-profile"
+						title="プロフィールを表示"
+					>
+						<img src="Profile_pic.JPG" alt="プロフィール" />
+					</a>
 				</div>
 			</div>
 
 			<div class="main-area">
 				<div class="post-titlebar">
-					<h1>みんなの投稿</h1>
+					<h1>UGC監視・管理</h1>
 					<div class="post-titlebar-update">
 						<button type="button" onclick="location.href = 'post.html'">
 							内容更新
 						</button>
 					</div>
 				</div>
-
-				<!-- Composer（投稿入力） -->
-				<section class="composer">
-					<div class="composer-left">
-						<img class="avatar" src="Profile_pic.JPG" alt="avatar" />
-					</div>
-					<div class="general-box composer-right">
-						<textarea
-							id="composer-text"
-							placeholder="いまどうしてる？"
-						></textarea>
-						<div class="composer-controls">
-							<label class="file-btn">
-								画像
-								<input id="composer-image" type="file" accept="image/*" />
-							</label>
-							<button id="post-btn" class="post-submit">投稿</button>
-						</div>
-						<div
-							id="composer-preview"
-							class="composer-preview"
-							aria-hidden="true"
-						></div>
-					</div>
-				</section>
 
 				<!-- フィード（投稿カードをここに差し込む） -->
 				<section id="feed" class="feed">
@@ -75,24 +53,22 @@
 								<div class="post-time"></div>
 							</div>
 						</header>
-						<div class="post-body"></div>
 						<img class="post-image" alt="" />
-						<footer class="post-actions">
-							<button class="btn-like">
-								いいね <span class="like-count">0</span>
-							</button>
-							<button class="btn-comment">
-								コメント <span class="comment-count">0</span>
-							</button>
-							<button class="btn-share">シェア</button>
-						</footer>
-						<section class="comments" aria-hidden="true">
-							<div class="comments-list"></div>
-							<div class="comments-form">
-								<input class="comment-input" placeholder="コメントを入力..." />
-								<button class="comment-send">送信</button>
-							</div>
-						</section>
+						<div class="post-body"></div>
+						<div style="color: #aaa; font-size: 0.6em">
+							ID: 2<br />
+							投稿者: <a href="#">yabashi_harimaaaa</a><br />
+							座標: <a href="#">(133.542639, 33.559944)</a><br />
+							IPアドレス: 192.0.2.1<br />
+							User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36
+							(KHTML, like Gecko) Chrome/142.0.0.0 Mobile Safari/537.36
+						</div>
+						<button
+							class="comment-send"
+							style="background: #f22727; margin-top: 16px"
+						>
+							削除
+						</button>
 					</article>
 				</template>
 			</div>
@@ -125,7 +101,7 @@
 						<span class="bottom-label">ホーム</span>
 					</a>
 
-					<a href="post.html" class="bottom-btn selected">
+					<a href="post.html" class="bottom-btn">
 						<svg class="bottom-icon" viewBox="0 0 512 512" aria-hidden="true">
 							<g>
 								<path
