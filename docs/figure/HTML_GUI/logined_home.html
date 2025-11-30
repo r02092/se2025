@@ -240,27 +240,7 @@
 		<script>
 			const map = new maplibregl.Map({
 				container: "map",
-				style: {
-					version: 8,
-					sources: {
-						rtile: {
-							type: "raster",
-							tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-							tileSize: 256,
-							attribution:
-								'©<a href="https://www.openstreetmap.org/copyright/ja">OpenStreetMap</a> contributors',
-						},
-					},
-					layers: [
-						{
-							id: "raster-tiles",
-							type: "raster",
-							source: "rtile",
-							minzoom: 0,
-							maxzoom: 18,
-						},
-					],
-				},
+				style: "https://tile.openstreetmap.jp/styles/osm-bright-ja/style.json",
 				center: [133.56, 33.3], // [経度, 緯度] 四国周辺
 				zoom: 7.2,
 			});
