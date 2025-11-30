@@ -532,7 +532,7 @@ UGCの監視・管理ができます。
 	}{
    \node[action](decision0)at(0,-6){元の画面に戻る};
 		\draw[arrow](action5)-|(0.45,-6)node[label,pos=.57]{キャンセルを選択}|-(decision0);
-		\draw[arrow](decision0)-|(-0.45,-1)|-(action1); 
+		\draw[arrow](decision0)-|(-0.45,-1)|-(action1);
   }
 	\caption{サブスクリプション解除}\label{fig:act-cancel_subscription}
 \end{figure}
@@ -927,7 +927,7 @@ UGCの監視・管理ができます。
 IE記法によるデータベースのER図を\cref{fig:er}に示します。
 \begin{figure}[H]
 	\centering
-	\includegraphics[bb=16.408054 15.39 668.505917 581.561982,clip,scale=.66]{gaibu-er.pdf}
+	\includegraphics[bb=16.423734 14.814 669.154269 581.543982,clip,scale=.66]{gaibu-er.pdf}
 	\caption{ER図}\label{fig:er}
 \end{figure}
 \subsection{テーブルとカラムの詳細}
@@ -1049,7 +1049,6 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		password & VARCHAR(255) & & ハッシュ化されたパスワード \\ \hline
 		permission & TINYINT UNSIGNED & NOT NULL & 種別 \\ \hline
 		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
-		points & INT UNSIGNED & NOT NULL & ポイント数 \\ \hline
 		icon\_ext & VARCHAR(4) & NOT NULL & アイコンの拡張子 \\ \hline
 		num\_plan\_std & INT UNSIGNED & NOT NULL & スタンダードプランの契約数 \\ \hline
 		num\_plan\_prm & INT UNSIGNED & NOT NULL & プレミアムプランの契約数 \\ \hline
