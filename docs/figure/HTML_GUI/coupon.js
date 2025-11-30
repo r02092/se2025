@@ -28,4 +28,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	// 初期表示を適用
 	applyView();
+
+	// --- ここから追加: data-href を持つ coupon-card をクリック / キーボードで遷移 ---
+	// クリックで遷移、Enter/Space でキーボード操作も可能にする（アクセシビリティ対応）
+	const clickableCards = document.querySelectorAll(".coupon-card[data-href]");
+	clickableCards.forEach(card => {
+		const href = card.getAttribute("data-href");
+		if (!href) return;
+
+		// クリック
+		card.addEventListener("click", () => {
+			location.href = href;
+		});
+
+		// キーボード（Enter / Space）での有効化
+		card.addEventListener("keydown", e => {
+			if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+				e.preventDefault();
+				location.href = href;
+			}
+		});
+	});
 });

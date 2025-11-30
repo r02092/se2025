@@ -172,6 +172,11 @@
 	transform: translateY(-3px);
 }
 
+/* data-href を持つカードはクリック可能に見せる */
+.coupon-card[data-href] {
+	cursor: pointer;
+}
+
 /* サムネイル */
 .coupon-thumb {
 	width: 84px;
@@ -283,14 +288,4 @@
 }
 .coupon-card.redeemed {
 	opacity: 0.85;
-}
-
-/* レスポンシブ調整: 狭い画面では余白を少し縮める */
-@media (max-width: 420px) {
-	.coupon-info {
-		padding-right: 100px;
-	}
-	.detail-note {
-		font-size: 12px;
-	}
 }
