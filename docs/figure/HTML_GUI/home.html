@@ -38,36 +38,14 @@
 					<div id="map"></div>
 				</div>
 
-				<div class="search-bar-area">
-					<input type="text" placeholder="場所・キーワード検索" />
-					<!-- <svg class="search-icon" viewBox="0 0 32 32">
-						<circle
-							cx="15"
-							cy="15"
-							r="13"
-							stroke="#14b888"
-							stroke-width="4"
-							fill="none"
-						/>
-						<ellipse
-							cx="15"
-							cy="15"
-							rx="9"
-							ry="9"
-							stroke="#14b888"
-							stroke-width="3"
-							fill="none"
-						/>
-						<rect
-							x="25"
-							y="25"
-							width="8"
-							height="4"
-							rx="2"
-							transform="rotate(45 25 25)"
-							fill="#14b888"
-						/>
-					</svg> -->
+				<div class="general-box form-container" style="margin: 16px 5% 16px">
+					<form>
+						<label for="username">出発地</label>
+						<input type="text" />
+						<label for="password">到着地</label>
+						<input type="text" />
+						<button type="submit">検索</button>
+					</form>
 				</div>
 
 				<div class="general-box ai-suggest">
@@ -82,41 +60,19 @@
 								alt="はりまや橋"
 							/>
 							<div class="spot-content">
-								<h3 class="spot-title">はりまや橋（高知市）</h3>
-								<p class="spot-desc">はりまや橋の説明。</p>
+								<h3 class="spot-title">はりまや橋</h3>
 							</div>
 						</li>
 						<li class="spot-item">
-							<img
-								class="spot-thumb"
-								src="Harimaya_Bridge.jpg"
-								alt="はりまや橋"
-							/>
+							<img class="spot-thumb" src="post-station.jpg" alt="はりまや橋" />
 							<div class="spot-content">
-								<h3 class="spot-title">はりまや橋（高知市）</h3>
-								<p class="spot-desc">はりまや橋の説明。</p>
+								<h3 class="spot-title">土佐山田駅</h3>
 							</div>
 						</li>
 						<li class="spot-item">
-							<img
-								class="spot-thumb"
-								src="Harimaya_Bridge.jpg"
-								alt="はりまや橋"
-							/>
+							<img class="spot-thumb" src="ryugado.jpg" alt="はりまや橋" />
 							<div class="spot-content">
-								<h3 class="spot-title">はりまや橋（高知市）</h3>
-								<p class="spot-desc">はりまや橋の説明。</p>
-							</div>
-						</li>
-						<li class="spot-item">
-							<img
-								class="spot-thumb"
-								src="Harimaya_Bridge.jpg"
-								alt="はりまや橋"
-							/>
-							<div class="spot-content">
-								<h3 class="spot-title">はりまや橋（高知市）</h3>
-								<p class="spot-desc">はりまや橋の説明。</p>
+								<h3 class="spot-title">龍河洞</h3>
 							</div>
 						</li>
 						<!-- <li class="spot-item">
@@ -236,31 +192,14 @@
 		<script>
 			const map = new maplibregl.Map({
 				container: "map",
-				style: {
-					version: 8,
-					sources: {
-						rtile: {
-							type: "raster",
-							tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-							tileSize: 256,
-							attribution:
-								'©<a href="https://www.openstreetmap.org/copyright/ja">OpenStreetMap</a> contributors',
-						},
-					},
-					layers: [
-						{
-							id: "raster-tiles",
-							type: "raster",
-							source: "rtile",
-							minzoom: 0,
-							maxzoom: 18,
-						},
-					],
-				},
+				style: "https://tile.openstreetmap.jp/styles/osm-bright-ja/style.json",
 				center: [133.56, 33.3], // [経度, 緯度] 四国周辺
 				zoom: 7.2,
 			});
 			map.addControl(new maplibregl.NavigationControl(), "top-right");
+			new maplibregl.Marker().setLngLat([133.542639, 33.559944]).addTo(map);
+			new maplibregl.Marker().setLngLat([133.685047, 33.607133]).addTo(map);
+			new maplibregl.Marker().setLngLat([133.745187, 33.603579]).addTo(map);
 		</script>
 	</body>
 </html>
