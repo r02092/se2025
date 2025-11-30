@@ -79,6 +79,11 @@
 	color: #666;
 	font-size: 13px;
 }
+.checkin-qr-failed {
+	margin-top: 10px;
+	color: #900;
+	font-size: 13px;
+}
 
 /* アクション（閉じるボタン） */
 .checkin-qr-actions { margin-top: 12px; }
