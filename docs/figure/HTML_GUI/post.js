@@ -1,5 +1,4 @@
-// 最低限のUIロジック：投稿作成、localStorageによる簡易永続化
-// 「いいね・コメント」機能は削除済み
+// 最低限のUIロジック：投稿作成、いいね、コメント、localStorageによる簡易永続化
 
 (function () {
 	// Utilities
@@ -66,6 +65,9 @@
 			time: new Date().toISOString(),
 			text,
 			image: imgData,
+			likes: 0,
+			liked: false,
+			comments: [],
 		};
 		posts.unshift(post);
 		savePosts();
@@ -104,16 +106,61 @@
 			} else {
 				imgEl.style.display = "none";
 			}
+			const likeBtn = frag.querySelector(".btn-like");
+			const likeCount = frag.querySelector(".like-count");
+			likeCount.textContent = post.likes;
+			if (post.liked) likeBtn.classList.add("active");
 
-			// ここではシェアボタンのみ（いいね・コメント機能は削除）
-			const shareBtn = frag.querySelector(".btn-share");
-			if (shareBtn) {
-				shareBtn.addEventListener("click", () => {
-					// 簡易シェア（URLコピー等の拡張はここに）
-					navigator.clipboard?.writeText(location.href).then(
-						() => alert("ページURLをコピーしました（簡易シェア）。"),
-						() => alert("クリップボードへのコピーに失敗しました。"),
-					);
+			const commentBtn = frag.querySelector(".btn-comment");
+			const commentCount = frag.querySelector(".comment-count");
+			commentCount.textContent = post.comments.length;
+
+			// イベントバインド
+			likeBtn.addEventListener("click", () => {
+				post.liked = !post.liked;
+				post.likes += post.liked ? 1 : -1;
+				savePosts();
+				renderFeed();
+			});
+			// コメント開閉
+			const commentsSection = frag.querySelector(".comments");
+			const commentsList = frag.querySelector(".comments-list");
+			const commentInput = frag.querySelector(".comment-input");
+			const commentSend = frag.querySelector(".comment-send");
+			commentBtn.addEventListener("click", () => {
+				const open = commentsSection.getAttribute("aria-hidden") === "true";
+				commentsSection.setAttribute("aria-hidden", !open);
+				if (open) {
+					renderComments();
+				}
+			});
+			// コメント送信
+			commentSend.addEventListener("click", () => {
+				const txt = commentInput.value.trim();
+				if (!txt) return;
+				post.comments.push({
+					id: "c_" + Date.now(),
+					author: currentUser.name,
+					text: txt,
+					time: new Date().toISOString(),
+				});
+				commentInput.value = "";
+				savePosts();
+				renderFeed();
+			});
+
+			function renderComments() {
+				commentsList.innerHTML = "";
+				if (post.comments.length === 0) {
+					commentsList.innerHTML =
+						'<div class="comment-item" style="color:var(--muted)">コメントはまだありません。</div>';
+					return;
+				}
+				post.comments.forEach(c => {
+					const div = document.createElement("div");
+					div.className = "comment-item";
+					div.innerHTML = `<strong>${escapeHtml(c.author)}</strong> <span style="color:var(--muted);font-size:12px">(${timeAgo(new Date(c.time))})</span><div>${escapeHtml(c.text)}</div>`;
+					commentsList.appendChild(div);
 				});
 			}
 
@@ -147,6 +194,16 @@
 				time: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
 				text: "先日行ったカフェが最高だった！窓際の席でゆっくりできます ☕️",
 				image: "",
+				likes: 3,
+				liked: false,
+				comments: [
+					{
+						id: "c1",
+						author: "alice",
+						text: "写真見たい！",
+						time: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+					},
+				],
 			},
 			{
 				id: "p_sample_2",
@@ -155,6 +212,9 @@
 				time: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
 				text: "ここの町並みがすごく綺麗でした。おすすめです。",
 				image: "",
+				likes: 1,
+				liked: false,
+				comments: [],
 			},
 		];
 	}
@@ -190,6 +250,6 @@
 
 	// 画面ロード時の補助（フォーカスなど）
 	window.addEventListener("load", () => {
-		// composerに軽いヒントなど（必要ならここに追加）
+		// composerに軽いヒント
 	});
 })();

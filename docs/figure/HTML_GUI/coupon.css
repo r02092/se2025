@@ -1,71 +1,13 @@
-.coupon-titlebar {
-	background-image: linear-gradient(#eee 80%, transparent);
-	height: 198px;
-	margin: 42px 0 20px;
-	display: flex;
-	align-items: center;
-	box-sizing: border-box;
-	position: fixed; /* fixedに変更 */
-	top: 0; /* 画面上部に固定 */
-	left: 0;
-	width: 100vw;
-	color: #000;
-	z-index: 500; /* 他UIより上に */
-}
-.coupon-titlebar h1 {
-	position: absolute;
-	top: 0px;
-	width: 100%;
-}
-.coupon-titlebar-update {
-	position: absolute;
-	right: 8px;
-	top: 26px;
-	height: 42px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-.coupon-titlebar-update button {
-	background: #14b888;
-	color: #fff;
-	border: 0px;
-	padding: 6px 10px;
-	border-radius: 4px;
-	cursor: pointer;
-	font-weight: 700;
-	font-size: 13px;
-}
-
 .main-area {
-	/* MainFrame.css で padding-top:42px されていますが、ここでタイトルバー分も追加 */
-	padding-top: 220px;
 	background: #eee;
 }
 
-/* small utility: hide element */
-.hidden {
-	display: none !important;
-}
-
-/* sr-only helper for accessibility */
-.sr-only {
-	position: absolute !important;
-	width: 1px !important;
-	height: 1px !important;
-	padding: 0 !important;
-	margin: -1px !important;
-	overflow: hidden !important;
-	clip: rect(0, 0, 0, 0) !important;
-	white-space: nowrap !important;
-	border: 0 !important;
+.main-area h1 {
+	margin-bottom: 0;
 }
 
 /* フィルタ / ソート */
 .coupon-filter {
-	position: fixed;
-	top: 110px;
-	left: 0;
 	width: 100%;
 	box-sizing: border-box;
 	/* 背景をつけて下のコンテンツが見えにくいようにする（必要なら調整） */
@@ -124,15 +66,13 @@
 	gap: 10px;
 	margin-top: 8px;
 }
-.sort-select,
-.view-select {
+.sort-select {
 	display: flex;
 	align-items: center;
 	gap: 6px;
 	font-size: 13px;
 }
-.sort-select select,
-.view-select select {
+.sort-select select {
 	padding: 6px;
 	border-radius: 6px;
 	border: 1px solid #ddd;
@@ -151,11 +91,7 @@
 }
 
 /* 個別カード */
-/* position:relative にしてカード内で詳細ボタンを絶対配置 */
 .coupon-card {
-	background: #fff;
-	border-radius: 10px;
-	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 	display: flex;
 	align-items: center;
 	padding: 12px;
@@ -163,7 +99,6 @@
 	transition:
 		transform 0.12s ease,
 		box-shadow 0.12s ease;
-	position: relative; /* 追加 */
 }
 .coupon-card:focus {
 	outline: 3px solid rgba(20, 184, 136, 0.18);
@@ -186,8 +121,6 @@
 .coupon-info {
 	flex: 1 1 auto;
 	min-width: 0;
-	/* 右側に詳細案内テキストが入る余白を確保 */
-	padding-right: 0px;
 }
 .coupon-title {
 	margin: 0 0 6px 0;
@@ -219,30 +152,13 @@
 	color: #999;
 }
 
-/* アクション領域（案内テキスト） */
-/* 右下に固定する */
+/* アクション領域 */
 .coupon-action {
-	position: absolute;
-	right: 12px;
-	bottom: 12px;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	gap: 8px;
-	align-items: center;
+	align-items: flex-end;
 }
-
-/* 案内テキストの見た目（プレーンテキスト） */
-.detail-note {
-	font-size: 13px;
-	color: #0b6b4d;
-	background: transparent;
-	padding: 0;
-	margin: 0;
-	/* もし視覚的に弱調したいなら opacity を下げる */
-	opacity: 0.95;
-}
-
-/* 既存ボタンスタイルは残しています（将来のため） */
 .btn {
 	padding: 6px 10px;
 	border-radius: 6px;
@@ -252,11 +168,7 @@
 .btn-primary {
 	background: #14b888;
 	color: #fff;
-	border: 0;
-	padding: 8px 12px;
-	border-radius: 6px;
 	cursor: pointer;
-	font-weight: 700;
 }
 .btn-ghost {
 	background: transparent;
@@ -268,35 +180,12 @@
 }
 
 /* 状態バッジ */
-.badge-muted {
-	background: #f0f0f0;
-	color: #999;
-	padding: 6px 10px;
-	border-radius: 6px;
-	font-weight: 700;
-}
 .badge-done {
 	background: #e8f7ef;
 	color: #14b888;
-	padding: 6px 10px;
-	border-radius: 6px;
-	font-weight: 700;
 }
 
-/* expired / redeemed の見た目 */
-.coupon-card.expired {
-	opacity: 0.6;
-}
+/* redeemed の見た目 */
 .coupon-card.redeemed {
-	opacity: 0.85;
-}
-
-/* レスポンシブ調整: 狭い画面では余白を少し縮める */
-@media (max-width: 420px) {
-	.coupon-info {
-		padding-right: 100px;
-	}
-	.detail-note {
-		font-size: 12px;
-	}
+	opacity: 0.6;
 }
