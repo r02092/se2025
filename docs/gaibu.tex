@@ -1164,7 +1164,8 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		\hline
 		\thead{permission} & \thead{意味} \\ \hline
 		0 & 管理者 \\ \hline
-		1 & 利用者（事業者を含む） \\ \hline
+		1 & 利用者（未承認の事業者を含む） \\ \hline
+		2 & 承認済み事業者 \\ \hline
 	\end{tabular}
 \end{table}
 パスワードのハッシュ化にはPHPの\verb|password_hash()|関数を
