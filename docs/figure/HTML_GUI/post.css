@@ -1,13 +1,8 @@
 .post-titlebar {
 	background-image: linear-gradient(#eee 70%, transparent);
-	height: 88px;
-	margin: 42px 0 20px;
 	display: flex;
 	align-items: center;
 	box-sizing: border-box;
-	position: fixed; /* fixedに変更 */
-	top: 0; /* 画面上部に固定 */
-	left: 0;
 	width: 100vw;
 	color: #000;
 	z-index: 500; /* 他UIより上に */
@@ -18,8 +13,7 @@
 }
 .post-titlebar-update {
 	position: absolute;
-	right: 8px;
-	top: 26px;
+	right: 5%;
 	height: 42px;
 	display: flex;
 	align-items: center;
@@ -30,7 +24,7 @@
 	color: #fff;
 	border: 0px;
 	padding: 6px 10px;
-	border-radius: 4px;
+	border-radius: 6px;
 	cursor: pointer;
 	font-weight: 700;
 	font-size: 13px;
@@ -38,15 +32,13 @@
 
 /* main-area の左右パディングは削除（要求どおり） */
 .main-area {
-	/* MainFrame.css で padding-top:42px されていますが、ここでタイトルバー分も追加 */
-	padding-top: 130px; /* 42 (header) + 88 (post-titlebar) = 130 */
 	background: #eee;
 }
 
 /* 代替：main-area の直下要素に左右パディングを渡す（HTMLは変更せずに別の場でパディング確保） */
 .main-area > * {
-	padding-left: 12px;
-	padding-right: 12px;
+	padding-left: 5%;
+	padding-right: 5%;
 }
 
 /* --- Composer のスタイル --- */
@@ -80,10 +72,7 @@
 
 .composer-right {
 	flex: 1;
-	background: #fff;
 	padding: 12px;
-	border-radius: 10px;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 .composer-right textarea {
 	width: 100%;
@@ -138,10 +127,7 @@
 	margin-bottom: 80px; /* ボトムバーと重ならないように余白確保 */
 }
 .post-card {
-	background: #fff;
-	border-radius: 12px;
 	padding: 12px;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 .post-head {
 	display: flex;
@@ -179,7 +165,7 @@
 	background: transparent;
 	border: 1px solid rgba(0, 0, 0, 0.06);
 	padding: 8px 10px;
-	border-radius: 8px;
+	border-radius: 6px;
 	cursor: pointer;
 	font-size: 14px;
 }

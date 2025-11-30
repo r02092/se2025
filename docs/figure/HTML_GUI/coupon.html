@@ -19,72 +19,69 @@
 					</div>
 				</div>
 				<div class="header-login">
-					<button type="button" onclick="location.href='login.html'">
+					<button type="button" onclick="location.href = 'login.html'">
 						ログイン
 					</button>
 				</div>
 			</div>
 
 			<div class="main-area">
-				<!-- タイトルバー（ヘッダー下に固定） -->
-				<div class="coupon-titlebar">
-					<h1>クーポン</h1>
-					<!-- 更新ボタンをフィルタ領域に移動したのでここは空にしておきます -->
-					<div
-						class="coupon-filter"
-						role="region"
-						aria-label="クーポンフィルタ"
-					>
-						<div
-							class="chip-group"
-							role="tablist"
-							aria-label="クーポンカテゴリ"
-						>
-							<button class="chip active" data-cat="all" aria-pressed="true">
-								すべて
-							</button>
-							<button class="chip" data-cat="food" aria-pressed="false">
-								飲食
-							</button>
-							<button class="chip" data-cat="shop" aria-pressed="false">
-								お土産
-							</button>
-							<button class="chip" data-cat="attraction" aria-pressed="false">
-								観光
-							</button>
-							<!-- サンプルで長めのカテゴリを追加して横スクロールを確認しやすく -->
-							<button class="chip" data-cat="experience" aria-pressed="false">
-								体験アクティビティ
-							</button>
-							<button class="chip" data-cat="stay" aria-pressed="false">
-								宿泊
-							</button>
+				<h1>クーポン</h1>
+				<!-- 更新ボタンをフィルタ領域に移動したのでここは空にしておきます -->
+				<div class="coupon-filter" role="region" aria-label="クーポンフィルタ">
+					<div class="chip-group" role="tablist" aria-label="クーポンカテゴリ">
+						<button class="chip active" data-cat="all" aria-pressed="true">
+							すべて
+						</button>
+						<button class="chip" data-cat="food" aria-pressed="false">
+							飲食
+						</button>
+						<button class="chip" data-cat="shop" aria-pressed="false">
+							お土産
+						</button>
+						<button class="chip" data-cat="attraction" aria-pressed="false">
+							観光
+						</button>
+						<!-- サンプルで長めのカテゴリを追加して横スクロールを確認しやすく -->
+						<button class="chip" data-cat="experience" aria-pressed="false">
+							体験アクティビティ
+						</button>
+						<button class="chip" data-cat="stay" aria-pressed="false">
+							宿泊
+						</button>
+					</div>
+
+					<div class="sort-wrap">
+						<div class="sort-select">
+							<label for="sort">並び替え</label>
+							<select id="sort" name="sort">
+								<option value="recommended">おすすめ順</option>
+								<option value="new">新着順</option>
+								<option value="exp">期限が近い順</option>
+							</select>
 						</div>
-
-						<div class="sort-wrap">
-							<div class="sort-select">
-								<label for="sort">並び替え</label>
-								<select id="sort" name="sort">
-									<option value="recommended">おすすめ順</option>
-									<option value="new">新着順</option>
-									<option value="exp">期限が近い順</option>
-								</select>
-							</div>
-
-							<!-- 表示切替プルダウン（追加） -->
-							<div class="view-select" style="margin-left:12px;">
-								<label for="view-select">表示</label>
-								<select id="view-select" name="view-select" aria-controls="active-coupons available-coupons" aria-label="クーポン表示切替">
-									<option value="all">すべて</option>
-									<option value="active">現在利用中のクーポン</option>
-									<option value="available">利用可能なクーポン</option>
-								</select>
-							</div>
-
-							<!-- aria-live 用の見えない領域（スクリーンリーダーに変化を伝える） -->
-							<div id="view-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+						<div class="view-select" style="margin-left: 12px">
+							<label for="view-select">表示</label>
+							<select
+								id="view-select"
+								name="view-select"
+								aria-controls="active-coupons available-coupons"
+								aria-label="クーポン表示切替"
+							>
+								<option value="all">すべて</option>
+								<option value="active">現在利用中のクーポン</option>
+								<option value="available">利用可能なクーポン</option>
+							</select>
 						</div>
 					</div>
+
+					<!-- aria-live 用の見えない領域（スクリーンリーダーに変化を伝える） -->
+					<div
+						id="view-live"
+						class="sr-only"
+						aria-live="polite"
+						aria-atomic="true"
+					></div>
 				</div>
 
 				<!-- クーポン一覧 -->
@@ -93,7 +90,7 @@
 					<section id="active-coupons" aria-label="現在利用中のクーポン">
 						<h2>現在利用中のクーポン</h2>
 						<article
-							class="coupon-card redeemed"
+							class="general-box coupon-card redeemed"
 							data-cat="attraction"
 							tabindex="0"
 							role="article"
@@ -126,7 +123,7 @@
 					<section id="available-coupons" aria-label="利用可能なクーポン">
 						<h2>利用可能なクーポン</h2>
 						<article
-							class="coupon-card"
+							class="general-box coupon-card"
 							data-cat="food"
 							tabindex="0"
 							role="article"
