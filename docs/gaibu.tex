@@ -489,6 +489,54 @@ UGCの監視・管理ができます。
 	\caption{UGC監視・管理}\label{fig:act-manage_ugc}
 \end{figure}
 
+\subsubsection{サブスクリプション承認}
+\begin{figure}[H]
+	\centering
+	\adiagram{管理者,システム,データベース}{1.5}{
+		0/0/ユーザー管理画面を開く,
+		1/0/申請一覧を表示,
+		0/0/申請を選択,
+		0/0/承認ボタンを\\クリック,
+		1/0/操作の確認画面を表示,
+		0/1/操作を確定,
+		1/0/SQLクエリを生成,
+		2/0/契約情報を更新,
+		2/0/結果を返す,
+		1/1/承認が成功する,
+		1/0/結果を表示,
+		0/0/結果を確認
+	}{
+		\node[action](decision0)at(0,-7){元の画面に戻る};
+		\draw[arrow](action6)-|(0.45,-7)node[label,pos=.8]{キャンセルを選択}|-(decision0);
+		\draw[arrow](decision0)-|(-0.45,-13)|-(end);
+		\node[action](decision1)at(1,-12){承認できない旨を表示};
+		\draw[arrow](action10)-|(1.45,-12)node[label,pos=.57]{失敗する}|-(decision1);
+		\draw[arrow](decision1)--(action12);
+	}
+	\caption{サブスクリプション承認}\label{fig:act-approve_subscription}
+\end{figure}
+
+\subsubsection{サブスクリプション解除}
+\begin{figure}[H]
+	\centering
+	\adiagram{管理者,システム,データベース}{1.5}{
+		0/0/ユーザー管理画面を開く,
+		1/0/契約一覧を表示,
+		0/0/契約を選択し\\解除ボタンをクリック,
+    1/0/削除の確認画面を表示,
+    0/1/削除を確定,
+    1/0/SQLクエリを生成,
+    2/0/契約情報を削除,
+		1/0/解除完了の旨を表示,
+    0/0/結果を確認
+	}{
+   \node[action](decision0)at(0,-6){元の画面に戻る};
+		\draw[arrow](action5)-|(0.45,-6)node[label,pos=.57]{キャンセルを選択}|-(decision0);
+		\draw[arrow](decision0)-|(-0.45,-1)|-(action1); 
+  }
+	\caption{サブスクリプション解除}\label{fig:act-cancel_subscription}
+\end{figure}
+
 \subsection{利用者(ログイン不要機能)}
 \subsubsection{観光地・施設検索}
 
@@ -664,6 +712,27 @@ UGCの監視・管理ができます。
 		\draw[arrow](decision0)-|(0.45,-3)|-(action3);
 	}
 	\caption{事業者申込}\label{fig:act-register_business}
+\end{figure}
+
+\subsubsection{サブスクリプション登録申請}
+\begin{figure}[H]
+	\centering
+	\adiagram{事業者,システム,データベース}{1.5}{
+		0/0/サブスクリプション登録\\画面にアクセス,
+		1/0/プラン選択画面を表示,
+		0/0/プランを選択し申請,
+		1/0/入力値を検証,
+		1/1/入力値に不備がない,
+		1/0/SQLクエリを生成,
+		2/0/申請情報を保存,
+		1/0/申請完了の旨を表示,
+		0/0/結果を確認
+	}{
+		\node[action](decision0)at(1,-6.7){不備がある旨を表示};
+		\draw[arrow](action5)-|(1.45,-6.7)node[label,pos=.57]{不備がある}|-(decision0);
+		\draw[arrow](decision0)-|(0.45,-3)|-(action3);
+	}
+	\caption{サブスクリプション登録申請}\label{fig:act-apply_subscription}
 \end{figure}
 
 \subsubsection{スポット作成}
