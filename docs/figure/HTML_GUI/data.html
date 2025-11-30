@@ -2,9 +2,16 @@
 <html lang="ja">
 	<head>
 		<meta charset="UTF-8" />
+		<title>SceneTrip</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="MainFrame.css" />
-		<link rel="stylesheet" href="post.css" />
+		<link rel="stylesheet" href="home.css" />
+		<!-- MapLibre CDN -->
+		<link
+			href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css"
+			rel="stylesheet"
+		/>
+		<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
 	</head>
 	<body>
 		<div class="container">
@@ -27,58 +34,86 @@
 					</a>
 				</div>
 			</div>
-
 			<div class="main-area">
-				<div class="post-titlebar">
-					<h1>UGC監視・管理</h1>
-					<div class="post-titlebar-update">
-						<button type="button" onclick="location.href = 'post.html'">
-							内容更新
-						</button>
-					</div>
-				</div>
+				<h1>観光データ</h1>
 
-				<!-- フィード（投稿カードをここに差し込む） -->
-				<section id="feed" class="feed">
-					<!-- post.js がここに投稿カードを挿入します -->
-				</section>
+				<div class="general-box ai-suggest">
+					<h2>人気のスポット</h2>
+					<div class="spot-divider" aria-hidden="true"></div>
 
-				<!-- 投稿カードのテンプレート（post.js がこれをクローンします） -->
-				<template id="post-template">
-					<article class="general-box post-card">
-						<header class="post-head">
-							<img class="post-avatar" alt="avatar" />
-							<div class="post-meta">
-								<div class="post-author"></div>
-								<div class="post-time"></div>
+					<ul class="spot-list" aria-label="人気のスポット一覧">
+						<li class="spot-item">
+							<img
+								class="spot-thumb"
+								src="Harimaya_Bridge.jpg"
+								alt="はりまや橋"
+							/>
+							<div class="spot-content">
+								<h3 class="spot-title">はりまや橋</h3>
+								<h3 class="spot-desc">過去1週間のスタンプ数: 2</h3>
 							</div>
-						</header>
-						<img class="post-image" alt="" />
-						<div style="color: #ddcc00; margin-top: 8px">★★★★★</div>
-						<div class="post-body"></div>
-						<div style="color: #aaa; font-size: 0.6em">
-							種別: レビュー<br />
-							ID: 2<br />
-							投稿者: <a href="#">yabashi_harimaaaa</a><br />
-							閲覧数: 9<br />
-							IPアドレス/ポート: 192.0.2.1:50001<br />
-							User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36
-							(KHTML, like Gecko) Chrome/142.0.0.0 Mobile Safari/537.36
-						</div>
-						<button
-							class="comment-send"
-							style="background: #f22727; margin-top: 16px"
-						>
-							削除
-						</button>
-					</article>
-				</template>
+						</li>
+						<li class="spot-item">
+							<img class="spot-thumb" src="post-station.jpg" alt="はりまや橋" />
+							<div class="spot-content">
+								<h3 class="spot-title">土佐山田駅</h3>
+								<h3 class="spot-desc">過去1週間のスタンプ数: 1</h3>
+							</div>
+						</li>
+						<li class="spot-item">
+							<img class="spot-thumb" src="ryugado.jpg" alt="はりまや橋" />
+							<div class="spot-content">
+								<h3 class="spot-title">龍河洞</h3>
+								<h3 class="spot-desc">過去1週間のスタンプ数: 1</h3>
+							</div>
+						</li>
+						<!-- <li class="spot-item">
+							<img class="spot-thumb" src="Harimaya_Bridge.jpg" alt="はりまや橋" />
+							<div class="spot-content">
+								<h3 class="spot-title">はりまや橋（高知市）</h3>
+								<p class="spot-desc">
+									はりまや橋の説明。
+								</p>
+							</div>
+						</li> -->
+					</ul>
+				</div>
+				<div class="general-box ai-suggest" style="margin-top: 24px">
+					<h2>人気の口コミが多い場所</h2>
+					<div class="spot-divider" aria-hidden="true"></div>
+
+					<ul class="spot-list" aria-label="人気のスポット一覧">
+						<li class="spot-item">
+							<img class="spot-thumb" src="post-cafe.jpg" alt="はりまや橋" />
+							<div class="spot-content">
+								<h3 class="spot-title">高知工科大学 香美食堂</h3>
+								<h3 class="spot-desc">口コミの閲覧合計数: 24</h3>
+							</div>
+						</li>
+						<li class="spot-item">
+							<img class="spot-thumb" src="ryugado.jpg" alt="はりまや橋" />
+							<div class="spot-content">
+								<h3 class="spot-title">龍河洞</h3>
+								<h3 class="spot-desc">口コミの閲覧合計数: 18</h3>
+							</div>
+						</li>
+						<!-- <li class="spot-item">
+							<img class="spot-thumb" src="Harimaya_Bridge.jpg" alt="はりまや橋" />
+							<div class="spot-content">
+								<h3 class="spot-title">はりまや橋（高知市）</h3>
+								<p class="spot-desc">
+									はりまや橋の説明。
+								</p>
+							</div>
+						</li> -->
+					</ul>
+				</div>
+				<div class="suggest"></div>
 			</div>
-			<!-- .main-area -->
 
 			<div class="bottom-bar">
 				<nav class="bottom-menu">
-					<a href="home.html" class="bottom-btn">
+					<a href="home.html" class="bottom-btn selected">
 						<svg
 							class="bottom-icon"
 							viewBox="0 0 132.29166 132.29167"
@@ -174,9 +209,18 @@
 				</nav>
 			</div>
 		</div>
-		<!-- .container -->
-
-		<!-- スクリプトはここ（body 終了直前）で読み込む -->
-		<script src="post.js"></script>
+		<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
+		<script>
+			const map = new maplibregl.Map({
+				container: "map",
+				style: "https://tile.openstreetmap.jp/styles/osm-bright-ja/style.json",
+				center: [133.56, 33.3], // [経度, 緯度] 四国周辺
+				zoom: 7.2,
+			});
+			map.addControl(new maplibregl.NavigationControl(), "top-right");
+			new maplibregl.Marker().setLngLat([133.542639, 33.559944]).addTo(map);
+			new maplibregl.Marker().setLngLat([133.685047, 33.607133]).addTo(map);
+			new maplibregl.Marker().setLngLat([133.745187, 33.603579]).addTo(map);
+		</script>
 	</body>
 </html>

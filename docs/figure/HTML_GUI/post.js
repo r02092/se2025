@@ -80,8 +80,8 @@
 						author: "はりまや",
 						avatar: "Harimaya_Bridge.jpg",
 						time: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
-						text: "先日行ったカフェが最高だった！窓際の席でゆっくりできます ☕️",
-						image: "post-cafe.jpg",
+						text: "最高だった！窓際の席でゆっくりできます ☕️",
+						image: null,
 						likes: 3,
 						liked: false,
 						comments: [
