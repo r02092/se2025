@@ -9,8 +9,8 @@
 	color: #333;
 }
 .logout-grid-container {
-    display: flex;
-    gap: 20%;
+	display: flex;
+	gap: 20%;
 	margin-bottom: 20px;
 }
 .logout-button-cancel {
