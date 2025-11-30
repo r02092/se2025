@@ -64,17 +64,17 @@
 	font-size: 15px;
 	font-weight: bold;
 }
-.profile-edit-container button[type="cancel"] {
-	background-color: #eee;
-	color: #000;
-}
-.profile-edit-container button[type="cancel"]:hover {
-	background-color: #ddd;
-}
 .profile-edit-container button[type="submit"] {
 	background-color: #14b888;
 	color: #fff;
 }
 .profile-edit-container button[type="submit"]:hover {
 	background-color: #108a66;
+}
+.profile-edit-button-cancel {
+	background-color: #eee;
+	color: #000;
+}
+.profile-edit-button-cancel:hover {
+	background-color: #ddd;
 }
