@@ -6,6 +6,23 @@
 	margin-bottom: 0;
 }
 
+/* small utility: hide element */
+.hidden {
+	display: none !important;
+}
+
+/* sr-only helper for accessibility */
+.sr-only {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+}
 /* フィルタ / ソート */
 .coupon-filter {
 	width: 100%;
@@ -99,6 +116,7 @@
 	transition:
 		transform 0.12s ease,
 		box-shadow 0.12s ease;
+	position: relative; /* 追加 */
 }
 .coupon-card:focus {
 	outline: 3px solid rgba(20, 184, 136, 0.18);
@@ -152,13 +170,30 @@
 	color: #999;
 }
 
-/* アクション領域 */
+/* アクション領域（案内テキスト） */
+/* 右下に固定する */
 .coupon-action {
+	position: absolute;
+	right: 12px;
+	bottom: 12px;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	gap: 8px;
-	align-items: flex-end;
+	align-items: center;
 }
+
+/* 案内テキストの見た目（プレーンテキスト） */
+.detail-note {
+	font-size: 13px;
+	color: #0b6b4d;
+	background: transparent;
+	padding: 0;
+	margin: 0;
+	/* もし視覚的に弱調したいなら opacity を下げる */
+	opacity: 0.95;
+}
+
+/* 既存ボタンスタイルは残しています（将来のため） */
 .btn {
 	padding: 6px 10px;
 	border-radius: 6px;
