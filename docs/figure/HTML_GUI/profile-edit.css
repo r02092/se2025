@@ -16,14 +16,14 @@
 	font-size: 15px;
 }
 .profile-edit-avatar-group {
-    display: flex;
-    gap: 8%;
+	display: flex;
+	gap: 8%;
 	margin-bottom: 20px;
 	align-items: center;
 	justify-content: center;
 	font-size: 15px;
 }
-.profile-edit-avatar-group input[type=file] {
+.profile-edit-avatar-group input[type="file"] {
 	display: none;
 }
 .profile-edit-avatar-group label {
@@ -55,8 +55,8 @@
 	transition: background-color 0.2s;
 }
 .profile-edit-button-group {
-    display: flex;
-    gap: 20%;
+	display: flex;
+	gap: 20%;
 	margin-top: 20px;
 	margin-bottom: 20px;
 	align-items: center;

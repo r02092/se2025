@@ -17,8 +17,8 @@
 	color: #333;
 }
 .profile-avatar-group {
-    display: flex;
-    gap: 8%;
+	display: flex;
+	gap: 8%;
 	margin-bottom: 20px;
 	align-items: center;
 	justify-content: center;
