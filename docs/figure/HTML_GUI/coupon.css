@@ -92,9 +92,6 @@
 
 /* 個別カード */
 .coupon-card {
-	background: #fff;
-	border-radius: 10px;
-	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 	display: flex;
 	align-items: center;
 	padding: 12px;

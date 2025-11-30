@@ -47,12 +47,9 @@
 }
 
 .login {
-	background-color: #fff;
 	width: 80%;
 	margin: 1px auto;
 	padding: 1% 5% 1% 5%;
-	border-radius: 8px;
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
 	text-align: center;
 }
 .login button[type="submit"] {

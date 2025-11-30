@@ -28,13 +28,10 @@
 }
 
 .ai-suggest {
-	background: #fff;
-	box-shadow: 0 0 8px rgba(90, 90, 90, 0.2);
 	width: 80%;
 	height: auto;
 	max-height: calc(100vh - 200px);
 	overflow-y: auto;
-	border-radius: 8px;
 	margin: 30px auto;
 	padding: 1% 5% 5% 5%;
 	min-height: 120px;
