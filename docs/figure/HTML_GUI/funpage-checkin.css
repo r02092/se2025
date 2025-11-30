@@ -3,7 +3,7 @@
 .checkin-qr-overlay {
 	position: fixed;
 	inset: 0;
-	background: rgba(0,0,0,0.56);
+	background: rgba(0, 0, 0, 0.56);
 	display: none;
 	align-items: center;
 	justify-content: center;
@@ -18,8 +18,12 @@
 	animation: overlayFadeIn 180ms ease both;
 }
 @keyframes overlayFadeIn {
-	from { opacity: 0; }
-	to { opacity: 1; }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 /* モーダル */
@@ -28,16 +32,22 @@
 	max-width: 420px;
 	background: #ffffff;
 	border-radius: 12px;
-	box-shadow: 0 18px 48px rgba(0,0,0,0.28);
+	box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 	padding: 18px 18px 22px 18px;
 	text-align: center;
 	position: relative;
 	transform: translateY(8px);
-	animation: modalPop 200ms cubic-bezier(.16,.8,.3,1) both;
+	animation: modalPop 200ms cubic-bezier(0.16, 0.8, 0.3, 1) both;
 }
 @keyframes modalPop {
-	from { opacity: 0; transform: translateY(12px) scale(0.98); }
-	to { opacity: 1; transform: translateY(0) scale(1); }
+	from {
+		opacity: 0;
+		transform: translateY(12px) scale(0.98);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
 }
 
 .checkin-qr-close {
@@ -86,7 +96,9 @@
 }
 
 /* アクション（閉じるボタン） */
-.checkin-qr-actions { margin-top: 12px; }
+.checkin-qr-actions {
+	margin-top: 12px;
+}
 .checkin-qr-close-btn {
 	display: inline-block;
 	background: #14b888;

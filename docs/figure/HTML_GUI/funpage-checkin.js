@@ -23,17 +23,30 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 	}
 	// class 名でも探す
-	if (!overlay) overlay = document.querySelector(".checkin-qr-overlay") || document.querySelector(".qr-overlay");
+	if (!overlay)
+		overlay =
+			document.querySelector(".checkin-qr-overlay") ||
+			document.querySelector(".qr-overlay");
 
 	if (!overlay) {
-		console.error("funpage-checkin-qr.js: overlay element not found. Ensure the HTML contains an element with id/class like 'checkin-qr-overlay' or 'checkin-qr-overlay'.");
+		console.error(
+			"funpage-checkin-qr.js: overlay element not found. Ensure the HTML contains an element with id/class like 'checkin-qr-overlay' or 'checkin-qr-overlay'.",
+		);
 		return;
 	}
 
 	// 開閉ボタンやリンク
-	const openTarget = document.getElementById("checkinBox") || document.querySelector(".checkin-box");
-	const closeBtn = overlay.querySelector(".checkin-qr-close") || overlay.querySelector(".qr-modal-close") || overlay.querySelector(".qr-close");
-	const actionCloseBtn = overlay.querySelector(".checkin-qr-close-btn") || overlay.querySelector(".qr-modal-close-btn") || null;
+	const openTarget =
+		document.getElementById("checkinBox") ||
+		document.querySelector(".checkin-box");
+	const closeBtn =
+		overlay.querySelector(".checkin-qr-close") ||
+		overlay.querySelector(".qr-modal-close") ||
+		overlay.querySelector(".qr-close");
+	const actionCloseBtn =
+		overlay.querySelector(".checkin-qr-close-btn") ||
+		overlay.querySelector(".qr-modal-close-btn") ||
+		null;
 
 	// show / hide 実装
 	function preventScroll() {
@@ -52,7 +65,9 @@ document.addEventListener("DOMContentLoaded", function () {
 		preventScroll();
 		// フォーカス移動（アクセシビリティ）
 		setTimeout(() => {
-			const btn = overlay.querySelector(".checkin-qr-close, .qr-modal-close, .qr-close");
+			const btn = overlay.querySelector(
+				".checkin-qr-close, .qr-modal-close, .qr-close",
+			);
 			if (btn) btn.focus();
 		}, 50);
 		console.log("funpage-checkin-qr.js: overlay shown");
@@ -92,16 +107,18 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	// 閉じるボタン
-	if (closeBtn) closeBtn.addEventListener("click", function (e) {
-		e.preventDefault();
-		hideOverlay();
-	});
-	if (actionCloseBtn) actionCloseBtn.addEventListener("click", function (e) {
-		// actionCloseBtn は通常はリンクなので preventDefault をしないこともあるが、
-		// ここでは閉じる挙動のみでよければ preventDefault を外しても良い
-		e.preventDefault();
-		hideOverlay();
-	});
+	if (closeBtn)
+		closeBtn.addEventListener("click", function (e) {
+			e.preventDefault();
+			hideOverlay();
+		});
+	if (actionCloseBtn)
+		actionCloseBtn.addEventListener("click", function (e) {
+			// actionCloseBtn は通常はリンクなので preventDefault をしないこともあるが、
+			// ここでは閉じる挙動のみでよければ preventDefault を外しても良い
+			e.preventDefault();
+			hideOverlay();
+		});
 
 	// 背景クリックで閉じる（モーダル本体クリックは無視）
 	overlay.addEventListener("click", function (e) {
