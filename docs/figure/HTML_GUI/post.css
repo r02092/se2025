@@ -1,27 +1,19 @@
 .post-titlebar {
-	background-image: linear-gradient(#eee 80%, transparent);
-	/* タイトルバー内に composer を縦に並べる（表示崩れ防止） */
+	background-image: linear-gradient(#eee 70%, transparent);
 	display: flex;
-	height: 260px;
-	margin: 42px 0 0 0;
-	flex-direction: column;
-	align-items: stretch;
+	align-items: center;
 	box-sizing: border-box;
-	top: 0; /* 画面上部に固定 */
-	left: 0;
 	width: 100vw;
 	color: #000;
 	z-index: 500; /* 他UIより上に */
-	position: fixed; /* fixedに変更 */
 }
 .post-titlebar h1 {
 	text-align: center;
-	width: 100%;	
+	width: 100%;
 }
 .post-titlebar-update {
 	position: absolute;
 	right: 5%;
-	top: 26px;
 	height: 42px;
 	display: flex;
 	align-items: center;
@@ -40,7 +32,6 @@
 
 /* main-area の左右パディングは削除（要求どおり） */
 .main-area {
-	padding-top: 290px;
 	background: #eee;
 }
 
@@ -82,7 +73,6 @@
 .composer-right {
 	flex: 1;
 	padding: 12px;
-	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 .composer-right textarea {
 	width: 100%;
@@ -92,7 +82,6 @@
 	outline: none;
 	font-size: 15px;
 	background: transparent;
-	
 }
 .composer-controls {
 	display: flex;
@@ -166,7 +155,7 @@
 	margin-top: 8px;
 }
 
-/* アクション（いいね・コメントは削除済み、シェアのみ） */
+/* アクション */
 .post-actions {
 	display: flex;
 	gap: 8px;
@@ -180,8 +169,12 @@
 	cursor: pointer;
 	font-size: 14px;
 }
+.post-actions .btn-like.active {
+	background: rgba(20, 184, 136, 0.12);
+	border-color: rgba(20, 184, 136, 0.2);
+}
 
-/* コメント関連は削除されたためスタイルは残しても影響しませんが不要なら削除できます */
+/* コメント */
 .comments {
 	margin-top: 10px;
 	border-top: 1px dashed rgba(0, 0, 0, 0.06);

@@ -5,7 +5,6 @@
 		<title>SceneTrip - アカウント作成</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="MainFrame.css" />
-		<link rel="stylesheet" href="login.css" />
 	</head>
 	<body>
 		<div class="container">
@@ -21,11 +20,14 @@
 			</div>
 
 			<div class="main-area">
-				<div class="general-box login-container">
+				<div class="general-box form-container">
 					<h2>アカウント作成</h2>
 					<form>
 						<label for="username">ユーザー名</label>
 						<input type="text" id="username" name="username" required />
+
+						<label for="email">メールアドレス</label>
+						<input type="email" id="email" name="email" required />
 
 						<label for="password">パスワード</label>
 						<input type="password" id="password" name="password" required />

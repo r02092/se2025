@@ -1,5 +1,4 @@
-// 最低限のUIロジック：投稿作成、localStorageによる簡易永続化
-// 「いいね・コメント」機能は削除済み
+// 最低限のUIロジック：投稿作成、いいね、コメント、localStorageによる簡易永続化
 
 (function () {
 	// Utilities
@@ -24,59 +23,6 @@
 	const composerImage = q("#composer-image");
 	const composerPreview = q("#composer-preview");
 	const postBtn = q("#post-btn");
-
-	// 画像プレビュー処理
-	composerImage.addEventListener("change", e => {
-		const file = e.target.files[0];
-		if (!file) {
-			composerPreview.innerHTML = "";
-			composerPreview.style.display = "none";
-			return;
-		}
-		const reader = new FileReader();
-		reader.onload = () => {
-			composerPreview.style.display = "block";
-			composerPreview.innerHTML = `<img src="${reader.result}" alt="preview">`;
-		};
-		reader.readAsDataURL(file);
-	});
-
-	// 自動リサイズ
-	composerText.addEventListener("input", e => {
-		e.target.style.height = "auto";
-		e.target.style.height = e.target.scrollHeight + "px";
-	});
-
-	// 投稿ボタン
-	postBtn.addEventListener("click", async () => {
-		const text = composerText.value.trim();
-		const file = composerImage.files[0];
-		let imgData = "";
-		if (file) {
-			imgData = await readFileAsDataURL(file);
-		}
-		if (!text && !imgData) {
-			alert("テキストか画像を追加してください。");
-			return;
-		}
-		const post = {
-			id: "p_" + Date.now(),
-			author: currentUser.name,
-			avatar: currentUser.avatar,
-			time: new Date().toISOString(),
-			text,
-			image: imgData,
-		};
-		posts.unshift(post);
-		savePosts();
-		renderFeed();
-		// リセット
-		composerText.value = "";
-		composerImage.value = "";
-		composerPreview.innerHTML = "";
-		composerPreview.style.display = "none";
-		composerText.style.height = "auto";
-	});
 
 	// レンダリング
 	function renderFeed() {
@@ -105,18 +51,6 @@
 				imgEl.style.display = "none";
 			}
 
-			// ここではシェアボタンのみ（いいね・コメント機能は削除）
-			const shareBtn = frag.querySelector(".btn-share");
-			if (shareBtn) {
-				shareBtn.addEventListener("click", () => {
-					// 簡易シェア（URLコピー等の拡張はここに）
-					navigator.clipboard?.writeText(location.href).then(
-						() => alert("ページURLをコピーしました（簡易シェア）。"),
-						() => alert("クリップボードへのコピーに失敗しました。"),
-					);
-				});
-			}
-
 			feedEl.appendChild(frag);
 		});
 	}
@@ -139,24 +73,51 @@
 
 	// サンプル投稿（最初の表示用）
 	function samplePosts() {
-		return [
-			{
-				id: "p_sample_1",
-				author: "はりまや",
-				avatar: "Harimaya_Bridge.jpg",
-				time: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
-				text: "先日行ったカフェが最高だった！窓際の席でゆっくりできます ☕️",
-				image: "",
-			},
-			{
-				id: "p_sample_2",
-				author: "南風",
-				avatar: "Harimaya_Bridge.jpg",
-				time: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-				text: "ここの町並みがすごく綺麗でした。おすすめです。",
-				image: "",
-			},
-		];
+		return /\/post\.html$/.test(location.pathname)
+			? [
+					{
+						id: "p_sample_1",
+						author: "はりまや",
+						avatar: "Harimaya_Bridge.jpg",
+						time: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
+						text: "先日行ったカフェが最高だった！窓際の席でゆっくりできます ☕️",
+						image: "post-cafe.jpg",
+						likes: 3,
+						liked: false,
+						comments: [
+							{
+								id: "c1",
+								author: "alice",
+								text: "写真見たい！",
+								time: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+							},
+						],
+					},
+					{
+						id: "p_sample_2",
+						author: "南風",
+						avatar: "Profile_nanpu.jpg",
+						time: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+						text: "ここの町並みがすごく綺麗でした。おすすめです。",
+						image: "post-station.jpg",
+						likes: 1,
+						liked: false,
+						comments: [],
+					},
+				]
+			: [
+					{
+						id: null,
+						author: "ツル☆ハシ",
+						avatar: "Profile_4.jpg",
+						time: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
+						text: "ついに香美市に到着！あのゲームにも出てきた場所、土佐山田駅だ！",
+						image: "post-station.jpg",
+						likes: 0,
+						liked: false,
+						comments: [],
+					},
+				];
 	}
 
 	// ヘルパー
@@ -190,6 +151,6 @@
 
 	// 画面ロード時の補助（フォーカスなど）
 	window.addEventListener("load", () => {
-		// composerに軽いヒントなど（必要ならここに追加）
+		// composerに軽いヒント
 	});
 })();

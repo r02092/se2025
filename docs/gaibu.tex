@@ -143,9 +143,16 @@
 チェックインは、その場所にある二次元コードを読み込むことに
 より行います。
 
-\subsubsection{クーポンの受け取り機能}
-システム上で提供されるクーポンを受け取ることができます。
-クーポンは、観光地や施設での割引や特典に利用できます。
+\subsubsection{クーポンの受け取り・利用機能}
+ユーザーはシステム上で提供されるクーポンの受け取り、
+並びにそのクーポンの利用ができます。
+クーポンは、観光地や施設等での割引や特典に利用できます。
+クーポンは、利用可能・利用中・利用済み・期限切れの4状態で管理し、
+クーポンの「利用中」とは、クーポンを提示して店舗等で
+利用手続きを行った状態を指し、翌日5時には「利用済み」となります。
+ユーザーは画面上でクーポンが利用可能なのか、または利用中である状態なのか
+を確認できます。
+% 文章は適宜他の項目に移すなど調整してください
 
 \subsection{事業者}
 
@@ -482,6 +489,54 @@ UGCの監視・管理ができます。
 	\caption{UGC監視・管理}\label{fig:act-manage_ugc}
 \end{figure}
 
+\subsubsection{サブスクリプション承認}
+\begin{figure}[H]
+	\centering
+	\adiagram{管理者,システム,データベース}{1.5}{
+		0/0/ユーザー管理画面を開く,
+		1/0/申請一覧を表示,
+		0/0/申請を選択,
+		0/0/承認ボタンを\\クリック,
+		1/0/操作の確認画面を表示,
+		0/1/操作を確定,
+		1/0/SQLクエリを生成,
+		2/0/契約情報を更新,
+		2/0/結果を返す,
+		1/1/承認が成功する,
+		1/0/結果を表示,
+		0/0/結果を確認
+	}{
+		\node[action](decision0)at(0,-7){元の画面に戻る};
+		\draw[arrow](action6)-|(0.45,-7)node[label,pos=.8]{キャンセルを選択}|-(decision0);
+		\draw[arrow](decision0)-|(-0.45,-13)|-(end);
+		\node[action](decision1)at(1,-12){承認できない旨を表示};
+		\draw[arrow](action10)-|(1.45,-12)node[label,pos=.57]{失敗する}|-(decision1);
+		\draw[arrow](decision1)--(action12);
+	}
+	\caption{サブスクリプション承認}\label{fig:act-approve_subscription}
+\end{figure}
+
+\subsubsection{サブスクリプション解除}
+\begin{figure}[H]
+	\centering
+	\adiagram{管理者,システム,データベース}{1.5}{
+		0/0/ユーザー管理画面を開く,
+		1/0/契約一覧を表示,
+		0/0/契約を選択し\\解除ボタンをクリック,
+    1/0/削除の確認画面を表示,
+    0/1/削除を確定,
+    1/0/SQLクエリを生成,
+    2/0/契約情報を削除,
+		1/0/解除完了の旨を表示,
+    0/0/結果を確認
+	}{
+   \node[action](decision0)at(0,-6){元の画面に戻る};
+		\draw[arrow](action5)-|(0.45,-6)node[label,pos=.57]{キャンセルを選択}|-(decision0);
+		\draw[arrow](decision0)-|(-0.45,-1)|-(action1); 
+  }
+	\caption{サブスクリプション解除}\label{fig:act-cancel_subscription}
+\end{figure}
+
 \subsection{利用者(ログイン不要機能)}
 \subsubsection{観光地・施設検索}
 
@@ -635,6 +690,51 @@ UGCの監視・管理ができます。
 \end{figure}
 
 \subsection{事業者}
+\subsubsection{事業者申込}
+\begin{figure}[H]
+	\centering
+	\adiagram{事業者,システム,データベース}{1.5}{
+    0/0/アカウント情報確認画面\\にアクセス,
+    1/0/アカウント情報確認画面\\表示,
+		0/0/事業者登録を選択,
+		1/0/申込画面表示,
+		0/0/内容を入力,
+    0/0/申込ボタンをクリック,
+		1/0/入力値を検証,
+		1/1/入力値に不備がない,
+		1/0/SQLクエリを生成,
+		2/0/申請情報を保存,
+		1/0/申請完了の旨を表示,
+		0/0/結果を確認
+	}{
+		\node[action](decision0)at(1,-9.6){不備がある旨を表示};
+		\draw[arrow](action7)-|(1.45,-9.6)node[label,pos=.57]{不備がある}|-(decision0);
+		\draw[arrow](decision0)-|(0.45,-3)|-(action3);
+	}
+	\caption{事業者申込}\label{fig:act-register_business}
+\end{figure}
+
+\subsubsection{サブスクリプション登録申請}
+\begin{figure}[H]
+	\centering
+	\adiagram{事業者,システム,データベース}{1.5}{
+		0/0/サブスクリプション登録\\画面にアクセス,
+		1/0/プラン選択画面を表示,
+		0/0/プランを選択し申請,
+		1/0/入力値を検証,
+		1/1/入力値に不備がない,
+		1/0/SQLクエリを生成,
+		2/0/申請情報を保存,
+		1/0/申請完了の旨を表示,
+		0/0/結果を確認
+	}{
+		\node[action](decision0)at(1,-6.7){不備がある旨を表示};
+		\draw[arrow](action5)-|(1.45,-6.7)node[label,pos=.57]{不備がある}|-(decision0);
+		\draw[arrow](decision0)-|(0.45,-3)|-(action3);
+	}
+	\caption{サブスクリプション登録申請}\label{fig:act-apply_subscription}
+\end{figure}
+
 \subsubsection{スポット作成}
 \begin{figure}[H]
 	\centering
@@ -706,62 +806,62 @@ UGCの監視・管理ができます。
 	\centering
 	\begin{tikzpicture}[
 		every node/.style={draw,thick,font=\sffamily\small,align=center},
-		xscale=4.2,
+		xscale=4.5,
 	]
-		\node(home)     at(0,  0){ホーム画面};
+		\node(home)     at(0,  0){ホーム};
 		\node(acdisplay)at(1,  0){アカウント情報確認};
 		\draw[Stealth-Stealth](home)--(acdisplay);
 		\node(acup)     at(2,  0){アカウント情報編集};
 		\draw[Stealth-Stealth](acdisplay)--(acup);
 		\node(businapp) at(2,- 1){事業者申込機能};
 		\draw[Stealth-Stealth](acdisplay)|-(businapp);
-		\node(login)    at(1,- 2){ログイン画面};
+		\node(login)    at(1,- 2){ログイン};
 		\draw[Stealth-Stealth](home)     |-(login);
-		\node(signup)   at(1,- 3){アカウント作成画面};
+		\node(signup)   at(1,- 3){アカウント作成};
 		\draw[Stealth-Stealth](home)     |-(signup);
 		\node(signupcom)at(2,- 3){アカウント作成完了};
 		\draw[       -Stealth](signup)   --(signupcom);
 		\draw[       -Stealth](signupcom)edge[bend right=10](home);
-		\node(logout)   at(1,- 4){ログアウト画面};
+		\node(logout)   at(1,- 4){ログアウト};
 		\draw[Stealth-Stealth](home)     |-(logout);
 		\node(posts)    at(1,- 5){投稿};
 		\draw[Stealth-Stealth](home)     |-(posts);
 		\node(search)   at(1,- 6){観光地・施設検索};
 		\draw[Stealth-Stealth](home)     |-(search);
-		\node[dashed](g)at(2,- 6){Google マップ経路画面};
+		\node[dashed](g)at(2,- 6){Google マップ経路};
 		\draw[       -Stealth](search)   --(g);
 		\node(coupon)   at(1,- 7){クーポン};
 		\draw[Stealth-Stealth](home)     |-(coupon);
-		\node(couponuse)at(2,- 7){クーポン使用画面};
+		\node(couponuse)at(2,- 7){クーポン使用};
 		\draw[Stealth-Stealth](coupon)   --(couponuse);
-		\node(couponusc)at(3,- 7){クーポン使用完了画面};
+		\node(couponusc)at(3,- 7){クーポン使用完了};
 		\draw[       -Stealth](couponuse)--(couponusc);
 		\draw[       -Stealth](couponusc)edge[bend left=45](coupon);
 		\node(funpage)  at(1,- 8){お楽しみ機能};
 		\draw[Stealth-Stealth](home)     |-(funpage);
-		\node(checkin)  at(2,- 8){チェックイン画面};
+		\node(checkin)  at(2,- 8){チェックイン};
 		\draw[Stealth-Stealth](funpage)  --(checkin);
-		\node(checkinco)at(3,- 8){チェックイン完了画面};
+		\node(checkinco)at(3,- 8){チェックイン完了};
 		\draw[       -Stealth](checkin)  --(checkinco);
 		\draw[       -Stealth](checkinco)edge[bend left=45](funpage);
 		\node(adminhome)at(1,- 9){管理者機能ホーム};
 		\draw[Stealth-Stealth](home)     |-(adminhome);
-		\node(adminspot)at(2,- 9){スポット情報編集画面};
-		\draw[Stealth-Stealth](adminhome)--(adminspot);
-		\node(adminuser)at(2,-10){ユーザー管理画面};
-		\draw[Stealth-Stealth](adminhome)|-(adminuser);
-		\node(adminmoni)at(2,-11){UGC監視・管理画面};
+		\node(adminuser)at(2,- 9){ユーザー一覧};
+		\draw[Stealth-Stealth](adminhome)--(adminuser);
+		\node(adminused)at(3,- 9){ユーザー詳細};
+		\draw[Stealth-Stealth](adminuser)--(adminused);
+		\node(adminmoni)at(2,-10){UGC監視・管理};
 		\draw[Stealth-Stealth](adminhome)|-(adminmoni);
-		\node(admindata)at(2,-12){観光データ確認画面};
+		\node(businspot)at(2,-11){スポット情報編集};
+		\draw[Stealth-Stealth](adminhome)|-(businspot);
+		\node(admindata)at(2,-12){観光データ確認};
 		\draw[Stealth-Stealth](adminhome)|-(admindata);
 		\node(businhome)at(1,-13){事業者機能ホーム};
 		\draw[Stealth-Stealth](home)     |-(businhome);
-		\node(businspot)at(2,-13){スポット情報編集画面};
-		\draw[Stealth-Stealth](businhome)--(businspot);
-		\node(businapi) at(2,-14){APIキー発行画面};
-		\draw[Stealth-Stealth](businhome)|-(businapi);
-		\node(busindata)at(2,-15){観光データ確認画面};
-		\draw[Stealth-Stealth](businhome)|-(busindata);
+		\draw[Stealth-Stealth](businhome)--(businspot.base west);
+		\draw[Stealth-Stealth](businhome)--(admindata.base west);
+		\node(businapi) at(2,-13){APIキー管理};
+		\draw[Stealth-Stealth](businhome)--(businapi);
 	\end{tikzpicture}
 	\caption{画面遷移図}\label{fig:stc}
 \end{figure}
