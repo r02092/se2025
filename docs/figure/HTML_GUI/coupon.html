@@ -72,14 +72,9 @@
 							</div>
 
 							<!-- 表示切替プルダウン（追加） -->
-							<div class="view-select" style="margin-left: 12px">
+							<div class="view-select" style="margin-left:12px;">
 								<label for="view-select">表示</label>
-								<select
-									id="view-select"
-									name="view-select"
-									aria-controls="active-coupons available-coupons"
-									aria-label="クーポン表示切替"
-								>
+								<select id="view-select" name="view-select" aria-controls="active-coupons available-coupons" aria-label="クーポン表示切替">
 									<option value="all">すべて</option>
 									<option value="active">現在利用中のクーポン</option>
 									<option value="available">利用可能なクーポン</option>
@@ -87,12 +82,7 @@
 							</div>
 
 							<!-- aria-live 用の見えない領域（スクリーンリーダーに変化を伝える） -->
-							<div
-								id="view-live"
-								class="sr-only"
-								aria-live="polite"
-								aria-atomic="true"
-							></div>
+							<div id="view-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 						</div>
 					</div>
 				</div>
@@ -124,13 +114,10 @@
 									<span class="coupon-exp">〜2025/06/30</span>
 								</div>
 							</div>
-							<div class="coupon-action">
-								<button
-									class="btn-ghost"
-									aria-label="詳細を見る 栗林公園クーポン"
-								>
-									詳細
-								</button>
+
+							<!-- ボタンではなく案内テキストに置き換え -->
+							<div class="coupon-action" role="note" aria-label="詳細の案内">
+								<span class="detail-note">詳細を表示</span>
 							</div>
 						</article>
 					</section>
@@ -162,10 +149,10 @@
 									<span class="coupon-exp">〜2025/12/31</span>
 								</div>
 							</div>
-							<div class="coupon-action">
-								<button class="btn-ghost" aria-label="詳細を見る 高知城カフェ">
-									詳細
-								</button>
+
+							<!-- ボタンではなく案内テキストに置き換え -->
+							<div class="coupon-action" role="note" aria-label="詳細の案内">
+								<span class="detail-note">詳細を表示</span>
 							</div>
 						</article>
 					</section>
