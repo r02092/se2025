@@ -12,10 +12,21 @@
 		<div class="container">
 			<div class="header-bar">
 				<div class="title"><img src="logo_white.svg" width="90" /></div>
+				<div class="hamburger">
+					<div class="hamburger-bars">
+						<div class="bar"></div>
+						<div class="bar"></div>
+						<div class="bar"></div>
+					</div>
+				</div>
 				<div class="header-login">
-					<button type="button" onclick="location.href = 'login.html'">
-						ログイン
-					</button>
+					<a
+						href="profile.html"
+						class="header-profile"
+						title="プロフィールを表示"
+					>
+						<img src="Profile_pic.JPG" alt="プロフィール" />
+					</a>
 				</div>
 			</div>
 
@@ -26,11 +37,7 @@
 
 				<!-- HERO（上部の大きな画像） -->
 				<section class="hero">
-					<img
-						src="Harimaya_Bridge.jpg"
-						alt="Harimaya Bridge"
-						class="hero-img"
-					/>
+					<img src="ryugado.jpg" alt="Harimaya Bridge" class="hero-img" />
 				</section>
 
 				<!-- クーポン詳細（背景に直接描画するスタイル） -->
@@ -67,9 +74,15 @@
 				>
 					<button class="qr-modal-close" aria-label="閉じる">&times;</button>
 					<h2 id="qr-modal-title" class="qr-modal-title">龍河洞 入場割引</h2>
-					<p class="qr-modal-sub">こちらのQRをスタッフにご提示ください</p>
+					<p class="qr-modal-sub">
+						こちらの二次元コードをスタッフにご提示ください
+					</p>
 					<div class="qr-modal-image">
-						<img src="coupon-code.gif" alt="クーポンQRコード" />
+						<img
+							src="coupon-code.gif"
+							alt="クーポンQRコード"
+							style="image-rendering: pixelated"
+						/>
 					</div>
 					<p class="qr-modal-hint">
 						この画面をスタッフに見せて割引を受けてください。
