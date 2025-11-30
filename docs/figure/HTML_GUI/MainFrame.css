@@ -128,7 +128,6 @@ body {
 	padding-top: 42px; /* ← 追加（ヘッダー高さぶんずらす） */
 	padding-bottom: 55px; /*  ← ボトムバー分の余白 多分不要 */
 	background: #eee;
-	height: 100%;
 	width: 100vw;
 	display: flex;
 	flex-direction: column;
