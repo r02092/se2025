@@ -1,6 +1,14 @@
 .profile-container {
 	width: 80%;
 	margin: 80px auto;
+	margin-bottom: 10px;
+	padding: 1% 5% 1% 5%;
+	text-align: center;
+}
+.profile-subscription-container {
+	width: 80%;
+	margin: 80px auto;
+	margin-top: 10px;
 	padding: 1% 5% 1% 5%;
 	text-align: center;
 }
@@ -46,7 +54,7 @@
 	color: #555;
 	font-size: 18px;
 }
-.profile-container button[type="edit"] {
+.profile-button-edit {
 	width: 60%;
 	padding: 10px 0;
 	background-color: #14b888;
@@ -59,6 +67,22 @@
 	margin-bottom: 20px;
 	transition: background-color 0.2s;
 }
-.profile-container button[type="edit"]:hover {
+.profile-button-edit:hover {
+	background-color: #108a66;
+}
+.profile-button-confirm {
+	width: 100px;
+	padding: 10px 0;
+	background-color: #14b888;
+	color: #fff;
+	border: none;
+	border-radius: 20px;
+	font-size: 17px;
+	cursor: pointer;
+	font-weight: bold;
+	margin-bottom: 20px;
+	transition: background-color 0.2s;
+}
+.profile-button-confirm:hover {
 	background-color: #108a66;
 }
