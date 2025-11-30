@@ -31,7 +31,7 @@ body {
 	color: #14b888;
 	border: 0px;
 	padding: 6px 10px;
-	border-radius: 4px;
+	border-radius: 6px;
 	cursor: pointer;
 	font-weight: 700;
 	font-size: 13px;
@@ -47,7 +47,7 @@ body {
 	justify-content: center;
 	width: 36px;
 	height: 36px;
-	border-radius: 50%;
+	border-radius: 20%;
 	overflow: hidden;
 	background: rgba(
 		255,
@@ -67,7 +67,6 @@ body {
 	height: 100%;
 	object-fit: cover; /* 切り取りで中央を表示 */
 	display: block;
-	border-radius: 50%;
 }
 
 /* 小さい画面で少し小さく */
