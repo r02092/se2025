@@ -827,7 +827,7 @@ UGCの監視・管理ができます。
 IE記法によるデータベースのER図を\cref{fig:er}に示します。
 \begin{figure}[H]
 	\centering
-	\includegraphics[bb=16.919437 15.39 689.334588 581.543982,clip,scale=.66]{gaibu-er.pdf}
+	\includegraphics[bb=16.408054 15.39 668.505917 581.561982,clip,scale=.66]{gaibu-er.pdf}
 	\caption{ER図}\label{fig:er}
 \end{figure}
 \subsection{テーブルとカラムの詳細}
@@ -1165,6 +1165,26 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		lat & INT UNSIGNED & NOT NULL & 緯度 \\ \hline
 		img\_ext & VARCHAR(4) & NOT NULL & 画像の拡張子 \\ \hline
 		comment & TEXT & NOT NULL & 写真に付けた文 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+事業者の発行したAPIキーは、api\_keysテーブル（\cref{tb:db-api_keys}）に保存されます。
+パスワードと同様にAPIキーもハッシュ化を行い、安全に保存します。
+\begin{table}[H]
+	\centering
+	\caption{api\_keysテーブル（事業者の発行したAPIキー）}\label{tb:db-api_keys}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 発行者 \\ \hline
+		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
+		key & VARCHAR(255) & NOT NULL & ハッシュ化されたAPIキー \\ \hline
 		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
 		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
 		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
