@@ -8,10 +8,6 @@
 	margin-bottom: 24px;
 	color: #333;
 }
-.subscription-form-container h3 {
-	font-weight: normal;
-	color: #333;
-}
 .subscription-form-container li {
 	text-align: left;
 }
@@ -54,6 +50,6 @@
 	font-weight: bold;
 	transition: background-color 0.2s;
 }
-.login-container button[type="submit"]:hover {
+.subscription-form-container button[type="submit"]:hover {
 	background-color: #108a66;
 }
