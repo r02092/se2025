@@ -19,7 +19,7 @@
 					</div>
 				</div>
 				<div class="header-login">
-					<button type="button" onclick="location.href='login.html'">
+					<button type="button" onclick="location.href = 'login.html'">
 						ログイン
 					</button>
 				</div>
@@ -29,7 +29,7 @@
 				<div class="post-titlebar">
 					<h1>みんなの投稿</h1>
 					<div class="post-titlebar-update">
-						<button type="button" onclick="location.href='post.html'">
+						<button type="button" onclick="location.href = 'post.html'">
 							内容更新
 						</button>
 					</div>
@@ -40,7 +40,7 @@
 					<div class="composer-left">
 						<img class="avatar" src="Profile_pic.JPG" alt="avatar" />
 					</div>
-					<div class="composer-right">
+					<div class="general-box composer-right">
 						<textarea
 							id="composer-text"
 							placeholder="いまどうしてる？"
@@ -67,7 +67,7 @@
 
 				<!-- 投稿カードのテンプレート（post.js がこれをクローンします） -->
 				<template id="post-template">
-					<article class="post-card">
+					<article class="general-box post-card">
 						<header class="post-head">
 							<img class="post-avatar" alt="avatar" />
 							<div class="post-meta">

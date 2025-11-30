@@ -19,57 +19,46 @@
 					</div>
 				</div>
 				<div class="header-login">
-					<button type="button" onclick="location.href='login.html'">
+					<button type="button" onclick="location.href = 'login.html'">
 						ログイン
 					</button>
 				</div>
 			</div>
 
 			<div class="main-area">
-				<!-- タイトルバー（ヘッダー下に固定） -->
-				<div class="coupon-titlebar">
-					<h1>クーポン</h1>
-					<!-- 更新ボタンをフィルタ領域に移動したのでここは空にしておきます -->
-					<div
-						class="coupon-filter"
-						role="region"
-						aria-label="クーポンフィルタ"
-					>
-						<div
-							class="chip-group"
-							role="tablist"
-							aria-label="クーポンカテゴリ"
-						>
-							<button class="chip active" data-cat="all" aria-pressed="true">
-								すべて
-							</button>
-							<button class="chip" data-cat="food" aria-pressed="false">
-								飲食
-							</button>
-							<button class="chip" data-cat="shop" aria-pressed="false">
-								お土産
-							</button>
-							<button class="chip" data-cat="attraction" aria-pressed="false">
-								観光
-							</button>
-							<!-- サンプルで長めのカテゴリを追加して横スクロールを確認しやすく -->
-							<button class="chip" data-cat="experience" aria-pressed="false">
-								体験アクティビティ
-							</button>
-							<button class="chip" data-cat="stay" aria-pressed="false">
-								宿泊
-							</button>
-						</div>
+				<h1>クーポン</h1>
+				<!-- 更新ボタンをフィルタ領域に移動したのでここは空にしておきます -->
+				<div class="coupon-filter" role="region" aria-label="クーポンフィルタ">
+					<div class="chip-group" role="tablist" aria-label="クーポンカテゴリ">
+						<button class="chip active" data-cat="all" aria-pressed="true">
+							すべて
+						</button>
+						<button class="chip" data-cat="food" aria-pressed="false">
+							飲食
+						</button>
+						<button class="chip" data-cat="shop" aria-pressed="false">
+							お土産
+						</button>
+						<button class="chip" data-cat="attraction" aria-pressed="false">
+							観光
+						</button>
+						<!-- サンプルで長めのカテゴリを追加して横スクロールを確認しやすく -->
+						<button class="chip" data-cat="experience" aria-pressed="false">
+							体験アクティビティ
+						</button>
+						<button class="chip" data-cat="stay" aria-pressed="false">
+							宿泊
+						</button>
+					</div>
 
-						<div class="sort-wrap">
-							<div class="sort-select">
-								<label for="sort">並び替え</label>
-								<select id="sort" name="sort">
-									<option value="recommended">おすすめ順</option>
-									<option value="new">新着順</option>
-									<option value="exp">期限が近い順</option>
-								</select>
-							</div>
+					<div class="sort-wrap">
+						<div class="sort-select">
+							<label for="sort">並び替え</label>
+							<select id="sort" name="sort">
+								<option value="recommended">おすすめ順</option>
+								<option value="new">新着順</option>
+								<option value="exp">期限が近い順</option>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -80,7 +69,7 @@
 				<section class="coupon-list" aria-label="クーポン一覧">
 					<!-- サンプルカード: 有効なクーポン -->
 					<article
-						class="coupon-card"
+						class="general-box coupon-card"
 						data-cat="food"
 						tabindex="0"
 						role="article"
@@ -105,12 +94,12 @@
 							</div>
 						</div>
 						<div class="coupon-action">
-							<button
-								class="btn-primary"
+							<span
+								class="btn btn-primary"
 								aria-label="クーポンを使う 高知城カフェ"
 							>
 								利用する
-							</button>
+							</span>
 							<button class="btn-ghost" aria-label="詳細を見る 高知城カフェ">
 								詳細
 							</button>
@@ -119,7 +108,7 @@
 
 					<!-- サンプルカード: 期限切れ -->
 					<article
-						class="coupon-card expired"
+						class="general-box coupon-card expired"
 						data-cat="shop"
 						tabindex="0"
 						role="article"
@@ -143,7 +132,7 @@
 							</div>
 						</div>
 						<div class="coupon-action">
-							<span class="badge-muted">期限切れ</span>
+							<span class="btn badge-done">期限切れ</span>
 							<button class="btn-ghost" aria-label="詳細を見る 松山城クーポン">
 								詳細
 							</button>
@@ -152,7 +141,7 @@
 
 					<!-- サンプルカード: 利用済み -->
 					<article
-						class="coupon-card redeemed"
+						class="general-box coupon-card redeemed"
 						data-cat="attraction"
 						tabindex="0"
 						role="article"
@@ -174,7 +163,7 @@
 							</div>
 						</div>
 						<div class="coupon-action">
-							<span class="badge-done">利用済み</span>
+							<span class="btn badge-done">利用済み</span>
 							<button
 								class="btn-ghost"
 								aria-label="詳細を見る 栗林公園クーポン"
