@@ -642,6 +642,30 @@ UGCの監視・管理ができます。
 \end{figure}
 
 \subsection{事業者}
+\subsubsection{事業者申込}
+\begin{figure}[H]
+	\centering
+	\adiagram{事業者,システム,データベース}{1.5}{
+    0/0/アカウント情報確認画面\\にアクセス,
+    1/0/アカウント情報確認画面\\表示,
+		0/0/事業者登録を選択,
+		1/0/申込画面表示,
+		0/0/内容を入力,
+    0/0/申込ボタンをクリック,
+		1/0/入力値を検証,
+		1/1/入力値に不備がない,
+		1/0/SQLクエリを生成,
+		2/0/申請情報を保存,
+		1/0/申請完了の旨を表示,
+		0/0/結果を確認
+	}{
+		\node[action](decision0)at(1,-9.6){不備がある旨を表示};
+		\draw[arrow](action7)-|(1.45,-9.6)node[label,pos=.57]{不備がある}|-(decision0);
+		\draw[arrow](decision0)-|(0.45,-3)|-(action3);
+	}
+	\caption{事業者申込}\label{fig:act-register_business}
+\end{figure}
+
 \subsubsection{スポット作成}
 \begin{figure}[H]
 	\centering
