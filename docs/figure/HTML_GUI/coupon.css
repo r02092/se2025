@@ -1,9 +1,46 @@
-.main-area {
-	background: #eee;
+.coupon-titlebar {
+	background-image: linear-gradient(#eee 80%, transparent);
+	height: 198px;
+	margin: 42px 0 20px;
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	position: fixed; /* fixedに変更 */
+	top: 0; /* 画面上部に固定 */
+	left: 0;
+	width: 100vw;
+	color: #000;
+	z-index: 500; /* 他UIより上に */
+}
+.coupon-titlebar h1 {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+}
+.coupon-titlebar-update {
+	position: absolute;
+	right: 8px;
+	top: 26px;
+	height: 42px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.coupon-titlebar-update button {
+	background: #14b888;
+	color: #fff;
+	border: 0px;
+	padding: 6px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-weight: 700;
+	font-size: 13px;
 }
 
-.main-area h1 {
-	margin-bottom: 0;
+.main-area {
+	/* MainFrame.css で padding-top:42px されていますが、ここでタイトルバー分も追加 */
+	padding-top: 220px;
+	background: #eee;
 }
 
 /* small utility: hide element */
@@ -26,6 +63,9 @@
 
 /* フィルタ / ソート */
 .coupon-filter {
+	position: fixed;
+	top: 110px;
+	left: 0;
 	width: 100%;
 	box-sizing: border-box;
 	/* 背景をつけて下のコンテンツが見えにくいようにする（必要なら調整） */
@@ -113,6 +153,9 @@
 /* 個別カード */
 /* position:relative にしてカード内で詳細ボタンを絶対配置 */
 .coupon-card {
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 	display: flex;
 	align-items: center;
 	padding: 12px;
@@ -144,7 +187,7 @@
 	flex: 1 1 auto;
 	min-width: 0;
 	/* 右側に詳細案内テキストが入る余白を確保 */
-	padding-right: 20px; /* テキスト幅に合わせて調整 */
+	padding-right: 0px;
 }
 .coupon-title {
 	margin: 0 0 6px 0;
@@ -209,7 +252,11 @@
 .btn-primary {
 	background: #14b888;
 	color: #fff;
+	border: 0;
+	padding: 8px 12px;
+	border-radius: 6px;
 	cursor: pointer;
+	font-weight: 700;
 }
 .btn-ghost {
 	background: transparent;
@@ -221,12 +268,35 @@
 }
 
 /* 状態バッジ */
+.badge-muted {
+	background: #f0f0f0;
+	color: #999;
+	padding: 6px 10px;
+	border-radius: 6px;
+	font-weight: 700;
+}
 .badge-done {
 	background: #e8f7ef;
 	color: #14b888;
+	padding: 6px 10px;
+	border-radius: 6px;
+	font-weight: 700;
 }
 
-/* redeemed の見た目 */
-.coupon-card.redeemed {
+/* expired / redeemed の見た目 */
+.coupon-card.expired {
 	opacity: 0.6;
+}
+.coupon-card.redeemed {
+	opacity: 0.85;
+}
+
+/* レスポンシブ調整: 狭い画面では余白を少し縮める */
+@media (max-width: 420px) {
+	.coupon-info {
+		padding-right: 100px;
+	}
+	.detail-note {
+		font-size: 12px;
+	}
 }
