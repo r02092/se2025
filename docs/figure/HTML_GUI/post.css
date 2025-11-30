@@ -1,6 +1,5 @@
 .post-titlebar {
 	background-image: linear-gradient(#eee 70%, transparent);
-	height: 88px;
 	margin: 42px 0 20px;
 	display: flex;
 	align-items: center;
@@ -19,7 +18,6 @@
 .post-titlebar-update {
 	position: absolute;
 	right: 8px;
-	top: 26px;
 	height: 42px;
 	display: flex;
 	align-items: center;
