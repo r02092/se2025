@@ -1,6 +1,6 @@
 .coupon-titlebar {
 	background-image: linear-gradient(#eee 80%, transparent);
-	height: 198px;
+	height: 88px;
 	margin: 42px 0 20px;
 	display: flex;
 	align-items: center;
@@ -151,7 +151,6 @@
 }
 
 /* 個別カード */
-/* position:relative にしてカード内で詳細ボタンを絶対配置 */
 .coupon-card {
 	background: #fff;
 	border-radius: 10px;
@@ -163,7 +162,6 @@
 	transition:
 		transform 0.12s ease,
 		box-shadow 0.12s ease;
-	position: relative; /* 追加 */
 }
 .coupon-card:focus {
 	outline: 3px solid rgba(20, 184, 136, 0.18);
@@ -186,8 +184,6 @@
 .coupon-info {
 	flex: 1 1 auto;
 	min-width: 0;
-	/* 右側に詳細案内テキストが入る余白を確保 */
-	padding-right: 0px;
 }
 .coupon-title {
 	margin: 0 0 6px 0;
@@ -219,35 +215,12 @@
 	color: #999;
 }
 
-/* アクション領域（案内テキスト） */
-/* 右下に固定する */
+/* アクション領域 */
 .coupon-action {
-	position: absolute;
-	right: 12px;
-	bottom: 12px;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	gap: 8px;
-	align-items: center;
-}
-
-/* 案内テキストの見た目（プレーンテキスト） */
-.detail-note {
-	font-size: 13px;
-	color: #0b6b4d;
-	background: transparent;
-	padding: 0;
-	margin: 0;
-	/* もし視覚的に弱調したいなら opacity を下げる */
-	opacity: 0.95;
-}
-
-/* 既存ボタンスタイルは残しています（将来のため） */
-.btn {
-	padding: 6px 10px;
-	border-radius: 6px;
-	font-weight: 700;
-	font-size: 10pt;
+	align-items: flex-end;
 }
 .btn-primary {
 	background: #14b888;
@@ -289,14 +262,4 @@
 }
 .coupon-card.redeemed {
 	opacity: 0.85;
-}
-
-/* レスポンシブ調整: 狭い画面では余白を少し縮める */
-@media (max-width: 420px) {
-	.coupon-info {
-		padding-right: 100px;
-	}
-	.detail-note {
-		font-size: 12px;
-	}
 }

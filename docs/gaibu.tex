@@ -111,6 +111,10 @@
 ログインに成功すると、ユーザーはシステムの全ての機能を利用でき、
 ログアウトを行うと、ユーザーはログイン前の状態に戻れます。
 
+\subsubsection{問い合わせ機能}
+ユーザーがシステムに対して問い合わせを行うための機能です。
+問い合わせ内容の入力、送信が可能であり、管理者が対応します。
+
 \subsection{利用者（ログイン不要）}
 \subsubsection{観光地検索}
 システム上で観光地や施設を検索できます。
@@ -138,10 +142,8 @@
 訪れた観光地や施設の写真をシステムに投稿・共有できます。
 投稿された写真は、他の利用者が閲覧できます。
 
-\subsubsection{チェックイン機能}
+\subsubsection{スタンプ機能}
 訪れた観光地や施設のスタンプを入手できます。
-チェックインは、その場所にある二次元コードを読み込むことに
-より行います。
 
 \subsubsection{クーポンの受け取り・利用機能}
 ユーザーはシステム上で提供されるクーポンの受け取り、
@@ -209,6 +211,11 @@ UGCの監視・管理ができます。
 行政や事業者に提供する観光データや、
 ダッシュボードの表示内容を管理者として確認・監視
 できます。
+
+\subsubsection{問い合わせ対応機能}
+ユーザーからの問い合わせに対応できます。
+利用者や事業者からの問い合わせを一元管理し、
+対応を記録できます。
 
 \subsubsection{サブスクリプション承認・解除機能}
 事業者からのプラン新規登録・追加申請を承認し、承認または却下を行います。
@@ -489,6 +496,33 @@ UGCの監視・管理ができます。
 	\caption{UGC監視・管理}\label{fig:act-manage_ugc}
 \end{figure}
 
+\subsubsection{問い合わせ返信}
+\begin{figure}[H]
+	\centering
+	\adiagram{管理者,システム,データベース}{1.25}{
+		0/0/問い合わせ一覧画面を開く,
+		1/0/SQLクエリを生成,
+		2/0/問い合わせ一覧を検索,
+		2/0/結果を返す,
+		1/0/問い合わせ一覧を表示,
+		0/0/返信するユーザーを選択,
+		1/0/問い合わせ内容と\\返信フォームを表示,
+		0/0/返信内容を入力,
+		0/0/送信ボタンをクリック,
+		1/0/入力値を検証,
+		1/1/入力値に不備がない,
+		1/0/SQLクエリを生成,
+		2/0/返信内容を保存,
+		1/0/返信完了画面を表示,
+		0/0/結果を確認
+	}{
+		\node[action](decision1)at(1,-15){返信できない旨を表示};
+		\draw[arrow](action10)-|(1.45,-15)node[label,pos=.57]{不備がある}|-(decision1);
+		\draw[arrow](decision1)-|(0.45,-8)|-(action8);
+	}
+	\caption{問い合わせ返信}\label{fig:act-reply_inquiry}
+\end{figure}
+
 \subsection{利用者(ログイン不要機能)}
 \subsubsection{観光地・施設検索}
 
@@ -618,7 +652,7 @@ UGCの監視・管理ができます。
 		\draw[arrow](action11)-|(1.45,-14)node[label,pos=.57]{一致しない}|-(decision0);
 		\draw[arrow](decision0)--(action14);
 	}
-	\caption{チェックイン}\label{fig:act-post_stamp}
+	\caption{スタンプ}\label{fig:act-post_stamp}
 \end{figure}
 
 \subsubsection{クーポン受け取り}
@@ -639,6 +673,28 @@ UGCの監視・管理ができます。
 		\draw[arrow](decision0)--(action8);
 	}
 	\caption{クーポン受け取り}\label{fig:act-receive_coupon}
+\end{figure}
+
+\subsubsection{問い合わせ対応}
+\begin{figure}[H]
+	\centering
+	\adiagram{利用者,システム,データベース}{1.5}{
+		0/0/問い合わせボタンを\\クリック,
+		1/0/問い合わせ画面表示,
+		0/0/必要情報を入力,
+		0/0/送信ボタンをクリック,
+		1/0/入力値を検証,
+		1/1/入力値に不備がない,
+		1/0/SQLクエリを生成,
+		2/0/問い合わせ内容を保存,
+		1/0/問い合わせ送信完了\\の旨を表示,
+		0/0/結果を確認
+	}{
+		\node[action](decision0)at(1,-10){不備がある旨を表示};
+		\draw[arrow](action6)-|(1.45,-10)node[label,pos=.7]{不備がある}|-(decision0);
+		\draw[arrow](decision0)--(action10);
+	}
+	\caption{問い合わせ対応}\label{fig:act-inquiry_response}
 \end{figure}
 
 \subsection{事業者}
@@ -742,8 +798,11 @@ UGCの監視・管理ができます。
 		\node(home)     at(0,  0){ホーム画面};
 		\node(acdisplay)at(1,  0){アカウント情報確認};
 		\draw[Stealth-Stealth](home)--(acdisplay);
-		\node(acup)     at(2,  0){アカウント情報編集};
+		\node(acup)     at(2,  0){アカウント情報更新};
 		\draw[Stealth-Stealth](acdisplay)--(acup);
+		\node(acupcomp) at(3,  0){アカウント情報更新完了};
+		\draw[       -Stealth](acup)     --(acupcomp);
+		\draw[       -Stealth](acupcomp)edge[bend right=45](home);
 		\node(businapp) at(2,- 1){事業者申込機能};
 		\draw[Stealth-Stealth](acdisplay)|-(businapp);
 		\node(login)    at(1,- 2){ログイン画面};
@@ -775,23 +834,27 @@ UGCの監視・管理ができます。
 		\node(checkinco)at(3,- 8){チェックイン完了画面};
 		\draw[       -Stealth](checkin)  --(checkinco);
 		\draw[       -Stealth](checkinco)edge[bend left=45](funpage);
-		\node(adminhome)at(1,- 9){管理者機能ホーム};
+		\node(contacts) at(1,- 9){問い合わせ画面};
+		\draw[Stealth-Stealth](home)     |-(contacts);
+		\node(adminhome)at(1,-10){管理者機能ホーム};
 		\draw[Stealth-Stealth](home)     |-(adminhome);
-		\node(adminspot)at(2,- 9){スポット情報編集画面};
+		\node(adminspot)at(2,-10){スポット情報編集画面};
 		\draw[Stealth-Stealth](adminhome)--(adminspot);
-		\node(adminuser)at(2,-10){ユーザー管理画面};
+		\node(adminuser)at(2,-11){ユーザー管理画面};
 		\draw[Stealth-Stealth](adminhome)|-(adminuser);
-		\node(adminmoni)at(2,-11){UGC監視・管理画面};
+		\node(adminmoni)at(2,-12){UGC監視・管理画面};
 		\draw[Stealth-Stealth](adminhome)|-(adminmoni);
-		\node(admindata)at(2,-12){観光データ確認画面};
+		\node(admindata)at(2,-13){観光データ確認画面};
 		\draw[Stealth-Stealth](adminhome)|-(admindata);
-		\node(businhome)at(1,-13){事業者機能ホーム};
+		\node(admincont)at(2,-14){問い合わせ管理画面};
+		\draw[Stealth-Stealth](adminhome)|-(admincont);
+		\node(businhome)at(1,-15){事業者機能ホーム};
 		\draw[Stealth-Stealth](home)     |-(businhome);
-		\node(businspot)at(2,-13){スポット情報編集画面};
+		\node(businspot)at(2,-15){スポット情報編集画面};
 		\draw[Stealth-Stealth](businhome)--(businspot);
-		\node(businapi) at(2,-14){APIキー発行画面};
+		\node(businapi) at(2,-16){APIキー発行画面};
 		\draw[Stealth-Stealth](businhome)|-(businapi);
-		\node(busindata)at(2,-15){観光データ確認画面};
+		\node(busindata)at(2,-17){観光データ確認画面};
 		\draw[Stealth-Stealth](businhome)|-(busindata);
 	\end{tikzpicture}
 	\caption{画面遷移図}\label{fig:stc}
@@ -858,7 +921,7 @@ UGCの監視・管理ができます。
 IE記法によるデータベースのER図を\cref{fig:er}に示します。
 \begin{figure}[H]
 	\centering
-	\includegraphics[bb=16.408054 15.39 668.505917 581.561982,clip,scale=.66]{gaibu-er.pdf}
+	\includegraphics[bb=16.919437 15.39 689.334588 581.543982,clip,scale=.66]{gaibu-er.pdf}
 	\caption{ER図}\label{fig:er}
 \end{figure}
 \subsection{テーブルとカラムの詳細}
@@ -981,7 +1044,6 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		permission & TINYINT UNSIGNED & NOT NULL & 種別 \\ \hline
 		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
 		points & INT UNSIGNED & NOT NULL & ポイント数 \\ \hline
-		icon\_ext & VARCHAR(4) & NOT NULL & アイコンの拡張子 \\ \hline
 		num\_plan\_std & INT UNSIGNED & NOT NULL & スタンダードプランの契約数 \\ \hline
 		num\_plan\_prm & INT UNSIGNED & NOT NULL & プレミアムプランの契約数 \\ \hline
 		postal\_code & INT UNSIGNED & & 郵便番号 \\ \hline
@@ -1046,8 +1108,6 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
 		lng & INT UNSIGNED & NOT NULL & 経度 \\ \hline
 		lat & INT UNSIGNED & NOT NULL & 緯度 \\ \hline
-		img\_ext & VARCHAR(4) & NOT NULL & 画像の拡張子 \\ \hline
-		stamp\_key & BIGINT UNSIGNED & UK2, NOT NULL & スタンプ確認用キー \\ \hline
 		created\_at & DATETIME & & 作成時刻 \\ \hline
 		updated\_at & DATETIME & & 更新時刻 \\ \hline
 		deleted\_at & DATETIME & & 削除時刻 \\ \hline
@@ -1117,8 +1177,7 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		id & INT UNSIGNED & PK & ID \\ \hline
 		spot\_id & INT UNSIGNED & FK, NOT NULL & 使用できるスポット \\ \hline
 		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
-		cond\_spot\_id & INT UNSIGNED & & 行く必要のあるスポット \\ \hline
-		expires\_at & DATETIME & & 期限切れ時刻 \\ \hline
+		cond\_spot\_id & INT UNSIGNED & NOT NULL & 行く必要のあるスポット \\ \hline
 		created\_at & DATETIME & & 作成時刻 \\ \hline
 		updated\_at & DATETIME & & 更新時刻 \\ \hline
 		deleted\_at & DATETIME & & 削除時刻 \\ \hline
@@ -1182,6 +1241,8 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 \end{table}
 利用者の投稿した写真は、photosテーブル（\cref{tb:db-photos}）に
 保存されます。地図上に表示するため、写真の経緯度を保存します。
+また、画像の拡張子も保存します。拡張子を除いた
+ファイル名はIDから生成可能なものとします。
 \begin{table}[H]
 	\centering
 	\caption{photosテーブル（利用者の投稿した写真）}\label{tb:db-photos}
@@ -1202,18 +1263,20 @@ nodesテーブルのIDは、typeカラムおよびcodeカラムの
 		deleted\_at & DATETIME & & 削除時刻 \\ \hline
 	\end{tabular}
 \end{table}
-事業者の発行したAPIキーは、api\_keysテーブル（\cref{tb:db-api_keys}）に保存されます。
-パスワードと同様にAPIキーもハッシュ化を行い、安全に保存します。
+問い合わせ機能での管理者と利用者の
+会話は、contactsテーブル（\cref{tb:db-contacts}）に
+保存されます。利用者ごとに会話のスレッドが作成され、
+スレッドは他の利用者には閲覧できません。
 \begin{table}[H]
 	\centering
-	\caption{api\_keysテーブル（事業者の発行したAPIキー）}\label{tb:db-api_keys}
+	\caption{contactsテーブル（問い合わせ機能での会話）}\label{tb:db-contacts}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
 		id & INT UNSIGNED & PK & ID \\ \hline
-		user\_id & INT UNSIGNED & FK, NOT NULL & 発行者 \\ \hline
-		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
-		key & VARCHAR(255) & NOT NULL & ハッシュ化されたAPIキー \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 投稿者 \\ \hline
+		thread\_user\_id & INT UNSIGNED & NOT NULL & どの利用者のスレッドか \\ \hline
+		comment & TEXT & NOT NULL & 投稿文 \\ \hline
 		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
 		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
 		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline

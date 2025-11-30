@@ -2,136 +2,113 @@
 <html lang="ja">
 	<head>
 		<meta charset="UTF-8" />
-		<title>SceneTrip</title>
+		<title>SceneTrip - クーポン</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="MainFrame-login.css" />
-		<link rel="stylesheet" href="home.css" />
-		<!-- MapLibre CDN -->
-		<link
-			href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css"
-			rel="stylesheet"
-		/>
-		<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
+		<link rel="stylesheet" href="MainFrame.css" />
+		<link rel="stylesheet" href="coupon.css" />
 	</head>
 	<body>
 		<div class="container">
 			<div class="header-bar">
 				<div class="title"><img src="logo_white.svg" width="90" /></div>
-
+				<div class="hamburger">
+					<div class="hamburger-bars">
+						<div class="bar"></div>
+						<div class="bar"></div>
+						<div class="bar"></div>
+					</div>
+				</div>
 				<div class="header-login">
-					<a
-						href="profile.html"
-						class="header-profile"
-						title="プロフィールを表示"
-					>
-						<img src="Profile_pic.JPG" alt="プロフィール" />
-					</a>
+					<button type="button" onclick="location.href = 'login.html'">
+						ログイン
+					</button>
 				</div>
 			</div>
+
 			<div class="main-area">
-				<!-- グラデーション トップ -->
-				<div class="gradient-top"></div>
-
-				<div class="map-area" style="padding: 0">
-					<div id="map"></div>
+				<!-- タイトルバー（ヘッダー下に固定） -->
+				<div class="coupon-titlebar">
+					<h1>クーポン</h1>
 				</div>
 
-				<div class="search-bar-area">
-					<input type="text" placeholder="場所・キーワード検索" />
-					<!-- <svg class="search-icon" viewBox="0 0 32 32">
-						<circle
-							cx="15"
-							cy="15"
-							r="13"
-							stroke="#14b888"
-							stroke-width="4"
-							fill="none"
-						/>
-						<ellipse
-							cx="15"
-							cy="15"
-							rx="9"
-							ry="9"
-							stroke="#14b888"
-							stroke-width="3"
-							fill="none"
-						/>
-						<rect
-							x="25"
-							y="25"
-							width="8"
-							height="4"
-							rx="2"
-							transform="rotate(45 25 25)"
-							fill="#14b888"
-						/>
-					</svg> -->
-				</div>
-
-				<div class="ai-suggest">
-					<h2>人気のスポット</h2>
-					<div class="spot-divider" aria-hidden="true"></div>
-
-					<ul class="spot-list" aria-label="人気のスポット一覧">
-						<li class="spot-item">
+				<!-- クーポン一覧 -->
+				<section class="coupon-list" aria-label="クーポン一覧">
+					<!-- 現在利用中のクーポン -->
+					<section id="active-coupons" aria-label="現在利用中のクーポン">
+						<h2>現在利用中のクーポン</h2>
+						<article
+							class="coupon-card redeemed"
+							data-cat="attraction"
+							tabindex="0"
+							role="article"
+							aria-labelledby="coupon3-title"
+						>
 							<img
-								class="spot-thumb"
-								src="Harimaya_Bridge.jpg"
-								alt="はりまや橋"
+								class="coupon-thumb"
+								src="images/ryugado.jpg"
+								alt="龍河洞の写真"
 							/>
-							<div class="spot-content">
-								<h3 class="spot-title">はりまや橋（高知市）</h3>
-								<p class="spot-desc">はりまや橋の説明。</p>
-							</div>
-						</li>
-						<li class="spot-item">
-							<img
-								class="spot-thumb"
-								src="Harimaya_Bridge.jpg"
-								alt="はりまや橋"
-							/>
-							<div class="spot-content">
-								<h3 class="spot-title">はりまや橋（高知市）</h3>
-								<p class="spot-desc">はりまや橋の説明。</p>
-							</div>
-						</li>
-						<li class="spot-item">
-							<img
-								class="spot-thumb"
-								src="Harimaya_Bridge.jpg"
-								alt="はりまや橋"
-							/>
-							<div class="spot-content">
-								<h3 class="spot-title">はりまや橋（高知市）</h3>
-								<p class="spot-desc">はりまや橋の説明。</p>
-							</div>
-						</li>
-						<li class="spot-item">
-							<img
-								class="spot-thumb"
-								src="Harimaya_Bridge.jpg"
-								alt="はりまや橋"
-							/>
-							<div class="spot-content">
-								<h3 class="spot-title">はりまや橋（高知市）</h3>
-								<p class="spot-desc">はりまや橋の説明。</p>
-							</div>
-						</li>
-						<!-- <li class="spot-item">
-							<img class="spot-thumb" src="Harimaya_Bridge.jpg" alt="はりまや橋" />
-							<div class="spot-content">
-								<h3 class="spot-title">はりまや橋（高知市）</h3>
-								<p class="spot-desc">
-									はりまや橋の説明。
+							<div class="coupon-info">
+								<h2 id="coupon3-title" class="coupon-title">龍河洞入場割引</h2>
+								<p class="coupon-desc">
+									入場料100円引き。スタッフに画面を見せてください。
 								</p>
+								<div class="coupon-meta">
+									<span class="coupon-tag">観光</span>
+									<span class="coupon-exp">〜2025/06/30</span>
+								</div>
 							</div>
-						</li> -->
-					</ul>
-				</div>
+							<div class="coupon-action">
+								<button
+									class="btn-ghost"
+									aria-label="詳細を見る 栗林公園クーポン"
+								>
+									詳細
+								</button>
+							</div>
+						</article>
+					</section>
+
+					<!-- 利用可能なクーポン -->
+					<section id="available-coupons" aria-label="利用可能なクーポン">
+						<h2>利用可能なクーポン</h2>
+						<article
+							class="coupon-card"
+							data-cat="food"
+							tabindex="0"
+							role="article"
+							aria-labelledby="coupon1-title"
+						>
+							<img
+								class="coupon-thumb"
+								src="images/bridge.jpg"
+								alt="赤い橋の写真"
+							/>
+							<div class="coupon-info">
+								<h2 id="coupon1-title" class="coupon-title">
+									高知城カフェ 10%OFF
+								</h2>
+								<p class="coupon-desc">
+									カフェメニューが10%オフ。会計時に画面提示で利用可。
+								</p>
+								<div class="coupon-meta">
+									<span class="coupon-tag">飲食</span>
+									<span class="coupon-exp">〜2025/12/31</span>
+								</div>
+							</div>
+							<div class="coupon-action">
+								<button class="btn-ghost" aria-label="詳細を見る 高知城カフェ">
+									詳細
+								</button>
+							</div>
+						</article>
+					</section>
+				</section>
 			</div>
+
 			<div class="bottom-bar">
 				<nav class="bottom-menu">
-					<a href="home.html" class="bottom-btn selected">
+					<a href="home.html" class="bottom-btn">
 						<svg
 							class="bottom-icon"
 							viewBox="0 0 132.29166 132.29167"
@@ -176,7 +153,7 @@
 						<span class="bottom-label">投稿</span>
 					</a>
 
-					<a href="coupon.html" class="bottom-btn">
+					<a href="coupon.html" class="bottom-btn selected">
 						<svg class="bottom-icon" viewBox="0 0 512 512" aria-hidden="true">
 							<g
 								transform="matrix(0.83914572,0,0,0.83914572,82.357385,138.68221)"
@@ -227,35 +204,7 @@
 				</nav>
 			</div>
 		</div>
-		<script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
-		<script>
-			const map = new maplibregl.Map({
-				container: "map",
-				style: {
-					version: 8,
-					sources: {
-						rtile: {
-							type: "raster",
-							tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-							tileSize: 256,
-							attribution:
-								'©<a href="https://www.openstreetmap.org/copyright/ja">OpenStreetMap</a> contributors',
-						},
-					},
-					layers: [
-						{
-							id: "raster-tiles",
-							type: "raster",
-							source: "rtile",
-							minzoom: 0,
-							maxzoom: 18,
-						},
-					],
-				},
-				center: [133.56, 33.3], // [経度, 緯度] 四国周辺
-				zoom: 7.2,
-			});
-			map.addControl(new maplibregl.NavigationControl(), "top-right");
-		</script>
+
+		<script src="coupon.js" defer></script>
 	</body>
 </html>
