@@ -73,37 +73,51 @@
 
 	// サンプル投稿（最初の表示用）
 	function samplePosts() {
-		return [
-			{
-				id: "p_sample_1",
-				author: "はりまや",
-				avatar: "Harimaya_Bridge.jpg",
-				time: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
-				text: "先日行ったカフェが最高だった！窓際の席でゆっくりできます ☕️",
-				image: "post-cafe.jpg",
-				likes: 3,
-				liked: false,
-				comments: [
+		return /\/post\.html$/.test(location.pathname)
+			? [
 					{
-						id: "c1",
-						author: "alice",
-						text: "写真見たい！",
-						time: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+						id: "p_sample_1",
+						author: "はりまや",
+						avatar: "Harimaya_Bridge.jpg",
+						time: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
+						text: "先日行ったカフェが最高だった！窓際の席でゆっくりできます ☕️",
+						image: "post-cafe.jpg",
+						likes: 3,
+						liked: false,
+						comments: [
+							{
+								id: "c1",
+								author: "alice",
+								text: "写真見たい！",
+								time: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+							},
+						],
 					},
-				],
-			},
-			{
-				id: "p_sample_2",
-				author: "南風",
-				avatar: "Profile_nanpu.jpg",
-				time: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-				text: "ここの町並みがすごく綺麗でした。おすすめです。",
-				image: "post-station.jpg",
-				likes: 1,
-				liked: false,
-				comments: [],
-			},
-		];
+					{
+						id: "p_sample_2",
+						author: "南風",
+						avatar: "Profile_nanpu.jpg",
+						time: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+						text: "ここの町並みがすごく綺麗でした。おすすめです。",
+						image: "post-station.jpg",
+						likes: 1,
+						liked: false,
+						comments: [],
+					},
+				]
+			: [
+					{
+						id: null,
+						author: "ツル☆ハシ",
+						avatar: "Profile_4.jpg",
+						time: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
+						text: "ついに香美市に到着！あのゲームにも出てきた場所、土佐山田駅だ！",
+						image: "post-station.jpg",
+						likes: 0,
+						liked: false,
+						comments: [],
+					},
+				];
 	}
 
 	// ヘルパー
