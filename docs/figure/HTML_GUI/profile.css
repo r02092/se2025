@@ -55,8 +55,8 @@
 	font-size: 18px;
 }
 .profile-button-edit {
-	width: 60%;
-	padding: 10px 0;
+	width: auto;
+	padding: 10px 10px;
 	background-color: #14b888;
 	color: #fff;
 	border: none;
@@ -70,8 +70,8 @@
 .profile-button-edit:hover {
 	background-color: #108a66;
 }
-.profile-button-confirm {
-	width: 100px;
+.profile-button-subscription {
+	width: 100%;
 	padding: 10px 0;
 	background-color: #14b888;
 	color: #fff;
@@ -83,6 +83,6 @@
 	margin-bottom: 20px;
 	transition: background-color 0.2s;
 }
-.profile-button-confirm:hover {
+.profile-button-subscription:hover {
 	background-color: #108a66;
 }
