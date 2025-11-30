@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	function getClientXFromEvent(e) {
 		if (typeof e.clientX === "number") return e.clientX;
 		if (e.touches && e.touches[0]) return e.touches[0].clientX;
-		if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0].clientX;
+		if (e.changedTouches && e.changedTouches[0])
+			return e.changedTouches[0].clientX;
 		return null;
 	}
 
@@ -88,7 +89,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		trackRect = track.getBoundingClientRect();
 		handleWidth = handle.offsetWidth || 80;
 		try {
-			if (e.pointerId && handle.setPointerCapture) handle.setPointerCapture(e.pointerId);
+			if (e.pointerId && handle.setPointerCapture)
+				handle.setPointerCapture(e.pointerId);
 		} catch (err) {}
 		handle.classList.add("dragging");
 		handle.style.transition = "";
@@ -108,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		const percent = (x - min) / (max - min);
 		window.requestAnimationFrame(() => {
 			handle.style.left = x + "px";
-			fill.style.width = (percent * 100) + "%";
+			fill.style.width = percent * 100 + "%";
 		});
 	}
 
@@ -118,7 +120,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		dragging = false;
 		handle.classList.remove("dragging");
 		try {
-			if (e.pointerId && handle.releasePointerCapture) handle.releasePointerCapture(e.pointerId);
+			if (e.pointerId && handle.releasePointerCapture)
+				handle.releasePointerCapture(e.pointerId);
 		} catch (err) {}
 		const computedLeft = parseFloat(getComputedStyle(handle).left || "0");
 		const min = PADDING;
@@ -142,8 +145,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	window.addEventListener("mousemove", doDrag);
 	window.addEventListener("mouseup", endDrag);
 
-	handle.addEventListener("touchstart", startDrag, { passive: false });
-	window.addEventListener("touchmove", doDrag, { passive: false });
+	handle.addEventListener("touchstart", startDrag, {passive: false});
+	window.addEventListener("touchmove", doDrag, {passive: false});
 	window.addEventListener("touchend", endDrag);
 
 	// keyboard: Enter / Space -> complete
@@ -172,7 +175,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	}
 	document.addEventListener("keydown", e => {
-		if (e.key === "Escape" && overlay && overlay.classList.contains("show")) closeQr();
+		if (e.key === "Escape" && overlay && overlay.classList.contains("show"))
+			closeQr();
 	});
 
 	// 初期化

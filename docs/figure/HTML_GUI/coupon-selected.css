@@ -45,7 +45,7 @@
 	right: 0;
 	bottom: -1px;
 	height: 80px;
-	background: linear-gradient(rgba(0,0,0,0), #fff 80%);
+	background: linear-gradient(rgba(0, 0, 0, 0), #fff 80%);
 	pointer-events: none;
 }
 
@@ -68,11 +68,11 @@
 	color: #444;
 }
 .coupon-detail-meta {
-	display:flex;
-	gap:10px;
-	align-items:center;
-	font-size:13px;
-	color:#666;
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	font-size: 13px;
+	color: #666;
 }
 .coupon-more {
 	margin-top: 12px;
@@ -103,7 +103,7 @@
 	background: #d1ffe5;
 	box-shadow: 0 8px 20px rgba(6, 24, 16, 0.06);
 	overflow: hidden;
-	border: 3px solid rgba(11,107,77,0.12);
+	border: 3px solid rgba(11, 107, 77, 0.12);
 	display: flex;
 	align-items: center;
 }
@@ -115,7 +115,7 @@
 	top: 0;
 	bottom: 0;
 	width: 0%;
-	background: rgba(11,107,77,0.18);
+	background: rgba(11, 107, 77, 0.18);
 	border-radius: 999px;
 	transition: width 0.12s linear;
 }
@@ -126,11 +126,11 @@
 	left: 6px;
 	top: 50%;
 	transform: translateY(-50%);
-	width: 80px; 
-	height: 56px; 
-	background: #14b888; 
+	width: 80px;
+	height: 56px;
+	background: #14b888;
 	border-radius: 999px;
-	box-shadow: 0 6px 14px rgba(6,24,16,0.18);
+	box-shadow: 0 6px 14px rgba(6, 24, 16, 0.18);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -141,7 +141,9 @@
 	touch-action: none;
 	z-index: 10;
 	cursor: grab;
-	transition: left 0.08s linear, transform 0.08s linear;
+	transition:
+		left 0.08s linear,
+		transform 0.08s linear;
 }
 
 /* 押下時の見た目 */
@@ -164,14 +166,14 @@
 
 /* フォーカス表示 */
 .slider-handle:focus {
-	outline: 3px solid rgba(20,184,136,0.16);
+	outline: 3px solid rgba(20, 184, 136, 0.16);
 }
 
 /* モーダル（QR オーバーレイ） */
 .qr-overlay {
 	position: fixed;
 	inset: 0;
-	background: rgba(0,0,0,0.5);
+	background: rgba(0, 0, 0, 0.5);
 	display: none;
 	align-items: center;
 	justify-content: center;
@@ -185,7 +187,7 @@
 	background: #fff;
 	padding: 20px;
 	border-radius: 12px;
-	box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+	box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
 	text-align: center;
 	position: relative;
 }
@@ -199,6 +201,17 @@
 	line-height: 1;
 	cursor: pointer;
 }
-.qr-image-wrap { margin: 12px 0; }
-.qr-image-wrap img { width: 220px; height: 220px; object-fit: contain; display: inline-block; }
-.qr-hint { font-size: 13px; color: #666; margin-top: 8px; }
+.qr-image-wrap {
+	margin: 12px 0;
+}
+.qr-image-wrap img {
+	width: 220px;
+	height: 220px;
+	object-fit: contain;
+	display: inline-block;
+}
+.qr-hint {
+	font-size: 13px;
+	color: #666;
+	margin-top: 8px;
+}
