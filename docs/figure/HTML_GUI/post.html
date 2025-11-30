@@ -33,32 +33,32 @@
 							内容更新
 						</button>
 					</div>
-				</div>
-				<!-- Composer（投稿入力） -->
-				<section class="composer">
-					<div class="composer-left">
-						<img class="avatar" src="Profile_pic.JPG" alt="avatar" />
-					</div>
-					<div class="general-box composer-right">
-						<textarea
-							id="composer-text"
-							placeholder="いまどうしてる？"
-						></textarea>
-						<div class="composer-controls">
-							<label class="file-btn">
-								画像
-								<input id="composer-image" type="file" accept="image/*" />
-							</label>
-							<button id="post-btn" class="post-submit">投稿</button>
+
+					<!-- Composer をここに移動（表示を崩さない構成） -->
+					<section class="composer" aria-label="投稿作成">
+						<div class="composer-left">
+							<img class="avatar" src="Profile_pic.JPG" alt="avatar" />
 						</div>
-						<div
-							id="composer-preview"
-							class="composer-preview"
-							aria-hidden="true"
-						></div>
-					</div>
-				</section>
-				
+						<div class="general-box composer-right">
+							<textarea
+								id="composer-text"
+								placeholder="いまどうしてる？"
+							></textarea>
+							<div class="composer-controls">
+								<label class="file-btn">
+									画像
+									<input id="composer-image" type="file" accept="image/*" />
+								</label>
+								<button id="post-btn" class="post-submit">投稿</button>
+							</div>
+							<div
+								id="composer-preview"
+								class="composer-preview"
+								aria-hidden="true"
+							></div>
+						</div>
+					</section>
+				</div>
 
 				<!-- フィード（投稿カードをここに差し込む） -->
 				<section id="feed" class="feed">
@@ -78,21 +78,8 @@
 						<div class="post-body"></div>
 						<img class="post-image" alt="" />
 						<footer class="post-actions">
-							<button class="btn-like">
-								いいね <span class="like-count">0</span>
-							</button>
-							<button class="btn-comment">
-								コメント <span class="comment-count">0</span>
-							</button>
 							<button class="btn-share">シェア</button>
 						</footer>
-						<section class="comments" aria-hidden="true">
-							<div class="comments-list"></div>
-							<div class="comments-form">
-								<input class="comment-input" placeholder="コメントを入力..." />
-								<button class="comment-send">送信</button>
-							</div>
-						</section>
 					</article>
 				</template>
 			</div>
