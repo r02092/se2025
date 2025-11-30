@@ -6,6 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="MainFrame.css" />
 		<link rel="stylesheet" href="funpage.css" />
+		<!-- Checkin QR 用スタイル -->
+		<link rel="stylesheet" href="funpage-checkin.css" />
 	</head>
 	<body>
 		<div class="container">
@@ -27,8 +29,16 @@
 
 			<div class="main-area">
 				<h1>お楽しみ機能</h1>
-				<div class="general-box checkin-box" href="funpage-checkin.html">
-					<svg class="marker-icon" viewBox="0 0 512 512">
+				<!-- チェックインボックスに data-action を追加 -->
+				<div
+					class="general-box checkin-box"
+					id="checkinBox"
+					role="button"
+					tabindex="0"
+					aria-pressed="false"
+					aria-label="チェックイン"
+				>
+					<svg class="marker-icon" viewBox="0 0 512 512" aria-hidden="true">
 						<path
 							d="M256,0C159.969,0,82.109,77.859,82.109,173.906c0,100.719,80.016,163.688,123.297,238.719
 							C246.813,484.406,246.781,512,256,512s9.188-27.594,50.594-99.375c43.297-75.031,123.297-138,123.297-238.719
@@ -106,6 +116,33 @@
 					</div>
 				</section>
 				<!-- /実績セクション -->
+			</div>
+
+			<!-- QR オーバーレイ（ポップアップ） -->
+			<div
+				id="checkin-qr-overlay"
+				class="checkin-qr-overlay"
+				aria-hidden="true"
+			>
+				<div
+					class="checkin-qr-modal"
+					role="dialog"
+					aria-modal="true"
+					aria-labelledby="checkin-qr-title"
+				>
+					<button class="checkin-qr-close" aria-label="閉じる">&times;</button>
+					<h2 id="checkin-qr-title" class="checkin-qr-title">チェックイン</h2>
+					<p class="checkin-qr-sub">設置されているQRを読み取ってください。</p>
+					<div class="checkin-qr-image">
+						<img src="SceneTripjp_QR.png" alt="SceneTrip QRコード" />
+					</div>
+					<p class="checkin-qr-hint">
+						三隅の資格がはっきり映るようにしてください。
+					</p>
+					<div class="checkin-qr-actions">
+						<button class="checkin-qr-close-btn">閉じる</button>
+					</div>
+				</div>
 			</div>
 
 			<div class="bottom-bar">
@@ -190,16 +227,6 @@
 									0-11.396,9.239-20.644,20.644-20.644,11.396,0,20.635,9.248,20.635,20.644-10e-4,11.405-9.239,20.644-20.635,20.644z"
 								/>
 							</g>
-							<g
-								transform="matrix(0.74968218,-0.37701746,0.37701746,0.74968218,-43.976071,151.85387)"
-							>
-								<path
-									fill="#000"
-									d="M512.00051 116.64261 L146.56254 116.64114 C146.56254 128.04614 137.32166 137.28635 125.92566 137.28635
-									C114.52066 137.28635 105.28358 128.04823 105.28358 116.64323 L -0.00028292634 116.64256 L -0.00046861371 306.52762
-									L 83.131387 141.22369 L 512.00005 356.90305 L 512.00051 116.64261 z"
-								/>
-							</g>
 						</svg>
 						<span class="bottom-label">クーポン</span>
 					</a>
@@ -226,5 +253,7 @@
 				</nav>
 			</div>
 		</div>
+
+		<script src="funpage-checkin.js" defer></script>
 	</body>
 </html>
