@@ -1,10 +1,7 @@
 .checkin-box {
-	background-color: #fff;
 	width: 80%;
 	margin: 40px auto;
 	padding: 1% 5% 1% 5%;
-	border-radius: 8px;
-	box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -23,12 +20,9 @@
 
 /* --- achievement セクション（checkin-box と同じ枠スタイル） --- */
 .achievement {
-	background-color: #fff;
 	width: 90%;
 	margin: 40px auto 80px; /* 上は checkin と同じ、下はボトムバー回避 */
 	padding: 1% 5% 5% 5%;
-	border-radius: 8px;
-	box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
 	box-sizing: border-box;
 }
 
