@@ -40,6 +40,35 @@ body {
 	background: rgba(255, 255, 255, 0.7);
 }
 
+.header-profile {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 15%;
+	overflow: hidden;
+	background: rgba(
+		255,
+		255,
+		255,
+		0.08
+	); /* 背景（画像が透過している時のため） */
+	border: 2px solid rgba(255, 255, 255, 0.12); /* 軽い枠線 */
+	box-sizing: border-box;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+/* アバター画像自体 */
+.header-profile img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* 切り取りで中央を表示 */
+	display: block;
+	border-radius: 15%;
+}
+
 .title {
 	font-size: 20px;
 	font-weight: 700;
@@ -155,8 +184,4 @@ body {
 	border-radius: 0; /* 角丸をなくす場合 */
 	height: 100vh; /* 必要なら高さも画面いっぱい */
 }
-@media (max-width: 480px) {
-	.container {
-		max-width: 100vw;
-	}
-}
+
