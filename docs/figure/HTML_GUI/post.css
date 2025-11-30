@@ -13,7 +13,7 @@
 }
 .post-titlebar-update {
 	position: absolute;
-	right: 8px;
+	right: 5%;
 	height: 42px;
 	display: flex;
 	align-items: center;
@@ -37,8 +37,8 @@
 
 /* 代替：main-area の直下要素に左右パディングを渡す（HTMLは変更せずに別の場でパディング確保） */
 .main-area > * {
-	padding-left: 12px;
-	padding-right: 12px;
+	padding-left: 5%;
+	padding-right: 5%;
 }
 
 /* --- Composer のスタイル --- */
