@@ -1,12 +1,8 @@
 .post-titlebar {
 	background-image: linear-gradient(#eee 70%, transparent);
-	margin: 42px 0 20px;
 	display: flex;
 	align-items: center;
 	box-sizing: border-box;
-	position: fixed; /* fixedに変更 */
-	top: 0; /* 画面上部に固定 */
-	left: 0;
 	width: 100vw;
 	color: #000;
 	z-index: 500; /* 他UIより上に */
@@ -36,8 +32,6 @@
 
 /* main-area の左右パディングは削除（要求どおり） */
 .main-area {
-	/* MainFrame.css で padding-top:42px されていますが、ここでタイトルバー分も追加 */
-	padding-top: 130px; /* 42 (header) + 88 (post-titlebar) = 130 */
 	background: #eee;
 }
 
