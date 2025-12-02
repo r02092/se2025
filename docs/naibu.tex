@@ -1,0 +1,73 @@
+\documentclass{docs}
+
+%--- 基本パッケージ ---%
+\usepackage[pdf,tmpdir]{graphviz} % フローチャートの作成
+\usepackage{nicematrix}           % 複雑な表の作成
+\usepackage{xpatch}               % コマンドの改造
+
+%--- 文書情報 ---%
+\title{内部設計書}
+
+\makeatletter
+	% GraphvizをLua経由で実行し、
+	% 日本語フォントを使用するよう改造
+	\xpatchcmd\inputdigraph%
+	{\immediate\write18{#3 -T\@outextspace -o \@tmpdir#2.\@outextspace \@tmpdir#2.dot}}%
+	{
+		\directlua{
+			c="#3"
+			for i=1,3 do
+				c=c.." -"..string.sub("EGN",i,i).."fontname='Hiragino Kaku Gothic ProN'"
+			end
+			os.execute(c.." -T\@outextspace -o \@tmpdir#2.\@outextspace \@tmpdir#2.dot")
+		}
+	}%
+	{}{\errmessage{改造失敗}}
+\makeatother
+\setlength\arrayrulewidth{1pt}
+
+\begin{document}
+	\begin{table}[p]
+		\centering
+		\caption{検索画面の表示}\label{tab:mod-search}
+		\sffamily
+		\begin{NiceTabularX}\textwidth{llX}[hvlines]
+			\CodeBefore
+			\rectanglecolor{lightgray}{1-1}{1-3}
+			\rectanglecolor{lightgray}{2-1}{5-2}
+			\rectanglecolor{lightgray}{6-1}{6-3}
+			\rectanglecolor{lightgray}{8-1}{8-3}
+			\rectanglecolor{lightgray}{10-1}{10-3}
+			\rectanglecolor{lightgray}{12-1}{12-3}
+			\Body
+			\Block{1-3}{\emph{モジュール定義}} \\
+			\Block{2-1}{\emph{管理情報}} & \emph{システム名} & SceneTrip \\
+			& \emph{工程名} & 内部設計 \\
+			\Block{2-1}{\emph{基本情報}} & \emph{モジュールID} & M00 \\
+			& \emph{概要} & 検索画面を表示するモジュール \\
+			\Block{1-3}{\emph{処理手順}} \\
+			\Block{1-3}{
+				\digraph[scale=.9]{abc}{
+					node [shape=diamond] c;
+					node [shape=box,style=rounded] a;
+					a [label="/にアクセスされる"];
+					b [label="検索画面を生成"];
+					c [label="ログインしているか"];
+					d [label="ログイン時のUIを生成"];
+					e [label="未ログイン時のUIを生成"];
+					a->b;
+					b->c;
+					c->d [label="Yes"];
+					c->e [label="No"];
+				}
+			}
+			\\
+			\Block{1-3}{\emph{入力}} \\
+			\Block[l]{1-3}{利用者から受け取ったHTTPリクエスト} \\
+			\Block{1-3}{\emph{出力}} \\
+			\Block[l]{1-3}{ウェブページ} \\
+			\Block{1-3}{\emph{補足}} \\
+			\Block[l]{1-3}{} \\
+		\end{NiceTabularX}
+	\end{table}
+\end{document}
