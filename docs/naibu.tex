@@ -1,0 +1,157 @@
+\documentclass{docs}
+
+%--- 基本パッケージ ---%
+\usepackage{tikz} % 図の作成
+
+%--- TikZライブラリ ---%
+\usetikzlibrary{arrows.meta} % 矢印
+\usetikzlibrary{shapes.geometric} % 幾何学図形
+
+%--- 文書情報 ---%
+\title{内部設計書}
+
+% アクティビティ図を描画するマクロ
+% \adiagram{パーティション名}{縦の長さ}{流れ}{追加する描画命令}
+% パーティション名: 上部に表示されるパーティション名を","で区切って記述
+% 縦の長さ　　　　: アクションごとに縦に進む長さ
+% 本筋のフロー　　: パーティション番号
+% 　　　　　　　　  0:アクション or 1:分岐
+% 　　　　　　　　  アクション名 or 分岐の名前
+% 　　　　　　　　  上記の3つを"/"で区切り、それを","で区切って記述
+% 　　　　　　　　  作成される各アクションのnodeは
+% 　　　　　　　　  "action<通し番号>"という名前で
+% 　　　　　　　　  (パーティション番号,-通し番号)の座標に配置される
+% 　　　　　　　　  本筋のアクションしか描画できないため、それ以外は
+% 　　　　　　　　  以下の引数に描画命令を渡して手動で描く必要がある
+% 追加する描画命令: 追加で描画するTikZの形式の命令
+% 　　　　　　　　  条件分岐で別れた本筋以外のフローの描画などに使用
+\newcommand\adiagram[4]{
+	\foreach\t[count=\i from 0]in{#1}{
+		\xdef\nps{\i}
+	}
+	\begin{tikzpicture}[
+		action/.style={draw,thick,rounded corners,font=\sffamily,align=center},
+		decision/.style={draw,thick,diamond,inner sep=8pt},
+		arrow/.style={-Stealth},
+		label/.style={fill=white,inner sep=0pt,font=\sffamily,align=center},
+		xscale=(\textwidth-1.6pt)/(\nps cm+1cm)
+	]
+		\foreach\t[count=\i from 0]in{#1}
+			\node[font=\bfseries\sffamily]at(\i,1.5){\t};
+		\begin{scope}[yscale=#2]
+			\node[fill,inner sep=8pt,shape=circle](action0)at(0,0){};
+			\xdef\ot{}
+			\xdef\ox{0}
+			\xdef\oi{0}
+			\foreach\x/\e/\t[count=\i from 1]in{#3}{
+				\ifnum\e=0
+					\node[action](action\i)at(\x,-\i){\t};
+				\else
+					\node[decision](action\i)at(\x,.25-\i){};
+				\fi
+				\draw[arrow](action\oi)
+				\if"\ot"
+					\ifnum\x=\ox--\else-|\fi(action\i);
+				\else
+					\ifnum\x=\ox--node[label]{\ot}\else-|node[label]{\ot}\fi(action\i);
+					\xdef\ot{}
+				\fi
+				\ifnum\e=1\xdef\ot{\t}\fi
+				\xdef\ox{\x}
+				\xdef\oi{\i}
+			}
+			\node[draw,double distance=2pt,thick,fill,inner sep=8pt,shape=circle](end)at(\ox,-1-\oi){};
+			\draw[arrow](action\oi)--(end);
+		\end{scope}
+		\foreach\i in{-.5,...,\nps.5}
+			\draw[ultra thick](\i,1)--(\i,-2.5-\oi*#2);
+		\begin{scope}[yscale=#2]
+			#4
+		\end{scope}
+	\end{tikzpicture}
+}
+
+\begin{document}
+
+% ====================================
+\section{はじめに}
+% 【記述内容】本設計書の目的、対象システムの概要、および外部設計書からの変更点を記述。
+
+\subsection{システム概要}
+本書は、外部設計書（SceneTrip 第2.0版）に基づき、システムのモジュール構成、データ処理ロジック、およびインターフェースの詳細を定義する。
+
+\subsection{適用範囲と制約}
+本設計は、外部設計書で指定されたパッケージ構成および環境設定（PHP、Argon2id、特定のデータベースアクセスロジックなど）を変更せずに作成する。
+
+% ====================================
+
+\section{環境・コーディング規約}
+% 【記述内容】動作環境、開発言語、ライブラリ、およびプロジェクト全体のコーディングルールを定義
+
+\subsection{動作環境}
+% 【記述内容】OS、Webサーバー、データベース、ネットワークなど、システムが稼働する環境を具体的に記述
+\begin{itemize}
+
+\end{itemize}
+
+\subsection{開発言語・フレームワーク}
+% 【記述内容】使用するプログラミング言語、フレームワーク、主要ライブラリを記述。
+\begin{itemize}
+
+\end{itemize}
+
+\subsection{コーディング規約}
+% 【記述内容】命名規則（クラス名、変数名）、インデント、コメントの書き方、セキュリティ上の規約などを定義。
+\begin{itemize}
+
+\end{itemize}
+
+% ====================================
+
+\section{パッケージ構成およびディレクトリ構造}
+% 【記述内容】ソースコード全体を構成するパッケージ（モジュール）の論理的・物理的な配置を定義
+
+\subsection{パッケージ構成図}
+% 【記述内容】システム全体の主要モジュールの関係を図示
+
+\subsection{物理ディレクトリ構造}
+\begin{verbatim}
+
+\end{verbatim}
+
+% ====================================
+
+\section{モジュール詳細設計}
+% 【記述内容】外部設計書の機能要件を基に、各機能の入出力、責務、および内部処理フローを詳細に定義
+
+\subsection{認証モジュール}
+% 【記述内容】ログイン/ログアウト、アカウント作成とかを記述？
+
+\subsection{}
+% 【記述内容】各ステップのロジックを説明になるんかな？。
+
+% ====================================
+
+\section{データベースアクセス設計}
+% 【記述内容】データベースへのアクセス方法、外部設計書で指定された特殊なデータ形式やロジック（ID生成など）の詳細を定義
+
+\subsection{ }
+\begin{itemize}
+
+\end{itemize}
+
+\subsection{}
+\begin{itemize}
+
+\end{itemize}
+
+% ====================================
+\section{外部インターフェース設計}
+% 【記述内容】外部サービスとの連携におけるリクエスト・レスポンスの形式、認証方法を定義
+
+\subsection{}
+\begin{itemize}
+    \item
+\end{itemize}
+
+\end{document}
