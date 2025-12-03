@@ -29,6 +29,8 @@ jobs:
           key: 0
           enableCrossOsArchive: true
       - run: sudo /usr/local/texlive/2025/bin/universal-darwin/tlmgr path add
+      - run: brew install graphviz
+        if: steps.get-name.outputs.name == 'naibu'
       - run: latexmk -lualatex ${{steps.get-name.outputs.name}}.tex
         env:
           TZ: Asia/Tokyo
