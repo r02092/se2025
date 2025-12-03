@@ -22,7 +22,7 @@
 	{\immediate\write18{#3 -T\@outextspace -o \@tmpdir#2.\@outextspace \@tmpdir#2.dot}}%
 	{
 		\directlua{
-			os.execute("#3 -Afontname='Hiragino Kaku Gothic ProN' -Tpdf -o \@tmpdir#2.pdflmi \@tmpdir#2.dot")
+			os.execute("#3 -Afontname='"..(os.getenv("GITHUB_ACTIONS")and"Hiragino Sans"or"BIZ UDPGothic").."' -Tpdf -o \@tmpdir#2.pdflmi \@tmpdir#2.dot")
 		}
 	}%
 	{}{\errmessage{改造失敗}}
