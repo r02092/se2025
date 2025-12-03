@@ -22,11 +22,7 @@
 	{\immediate\write18{#3 -T\@outextspace -o \@tmpdir#2.\@outextspace \@tmpdir#2.dot}}%
 	{
 		\directlua{
-			c="#3"
-			for i=1,3 do
-				c=c.." -"..string.sub("EGN",i,i).."fontname='Hiragino Kaku Gothic ProN'"
-			end
-			os.execute(c.." -Tpdf -o \@tmpdir#2.pdflmi \@tmpdir#2.dot")
+			os.execute("#3 -Afontname='Hiragino Kaku Gothic ProN' -Tpdf -o \@tmpdir#2.pdflmi \@tmpdir#2.dot")
 		}
 	}%
 	{}{\errmessage{改造失敗}}
