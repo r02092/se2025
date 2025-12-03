@@ -31,7 +31,7 @@ jobs:
       - run: sudo /usr/local/texlive/2025/bin/universal-darwin/tlmgr path add
       - run: brew install graphviz
         if: steps.get-name.outputs.name == 'naibu'
-      - run: latexmk -f -lualatex ${{steps.get-name.outputs.name}}.tex
+      - run: latexmk -lualatex ${{steps.get-name.outputs.name}}.tex
         env:
           TZ: Asia/Tokyo
         working-directory: docs
