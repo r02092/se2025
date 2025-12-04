@@ -83,9 +83,37 @@
 
 \section{動作環境}
 % 【記述内容】OS、Webサーバー、データベース、ネットワークなど、システムが稼働する環境を具体的に記述
-\begin{itemize}
-	\item
-\end{itemize}
+本アプリケーションSceneTripは以下の環境で動作することを想定している。
+\begin{table}[H]
+	\centering
+	\caption{ハードウェア構成}\label{tab:hardware}
+	\begin{tabularx}{0.9\textwidth}{|l|p{9\zw}|X|p{10\zw}|}
+		\hline
+		\thead{項目} & \thead{種類} & \thead{数量} & \thead{備考} \\ \hline
+		メインサーバ & OCI Compute & 1台 & Always Freeサービス（無料枠）\\ \hline
+		データベースサーバ & OCI Compute & 1台 & Always Freeサービス（無料枠）\\ \hline
+		管理者端末 & PCおよびスマートフォン & 管理者数 & \\ \hline
+		利用者端末 & PCおよびスマートフォン & 利用者数 & \\ \hline
+	\end{tabularx}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{ソフトウェア構成}\label{tab:software}
+	\begin{tabularx}{0.9\textwidth}{|l|X|l|}
+		\hline
+		\thead{項目} & \thead{ソフトウェア} & \thead{備考} \\ \hline
+		Webサーバ & Nginx & \\ \hline
+		データベース & MariaDB & \\ \hline
+		バックエンド & PHP（Laravel） & \\ \hline
+		フロントエンド & TypeScript & \\ \hline
+		端末OS & Android、Linux、Windows、iOS、macOS & \\ \hline
+		端末ブラウザ & Firefox、Google Chrome、Safari & \\ \hline
+		LLM & Gemini 2.5 Flash-Lite & Google AI Studioを使用 \\ \hline
+		地図 & OpenStreetMap & \\ \hline
+		交通情報 & 国土交通省交通量API & \\ \hline
+	\end{tabularx}
+\end{table}
 
 \section{開発言語・フレームワーク}
 % 【記述内容】使用するプログラミング言語、フレームワーク、主要ライブラリを記述。
