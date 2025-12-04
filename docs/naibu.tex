@@ -1,74 +1,67 @@
 \documentclass{docs}
 
 %--- 基本パッケージ ---%
-\usepackage{tikz} % 図の作成
-
-%--- TikZライブラリ ---%
-\usetikzlibrary{arrows.meta} % 矢印
-\usetikzlibrary{shapes.geometric} % 幾何学図形
+\usepackage[tmpdir]{graphviz} % フローチャートの作成
+\usepackage{nicematrix}       % 複雑な表の作成
+\usepackage{xpatch}           % コマンドの改造
 
 %--- 文書情報 ---%
 \title{内部設計書}
 
-% アクティビティ図を描画するマクロ
-% \adiagram{パーティション名}{縦の長さ}{流れ}{追加する描画命令}
-% パーティション名: 上部に表示されるパーティション名を","で区切って記述
-% 縦の長さ　　　　: アクションごとに縦に進む長さ
-% 本筋のフロー　　: パーティション番号
-% 　　　　　　　　  0:アクション or 1:分岐
-% 　　　　　　　　  アクション名 or 分岐の名前
-% 　　　　　　　　  上記の3つを"/"で区切り、それを","で区切って記述
-% 　　　　　　　　  作成される各アクションのnodeは
-% 　　　　　　　　  "action<通し番号>"という名前で
-% 　　　　　　　　  (パーティション番号,-通し番号)の座標に配置される
-% 　　　　　　　　  本筋のアクションしか描画できないため、それ以外は
-% 　　　　　　　　  以下の引数に描画命令を渡して手動で描く必要がある
-% 追加する描画命令: 追加で描画するTikZの形式の命令
-% 　　　　　　　　  条件分岐で別れた本筋以外のフローの描画などに使用
-\newcommand\adiagram[4]{
-	\foreach\t[count=\i from 0]in{#1}{
-		\xdef\nps{\i}
-	}
-	\begin{tikzpicture}[
-		action/.style={draw,thick,rounded corners,font=\sffamily,align=center},
-		decision/.style={draw,thick,diamond,inner sep=8pt},
-		arrow/.style={-Stealth},
-		label/.style={fill=white,inner sep=0pt,font=\sffamily,align=center},
-		xscale=(\textwidth-1.6pt)/(\nps cm+1cm)
-	]
-		\foreach\t[count=\i from 0]in{#1}
-			\node[font=\bfseries\sffamily]at(\i,1.5){\t};
-		\begin{scope}[yscale=#2]
-			\node[fill,inner sep=8pt,shape=circle](action0)at(0,0){};
-			\xdef\ot{}
-			\xdef\ox{0}
-			\xdef\oi{0}
-			\foreach\x/\e/\t[count=\i from 1]in{#3}{
-				\ifnum\e=0
-					\node[action](action\i)at(\x,-\i){\t};
-				\else
-					\node[decision](action\i)at(\x,.25-\i){};
-				\fi
-				\draw[arrow](action\oi)
-				\if"\ot"
-					\ifnum\x=\ox--\else-|\fi(action\i);
-				\else
-					\ifnum\x=\ox--node[label]{\ot}\else-|node[label]{\ot}\fi(action\i);
-					\xdef\ot{}
-				\fi
-				\ifnum\e=1\xdef\ot{\t}\fi
-				\xdef\ox{\x}
-				\xdef\oi{\i}
+\makeatletter
+	% GraphvizをLua経由で実行し、
+	% 特殊な拡張子を持ったファイルを生成させ、
+	% 日本語フォントを使用するよう改造
+	% ※Lua経由で実行しないとファイルが生成されない
+	% ※Latexmkでのビルド時に生成ファイルの変更が
+	% 　毎回検知されるため、無視するように設定するために
+	% 　特殊な拡張子を持たせている
+	\renewcommand\@outext{pdflmi}
+	\DeclareGraphicsRule{.pdflmi}{pdf}{*}{}
+	\xpatchcmd\inputdigraph%
+	{\immediate\write18{#3 -T\@outextspace -o \@tmpdir#2.\@outextspace \@tmpdir#2.dot}}%
+	{
+		\directlua{
+			os.execute("#3 -Afontname='"..(os.getenv("GITHUB_ACTIONS")and"Hiragino Sans"or"BIZ UDPGothic").."' -Tpdf -o \@tmpdir#2.pdflmi \@tmpdir#2.dot")
+		}
+	}%
+	{}{\errmessage{改造失敗}}
+\makeatother
+\setlength\arrayrulewidth{1pt}
+
+% モジュール定義の表を描画するマクロ
+% \modtable{モジュールID}{概要}{処理手順}{入力}{出力}{補足}
+% 処理手順はGraphvizのDOT言語で記述
+\newcommand\modtable[6]{
+	\sffamily
+	\begin{NiceTabularX}\textwidth{llX}[hvlines]
+		\CodeBefore
+		\rectanglecolor{lightgray}{1-1}{1-3}
+		\rectanglecolor{lightgray}{2-1}{5-2}
+		\rectanglecolor{lightgray}{6-1}{6-3}
+		\rectanglecolor{lightgray}{8-1}{8-3}
+		\rectanglecolor{lightgray}{10-1}{10-3}
+		\rectanglecolor{lightgray}{12-1}{12-3}
+		\Body
+		\Block{1-3}{\emph{モジュール定義}} \\
+		\Block{2-1}{\emph{管理情報}} & \emph{システム名} & SceneTrip \\
+		& \emph{工程名} & 内部設計 \\
+		\Block{2-1}{\emph{基本情報}} & \emph{モジュールID} & #1 \\
+		& \emph{概要} & #2 \\
+		\Block{1-3}{\emph{処理手順}} \\
+		\Block{1-3}{
+			\digraph[scale=.9]{#1}{
+				#3
 			}
-			\node[draw,double distance=2pt,thick,fill,inner sep=8pt,shape=circle](end)at(\ox,-1-\oi){};
-			\draw[arrow](action\oi)--(end);
-		\end{scope}
-		\foreach\i in{-.5,...,\nps.5}
-			\draw[ultra thick](\i,1)--(\i,-2.5-\oi*#2);
-		\begin{scope}[yscale=#2]
-			#4
-		\end{scope}
-	\end{tikzpicture}
+		}
+		\\
+		\Block{1-3}{\emph{入力}} \\
+		\Block[l]{1-3}{#4} \\
+		\Block{1-3}{\emph{出力}} \\
+		\Block[l]{1-3}{#5} \\
+		\Block{1-3}{\emph{補足}} \\
+		\Block[l]{1-3}{#6} \\
+	\end{NiceTabularX}
 }
 
 \begin{document}
@@ -126,7 +119,29 @@
 
 \subsection{共通モジュール}
 % 【記述内容】ログイン/ログアウト、アカウント作成とかを記述？
-
+\newpage
+\subsubsection{検索画面の表示}
+\begin{table}[H]
+	\centering
+	\caption{検索画面の表示}\label{tab:mod-search}
+	\modtable{M00}{検索画面を表示するモジュール}%
+	{
+		node [shape=diamond] c;
+		node [shape=box,style=rounded] a;
+		a [label="/にアクセスされる"];
+		b [label="検索画面を生成"];
+		c [label="ログインしているか"];
+		d [label="ログイン時のUIを生成"];
+		e [label="未ログイン時のUIを生成"];
+		a->b;
+		b->c;
+		c->d [label="Yes"];
+		c->e [label="No"];
+	}%
+	{利用者から受け取ったHTTPリクエスト}%
+	{ウェブページ}%
+	{}
+\end{table}
 \subsection{利用者モジュール}
 % 【記述内容】各ステップのロジックを説明になるんかな？。
 
