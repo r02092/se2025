@@ -65,25 +65,124 @@
 }
 
 \begin{document}
-	\begin{table}[p]
-		\centering
-		\caption{検索画面の表示}\label{tab:mod-search}
-		\modtable{M00}{検索画面を表示するモジュール}%
-		{
-			node [shape=diamond] c;
-			node [shape=box,style=rounded] a;
-			a [label="/にアクセスされる"];
-			b [label="検索画面を生成"];
-			c [label="ログインしているか"];
-			d [label="ログイン時のUIを生成"];
-			e [label="未ログイン時のUIを生成"];
-			a->b;
-			b->c;
-			c->d [label="Yes"];
-			c->e [label="No"];
-		}%
-		{利用者から受け取ったHTTPリクエスト}%
-		{ウェブページ}%
-		{}
-	\end{table}
+
+% ====================================
+\section{はじめに}
+% 【記述内容】本設計書の目的、対象システムの概要、および外部設計書からの変更点を記述。
+
+\subsection{システム概要}
+本書は、外部設計書（SceneTrip 第2.0版）に基づき、システムのモジュール構成、データ処理ロジック、およびインターフェースの詳細を定義する。
+
+\subsection{適用範囲と制約}
+本設計は、外部設計書で指定されたパッケージ構成および環境設定（PHP、Argon2id、特定のデータベースアクセスロジックなど）を変更せずに作成する。
+
+% ====================================
+
+\section{開発環境}
+% 【記述内容】動作環境と同様に開発環境について書く
+
+\section{動作環境}
+% 【記述内容】OS、Webサーバー、データベース、ネットワークなど、システムが稼働する環境を具体的に記述
+\begin{itemize}
+	\item
+\end{itemize}
+
+\section{開発言語・フレームワーク}
+% 【記述内容】使用するプログラミング言語、フレームワーク、主要ライブラリを記述。
+\begin{itemize}
+	\item
+\end{itemize}
+
+\section{コーディング規約}
+% 【記述内容】命名規則（クラス名、変数名）、インデント、コメントの書き方、セキュリティ上の規約などを定義。
+\begin{itemize}
+	\item
+\end{itemize}
+
+% ====================================
+
+\section{パッケージ構成およびディレクトリ構造}
+% 【記述内容】ソースコード全体を構成するパッケージ（モジュール）の論理的・物理的な配置を定義
+
+\subsection{パッケージ構成図}
+% 【記述内容】システム全体の主要モジュールの関係を図示
+
+\subsection{物理ディレクトリ構造}
+\begin{verbatim}
+
+\end{verbatim}
+
+% ====================================
+
+\section{モジュール詳細設計}
+% 【記述内容】外部設計書の機能要件を基に、各機能の入出力、責務、および内部処理フローを詳細に定義
+
+\subsection{共通モジュール}
+% 【記述内容】ログイン/ログアウト、アカウント作成とかを記述？
+\newpage
+\subsubsection{検索画面の表示}
+\begin{table}[H]
+	\centering
+	\caption{検索画面の表示}\label{tab:mod-search}
+	\modtable{M00}{検索画面を表示するモジュール}%
+	{
+		node [shape=diamond] c;
+		node [shape=box,style=rounded] a;
+		a [label="/にアクセスされる"];
+		b [label="検索画面を生成"];
+		c [label="ログインしているか"];
+		d [label="ログイン時のUIを生成"];
+		e [label="未ログイン時のUIを生成"];
+		a->b;
+		b->c;
+		c->d [label="Yes"];
+		c->e [label="No"];
+	}%
+	{利用者から受け取ったHTTPリクエスト}%
+	{ウェブページ}%
+	{}
+\end{table}
+\subsection{利用者モジュール}
+% 【記述内容】各ステップのロジックを説明になるんかな？。
+
+\subsection{事業者モジュール}
+% 【記述内容】各ステップのロジックを説明になるんかな？。
+
+\subsection{管理者モジュール}
+% 【記述内容】各ステップのロジックを説明になるんかな？。
+% ====================================
+
+\section{データベースアクセス設計}
+% 【記述内容】データベースへのアクセス方法、外部設計書で指定された特殊なデータ形式やロジック（ID生成など）の詳細を定義
+
+\subsection{ }
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsection{}
+\begin{itemize}
+	\item
+\end{itemize}
+
+% ====================================
+\section{外部インターフェース設計}
+% 【記述内容】外部サービスとの連携におけるリクエスト・レスポンスの形式、認証方法を定義
+
+\subsection{Gemini API 連携仕様}
+\begin{itemize}
+    \item
+\end{itemize}
+
+\subsection{OpenStreetMap / Google Maps 連携仕様}
+\begin{itemize}
+    \item
+\end{itemize}
+
+\subsection{国土交通省 交通量API 連携仕様}
+\begin{itemize}
+    \item
+\end{itemize}
+
+
 \end{document}
