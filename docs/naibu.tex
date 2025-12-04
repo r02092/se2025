@@ -28,41 +28,43 @@
 	}%
 	{}{\errmessage{改造失敗}}
 \makeatother
-\setlength\arrayrulewidth{1pt}
 
 % モジュール定義の表を描画するマクロ
 % \modtable{モジュールID}{概要}{処理手順}{入力}{出力}{補足}
 % 処理手順はGraphvizのDOT言語で記述
 \newcommand\modtable[6]{
 	\sffamily
-	\begin{NiceTabularX}\textwidth{llX}[hvlines]
-		\CodeBefore
-		\rectanglecolor{lightgray}{1-1}{1-3}
-		\rectanglecolor{lightgray}{2-1}{5-2}
-		\rectanglecolor{lightgray}{6-1}{6-3}
-		\rectanglecolor{lightgray}{8-1}{8-3}
-		\rectanglecolor{lightgray}{10-1}{10-3}
-		\rectanglecolor{lightgray}{12-1}{12-3}
-		\Body
-		\Block{1-3}{\emph{モジュール定義}} \\
-		\Block{2-1}{\emph{管理情報}} & \emph{システム名} & SceneTrip \\
-		& \emph{工程名} & 内部設計 \\
-		\Block{2-1}{\emph{基本情報}} & \emph{モジュールID} & #1 \\
-		& \emph{概要} & #2 \\
-		\Block{1-3}{\emph{処理手順}} \\
-		\Block{1-3}{
-			\digraph[scale=.9]{#1}{
-				#3
+	\begingroup
+		\setlength\arrayrulewidth{1pt}
+		\begin{NiceTabularX}\textwidth{llX}[hvlines]
+			\CodeBefore
+			\rectanglecolor{lightgray}{1-1}{1-3}
+			\rectanglecolor{lightgray}{2-1}{5-2}
+			\rectanglecolor{lightgray}{6-1}{6-3}
+			\rectanglecolor{lightgray}{8-1}{8-3}
+			\rectanglecolor{lightgray}{10-1}{10-3}
+			\rectanglecolor{lightgray}{12-1}{12-3}
+			\Body
+			\Block{1-3}{\emph{モジュール定義}} \\
+			\Block{2-1}{\emph{管理情報}} & \emph{システム名} & SceneTrip \\
+			& \emph{工程名} & 内部設計 \\
+			\Block{2-1}{\emph{基本情報}} & \emph{モジュールID} & #1 \\
+			& \emph{概要} & #2 \\
+			\Block{1-3}{\emph{処理手順}} \\
+			\Block{1-3}{
+				\digraph[scale=.9]{#1}{
+					#3
+				}
 			}
-		}
-		\\
-		\Block{1-3}{\emph{入力}} \\
-		\Block[l]{1-3}{#4} \\
-		\Block{1-3}{\emph{出力}} \\
-		\Block[l]{1-3}{#5} \\
-		\Block{1-3}{\emph{補足}} \\
-		\Block[l]{1-3}{#6} \\
-	\end{NiceTabularX}
+			\\
+			\Block{1-3}{\emph{入力}} \\
+			\Block[l]{1-3}{#4} \\
+			\Block{1-3}{\emph{出力}} \\
+			\Block[l]{1-3}{#5} \\
+			\Block{1-3}{\emph{補足}} \\
+			\Block[l]{1-3}{#6} \\
+		\end{NiceTabularX}
+	\endgroup
 }
 
 \begin{document}
