@@ -203,7 +203,7 @@
 \subsubsection{検索画面の表示}
 \begin{table}[H]
 	\centering
-	\caption{検索画面の表示}\label{tab:mod-search}
+	\caption{検索画面の表示}\label{tab:mod-search-display}
 	\modtable{M00}{RootController.php}%
 	{検索画面を表示するモジュール}%
 	{
@@ -227,7 +227,39 @@
 % 【記述内容】各ステップのロジックを説明になるんかな？。
 \subsubsection{観光地・施設検索処理}
 
-\subsubsection{写真投稿・共有}
+\begin{table}[H]
+	\centering
+	\caption{観光地・施設検索処理}\label{tab:mod-search}
+	\modtable{M11}{RootController.php}%
+	{キーワード・カテゴリに基づくスポット検索}%
+	{
+		node [shape=diamond] c;
+		node [shape=box,style=rounded] a;
+		a [label="検索開始", shape=];
+		b [label="キーワード・カテゴリ受信"];
+		c [label="入力値検証", shape=diamond];
+		c1 [label="入力エラー表示"];
+		d [label="DB検索実行", shape=diamond];
+		d1 [label="結果件数>0"];
+		d2 [label="「該当無し」表示"];
+		e [label="結果表示"];
+		f [label="終了"];
+
+		a->b->c;
+
+		c->c1 [label="NG"];
+		c->d [label="OK"];
+
+		d->d2 [label="No"];
+		d->e [label=Yes]
+
+		d2->f;
+		e->f;
+	}%
+	{}%
+	{検索結果リスト または メッセージ}%
+	{入力値が空の場合は、仕様に合わせて実装}
+\end{table}
 
 \subsubsection{経路作成}
 
@@ -236,6 +268,8 @@
 \subsubsection{AIによる観光地・施設推薦}
 
 \subsubsection{チェックイン}
+
+\subsubsection{写真投稿・共有}
 
 \subsubsection{クーポン受け取り}
 
