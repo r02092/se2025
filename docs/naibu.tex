@@ -296,6 +296,36 @@
 	{}
 \end{table}
 
+\newpage
+\subsubsection{観光地・施設情報削除画面の表示}
+\begin{table}[H]
+	\centering
+	\caption{観光地・施設情報削除画面の表示}\label{tab:mod-search}
+	\modtable{M00}{RootController.php}%
+	{観光地・施設情報削除画面を表示するモジュール}%
+	{
+		node [shape=diamond] c;
+		node [shape=box,style=rounded] a;
+		a [label="削除タブを選択"];
+		b [label="情報削除画面を生成"];
+		c [label="操作の確認画面の表示"];
+		d [label="SQLクエリを生成"];
+		e [label="元の画面を表示"];
+		f [label="情報削除処理を実行"]; 
+		g [label="情報削除完了画面を生成・表示"];
+
+		a->b;
+		b->c;
+		c->d [label="Yes"];
+		c->e [label="No"];
+		d->f;
+		f->g;
+	}%
+	{利用者から受け取ったHTTPリクエスト}%
+	{ウェブページ}%
+	{}
+\end{table}
+
 
 \section{データベースアクセス設計}
 % 【記述内容】データベースへのアクセス方法、外部設計書で指定された特殊なデータ形式やロジック（ID生成など）の詳細を定義
