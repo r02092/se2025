@@ -242,19 +242,22 @@
 	{
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
-		a [label="/にアクセスされる"];
+		a [label="追加タブを選択"];
 		b [label="情報追加画面を生成"];
-		c [label="入力値を検証"];
-		d [label="SQLクエリを生成"];
-		e [label="情報追加できない旨のUIを生成"];
-		f [label="情報追加処理を実行"]; 
-		g [label="情報追加完了画面を生成・表示"];
+		c [label="必要情報を入力"]
+		d [label="入力値を検証"];
+		e [label="SQLクエリを生成"];
+		f [label="情報追加できない旨のUIを生成"];
+		g [label="情報追加処理を実行"]; 
+		h [label="情報追加完了画面を生成・表示"];
+
 		a->b;
 		b->c;
 		c->d [label="Yes"];
 		c->e [label="No"];
 		d->f;
 		f->g;
+		g->h;
 	}%
 	{利用者から受け取ったHTTPリクエスト}%
 	{ウェブページ}%
