@@ -1,5 +1,21 @@
 {
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
-	"latex-workshop.linting.chktex.enabled": true
+	"emeraldwalk.runonsave": {
+		"commands": [
+			{
+				"match": ".php$",
+				"cmd": "pnpm exec prettier ${file} --write"
+			}
+		]
+	},
+	"latex-workshop.linting.chktex.enabled": true,
+	"phpstan.binCommand": [
+		"podman",
+		"exec",
+		"-i",
+		"lab-asg-2025smr_app_1",
+		"vendor/bin/phpstan"
+	],
+	"phpstan.paths": {".": ""}
 }

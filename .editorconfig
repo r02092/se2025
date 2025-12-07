@@ -11,6 +11,13 @@ trim_trailing_whitespace = true
 [*.md]
 trim_trailing_whitespace = false
 
-[*.y{,a}ml]
+[{*.php,composer.json}]
+indent_size = 4
+indent_style = space
+
+[*.blade.php]
+indent_style = tab
+
+[{*.y{,a}ml,package.json}]
 indent_size = 2
 indent_style = space

@@ -1,0 +1,9 @@
+parameters:
+	excludePaths:
+		- bootstrap/cache
+		- node_modules
+		- storage
+		- vendor
+	paths:
+		- .
+	level: 9

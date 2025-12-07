@@ -1,1 +1,4 @@
+/bootstrap/cache/
+/composer.json
 /pnpm-lock.yaml
+/storage/

@@ -107,6 +107,43 @@ type RdJsonDiagnostic = {
 				}
 			});
 	}
+	const phpstan = childProcess.spawn(
+		process.env.GITHUB_ACTIONS ? "vendor/bin/phpstan" : "podman",
+		(process.env.GITHUB_ACTIONS
+			? []
+			: containerArgs.concat("vendor/bin/phpstan")
+		).concat(["analyse", ...diff, "--error-format=raw", "--no-progress"]),
+		{stdio: ["pipe", "pipe", "inherit"]},
+	);
+	let dataCnt = 0;
+	phpstan.stdout.on("data", data => {
+		dataCnt++;
+		const PsDiagnostics: RdJsonDiagnostic[] = [];
+		for (const l of data.toString().split("\n")) {
+			const m = l.match(/^(.*\.php):(\d+):(.*)$/);
+			if (m)
+				PsDiagnostics.push({
+					message: m[3],
+					location: {
+						path: m[1],
+						range: {
+							start: {line: parseInt(m[2])},
+						},
+					},
+					severity: "ERROR",
+					code: {value: null, url: ""},
+					original_output: l,
+				});
+		}
+		diagnostics.push(...PsDiagnostics);
+		dataCnt--;
+	});
+	await new Promise<void>(resolve => {
+		phpstan.on("exit", () => {
+			resolve();
+		});
+	});
+	while (dataCnt) await new Promise(r => setTimeout(r, 99));
 	const reviewdog = childProcess.spawn(
 		process.env.GITHUB_ACTIONS
 			? "./reviewdog"

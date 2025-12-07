@@ -1,5 +1,9 @@
 !/.vscode/
 .clasp.json
 .env
+/.phpunit.result.cache
 /node_modules/
+/public/build/
+/public/hot
 /tstex_modules/_api.ts
+/vendor/

@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@eslint/css':
+        specifier: ^0.14.1
+        version: 0.14.1
       '@eslint/js':
         specifier: ^9.37.0
         version: 9.39.1
@@ -17,6 +20,9 @@ importers:
       '@eslint/markdown':
         specifier: ^7.3.0
         version: 7.5.1
+      '@prettier/plugin-php':
+        specifier: ^0.24.0
+        version: 0.24.0(prettier@3.7.4)
       '@types/google-apps-script':
         specifier: ^2.0.4
         version: 2.0.8
@@ -44,6 +50,9 @@ importers:
       jiti:
         specifier: ^2.6.1
         version: 2.6.1
+      laravel-vite-plugin:
+        specifier: ^2.0.1
+        version: 2.0.1(vite@7.2.6(@types/node@24.10.1)(jiti@2.6.1)(tsx@4.20.6))
       prettier:
         specifier: ^3.6.2
         version: 3.7.4
@@ -279,6 +288,14 @@ packages:
     resolution: {integrity: sha512-yL/sLrpmtDaFEiUj1osRP4TI2MDz1AddJL+jZ7KSqvBuliN4xqYY54IfdN8qD8Toa6g1iloph1fxQNkjOxrrpQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+  '@eslint/css-tree@3.6.8':
+    resolution: {integrity: sha512-s0f40zY7dlMp8i0Jf0u6l/aSswS0WRAgkhgETgiCJRcxIWb4S/Sp9uScKHWbkM3BnoFLbJbmOYk5AZUDFVxaLA==}
+    engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0}
+
+  '@eslint/css@0.14.1':
+    resolution: {integrity: sha512-NXiteSacmpaXqgyIW3+GcNzexXyfC0kd+gig6WTjD4A74kBGJeNx1tV0Hxa0v7x0+mnIyKfGPhGNs1uhRFdh+w==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
   '@eslint/eslintrc@3.3.1':
     resolution: {integrity: sha512-gtF186CXhIl1p4pJNGZw8Yc6RlshoePRvE0X91oPGb3vZ8pM3qOS9W9NGPat9LziaBV7XrJWGylNQXkGcnM3IQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -364,6 +381,11 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+
+  '@prettier/plugin-php@0.24.0':
+    resolution: {integrity: sha512-x9l65fCE/pgoET6RQowgdgG8Xmzs44z6j6Hhg3coINCyCw9JBGJ5ZzMR2XHAM2jmAdbJAIgqB6cUn4/3W3XLTA==}
+    peerDependencies:
+      prettier: ^3.0.0
 
   '@rollup/rollup-android-arm-eabi@4.53.3':
     resolution: {integrity: sha512-mRSi+4cBjrRLoaal2PnqH82Wqyb+d3HsPUN/W+WslCXsZsyHa9ZeQQX/pQsZaVIWDkPcpV6jJ+3KLbTbgnwv8w==}
@@ -1549,6 +1571,13 @@ packages:
   kuromojin@3.0.1:
     resolution: {integrity: sha512-E4rLmbTid8ZGH8Fw421UXvfgCe0IXGFKhUw/IosBVW6ootxVGKGbtb0UPQAvPswgsXX/8UuPiE+amz1NN11Uzg==}
 
+  laravel-vite-plugin@2.0.1:
+    resolution: {integrity: sha512-zQuvzWfUKQu9oNVi1o0RZAJCwhGsdhx4NEOyrVQwJHaWDseGP9tl7XUPLY2T8Cj6+IrZ6lmyxlR1KC8unf3RLA==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    hasBin: true
+    peerDependencies:
+      vite: ^7.0.0
+
   latex-utensils@3.0.0:
     resolution: {integrity: sha512-IhjvVxOPBgSSg1qkS4ytM4wrnwK3sQFR0WGfU2zB18zAcjs7/8cRMfrIDNjugiskoID8HiQlOQR8SnbKQ2owYg==}
     hasBin: true
@@ -1556,6 +1585,9 @@ packages:
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
+
+  linguist-languages@8.2.0:
+    resolution: {integrity: sha512-KCUUH9x97QWYU0SXOCGxUrZR6cSfuQrMhABB7L/0I8N0LXOeaKe7+RZs7FAwvWCV2qKfZ4Wv1luLq4OfMezSJg==}
 
   locate-path@6.0.0:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
@@ -1675,6 +1707,9 @@ packages:
 
   mdast-util-to-string@4.0.0:
     resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
+
+  mdn-data@2.23.0:
+    resolution: {integrity: sha512-786vq1+4079JSeu2XdcDjrhi/Ry7BWtjDl9WtGPWLiIHb2T66GvIVflZTBoSNZ5JqTtJGYEVMuFA/lbQlMOyDQ==}
 
   media-typer@1.1.0:
     resolution: {integrity: sha512-aisnrDP4GNe06UcKFnV5bfMNPBUw4jsLGaWwWfnH3v02GnBuXX2MCVn5RbrWo0j3pczUilYblq7fQ7Nw2t5XKw==}
@@ -1941,8 +1976,15 @@ packages:
   pegjs-backtrace@0.2.1:
     resolution: {integrity: sha512-rnVQiHyTE1wZG14Vl3Xk33ecrF7ZJ7ZW7jSgSlw4LdzBuhbyGVQ+oVApQ6tRi4QsII/xHgByHb6Ax68K6SPLhw==}
 
+  php-parser@3.2.5:
+    resolution: {integrity: sha512-M1ZYlALFFnESbSdmRtTQrBFUHSriHgPhgqtTF/LCbZM4h7swR5PHtUceB2Kzby5CfqcsYwBn7OXTJ0+8Sajwkw==}
+
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
+
+  picomatch@2.3.1:
+    resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
+    engines: {node: '>=8.6'}
 
   picomatch@4.0.3:
     resolution: {integrity: sha512-5gTmgEY/sqK6gFXLIsQNH19lWb4ebPDLA4SdLP7dsWkIXHWlG66oPuVvXSGFPppYZz8ZDZq0dYYrbHfBCVUb1Q==}
@@ -2465,6 +2507,9 @@ packages:
   vfile@4.2.1:
     resolution: {integrity: sha512-O6AE4OskCG5S1emQ/4gl8zK586RqA3srz3nfK/Viy0UPToBc5Trp9BVFb1u0CjsKrAWwnpr4ifM/KBXPWwJbCA==}
 
+  vite-plugin-full-reload@1.2.0:
+    resolution: {integrity: sha512-kz18NW79x0IHbxRSHm0jttP4zoO9P9gXh+n6UTwlNKnviTTEpOlum6oS9SmecrTtSr+muHEn5TUuC75UovQzcA==}
+
   vite@7.2.6:
     resolution: {integrity: sha512-tI2l/nFHC5rLh7+5+o7QjKjSR04ivXDF4jcgV0f/bTQ+OJiITy5S6gaynVsEM+7RqzufMnVbIon6Sr5x1SDYaQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -2717,6 +2762,17 @@ snapshots:
     dependencies:
       '@types/json-schema': 7.0.15
 
+  '@eslint/css-tree@3.6.8':
+    dependencies:
+      mdn-data: 2.23.0
+      source-map-js: 1.2.1
+
+  '@eslint/css@0.14.1':
+    dependencies:
+      '@eslint/core': 0.17.0
+      '@eslint/css-tree': 3.6.8
+      '@eslint/plugin-kit': 0.4.1
+
   '@eslint/eslintrc@3.3.1':
     dependencies:
       ajv: 6.12.6
@@ -2833,6 +2889,12 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@prettier/plugin-php@0.24.0(prettier@3.7.4)':
+    dependencies:
+      linguist-languages: 8.2.0
+      php-parser: 3.2.5
+      prettier: 3.7.4
 
   '@rollup/rollup-android-arm-eabi@4.53.3':
     optional: true
@@ -4223,6 +4285,12 @@ snapshots:
       kuromoji: 0.1.2
       lru_map: 0.4.1
 
+  laravel-vite-plugin@2.0.1(vite@7.2.6(@types/node@24.10.1)(jiti@2.6.1)(tsx@4.20.6)):
+    dependencies:
+      picocolors: 1.1.1
+      vite: 7.2.6(@types/node@24.10.1)(jiti@2.6.1)(tsx@4.20.6)
+      vite-plugin-full-reload: 1.2.0
+
   latex-utensils@3.0.0:
     optionalDependencies:
       commander: 2.20.3
@@ -4232,6 +4300,8 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
+
+  linguist-languages@8.2.0: {}
 
   locate-path@6.0.0:
     dependencies:
@@ -4456,6 +4526,8 @@ snapshots:
   mdast-util-to-string@4.0.0:
     dependencies:
       '@types/mdast': 4.0.4
+
+  mdn-data@2.23.0: {}
 
   media-typer@1.1.0: {}
 
@@ -4853,7 +4925,11 @@ snapshots:
   pegjs-backtrace@0.2.1:
     optional: true
 
+  php-parser@3.2.5: {}
+
   picocolors@1.1.1: {}
+
+  picomatch@2.3.1: {}
 
   picomatch@4.0.3: {}
 
@@ -5677,6 +5753,11 @@ snapshots:
       is-buffer: 2.0.5
       unist-util-stringify-position: 2.0.3
       vfile-message: 2.0.4
+
+  vite-plugin-full-reload@1.2.0:
+    dependencies:
+      picocolors: 1.1.1
+      picomatch: 2.3.1
 
   vite@7.2.6(@types/node@24.10.1)(jiti@2.6.1)(tsx@4.20.6):
     dependencies:
