@@ -75,7 +75,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - run: |
-          env=`cat .env.example`
+          env=`cat .env.sample`
           echo "${env/DB_HOST=localhost/DB_HOST=127.0.0.1}" > .env
       - run: mkdir -p storage/framework/{cache/data,sessions,testing,views}
       - run: composer install
@@ -87,7 +87,7 @@ jobs:
       - run: composer test
   status:
     name: ステータス更新
-    needs: [format, reviewdog]
+    needs: [format, reviewdog, phpunit]
     if: ${{!cancelled()}}
     runs-on: ubuntu-latest
     steps:
