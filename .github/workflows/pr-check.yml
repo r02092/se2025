@@ -76,7 +76,8 @@ jobs:
       - uses: actions/checkout@v5
       - run: |
           env=`cat .env.sample`
-          echo "${env/DB_HOST=localhost/DB_HOST=127.0.0.1}" > .env
+          echo "${env/DB_HOST=localhost
+          DB_SOCKET=\/run\/mysqld\/mysqld.sock/}" > .env
       - run: mkdir -p storage/framework/{cache/data,sessions,testing,views}
       - run: composer install
       - run: npm i -g pnpm
