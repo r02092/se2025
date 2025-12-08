@@ -268,6 +268,42 @@
 \subsubsection{AIによる観光地・施設推薦}
 
 \subsubsection{チェックイン}
+\begin{table}[H]
+    \centering
+    \caption{チェックイン判定}\label{tab:mod-checkin}
+    \modtable{M-USR-03}{QRコードと位置情報によるスタンプ付与}%
+    {
+        rankdir=TD;
+        node [fontname="BIZ UDPGothic", shape=box, style=rounded];
+
+        start [label="開始", shape=oval];
+        input [label="QRデータ・GPS受信"];
+        decode_qr [label="QR検証(SpotID)", shape=diamond];
+        get_spot [label="Spot座標取得"];
+        calc_dist [label="距離計算"];
+        check_dist [label="距離 <= 50m?", shape=diamond];
+        save_stamp [label="スタンプ保存"];
+        check_coup [label="クーポン条件?", shape=diamond];
+        save_coup [label="クーポン付与"];
+        msg_success [label="成功画面"];
+        msg_error [label="エラー画面", shape=oval];
+        end [label="終了", shape=oval];
+
+        start -> input -> decode_qr;
+        decode_qr -> msg_error [label="不正"];
+        decode_qr -> get_spot [label="正"];
+        get_spot -> calc_dist -> check_dist;
+        check_dist -> msg_error [label="範囲外"];
+        check_dist -> save_stamp [label="範囲内"];
+        save_stamp -> check_coup;
+        check_coup -> msg_success [label="未達"];
+        check_coup -> save_coup [label="達成"];
+        save_coup -> msg_success -> end;
+    }%
+    {qr\_data (String), user\_lat (Float), user\_lng (Float)}%
+    {スタンプ取得結果, クーポン(条件達成時)}%
+    {DB座標(整数)を復元してから計算すること。}
+\end{table}
 
 \subsubsection{写真投稿・共有}
 
