@@ -356,7 +356,7 @@
         has_img [label="画像あり?", shape=diamond];
         upload [label="画像アップロード"];
         check_up [label="アップロード成功?", shape=diamond];
-        convert [label="座標変換(Int化)"];
+        convert [label="座標変換"];
         save_db [label="DB保存"];
         success [label="完了表示"];
         error [label="エラー表示", shape=oval];
@@ -378,7 +378,46 @@
     {}
 \end{table}
 \subsubsection{クーポン受け取り}
+\subsubsection{クーポン受け取り処理}
+\begin{table}[H]
+    \centering
+    \caption{クーポン受け取り処理}\label{tab:mod-coupon-receive}
+    \modtable{M-USR-06}{スタンプ獲得状況に基づくクーポン付与}%
+    {
+		node [shape=diamond] c;
+		node [shape=box,style=rounded] a;
 
+        start [label="開始", shape=oval];
+        input [label="獲得スタンプID受信"];
+        fetch_cond [label="関連クーポン検索\n(cond_spot_id)"];
+        check_hit [label="対象クーポンあり?", shape=diamond];
+        check_duplicate [label="既に獲得済み?", shape=diamond];
+        check_expire [label="有効期限内?", shape=diamond];
+        save_db [label="user_coupons保存\n(利用可能状態で作成)"];
+        res_success [label="獲得成功通知"];
+        res_none [label="獲得なし通知", shape=oval];
+        end [label="終了", shape=oval];
+
+        start -> input -> fetch_cond -> check_hit;
+
+        % クーポン存在チェック
+        check_hit -> res_none [label="なし"];
+        check_hit -> check_duplicate [label="あり"];
+
+        % 重複チェック
+        check_duplicate -> res_none [label="Yes"];
+        check_duplicate -> check_expire [label="No"];
+
+        % 期限チェック
+        check_expire -> res_none [label="期限切"];
+        check_expire -> save_db [label="有効"];
+
+        save_db -> res_success -> end;
+    }%
+    {}%
+    {}%
+    {スタンプ獲得トリガーで呼び出される想定。ユーザーが同じクーポンを重複して受け取らないよう、必ず\texttt{user\_coupons}を確認するロジックを含める。}
+\end{table}
 
 
 \subsection{事業者モジュール}
