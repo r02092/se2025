@@ -322,33 +322,34 @@
 \begin{table}[H]
     \centering
     \caption{AI観光地推薦}\label{tab:mod-ai}
-    \modtable{M13}{ユーザーのチャット入力に基づく観光地推薦}%
+    \modtable{M13}{AiService.php}
+	{ユーザーのチャット入力に基づく観光地推薦}%
     {
         node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
         start [label="開始", shape=oval];
         input [label="チャット受信"];
-        check_empty [label="空文字チェック", shape=diamond];
-        fetch_ctx [label="周辺情報取得"];
+        checkempty [label="空文字チェック", shape=diamond];
+        fetchctx [label="周辺情報取得"];
         prompt [label="プロンプト構築"];
-        api_call [label="Gemini API送信"];
-        check_api [label="API応答成功?", shape=diamond];
+        apicall [label="Gemini API送信"];
+        checkapi [label="API応答成功?", shape=diamond];
         parse [label="JSON解析"];
         search [label="推薦スポット取得"];
-        check_hit [label="スポットあり?", shape=diamond];
-        res_ok [label="推薦回答"];
-        res_ng [label="エラー回答", shape=oval];
+        checkhit [label="スポットあり?", shape=diamond];
+        resok [label="推薦回答"];
+        resng [label="エラー回答", shape=oval];
         end [label="終了", shape=oval];
-        start -> input -> check_empty;
-        check_empty -> res_ng [label="空"];
-        check_empty -> fetch_ctx [label="OK"];
-        fetch_ctx -> prompt -> api_call -> check_api;
-        check_api -> res_ng [label="失敗"];
-        check_api -> parse [label="成功"];
-        parse -> search -> check_hit;
-        check_hit -> res_ng [label="0件"];
-        check_hit -> res_ok [label="1件以上"];
-        res_ok -> end;
+        start -> input -> checkempty;
+        checkempty -> resng [label="空"];
+        checkempty -> fetchctx [label="OK"];
+        fetchctx -> prompt -> apicall -> checkapi;
+        checkapi -> resng [label="失敗"];
+        checkapi -> parse [label="成功"];
+        parse -> search -> checkhit;
+        checkhit -> resng [label="0件"];
+        checkhit -> resok [label="1件以上"];
+        resok -> end;
     }%
     {}%
     {}%
@@ -359,32 +360,32 @@
 \begin{table}[H]
     \centering
     \caption{チェックイン判定}\label{tab:mod-checkin}
-    \modtable{M14}{QRコードと位置情報によるスタンプ付与}
+    \modtable{M14}{CheckinService.php}{QRコードと位置情報によるスタンプ付与}
     {
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
 		start [label="開始", shape=oval];
         input [label="QRデータ・GPS受信"];
-        decode_qr [label="QR検証(SpotID)", shape=diamond];
-        get_spot [label="Spot座標取得"];
-        calc_dist [label="距離計算"];
-        check_dist [label="距離 <= 50m?", shape=diamond];
-        save_stamp [label="スタンプ保存"];
-        check_coup [label="クーポン条件?", shape=diamond];
-        save_coup [label="クーポン付与"];
-        msg_success [label="成功画面"];
-        msg_error [label="エラー画面", shape=oval];
+        decodeqr [label="QR検証(SpotID)", shape=diamond];
+        getspot [label="Spot座標取得"];
+        calcdist [label="距離計算"];
+        checkdist [label="距離 <= 50m?", shape=diamond];
+        savestamp [label="スタンプ保存"];
+        checkcoup [label="クーポン条件?", shape=diamond];
+        savecoup [label="クーポン付与"];
+        msgsuccess [label="成功画面"];
+        msgerror [label="エラー画面", shape=oval];
         end [label="終了", shape=oval];
-        start -> input -> decode_qr;
-        decode_qr -> msg_error [label="不正"];
-        decode_qr -> get_spot [label="正"];
-        get_spot -> calc_dist -> check_dist;
-        check_dist -> msg_error [label="範囲外"];
-        check_dist -> save_stamp [label="範囲内"];
-        save_stamp -> check_coup;
-        check_coup -> msg_success [label="未達"];
-        check_coup -> save_coup [label="達成"];
-        save_coup -> msg_success -> end;
+        start -> input -> decodeqr;
+        decodeqr -> msgerror [label="不正"];
+        decodeqr -> getspot [label="正"];
+        getspot -> calcdist -> checkdist;
+        checkdist -> msgerror [label="範囲外"];
+        checkdist -> savestamp [label="範囲内"];
+        savestamp -> checkcoup;
+        checkcoup -> msgsuccess [label="未達"];
+        checkcoup -> savecoup [label="達成"];
+        savecoup -> msgsuccess -> end;
     }%
     {}%
     {スタンプ取得結果, クーポン(条件達成時)}
@@ -395,31 +396,31 @@
 \begin{table}[H]
     \centering
     \caption{評価・写真投稿}\label{tab:mod-review-photo}
-    \modtable{M15}{評価と写真をシステムに登録する}%
+    \modtable{M15}{ReviewService.php}{評価と写真をシステムに登録する}%
     {
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
         start [label="開始", shape=oval];
         input [label="投稿データ受信"];
         validate [label="入力チェック", shape=diamond];
-        has_img [label="画像あり?", shape=diamond];
+        hasimg [label="画像あり?", shape=diamond];
         upload [label="画像アップロード"];
-        check_up [label="アップロード成功?", shape=diamond];
+        checkup [label="アップロード成功?", shape=diamond];
         convert [label="座標変換"];
-        save_db [label="DB保存"];
+        savedb [label="DB保存"];
         success [label="完了表示"];
         error [label="エラー表示", shape=oval];
         end [label="終了", shape=oval];
         start -> input -> validate;
         validate -> error [label="NG"];
-        validate -> has_img [label="OK"];
-        has_img -> save_db [label="No"];
-        has_img -> upload [label="Yes"];
-        upload -> check_up;
-        check_up -> error [label="失敗"];
-        check_up -> convert [label="成功"];
-        convert -> save_db;
-        save_db -> success -> end;
+        validate -> hasimg [label="OK"];
+        hasimg -> savedb [label="No"];
+        hasimg -> upload [label="Yes"];
+        upload -> checkup;
+        checkup -> error [label="失敗"];
+        checkup -> convert [label="成功"];
+        convert -> savedb;
+        savedb -> success -> end;
     }%
     {}%
     {投稿完了メッセージ}%
@@ -430,28 +431,28 @@
 \begin{table}[H]
     \centering
     \caption{クーポン受け取り処理}\label{tab:mod-coupon-receive}
-    \modtable{M16}{スタンプ獲得状況に基づくクーポン付与}%
+    \modtable{M16}{CouponService.php}{スタンプ獲得状況に基づくクーポン付与}%
     {
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
         start [label="開始", shape=oval];
         input [label="獲得スタンプID受信"];
-        fetch_cond [label="関連クーポン検索\n(cond_spot_id)"];
-        check_hit [label="対象クーポンあり?", shape=diamond];
-        check_duplicate [label="既に獲得済み?", shape=diamond];
-        check_expire [label="有効期限内?", shape=diamond];
-        save_db [label="user_coupons保存\n(利用可能状態で作成)"];
-        res_success [label="獲得成功通知"];
-        res_none [label="獲得なし通知", shape=oval];
+        fetchcond [label="関連クーポン検索\n(condspotid)"];
+        checkhit [label="対象クーポンあり?", shape=diamond];
+        checkduplicate [label="既に獲得済み?", shape=diamond];
+        checkexpire [label="有効期限内?", shape=diamond];
+        savedb [label="usercoupons保存\n(利用可能状態で作成)"];
+        ressuccess [label="獲得成功通知"];
+        resnone [label="獲得なし通知", shape=oval];
         end [label="終了", shape=oval];
-        start -> input -> fetch_cond -> check_hit;
-        check_hit -> res_none [label="なし"];
-        check_hit -> check_duplicate [label="あり"];
-        check_duplicate -> res_none [label="Yes"];
-        check_duplicate -> check_expire [label="No"];
-        check_expire -> res_none [label="期限切"];
-        check_expire -> save_db [label="有効"];
-        save_db -> res_success -> end;
+        start -> input -> fetchcond -> checkhit;
+        checkhit -> resnone [label="なし"];
+        checkhit -> checkduplicate [label="あり"];
+        checkduplicate -> resnone [label="Yes"];
+        checkduplicate -> checkexpire [label="No"];
+        checkexpire -> resnone [label="期限切"];
+        checkexpire -> savedb [label="有効"];
+        savedb -> ressuccess -> end;
     }%
     {}%
     {}%
