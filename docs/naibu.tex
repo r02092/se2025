@@ -294,7 +294,6 @@
 	{
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
-
 		a [label="検索開始", shape=];
 		b [label="キーワード・カテゴリ受信"];
 		c [label="入力値検証", shape=diamond];
@@ -304,15 +303,11 @@
 		d2 [label="「該当無し」表示"];
 		e [label="結果表示"];
 		f [label="終了"];
-
 		a->b->c;
-
 		c->c1 [label="NG"];
 		c->d [label="OK"];
-
 		d->d2 [label="No"];
 		d->e [label=Yes]
-
 		d2->f;
 		e->f;
 	}%
@@ -331,7 +326,6 @@
     {
         node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
-
         start [label="開始", shape=oval];
         input [label="チャット受信"];
         check_empty [label="空文字チェック", shape=diamond];
@@ -345,7 +339,6 @@
         res_ok [label="推薦回答"];
         res_ng [label="エラー回答", shape=oval];
         end [label="終了", shape=oval];
-
         start -> input -> check_empty;
         check_empty -> res_ng [label="空"];
         check_empty -> fetch_ctx [label="OK"];
@@ -370,7 +363,6 @@
     {
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
-
 		start [label="開始", shape=oval];
         input [label="QRデータ・GPS受信"];
         decode_qr [label="QR検証(SpotID)", shape=diamond];
@@ -383,7 +375,6 @@
         msg_success [label="成功画面"];
         msg_error [label="エラー画面", shape=oval];
         end [label="終了", shape=oval];
-
         start -> input -> decode_qr;
         decode_qr -> msg_error [label="不正"];
         decode_qr -> get_spot [label="正"];
@@ -408,7 +399,6 @@
     {
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
-
         start [label="開始", shape=oval];
         input [label="投稿データ受信"];
         validate [label="入力チェック", shape=diamond];
@@ -420,7 +410,6 @@
         success [label="完了表示"];
         error [label="エラー表示", shape=oval];
         end [label="終了", shape=oval];
-
         start -> input -> validate;
         validate -> error [label="NG"];
         validate -> has_img [label="OK"];
@@ -445,7 +434,6 @@
     {
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
-
         start [label="開始", shape=oval];
         input [label="獲得スタンプID受信"];
         fetch_cond [label="関連クーポン検索\n(cond_spot_id)"];
@@ -456,21 +444,16 @@
         res_success [label="獲得成功通知"];
         res_none [label="獲得なし通知", shape=oval];
         end [label="終了", shape=oval];
-
         start -> input -> fetch_cond -> check_hit;
-
         % クーポン存在チェック
         check_hit -> res_none [label="なし"];
         check_hit -> check_duplicate [label="あり"];
-
         % 重複チェック
         check_duplicate -> res_none [label="Yes"];
         check_duplicate -> check_expire [label="No"];
-
         % 期限チェック
         check_expire -> res_none [label="期限切"];
         check_expire -> save_db [label="有効"];
-
         save_db -> res_success -> end;
     }%
     {}%
