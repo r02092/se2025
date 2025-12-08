@@ -73,7 +73,7 @@ jobs:
         ports:
           - 3306:3306
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - run: |
           env=`cat .env.sample`
           echo "${env/DB_HOST=localhost
