@@ -3,17 +3,23 @@ RUN <<EOS
 echo https://dl-cdn.alpinelinux.org/alpine/v3.20/main >> /etc/apk/repositories
 apk --no-cache add git mariadb=10.11.14-r0 mariadb-client=10.11.14-r0 php83-dom php83-fileinfo php83-intl php83-mbstring php83-pdo_mysql php83-phar php83-session php83-tokenizer php83-xml php83-xmlwriter
 cat <<-EOF > ~/entrypoint.sh
-	composer install
-	mkdir -p /workspace/storage/framework/cache/data
-	mkdir /workspace/storage/framework/sessions
-	mkdir /workspace/storage/framework/testing
-	mkdir /workspace/storage/framework/views
 	test -d /var/lib/mysql/mysql
 	db_setup=\$?
 	if [ "\$db_setup" = 1 ]; then
 		mariadb-install-db --datadir=/var/lib/mysql --user=mysql
 	fi
 	mariadbd-safe &
+	composer install
+	mkdir -p /workspace/storage/framework/cache/data
+	mkdir /workspace/storage/framework/sessions
+	mkdir /workspace/storage/framework/testing
+	mkdir /workspace/storage/framework/views
+	if [ ! -e .env ]; then
+		cp .env.sample .env
+	fi
+	if [ \`grep ^APP_KEY= .env\` = APP_KEY= ]; then
+		php artisan key:generate
+	fi
 	if [ "\$db_setup" = 1 ]; then
 		while ! mariadb -e 'SELECT 1;'; do
 			sleep 1;
@@ -21,12 +27,6 @@ cat <<-EOF > ~/entrypoint.sh
 		mariadb -e 'CREATE DATABASE dev_db;
 			GRANT ALL PRIVILEGES ON dev_db.* TO dev_user@localhost IDENTIFIED BY "dev_pass";'
 		php artisan migrate
-	fi
-	if [ ! -e .env ]; then
-		cp .env.sample .env
-	fi
-	if [ \`grep ^APP_KEY= .env\` = APP_KEY= ]; then
-		php artisan key:generate
 	fi
 	php artisan serve --host=0.0.0.0
 	EOF
