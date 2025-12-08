@@ -235,6 +235,7 @@
 	{
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
+
 		a [label="検索開始", shape=];
 		b [label="キーワード・カテゴリ受信"];
 		c [label="入力値検証", shape=diamond];
@@ -271,12 +272,12 @@
 \begin{table}[H]
     \centering
     \caption{チェックイン判定}\label{tab:mod-checkin}
-    \modtable{M-USR-03}{QRコードと位置情報によるスタンプ付与}%
+    \modtable{M15}{QRコードと位置情報によるスタンプ付与}
     {
-        rankdir=TD;
-        node [fontname="BIZ UDPGothic", shape=box, style=rounded];
+		node [shape=diamond] c;
+		node [shape=box,style=rounded] a;
 
-        start [label="開始", shape=oval];
+		start [label="開始", shape=oval];
         input [label="QRデータ・GPS受信"];
         decode_qr [label="QR検証(SpotID)", shape=diamond];
         get_spot [label="Spot座標取得"];
@@ -300,13 +301,47 @@
         check_coup -> save_coup [label="達成"];
         save_coup -> msg_success -> end;
     }%
-    {qr\_data (String), user\_lat (Float), user\_lng (Float)}%
-    {スタンプ取得結果, クーポン(条件達成時)}%
-    {DB座標(整数)を復元してから計算すること。}
+    {}%
+    {スタンプ取得結果, クーポン(条件達成時)}
+    {}
 \end{table}
 
-\subsubsection{写真投稿・共有}
+\subsubsection{評価・写真投稿}
+\begin{table}[H]
+    \centering
+    \caption{評価・写真投稿}\label{tab:mod-review-photo}
+    \modtable{M15}{評価と写真をシステムに登録する}%
+    {
+		node [shape=diamond] c;
+		node [shape=box,style=rounded] a;
 
+        start [label="開始", shape=oval];
+        input [label="投稿データ受信"];
+        validate [label="入力チェック", shape=diamond];
+        has_img [label="画像あり?", shape=diamond];
+        upload [label="画像アップロード"];
+        check_up [label="アップロード成功?", shape=diamond];
+        convert [label="座標変換(Int化)"];
+        save_db [label="DB保存"];
+        success [label="完了表示"];
+        error [label="エラー表示", shape=oval];
+        end [label="終了", shape=oval];
+
+        start -> input -> validate;
+        validate -> error [label="NG"];
+        validate -> has_img [label="OK"];
+        has_img -> save_db [label="No"];
+        has_img -> upload [label="Yes"];
+        upload -> check_up;
+        check_up -> error [label="失敗"];
+        check_up -> convert [label="成功"];
+        convert -> save_db;
+        save_db -> success -> end;
+    }%
+    {}%
+    {投稿完了メッセージ}%
+    {}
+\end{table}
 \subsubsection{クーポン受け取り}
 
 
