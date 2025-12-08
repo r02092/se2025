@@ -1,67 +1,84 @@
 {
-	"$schema": "https://json.schemastore.org/package.json",
-	"devDependencies": {
-		"@eslint/js": "^9.37.0",
-		"@eslint/json": "^0.14.0",
-		"@eslint/markdown": "^7.3.0",
-		"@types/google-apps-script": "^2.0.4",
-		"@types/node": "~24.10.0",
-		"@types/which": "^3.0.4",
-		"@typescript-eslint/eslint-plugin": "^8.45.0",
-		"@typescript-eslint/parser": "^8.45.0",
-		"eslint": "^9.37.0",
-		"eslint-formatter-rdjson": "^1.0.6",
-		"eslint-plugin-googleappsscript": "^1.0.5",
-		"jiti": "^2.6.1",
-		"prettier": "^3.6.2",
-		"textlint": "^15.2.2",
-		"textlint-plugin-latex2e": "^1.2.1",
-		"textlint-rule-preset-ja-technical-writing": "^12.0.2",
-		"typescript-eslint": "^8.45.0",
-		"vite": "^7.1.9",
-		"which": "^6.0.0"
-	},
-	"type": "module",
-	"scripts": {
-		"build": "vite build",
-		"review": "node --env-file=.env resources/ts/ci/reviewdog.ts"
-	},
-	"prettier": {
-		"arrowParens": "avoid",
-		"bracketSpacing": false
-	},
-	"textlint": {
-		"plugins": [
-			"latex2e"
-		],
-		"rules": {
-			"preset-ja-technical-writing": {
-				"arabic-kanji-numbers": false,
-				"ja-no-mixed-period": false,
-				"ja-no-redundant-expression": {
-					"dictOptions": {
-						"dict5": {
-							"disabled": true
-						}
-					}
-				},
-				"ja-no-successive-word": false,
-				"max-comma": false,
-				"max-kanji-continuous-len": false,
-				"max-ten": {
-					"max": 4
-				},
-				"no-doubled-conjunction": false,
-				"no-exclamation-question-mark": false,
-				"no-mix-dearu-desumasu": {
-					"preferInHeader": "ですます",
-					"preferInBody": "ですます",
-					"preferInList": "ですます"
-				},
-				"no-unmatched-pair": false,
-				"no-doubled-joshi": false,
-				"sentence-length": false
-			}
-		}
-	}
+  "$schema": "https://json.schemastore.org/package.json",
+  "private": true,
+  "devDependencies": {
+    "@eslint/css": "^0.14.1",
+    "@eslint/js": "^9.37.0",
+    "@eslint/json": "^0.14.0",
+    "@eslint/markdown": "^7.3.0",
+    "@prettier/plugin-php": "^0.24.0",
+    "@types/google-apps-script": "^2.0.4",
+    "@types/node": "~24.10.0",
+    "@types/which": "^3.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "eslint": "^9.37.0",
+    "eslint-formatter-rdjson": "^1.0.6",
+    "eslint-plugin-googleappsscript": "^1.0.5",
+    "jiti": "^2.6.1",
+    "laravel-vite-plugin": "^2.0.1",
+    "prettier": "^3.6.2",
+    "textlint": "^15.2.2",
+    "textlint-plugin-latex2e": "^1.2.1",
+    "textlint-rule-preset-ja-technical-writing": "^12.0.2",
+    "typescript-eslint": "^8.45.0",
+    "vite": "^7.1.9",
+    "which": "^6.0.0"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "build-gas": "vite build --mode gas",
+    "dev": "vite",
+    "review": "node --env-file=.env resources/ts/ci/reviewdog.ts"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "bracketSpacing": false,
+    "overrides": [
+      {
+        "files": "*.php",
+        "options": {
+          "singleQuote": true
+        }
+      }
+    ],
+    "plugins": [
+      "@prettier/plugin-php"
+    ]
+  },
+  "textlint": {
+    "plugins": [
+      "latex2e"
+    ],
+    "rules": {
+      "preset-ja-technical-writing": {
+        "arabic-kanji-numbers": false,
+        "ja-no-mixed-period": false,
+        "ja-no-redundant-expression": {
+          "dictOptions": {
+            "dict5": {
+              "disabled": true
+            }
+          }
+        },
+        "ja-no-successive-word": false,
+        "max-comma": false,
+        "max-kanji-continuous-len": false,
+        "max-ten": {
+          "max": 4
+        },
+        "no-doubled-conjunction": false,
+        "no-exclamation-question-mark": false,
+        "no-mix-dearu-desumasu": {
+          "preferInHeader": "ですます",
+          "preferInBody": "ですます",
+          "preferInList": "ですます"
+        },
+        "no-unmatched-pair": false,
+        "no-doubled-joshi": false,
+        "sentence-length": false
+      }
+    }
+  }
 }

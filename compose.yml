@@ -1,6 +1,11 @@
 services:
   app:
     build: dev
+    ports:
+      - 8000:8000
     volumes:
       - ./:/workspace:z
+      - ./dev/db:/var/lib/mysql:z
+      - /workspace/storage/framework
+      - /workspace/vendor
     tty: true

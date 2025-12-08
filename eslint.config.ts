@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import json from "@eslint/json";
 import markdown from "@eslint/markdown";
+import css from "@eslint/css";
 import {defineConfig, globalIgnores} from "eslint/config";
 
 export default defineConfig([
@@ -39,5 +40,11 @@ export default defineConfig([
 		language: "markdown/gfm",
 		extends: ["markdown/recommended"],
 	},
-	globalIgnores(["gas/dist/main.js"]),
+	{
+		files: ["**/*.css"],
+		plugins: {css},
+		language: "css/css",
+		extends: ["css/recommended"],
+	},
+	globalIgnores(["gas/dist/main.js", "public/build/*"]),
 ]);

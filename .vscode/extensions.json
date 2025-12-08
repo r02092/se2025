@@ -2,8 +2,11 @@
 	"recommendations": [
 		"3w36zj6.textlint",
 		"EditorConfig.EditorConfig",
+		"SanderRonde.phpstan-vscode",
+		"dbaeumer.vscode-eslint",
 		"James-Yu.latex-workshop",
 		"dbaeumer.vscode-eslint",
+		"emeraldwalk.runonsave",
 		"esbenp.prettier-vscode"
 	]
 }
