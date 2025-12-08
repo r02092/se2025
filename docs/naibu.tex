@@ -322,33 +322,34 @@
 \begin{table}[H]
     \centering
     \caption{AI観光地推薦}\label{tab:mod-ai}
-    \modtable{M13}{ユーザーのチャット入力に基づく観光地推薦}%
+    \modtable{M13}{AiService.php}
+	{ユーザーのチャット入力に基づく観光地推薦}%
     {
         node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
         start [label="開始", shape=oval];
         input [label="チャット受信"];
-        check_empty [label="空文字チェック", shape=diamond];
-        fetch_ctx [label="周辺情報取得"];
+        checkempty [label="空文字チェック", shape=diamond];
+        fetchctx [label="周辺情報取得"];
         prompt [label="プロンプト構築"];
-        api_call [label="Gemini API送信"];
-        check_api [label="API応答成功?", shape=diamond];
+        apicall [label="Gemini API送信"];
+        checkapi [label="API応答成功?", shape=diamond];
         parse [label="JSON解析"];
         search [label="推薦スポット取得"];
-        check_hit [label="スポットあり?", shape=diamond];
-        res_ok [label="推薦回答"];
+        checkhit [label="スポットあり?", shape=diamond];
+        resok [label="推薦回答"];
         res_ng [label="エラー回答", shape=oval];
         end [label="終了", shape=oval];
-        start -> input -> check_empty;
-        check_empty -> res_ng [label="空"];
-        check_empty -> fetch_ctx [label="OK"];
-        fetch_ctx -> prompt -> api_call -> check_api;
-        check_api -> res_ng [label="失敗"];
-        check_api -> parse [label="成功"];
+        start -> input -> checkempty;
+        checkempty -> res_ng [label="空"];
+        checkempty -> fetch_ctx [label="OK"];
+        fetchctx -> prompt -> apicall -> checkapi;
+        checkapi -> resng [label="失敗"];
+        checkapi -> parse [label="成功"];
         parse -> search -> check_hit;
-        check_hit -> res_ng [label="0件"];
-        check_hit -> res_ok [label="1件以上"];
-        res_ok -> end;
+        checkhit -> resng [label="0件"];
+        checkhit -> resok [label="1件以上"];
+        resok -> end;
     }%
     {}%
     {}%
@@ -359,7 +360,7 @@
 \begin{table}[H]
     \centering
     \caption{チェックイン判定}\label{tab:mod-checkin}
-    \modtable{M14}{QRコードと位置情報によるスタンプ付与}
+    \modtable{M14}{CheckinService.php}{QRコードと位置情報によるスタンプ付与}
     {
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
@@ -395,7 +396,7 @@
 \begin{table}[H]
     \centering
     \caption{評価・写真投稿}\label{tab:mod-review-photo}
-    \modtable{M15}{評価と写真をシステムに登録する}%
+    \modtable{M15}{ReviewService.php}{評価と写真をシステムに登録する}%
     {
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
@@ -430,7 +431,7 @@
 \begin{table}[H]
     \centering
     \caption{クーポン受け取り処理}\label{tab:mod-coupon-receive}
-    \modtable{M16}{スタンプ獲得状況に基づくクーポン付与}%
+    \modtable{M16}{CouponService.php}{スタンプ獲得状況に基づくクーポン付与}%
     {
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
