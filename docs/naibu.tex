@@ -268,7 +268,7 @@
 \begin{table}[H]
     \centering
     \caption{AI観光地推薦}\label{tab:mod-ai}
-    \modtable{M14}{ユーザーのチャット入力に基づく観光地推薦}%
+    \modtable{M13}{ユーザーのチャット入力に基づく観光地推薦}%
     {
         node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
@@ -307,7 +307,7 @@
 \begin{table}[H]
     \centering
     \caption{チェックイン判定}\label{tab:mod-checkin}
-    \modtable{M15}{QRコードと位置情報によるスタンプ付与}
+    \modtable{M14}{QRコードと位置情報によるスタンプ付与}
     {
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
@@ -345,7 +345,7 @@
 \begin{table}[H]
     \centering
     \caption{評価・写真投稿}\label{tab:mod-review-photo}
-    \modtable{M16}{評価と写真をシステムに登録する}%
+    \modtable{M15}{評価と写真をシステムに登録する}%
     {
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
@@ -382,7 +382,7 @@
 \begin{table}[H]
     \centering
     \caption{クーポン受け取り処理}\label{tab:mod-coupon-receive}
-    \modtable{M-USR-06}{スタンプ獲得状況に基づくクーポン付与}%
+    \modtable{M16}{スタンプ獲得状況に基づくクーポン付与}%
     {
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
@@ -416,7 +416,7 @@
     }%
     {}%
     {}%
-    {スタンプ獲得トリガーで呼び出される想定。ユーザーが同じクーポンを重複して受け取らないよう、必ず\texttt{user\_coupons}を確認するロジックを含める。}
+    {スタンプ獲得トリガーで呼び出される想定。ユーザーが同じクーポンを重複して受け取らないようにする}
 \end{table}
 
 
