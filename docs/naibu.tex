@@ -445,13 +445,10 @@
         res_none [label="獲得なし通知", shape=oval];
         end [label="終了", shape=oval];
         start -> input -> fetch_cond -> check_hit;
-        % クーポン存在チェック
         check_hit -> res_none [label="なし"];
         check_hit -> check_duplicate [label="あり"];
-        % 重複チェック
         check_duplicate -> res_none [label="Yes"];
         check_duplicate -> check_expire [label="No"];
-        % 期限チェック
         check_expire -> res_none [label="期限切"];
         check_expire -> save_db [label="有効"];
         save_db -> res_success -> end;
