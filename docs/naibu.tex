@@ -229,13 +229,9 @@
     r [label="取得したGoogleIDが既に登録されているか"];%
     s [label="新規アカウント作成"];%
     t [label="usersテーブルにGoogleIDとユーザー名を登録"];%
-    a->b;%
-    b->c;%
-    c->d;%
-    b->e;%
-    e->f;%
-    f->g;%
-    g->h;%
+    a->b;
+    b->c->d;%
+    b->e->f->g->h;%
     h->i [label="Yes"];%
     i->a;%
     h->j [label="No"];%
@@ -246,12 +242,10 @@
     l->n [label="事業者"];%
     l->o [label="管理者"];%
     b->p [label="Google認証選択"];%
-    p->q;%
-    q->r;%
+    p->q->r;%
     r->k [label="Yes"];%
     r->s [label="No"];%
-    s->t;%
-    t->k;%
+    s->t->k;%
   }%
   {}%
   {ウェブページ}%
