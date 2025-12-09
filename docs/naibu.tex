@@ -252,6 +252,8 @@
   {}
 \end{table}
 
+
+
 \newpage
 \subsection{ログアウト画面の表示}
 \begin{table}[H]
@@ -267,13 +269,14 @@
     c [label="ログアウト確認"];
     d [label="ログアウト処理"];
     e [label="ログアウトのポップアップ表示"];
-    f [label="キャンセル選択"];
-    g [label="前のモジュールに戻る"];
+    f [label="ホーム画面へ遷移"];
+    g [label="キャンセル選択"];
+    h [label="前のモジュールに戻る"];
     a->b;
     b->c [label="ログアウト"];
-    c->d->e;
-    b->f [label="キャンセル"];
-    f->g;
+    c->d->e->f;
+    b->g [label="キャンセル"];
+    g->h;
   }%
   {}%
   {ウェブページ}%
