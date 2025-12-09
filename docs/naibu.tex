@@ -203,8 +203,8 @@
 \subsubsection{ログイン画面の表示}
 \begin{table}[H]
   \centering
-  \caption{ログイン画面の表示}\label{tab:mod-create-account}
-  \modtable{M01}{AccountManager.php}%
+  \caption{ログイン画面の表示}\label{tab:mod-create-login}
+  \modtable{M01}{loginController.php}%
   {SceneTripのログインを行う。入力値の検証、ログイン名の重複チェック}%
   {
     node [shape=box,style=rounded];%
@@ -252,6 +252,34 @@
     r->s [label="No"];%
     s->t;%
     t->k;%
+  }%
+  {}%
+  {ウェブページ}%
+  {}
+\end{table}
+
+\newpage
+\subsection{ログアウト画面の表示}
+\begin{table}[H]
+  \centering
+  \caption{ログアウト画面の表示}\label{tab:mod-logout}
+  \modtable{M02}{AccountCreater.php}%
+  {SceneTripのログアウトを行う。}%
+  {
+    node [shape=box,style=rounded];
+    b [shape=diamond];
+    a [label="ボタン選択"];
+    b [label="続行を選択"];
+    c [label="ログアウト確認"];
+    d [label="ログアウト処理"];
+    e [label="ログアウトのポップアップ表示"];
+    f [label="キャンセル選択"];
+    g [label="前のモジュールに戻る"];
+    a->b;
+    b->c [label="ログアウト"];
+    c->d->e;
+    b->f [label="キャンセル"];
+    f->g;
   }%
   {}%
   {ウェブページ}%
@@ -437,11 +465,11 @@
 		node [shape=box,style=rounded] a;
         start [label="開始", shape=oval];
         input [label="獲得スタンプID受信"];
-        fetchcond [label="関連クーポン検索\n(condspotid)"];
+        fetchcond [label="関連クーポン検索(condspotid)"];
         checkhit [label="対象クーポンあり?", shape=diamond];
         checkduplicate [label="既に獲得済み?", shape=diamond];
         checkexpire [label="有効期限内?", shape=diamond];
-        savedb [label="usercoupons保存\n(利用可能状態で作成)"];
+        savedb [label="usercoupons保存(利用可能状態で作成)"];
         ressuccess [label="獲得成功通知"];
         resnone [label="獲得なし通知", shape=oval];
         end [label="終了", shape=oval];
