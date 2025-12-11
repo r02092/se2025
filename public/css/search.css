@@ -1,0 +1,92 @@
+.search-bar-area {
+	margin: 20px auto;
+}
+.search-bar-area input {
+	border: none;
+	outline: none;
+	height: 80%;
+	width: 80%;
+	margin-left: 16px;
+	font-size: 1rem;
+	background: transparent;
+}
+.search-icon {
+	width: 28px;
+	margin-right: 16px;
+	fill: #14b888;
+}
+
+.ai-suggest {
+	width: 80%;
+	height: auto;
+	max-height: calc(100vh - 200px);
+	overflow-y: auto;
+	margin: 30px auto;
+	padding: 1% 5% 5% 5%;
+	min-height: 120px;
+}
+.ai-suggest h2 {
+	text-align: center;
+	width: 100%;
+}
+
+.spot-divider {
+	height: 1px;
+	background-color: #e0e0e0;
+	width: 100%;
+	margin-top: 10px; /* タイトルから 10px 下 */
+	margin-bottom: 12px;
+	border-radius: 1px;
+}
+/* スポット一覧 */
+.spot-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+/* 各スポット行: 左にサムネイル、右にテキスト */
+.spot-item {
+	background: #fafafa;
+	border-radius: 8px;
+	padding: 12px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+	display: flex; /* ← 変更: 横並びに */
+	align-items: flex-start;
+	gap: 12px;
+	cursor: pointer;
+	transition:
+		transform 0.12s ease,
+		box-shadow 0.12s ease;
+}
+/* サムネイル画像 */
+.spot-thumb {
+	width: 96px; /* 固定横幅 */
+	height: 72px; /* 固定縦幅 */
+	object-fit: cover; /* 切り取りで中央を表示 */
+	border-radius: 8px;
+	flex-shrink: 0; /* 縮小しない */
+	background: #ddd; /* 画像読み込み前のプレースホルダ色 */
+}
+/* テキスト領域を伸ばす */
+.spot-content {
+	flex: 1 1 auto;
+	min-width: 0; /* テキストのはみ出し防止 */
+}
+.spot-item:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+.spot-title {
+	margin: 0;
+	font-size: 16px;
+	color: #0b6b4d;
+	font-weight: 700;
+}
+.spot-desc {
+	margin: 6px 0 0 0;
+	color: #666;
+	font-size: 14px;
+}
