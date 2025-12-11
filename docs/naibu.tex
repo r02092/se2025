@@ -626,6 +626,37 @@
 	{}
 \end{table}
 
+\newpage
+\subsubsection{ユーザー情報追加画面の表示}
+\begin{table}[H]
+	\centering
+	\caption{ユーザー情報追加画面の表示}\label{tab:mod-search}
+	\modtable{M00}{RootController.php}%
+	{ユーザー情報追加画面を表示するモジュール}%
+	{
+		node [shape=diamond] c;
+		node [shape=box,style=rounded] a;
+		a [label="追加タブを選択"];
+		b [label="情報追加画面を生成"];
+		c [label="必要情報を入力"]
+		d [label="入力値を検証"];
+		e [label="SQLクエリを生成"];
+		f [label="情報追加できない旨のUIを生成"];
+		g [label="情報追加処理を実行"];
+		h [label="情報追加完了画面を生成・表示"];
+		a->b;
+		b->c;
+		c->d [label="Yes"];
+		c->e [label="No"];
+		d->f;
+		f->g;
+		g->h;
+	}%
+	{利用者から受け取ったHTTPリクエスト}%
+	{ウェブページ}%
+	{}
+\end{table}
+
 
 \section{データベースアクセス設計}
 % 【記述内容】データベースへのアクセス方法、外部設計書で指定された特殊なデータ形式やロジック（ID生成など）の詳細を定義
