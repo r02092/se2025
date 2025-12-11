@@ -252,14 +252,50 @@
   {}
 \end{table}
 
-
+\newpage
+\subsubsection{アカウント作成作成モジュール}
+\begin{table}[H]
+  \centering
+  \caption{アカウント作成モジュール}\label{tab:mod-create-account}
+  \modtable{M02}{AccountCreater.php}%
+  {SceneTripのアカウント作成を行う。入力値の検証、ログイン名の重複チェック}%
+  {
+    node [shape=box,style=rounded];
+    b [shape=diamond];
+    a [label="モジュール呼び出し"];
+    b [label="ボタン選択"];
+    c [label="入力項目へ入力"];
+    d [label="アカウント作成ボタン選択"];
+    e [label="空白検知、特殊文字検知モジュールへ遷移"];
+    f [label="ログイン名重複チェックモジュールへ遷移"];
+    g [label="パスワード強度チェックモジュールへ遷移"];
+    h [label="入力内容問題があるか"];
+    i [label="エラーメッセージ表示"];
+    j [label="usersテーブルにアカウント情報を登録"];
+    k [label="登録成功か"];
+    l [label="ログイン画面へ遷移"];
+    m [label="「すでにアカウントをお持ちの方はこちら」を選択"];
+    a->b;
+    b->c [label="アカウント作成"];
+    c->d->e->f->g->h;
+    h->i [label="Yes"];
+    i->a;
+    h->j [label="No"];
+    j->k->l;
+    b->m [label="すでにアカウントをお持ちの方"];
+    m->l;
+    }%
+  {}%
+  {ウェブページ}%
+  {}
+\end{table}
 
 \newpage
 \subsection{ログアウト画面の表示}
 \begin{table}[H]
   \centering
   \caption{ログアウト画面の表示}\label{tab:mod-logout}
-  \modtable{M02}{AccountCreater.php}%
+  \modtable{M03}{AccountCreater.php}%
   {SceneTripのログアウトを行う。}%
   {
     node [shape=box,style=rounded];
