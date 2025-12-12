@@ -53,7 +53,7 @@
 			& \emph{概要} & #3 \\
 			\Block{1-3}{\emph{処理手順}} \\
 			\Block{1-3}{
-				\digraph[scale=.45]{#1}{
+				\digraph[scale=.3]{#1}{
 					#4
 				}
 			}
@@ -217,6 +217,7 @@
   {
     node [shape=box,style=rounded];%
     b, h, k, l, r [shape=diamond];%
+    { rank=source; a; }
     a [label="モジュール呼び出し"];%
     b [label="ボタン選択"];%
     c [label="「アカウントをお持ちでない方はこちら」選択"];%
@@ -261,7 +262,7 @@
 \end{table}
 
 \newpage
-\subsubsection{アカウント作成作成モジュール}
+\subsubsection{アカウント作成モジュール}
 \begin{table}[H]
   \centering
   \caption{アカウント作成モジュール}\label{tab:mod-create-account}
@@ -270,20 +271,22 @@
   {
     node [shape=box,style=rounded];
     b [shape=diamond];
+    { rank=source; a; }
     a [label="モジュール呼び出し"];
+    aEx [label="利用規約確認モジュールへ遷移"];
     b [label="ボタン選択"];
     c [label="入力項目へ入力"];
     d [label="アカウント作成ボタン選択"];
     e [label="空白検知、特殊文字検知モジュールへ遷移"];
     f [label="ログイン名重複チェックモジュールへ遷移"];
-    g [label="パスワード強度チェックモジュールへ遷移"];
+    g [label="パスワード確認モジュールへ遷移"];
     h [label="入力内容問題があるか"];
     i [label="エラーメッセージ表示"];
     j [label="usersテーブルにアカウント情報を登録"];
     k [label="登録成功か"];
     l [label="ログイン画面へ遷移"];
     m [label="「すでにアカウントをお持ちの方はこちら」を選択"];
-    a->b;
+    a->aEx->b;
     b->c [label="アカウント作成"];
     c->d->e->f->g->h;
     h->i [label="Yes"];
@@ -295,6 +298,107 @@
     }%
   {}%
   {ウェブページ}%
+  {}
+\end{table}
+
+\newpage
+\subsubsection{利用規約確認モジュール}
+\begin{table}[H]
+  \centering
+  \caption{利用規約確認モジュール}\label{tab:mod-terms}
+  \modtable{M04}{Terms.php}%
+  {SceneTripの利用規約確認を行う。}%
+  {
+    node [shape=box,style=rounded];
+    c [shape=diamond];
+    { rank=source; a; }
+    a [label="モジュール呼び出し"];
+    b [label="利用規約を表示"];
+    c [label="「同意する」選択"];
+    d [label="アカウント作成画面へ遷移"];
+    a->b;
+    b->c;
+    c->d [label="同意する"];
+    c->b [label="同意しない"];
+  }%
+  {}%
+  {ウェブページ}%
+  {}
+\end{table}
+
+\newpage
+\subsubsection{空白検知モジュール}
+\begin{table}[H]
+  \centering
+  \caption{空白検知モジュール}\label{tab:mod-blank}
+  \modtable{M05}{BlankChecker.php}%
+  {SceneTripの入力値に空白が含まれていないか検査する。}%
+  {
+    node [shape=box,style=rounded];
+    b [shape=diamond];
+    { rank=source; a; }
+    a [label="モジュール呼び出し"];
+    c [label="入力値を検査"];
+    b [label="空白や特殊文字が含まれているか"];
+    d [label="エラーメッセージを返す"];
+    e [label="正常終了を返す"];
+    a->c->b;
+    b->d [label="含まれている"];
+    b->e [label="含まれていない"];
+  }%
+  {}%
+  {エラーメッセージ または 正常終了}%
+  {}
+\end{table}
+
+\newpage
+\subsubsection{特殊文字検知モジュール}
+\begin{table}[H]
+  \centering
+  \caption{特殊文字検知モジュール}\label{tab:mod-special} 
+  \modtable{M06}{SpecialCharChecker.php}%
+  {SceneTripの入力値に特殊文字が含まれていないか検査
+する。}%
+  {
+    node [shape=box,style=rounded];
+    b [shape=diamond];
+    { rank=source; a; }
+    a [label="モジュール呼び出し"];
+    c [label="入力値を検査"];
+    b [label="特殊文字が含まれているか"];
+    d [label="エラーメッセージを返す"];
+    e [label="正常終了を返す"];
+    a->c->b;
+    b->d [label="含まれている"];
+    b->e [label="含まれていない"];
+  }%
+  {}%
+  {エラーメッセージ または 正常終了}%
+  {}
+\end{table}
+
+\newpage
+\subsubsection{ログイン名重複チェックモジュール}
+\begin{table}[H]
+  \centering
+  \caption{ログイン名重複チェックモジュール}\label{tab:mod-dup}
+  \modtable{M07}{DupLoginNameChecker.php}%
+  {SceneTripのログイン名が重複していないか検査する。}%
+  {
+    node [shape=box,style=rounded];
+    b [shape=diamond];
+    { rank=source; a; }
+    a [label="モジュール呼び出し"];
+    c [label="入力値を検査"];
+    b [label="ログイン名が重複しているか"];
+    d [label="エラーメッセージを返す"];
+    e [label="正常終了を返す"];
+    a->c->b;
+    b->d [label="重複している"];
+    b->e [label="重複していない"];
+  }%
+  {}%
+  {エラーメッセージ または 正常終了}%
   {}
 \end{table}
 
