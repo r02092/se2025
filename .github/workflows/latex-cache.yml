@@ -13,7 +13,7 @@ jobs:
       cache-hit: ${{steps.cache.outputs.cache-hit}}
     steps:
       - id: cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: /usr/local/texlive
           key: 0
@@ -27,7 +27,7 @@ jobs:
     steps:
       - run: brew install mactex-no-gui
         timeout-minutes: 9
-      - uses: actions/cache/save@v4
+      - uses: actions/cache/save@v5
         with:
           path: /usr/local/texlive
           key: 0
