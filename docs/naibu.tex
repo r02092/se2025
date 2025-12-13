@@ -484,7 +484,10 @@
     m [label="エラーメッセージ表示"];
     o [label="画像アップロード完了画面を生成・表示"];
     p [label="二要素検証設定モジュールへ遷移"];
-    q [label="?"];
+    br4 [label="二要素検証設定が完了しているか"];
+    q [label="二要素検証設定完了ポップアップを表示"];
+    r [label="二要素認証失敗ポップアップを表示"];
+    a->b  
     a->b->br1;
     br1->c [label="編集"];
     c->d->e->f->br2;
@@ -497,14 +500,29 @@
     br3->m [label="Yes"];
     br3->o [label="No"];
     br1->p [label="二要素認証設定を選択"];
-    p->q;
+    p->br4;
+    br4->q [label="Yes"];
+    br4->r [label="No"];
   }%
   {利用者から受け取ったHTTPリクエスト}%
   {ウェブページ}%
   {}
 \end{table}
 
+\newpage
+\subsubsection{二要素認証設定画面の表示}
 
+\newpage
+\subsubsection{画像アップロードモジュール}
+
+\newpage
+\subsection{QRコード発行モジュール}
+
+\newpage
+\subsection{ホーム画面表示モジュール}
+
+\newpage
+\subsection{}
 
 \newpage
 \subsubsection{検索画面の表示}
