@@ -130,6 +130,36 @@
 
 % ====================================
 
+\section{技術スタック}
+% 【記述内容】使用するプログラミング言語、フレームワーク、主要ライブラリを記述。
+本システムは以下の技術を使用する。
+\begin{table}[H]
+	\centering
+	\caption{技術スタック}\label{tab:tech}
+	\begin{tabularx}{0.9\textwidth}{|p{13\zw}|X|l|}
+		\hline
+		\thead{項目} & \thead{ソフトウェア} & \thead{備考} \\ \hline
+		Webサーバ & Nginx & \\ \hline
+		データベース & MariaDB & \\ \hline
+		バックエンド開発言語 & PHP & \\ \hline
+		バックエンドパッケージマネージャ & Composer & \\ \hline
+		バックエンドフレームワーク & Laravel & \\ \hline
+		バックエンド単体テスト & PHPUnit & \\ \hline
+		ソーシャルログイン & Laravel Socialite & \\ \hline
+		フロントエンド開発言語 & TypeScript & \\ \hline
+		フロントエンドランタイム & Node.js & \\ \hline
+		Node.jsバージョン管理 & Node Version Manager & \\ \hline
+		フロントエンドパッケージマネージャ & pnpm & \\ \hline
+		フロントエンドバンドラ & Vite & \\ \hline
+		フロントエンドテスト & Vitest & \\ \hline
+		ブラウザテスト & Playwright & \\ \hline
+		地図表示 & MapLibre GL JS & \\ \hline
+		LLM & Gemini 2.5 Flash-Lite & Google AI Studioを使用 \\ \hline
+		地図 & OpenStreetMap & \\ \hline
+		交通情報 & 国土交通省交通量API & \\ \hline
+	\end{tabularx}
+\end{table}
+
 \section{開発環境}
 % 【記述内容】動作環境と同様に開発環境について書く
 本システムは、GitHubでソースコードを管理し、GitHubに
@@ -226,36 +256,6 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		利用者端末 & PCおよびスマートフォン & 利用者数 & \\ \hline
 		端末OS & Android、Linux、Windows、iOS、macOS & & \\ \hline
 		端末ブラウザ & Firefox、Google Chrome、Safari & & \\ \hline
-	\end{tabularx}
-\end{table}
-
-\section{技術スタック}
-% 【記述内容】使用するプログラミング言語、フレームワーク、主要ライブラリを記述。
-本システムは以下の技術を使用する。
-\begin{table}[H]
-	\centering
-	\caption{技術スタック}\label{tab:tech}
-	\begin{tabularx}{0.9\textwidth}{|p{13\zw}|X|l|}
-		\hline
-		\thead{項目} & \thead{ソフトウェア} & \thead{備考} \\ \hline
-		Webサーバ & Nginx & \\ \hline
-		データベース & MariaDB & \\ \hline
-		バックエンド開発言語 & PHP & \\ \hline
-		バックエンドパッケージマネージャ & Composer & \\ \hline
-		バックエンドフレームワーク & Laravel & \\ \hline
-		バックエンド単体テスト & PHPUnit & \\ \hline
-		ソーシャルログイン & Laravel Socialite & \\ \hline
-		フロントエンド開発言語 & TypeScript & \\ \hline
-		フロントエンドランタイム & Node.js & \\ \hline
-		Node.jsバージョン管理 & Node Version Manager & \\ \hline
-		フロントエンドパッケージマネージャ & pnpm & \\ \hline
-		フロントエンドバンドラ & Vite & \\ \hline
-		フロントエンドテスト & Vitest & \\ \hline
-		ブラウザテスト & Playwright & \\ \hline
-		地図表示 & MapLibre GL JS & \\ \hline
-		LLM & Gemini 2.5 Flash-Lite & Google AI Studioを使用 \\ \hline
-		地図 & OpenStreetMap & \\ \hline
-		交通情報 & 国土交通省交通量API & \\ \hline
 	\end{tabularx}
 \end{table}
 
