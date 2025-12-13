@@ -1036,6 +1036,37 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	{}
 \end{table}
 
+\newpage
+\subsubsection{サブスクリプション解除画面の表示}
+\begin{table}[H]
+	\centering
+	\caption{サブスクリプション解除画面の表示}\label{tab:mod-search}
+	\modtable{M00}{RootController.php}%
+	{サブスクリプション解除画面を表示するモジュール}%
+	{
+		node [shape=diamond] c;
+		node [shape=box,style=rounded] a;
+		a [label="ユーザー管理画面を選択"];
+		b [label="契約一覧画面を生成・選択"];
+		c [label="解除ボタンを選択"]
+		d [label="操作の確認画面の表示"];
+		e [label="SQLクエリを生成"];
+		f [label="元の画面を表示"];
+		g [label="契約情報を更新"];
+		h [label="契約解除完了画面を生成・表示"];
+		a->b;
+		b->c;
+		c->d;
+		d->e [label="Yes"];
+		d->f [label="No"];
+		d->f;
+		f->g;
+	}%
+	{利用者から受け取ったHTTPリクエスト}%
+	{ウェブページ}%
+	{}
+\end{table}
+
 \section{データベースアクセス設計}
 % 【記述内容】データベースへのアクセス方法、外部設計書で指定された特殊なデータ形式やロジック（ID生成など）の詳細を定義
 
