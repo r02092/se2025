@@ -179,6 +179,32 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\end{itemize}
 	\item \emph{システム全体のデプロイ}
 \end{itemize}
+以下に、GitHub Actionsワークフローで用いる環境を示す。
+この表に書いていない細かなソフトウェアは、
+パッケージ管理システム（UbuntuであればAPT、macOSで
+あればHomebrew）で導入されるバージョンを使用する。
+\begin{table}[H]
+	\centering
+	\caption{\LaTeX 文書をコンパイルするGitHub Actionsワークフローで用いる環境}\label{tab:dev-latex}
+	\begin{tabularx}{0.9\textwidth}{|l|X|p{10\zw}|}
+		\hline
+		\thead{項目} & \thead{種類} & \thead{備考} \\ \hline
+		OS & macOS Sequoia & \\ \hline
+		\TeX ディストリビューション & Mac\TeX{} 2025 & \\ \hline
+	\end{tabularx}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{その他のGitHub Actionsワークフローで用いる環境}\label{tab:dev-gha}
+	\begin{tabularx}{0.9\textwidth}{|l|X|p{10\zw}|}
+		\hline
+		\thead{項目} & \thead{種類} & \thead{備考} \\ \hline
+		OS & Ubuntu 24.04.3 & \\ \hline
+		PHP実行環境 & PHP 8.3 & \\ \hline
+		データベース & MariaDB 10.11.13 & \\ \hline
+		自動レビュ & Reviewdog v0.18.1 & \\ \hline
+	\end{tabularx}
+\end{table}
 
 また、リポジトリには依存関係のアップデートをおこない、Pull Requestを
 自動で作成するbotであるRenovateを導入する。
