@@ -282,7 +282,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		設定は、ここに記述する規約を可能な限り
 		適用するものとする。
 		\item 環境変数の命名には、アッパースネークケースを用いる。
-		\item ここに記述する規約は、依存関係などの\verb|.gitignore|で無視するファイルには
+		\item ここに記述する規約は、依存関係などの\verb|.gitignore|ファイルで無視するファイルには
 		適用しないものとする。
 	\end{itemize}
 	\item \emph{PHPコード}
@@ -300,7 +300,10 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		\item クラスおよび名前空間の命名には、アッパーキャメルケースを用いる。
 		\item 関数および変数の命名には、ローワーキャメルケースを用いる。
 		\item 定数の命名には、アッパースネークケースを用いる。
-		\item \verb|App\Http\Controllers\Controller|を継承するクラスの名前の末尾は、\verb|Controller|とする。
+		\item \verb|App\Http\Controllers\Controller|クラスを継承するクラスの名前の
+		末尾は、\verb|Controller|とする。
+		\item \verb|App\Models\|名前空間に存在するクラスの名前は、対応するデータベースのテーブル名に
+		基づくものとする。
 		\item クラスと対応するファイルの場所は、PSR-4に準拠したオートローダで読み込み可能な場所とする。
 		ただし、名前空間とディレクトリには\cref{tab:coding-psr4}のような対応付けがあるものとする。
 		\begin{table}[H]
@@ -316,7 +319,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 			\end{tabularx}
 		\end{table}
 		\item クラスと対応しないファイルは、\cref{sec:dir}で定めたディレクトリに配置するものとする。
-		\item クラスと対応しないファイルの名前は、\verb|artisan|を除き、
+		\item クラスと対応しないファイルの名前は、\verb|artisan|ファイルを除き、
 		ローワースネークケースを用いた名前の末尾に“\verb|.php|”を付与するものとする。
 	\end{itemize}
 	\item \emph{Bladeテンプレート}
