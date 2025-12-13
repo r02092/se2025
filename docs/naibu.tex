@@ -132,6 +132,58 @@
 
 \section{開発環境}
 % 【記述内容】動作環境と同様に開発環境について書く
+本システムは、GitHubでソースコードを管理し、GitHubに
+搭載されたCI/CDツールであるGitHub Actionsを開発に用いる。
+本文書を含めたシステムに関わる文書を管理するリポジトリと共通のリポジトリを
+用いる。
+また、コードフォーマッタであるPrettierおよび
+リンタであるESLintとLarastanを用いる。
+
+GNU/LinuxシステムまたはWindowsで動作するPCを開発用PCとして用いる。
+開発用PCには、Node Version Managerをインストールし、
+それを用いてNode.jsをインストールし、それに含まれるnpmを用いてpnpmを
+インストールするものとする。
+また、開発用PCにコンテナを用いて以下の環境を作成し、開発をおこなう。
+コンテナ管理ツールとしてはPodmanまたはDockerを用いる。
+\begin{table}[H]
+	\centering
+	\caption{開発環境}\label{tab:dev-con}
+	\begin{tabularx}{0.9\textwidth}{|l|X|p{10\zw}|}
+		\hline
+		\thead{項目} & \thead{種類} & \thead{備考} \\ \hline
+		OS & Alpine 3.23 & \\ \hline
+		PHP実行環境 & PHP 8.3 & \\ \hline
+		データベース & MariaDB 10.11.14 & \\ \hline
+		自動レビュ & Reviewdog v0.18.1 & \\ \hline
+	\end{tabularx}
+\end{table}
+GitHub Actionsでは、以下の作業を自動でおこなう。
+\begin{itemize}
+	\item \emph{\LaTeX 文書のコンパイル}
+	\begin{itemize}
+		\item 特定の形式のGitタグがプッシュされた際に動作
+		\item 文書に用いるフォントの都合上、macOSのイメージ上で動作
+		\item Mac\TeX の環境の構築に時間がかかるため、6日毎に
+		環境のキャッシュを作成
+	\end{itemize}
+	\item \emph{Pull Requestの自動確認}
+	\begin{itemize}
+		\item フォーマッタによる整形を自動でコミット
+		\item リンタによる指摘箇所をReviewdogでコメント
+		\item リンタによる指摘内容が英語の場合、日本語に自動翻訳
+		\item PHPUnitによるバックエンドの自動での単体テスト
+	\end{itemize}
+	\item \emph{Google App Scriptのデプロイ}
+	\begin{itemize}
+		\item 翻訳APIの呼び出しに使用
+	\end{itemize}
+	\item \emph{システム全体のデプロイ}
+\end{itemize}
+
+また、リポジトリには依存関係のアップデートをおこない、Pull Requestを
+自動で作成するbotであるRenovateを導入する。
+これにより、Composerおよびpnpmで管理する依存関係やGitHub Actionsの
+依存関係、Node.jsのアップデートを自動でおこない、最新の状態に保つ。
 
 \section{動作環境}
 % 【記述内容】OS、Webサーバー、データベース、ネットワークなど、システムが稼働する環境を具体的に記述
