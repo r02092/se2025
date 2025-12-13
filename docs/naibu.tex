@@ -2,6 +2,7 @@
 
 %--- 基本パッケージ ---%
 \usepackage[tmpdir]{graphviz} % フローチャートの作成
+\usepackage[verb]{bxghost}    % 和欧文間のアキを調整
 \usepackage{nicematrix}       % 複雑な表の作成
 \usepackage{tabularx}         % 表の幅を調整
 \usepackage{xpatch}           % コマンドの改造
@@ -262,7 +263,116 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \section{コーディング規約}
 % 【記述内容】命名規則（クラス名、変数名）、インデント、コメントの書き方、セキュリティ上の規約などを定義。
 \begin{itemize}
-	\item
+	\item \emph{共通}
+	\begin{itemize}
+		\item 文字コードは、BOMを付与しないUTF-8を用いる。
+		\item 改行コードは、LFを用いる。
+		\item 各ファイルの末尾は、改行とする。
+		\item 各行の末尾に1つ以上のタブおよびスペースの
+		連続が存在しないようにする。
+		\item 原則として、各行の文字数は最大で80文字程度と
+		する。この規則において、全角文字は2文字、
+		タブは4文字として数える。
+		\item 何らかの要素の列挙について、
+		最後の要素の後の末尾のカンマは、
+		列挙が改行を伴いかつ挿入が可能であれば挿入し、
+		そうでない場合は挿入しないものとする。
+		\item 可能な場合、Prettierを用いてコードの
+		自動整形をおこなう。
+		設定は、ここに記述する規約を可能な限り
+		適用するものとする。
+		\item 環境変数の命名には、アッパースネークケースを用いる。
+		\item ここに記述する規約は、依存関係などの\verb|.gitignore|ファイルで無視するファイルには
+		適用しないものとする。
+	\end{itemize}
+	\item \emph{PHPコード}
+	\begin{itemize}
+		\item インデントには、スペース4つを用いる。
+		\item 文字列には、優先的にシングルクォートを用いる。
+		ダブルクォートよりシングルクォートを多く含む文字列や
+		変数展開を用いる場合など、ダブルクォートを
+		用いることが好ましい場合は、ダブルクォートを用いる。
+		\item コードブロックを構成する括弧は、
+		インデントとそれのみを含む単一の行に配置する。
+		\item PHPStanの指摘が起きないようにする。
+		設定は、デフォルトのルールを用い、
+		必要に応じて開発中に変更するものとする。
+		\item クラスおよび名前空間の命名には、アッパーキャメルケースを用いる。
+		\item 関数および変数の命名には、ローワーキャメルケースを用いる。
+		\item 定数の命名には、アッパースネークケースを用いる。
+		\item データベースのテーブルおよびカラムの命名には、
+		ローワースネークケースを用いる。
+		\item \verb|App\Http\Controllers\Controller|クラスを継承するクラスの名前の
+		末尾は、\verb|Controller|とする。
+		\item \verb|App\Models\|名前空間に存在するクラスの名前は、対応するデータベースのテーブル名に
+		基づくものとする。
+		\item クラスと対応するファイルの場所は、PSR-4に準拠したオートローダで読み込み可能な場所とする。
+		ただし、名前空間とディレクトリには\cref{tab:coding-psr4}のような対応付けがあるものとする。
+		\begin{table}[H]
+			\centering
+			\caption{名前空間とディレクトリの対応付け}\label{tab:coding-psr4}
+			\begin{tabularx}{0.9\textwidth}{|X|X|}
+				\hline
+				\thead{名前空間} & \thead{ディレクトリ} \\ \hline
+				\texttt{App\textbackslash} & \texttt{app/} \\ \hline
+				\texttt{Database\textbackslash Factories\textbackslash} & \texttt{database/factories/} \\ \hline
+				\texttt{Database\textbackslash Seeders\textbackslash} & \texttt{database/seeders/} \\ \hline
+				\texttt{Tests\textbackslash} & \texttt{tests/} \\ \hline
+			\end{tabularx}
+		\end{table}
+		\item クラスと対応しないファイルは、\cref{sec:dir}で定めたディレクトリに配置するものとする。
+		\item クラスと対応しないファイルの名前は、\verb|artisan|ファイルを除き、
+		ローワースネークケースを用いた名前の末尾に“\verb|.php|”を付与するものとする。
+	\end{itemize}
+	\item \emph{Bladeテンプレート}
+	\begin{itemize}
+		\item インデントには、タブを用いる。
+		\item HTMLタグが改行を伴って記述される場合、
+		タグの閉じ括弧は、インデントとそれのみを含む
+		単一の行に配置する。
+		\item 要素の名前は、半角英数字列とする。
+		\item カスタム属性の名前は、ケバブケースを用いた名前の先頭に“\verb|data-|”を付与するものとする。
+		\item IDの命名には、ローワースネークケースを用いる。
+		\item クラスの命名には、ケバブケースを用いる。
+		\item ファイルは、\verb|resources/views/|ディレクトリに配置するものとする。
+		\item ファイル名は、ローワースネークケースを用いた名前の末尾に“\verb|.blade.php|”を
+		付与するものとする。
+	\end{itemize}
+	\item \emph{CSSスタイルシート}
+	\begin{itemize}
+		\item インデントには、タブを用いる。
+		\item 0には単位を付与しないものとする。
+		\item 要素やカスタム属性、ID、クラスの
+		命名規則は、Bladeテンプレートのものに従う。
+		\item ルールセット内で、関連する内容の
+		プロパティ（同じプレフィックスをもつものなど）が
+		存在する場合、それらを連続させるような順序で
+		記述する。
+		\item ファイルは、\verb|resources/css/|ディレクトリ配下に配置するものとする。
+		\item ファイル名は、ローワースネークケースを用いた名前の末尾に“\verb|.css|”を付与するものとする。
+	\end{itemize}
+	\item \emph{TypeScriptコード}
+	\begin{itemize}
+		\item インデントには、タブを用いる。
+		\item 文は、セミコロンで区切る。
+		\item 文字列には、優先的にダブルクォートを用いる。
+		シングルクォートよりダブルクォートを多く含む
+		文字列など、シングルクォートを用いることが
+		好ましい場合は、シングルクォートを用いる。
+		\item オブジェクトのプロパティ名は、必要な場合のみ
+		クォートで囲むものとする。
+		\item オブジェクト内の要素と括弧の間には、
+		スペースを挿入しないものとする。
+		\item アロー関数の引数が1つの場合、引数を囲う括弧は
+		省略する。
+		\item ESLintの指摘が起きないようにする。
+		設定は、デフォルトのルールを用い、
+		必要に応じて開発中に変更するものとする。
+		\item クラスおよび名前空間の命名には、アッパーキャメルケースを用いる。
+		\item 関数および変数、定数の命名には、ローワーキャメルケースを用いる。
+		\item ファイルは、\verb|resources/ts/|ディレクトリ配下に配置するものとする。
+		\item ファイル名は、ローワースネークケースを用いた名前の末尾に“\verb|.ts|”を付与するものとする。
+	\end{itemize}
 \end{itemize}
 
 % ====================================
@@ -273,7 +383,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \subsection{パッケージ構成図}
 % 【記述内容】システム全体の主要モジュールの関係を図示
 
-\subsection{物理ディレクトリ構造}
+\subsection{物理ディレクトリ構造}\label{sec:dir}
 \begin{verbatim}
 
 \end{verbatim}
