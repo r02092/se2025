@@ -224,7 +224,7 @@
     d [label="アカウント作成モジュールへ遷移"];%
     e [label="入力項目へ入力"];%
     f [label="ログインボタン選択"];%
-    g [label="空白検知、特殊文字検知モジュールへ遷移"];%
+    g [label="空白検知モジュールへ遷移"];%
     h [label="入力内容問題があるか"];%
     i [label="エラーメッセージ表示"];%
     j [label="セッション生成"];%
@@ -430,6 +430,83 @@
   {ウェブページ}%
   {}
 \end{table}
+
+\newpage
+\subsubsection{プロフィール画面の表示}
+\begin{table}[H]
+  \centering
+  \caption{プロフィール画面の表示}\label{tab:mod-profile}
+  \modtable{M08}{ProfileController.php}%
+  {SceneTripのプロフィール画面を表示する。}%
+  {
+    node [shape=diamond];
+    node [shape=box,style=rounded] a;
+    a [label="モジュール呼び出し"];
+    b [label="プロフィール画面を生成"];
+    c [label="ボタン選択"];
+    d [label="プロフィール編集画面へ遷移"];
+    e [label="事業者申込画面へ遷移"];
+    a->b->c;
+    c->d [label="プロフィール編集を選択"];
+    c->e [label="登録を選択"];
+  }%
+  {}%
+  {ウェブページ}%
+  {}
+\end{table}
+
+\newpage
+\subsubsection{プロフィール編集画面の表示}
+\begin{table}[H]
+  \centering
+  \caption{プロフィール編集画面の表示}\label{tab:mod-profile-edit}
+  \modtable{M09}{ProfileController.php}%
+  {SceneTripのプロフィール編集画面を表示する。}%
+  {
+    node [shape=box,style=rounded];
+    br1, br2, br3 [shape=diamond];
+    { rank=source; a; }
+    a [label="編集ボタン選択"];
+    b [label="プロフィール編集画面を生成"];
+    br1 [label="ボタン選択"];
+    c [label="必要情報を入力"];
+    d [label="保存ボタン選択"];
+    e [label="空白検知モジュールへ遷移"];
+    f [label="ログイン名重複チェックモジュールへ遷移"];
+    br2 [label="入力内容問題があるか"];
+    g [label="エラーメッセージ表示"];
+    h [label="SQLクエリを生成"];
+    i [label="プロフィール更新できない旨ポップアップを表示"];
+    j [label="プロフィール更新処理を実行"];
+    k [label="プロフィール更新完了画面を生成・表示"];
+    l [label="画像アップロードモジュールへ遷移"];
+    br3 [label="入力内容に問題があるか"];
+    m [label="エラーメッセージ表示"];
+    n [label="画像アップロード処理を実行"];
+    o [label="画像アップロード完了画面を生成・表示"];
+    p [label="二要素検証設定モジュールへ遷移"];
+    q [label="?"];
+    a->b->br1;
+    br1->c [label="編集"];
+    c->d->e->f->br2;
+    br2->g [label="Yes"];
+    br2->i [label="No"];
+    i->br1;
+    g->h->j->k;
+    br1->l [label="画像アップロードを選択"];
+    l->br3;
+    br3->m [label="Yes"];
+    br3->n [label="No"];
+    n->o;
+    br1->p [label="二要素認証設定を選択"];
+    p->q;
+  }%
+  {利用者から受け取ったHTTPリクエスト}%
+  {ウェブページ}%
+  {}
+\end{table}
+
+
 
 \newpage
 \subsubsection{検索画面の表示}
