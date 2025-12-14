@@ -28,7 +28,7 @@ importers:
         version: 2.0.8
       '@types/node':
         specifier: ~24.10.0
-        version: 24.10.3
+        version: 24.10.4
       '@types/which':
         specifier: ^3.0.4
         version: 3.0.4
@@ -52,7 +52,7 @@ importers:
         version: 2.6.1
       laravel-vite-plugin:
         specifier: ^2.0.1
-        version: 2.0.1(vite@7.2.7(@types/node@24.10.3)(jiti@2.6.1)(tsx@4.20.6))
+        version: 2.0.1(vite@7.2.7(@types/node@24.10.4)(jiti@2.6.1)(tsx@4.20.6))
       prettier:
         specifier: ^3.6.2
         version: 3.7.4
@@ -70,7 +70,7 @@ importers:
         version: 8.49.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       vite:
         specifier: ^7.1.9
-        version: 7.2.7(@types/node@24.10.3)(jiti@2.6.1)(tsx@4.20.6)
+        version: 7.2.7(@types/node@24.10.4)(jiti@2.6.1)(tsx@4.20.6)
       which:
         specifier: ^6.0.0
         version: 6.0.0
@@ -623,8 +623,8 @@ packages:
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
-  '@types/node@24.10.3':
-    resolution: {integrity: sha512-gqkrWUsS8hcm0r44yn7/xZeV1ERva/nLgrLxFRUGb7aoNMIJfZJ3AC261zDQuOAKC7MiXai1WCpYc48jAHoShQ==}
+  '@types/node@24.10.4':
+    resolution: {integrity: sha512-vnDVpYPMzs4wunl27jHrfmwojOGKya0xyM3sH+UE5iv5uPS6vX7UIoh6m+vQc5LGBq52HBKPIn/zcSZVzeDEZg==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -3196,7 +3196,7 @@ snapshots:
 
   '@types/ms@2.1.0': {}
 
-  '@types/node@24.10.3':
+  '@types/node@24.10.4':
     dependencies:
       undici-types: 7.16.0
 
@@ -4271,10 +4271,10 @@ snapshots:
       kuromoji: 0.1.2
       lru_map: 0.4.1
 
-  laravel-vite-plugin@2.0.1(vite@7.2.7(@types/node@24.10.3)(jiti@2.6.1)(tsx@4.20.6)):
+  laravel-vite-plugin@2.0.1(vite@7.2.7(@types/node@24.10.4)(jiti@2.6.1)(tsx@4.20.6)):
     dependencies:
       picocolors: 1.1.1
-      vite: 7.2.7(@types/node@24.10.3)(jiti@2.6.1)(tsx@4.20.6)
+      vite: 7.2.7(@types/node@24.10.4)(jiti@2.6.1)(tsx@4.20.6)
       vite-plugin-full-reload: 1.2.0
 
   latex-utensils@3.0.0:
@@ -5745,7 +5745,7 @@ snapshots:
       picocolors: 1.1.1
       picomatch: 2.3.1
 
-  vite@7.2.7(@types/node@24.10.3)(jiti@2.6.1)(tsx@4.20.6):
+  vite@7.2.7(@types/node@24.10.4)(jiti@2.6.1)(tsx@4.20.6):
     dependencies:
       esbuild: 0.25.12
       fdir: 6.5.0(picomatch@4.0.3)
@@ -5754,7 +5754,7 @@ snapshots:
       rollup: 4.53.3
       tinyglobby: 0.2.15
     optionalDependencies:
-      '@types/node': 24.10.3
+      '@types/node': 24.10.4
       fsevents: 2.3.3
       jiti: 2.6.1
       tsx: 4.20.6
