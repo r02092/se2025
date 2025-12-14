@@ -766,8 +766,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\modtable{MC00}{RootController.php}%
 	{検索画面を表示するモジュール}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
+		node [shape=diamond];
+		node [shape=box,style=rounded];
 		a [label="/にアクセスされる"];
 		b [label="検索画面を生成"];
 		c [label="ログインしているか"];
@@ -792,9 +792,9 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\modtable{MU11}{RootController.php}%
 	{キーワード・カテゴリに基づくスポット検索}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
-		a [label="検索開始", shape=];
+		node [shape=diamond];
+		node [shape=box,style=rounded];
+		a [label="検索開始", shape=oval];
 		b [label="キーワード・カテゴリ受信"];
 		c [label="入力値検証", shape=diamond];
 		c1 [label="入力エラー表示"];
@@ -825,8 +825,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\modtable{MU13}{AiService.php}
 	{ユーザーのチャット入力に基づく観光地推薦}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
+		node [shape=diamond];
+		node [shape=box,style=rounded];
 		start [label="開始", shape=oval];
 		input [label="チャット受信"];
 		checkempty [label="空文字チェック", shape=diamond];
@@ -862,8 +862,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\caption{チェックイン判定}\label{tab:mod-checkin}
 	\modtable{MU14}{CheckinService.php}{QRコードと位置情報によるスタンプ付与}
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
+		node [shape=diamond];
+		node [shape=box,style=rounded];
 		start [label="開始", shape=oval];
 		input [label="QRデータ・GPS受信"];
 		decodeqr [label="QR検証（SpotID）", shape=diamond];
@@ -898,8 +898,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\caption{評価・写真投稿}\label{tab:mod-review-photo}
 	\modtable{MU15}{ReviewService.php}{評価と写真をシステムに登録する}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
+		node [shape=diamond];
+		node [shape=box,style=rounded];
 		start [label="開始", shape=oval];
 		input [label="投稿データ受信"];
 		validate [label="入力チェック", shape=diamond];
@@ -933,8 +933,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\caption{クーポン受け取り処理}\label{tab:mod-coupon-receive}
 	\modtable{MU16}{CouponService.php}{スタンプ獲得状況に基づくクーポン付与}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
+		node [shape=diamond];
+		node [shape=box,style=rounded];
 		start [label="開始", shape=oval];
 		input [label="獲得スタンプID受信"];
 		fetchcond [label="関連クーポン検索（condspotid）"];
