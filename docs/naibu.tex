@@ -737,7 +737,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		n [label="画像アップロード処理を実行"];
 		o [label="画像アップロード完了画面を生成・表示"];
 		p [label="二要素検証設定モジュールへ遷移"];
-		q [label="?"];
+		q [label="？"];
 		a->b->br1;
 		br1->c [label="編集"];
 		c->d->e->f->br2;
@@ -835,10 +835,10 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		fetchctx [label="周辺情報取得"];
 		prompt [label="プロンプト構築"];
 		apicall [label="Gemini API送信"];
-		checkapi [label="API応答成功?", shape=diamond];
+		checkapi [label="API応答成功？", shape=diamond];
 		parse [label="JSON解析"];
 		search [label="推薦スポット取得"];
-		checkhit [label="スポットあり?", shape=diamond];
+		checkhit [label="スポットあり？", shape=diamond];
 		resok [label="推薦回答"];
 		resng [label="エラー回答", shape=oval];
 		end [label="終了", shape=oval];
@@ -868,12 +868,12 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		node [shape=box,style=rounded] a;
 		start [label="開始", shape=oval];
 		input [label="QRデータ・GPS受信"];
-		decodeqr [label="QR検証(SpotID)", shape=diamond];
+		decodeqr [label="QR検証（SpotID）", shape=diamond];
 		getspot [label="Spot座標取得"];
 		calcdist [label="距離計算"];
-		checkdist [label="距離 <= 50m?", shape=diamond];
+		checkdist [label="距離 <= 50m？", shape=diamond];
 		savestamp [label="スタンプ保存"];
-		checkcoup [label="クーポン条件?", shape=diamond];
+		checkcoup [label="クーポン条件？", shape=diamond];
 		savecoup [label="クーポン付与"];
 		msgsuccess [label="成功画面"];
 		msgerror [label="エラー画面", shape=oval];
@@ -890,7 +890,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		savecoup -> msgsuccess -> end;
 	}%
 	{}%
-	{スタンプ取得結果, クーポン(条件達成時)}
+	{スタンプ取得結果, クーポン（条件達成時）}
 	{}
 \end{table}
 
@@ -905,9 +905,9 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		start [label="開始", shape=oval];
 		input [label="投稿データ受信"];
 		validate [label="入力チェック", shape=diamond];
-		hasimg [label="画像あり?", shape=diamond];
+		hasimg [label="画像あり？", shape=diamond];
 		upload [label="画像アップロード"];
-		checkup [label="アップロード成功?", shape=diamond];
+		checkup [label="アップロード成功？", shape=diamond];
 		convert [label="座標変換"];
 		savedb [label="DB保存"];
 		success [label="完了表示"];
@@ -939,11 +939,11 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		node [shape=box,style=rounded] a;
 		start [label="開始", shape=oval];
 		input [label="獲得スタンプID受信"];
-		fetchcond [label="関連クーポン検索(condspotid)"];
-		checkhit [label="対象クーポンあり?", shape=diamond];
-		checkduplicate [label="既に獲得済み?", shape=diamond];
-		checkexpire [label="有効期限内?", shape=diamond];
-		savedb [label="usercoupons保存(利用可能状態で作成)"];
+		fetchcond [label="関連クーポン検索（condspotid）"];
+		checkhit [label="対象クーポンあり？", shape=diamond];
+		checkduplicate [label="既に獲得済み？", shape=diamond];
+		checkexpire [label="有効期限内？", shape=diamond];
+		savedb [label="usercoupons保存（利用可能状態で作成）"];
 		ressuccess [label="獲得成功通知"];
 		resnone [label="獲得なし通知", shape=oval];
 		end [label="終了", shape=oval];
