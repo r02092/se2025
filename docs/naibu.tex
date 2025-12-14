@@ -464,7 +464,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{ログイン画面の表示}\label{tab:mod-create-login}
-	\modtable{M01}{loginController.php}%
+	\modtable{MC01}{LoginController.php}%
 	{SceneTripのログインを行う。入力値の検証、ログイン名の重複チェック}%
 	{
 		node [shape=box,style=rounded];%
@@ -518,7 +518,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{アカウント作成モジュール}\label{tab:mod-create-account}
-	\modtable{M02}{AccountCreater.php}%
+	\modtable{MC02}{AccountCreateController.php}%
 	{SceneTripのアカウント作成を行う。入力値の検証、ログイン名の重複チェック}%
 	{
 		node [shape=box,style=rounded];
@@ -558,7 +558,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{利用規約確認モジュール}\label{tab:mod-terms}
-	\modtable{M04}{Terms.php}%
+	\modtable{MC03}{Terms.php}%
 	{SceneTripの利用規約確認を行う。}%
 	{
 		node [shape=box,style=rounded];
@@ -583,7 +583,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{空白検知モジュール}\label{tab:mod-blank}
-	\modtable{M05}{BlankChecker.php}%
+	\modtable{MC04}{BlankChecker.php}%
 	{SceneTripの入力値に空白が含まれていないか検査する。}%
 	{
 		node [shape=box,style=rounded];
@@ -608,7 +608,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{特殊文字検知モジュール}\label{tab:mod-special}
-	\modtable{M06}{SpecialCharChecker.php}%
+	\modtable{MC05}{SpecialCharChecker.php}%
 	{SceneTripの入力値に特殊文字が含まれていないか検査
 する。}%
 	{
@@ -634,7 +634,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{ログイン名重複チェックモジュール}\label{tab:mod-dup}
-	\modtable{M07}{DupLoginNameChecker.php}%
+	\modtable{MC06}{DupLoginNameChecker.php}%
 	{SceneTripのログイン名が重複していないか検査する。}%
 	{
 		node [shape=box,style=rounded];
@@ -659,7 +659,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{ログアウト画面の表示}\label{tab:mod-logout}
-	\modtable{M03}{AccountCreater.php}%
+	\modtable{MC07}{AccountCreater.php}%
 	{SceneTripのログアウトを行う。}%
 	{
 		node [shape=box,style=rounded];
@@ -688,7 +688,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{プロフィール画面の表示}\label{tab:mod-profile}
-	\modtable{M08}{ProfileController.php}%
+	\modtable{MC08}{ProfileController.php}%
 	{SceneTripのプロフィール画面を表示する。}%
 	{
 		node [shape=diamond];
@@ -712,7 +712,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{プロフィール編集画面の表示}\label{tab:mod-profile-edit}
-	\modtable{M09}{ProfileController.php}%
+	\modtable{MC09}{ProfileController.php}%
 	{SceneTripのプロフィール編集画面を表示する。}%
 	{
 		node [shape=box,style=rounded];
@@ -763,7 +763,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{検索画面の表示}\label{tab:mod-search-display}
-	\modtable{M00}{RootController.php}%
+	\modtable{MC00}{RootController.php}%
 	{検索画面を表示するモジュール}%
 	{
 		node [shape=diamond] c;
@@ -789,7 +789,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{観光地・施設検索処理}\label{tab:mod-search}
-	\modtable{M11}{RootController.php}%
+	\modtable{MU11}{RootController.php}%
 	{キーワード・カテゴリに基づくスポット検索}%
 	{
 		node [shape=diamond] c;
@@ -822,7 +822,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{AI観光地推薦}\label{tab:mod-ai}
-	\modtable{M13}{AiService.php}
+	\modtable{MU13}{AiService.php}
 	{ユーザーのチャット入力に基づく観光地推薦}%
 	{
 		node [shape=diamond] c;
@@ -860,7 +860,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{チェックイン判定}\label{tab:mod-checkin}
-	\modtable{M14}{CheckinService.php}{QRコードと位置情報によるスタンプ付与}
+	\modtable{MU14}{CheckinService.php}{QRコードと位置情報によるスタンプ付与}
 	{
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
@@ -896,7 +896,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{評価・写真投稿}\label{tab:mod-review-photo}
-	\modtable{M15}{ReviewService.php}{評価と写真をシステムに登録する}%
+	\modtable{MU15}{ReviewService.php}{評価と写真をシステムに登録する}%
 	{
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
@@ -931,7 +931,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{クーポン受け取り処理}\label{tab:mod-coupon-receive}
-	\modtable{M16}{CouponService.php}{スタンプ獲得状況に基づくクーポン付与}%
+	\modtable{MU16}{CouponService.php}{スタンプ獲得状況に基づくクーポン付与}%
 	{
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
@@ -970,8 +970,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \subsubsection{観光地・施設情報追加画面の表示}
 \begin{table}[H]
 	\centering
-	\caption{観光地・施設情報追加画面の表示}\label{tab:mod-search}
-	\modtable{M00}{RootController.php}%
+	\caption{観光地・施設情報追加画面の表示}\label{tab:mod-add-spot}
+	\modtable{MA01}{InsertSpotController.php}%
 	{観光地・施設情報追加画面を表示するモジュール}%
 	{
 		node [shape=diamond] c;
@@ -1001,8 +1001,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \subsubsection{観光地・施設情報編集画面の表示}
 \begin{table}[H]
 	\centering
-	\caption{観光地・施設情報編集画面の表示}\label{tab:mod-search}
-	\modtable{M00}{RootController.php}%
+	\caption{観光地・施設情報編集画面の表示}\label{tab:mod-edit-spot}
+	\modtable{MA02}{EditSpotController.php}%
 	{観光地・施設情報編集画面を表示するモジュール}%
 	{
 		node [shape=diamond] c;
@@ -1032,8 +1032,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \subsubsection{観光地・施設情報削除画面の表示}
 \begin{table}[H]
 	\centering
-	\caption{観光地・施設情報削除画面の表示}\label{tab:mod-search}
-	\modtable{M00}{RootController.php}%
+	\caption{観光地・施設情報削除画面の表示}\label{tab:mod-delete-spot}
+	\modtable{MA03}{DeleteSpotController.php}%
 	{観光地・施設情報削除画面を表示するモジュール}%
 	{
 		node [shape=diamond] c;
@@ -1061,8 +1061,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \subsubsection{ユーザー情報追加画面の表示}
 \begin{table}[H]
 	\centering
-	\caption{ユーザー情報追加画面の表示}\label{tab:mod-search}
-	\modtable{M00}{RootController.php}%
+	\caption{ユーザー情報追加画面の表示}\label{tab:mod-add-user}
+	\modtable{MA04}{InsertUserController.php}%
 	{ユーザー情報追加画面を表示するモジュール}%
 	{
 		node [shape=diamond] c;
@@ -1092,8 +1092,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \subsubsection{ユーザー情報編集画面の表示}
 \begin{table}[H]
 	\centering
-	\caption{ユーザー情報編集画面の表示}\label{tab:mod-search}
-	\modtable{M00}{RootController.php}%
+	\caption{ユーザー情報編集画面の表示}\label{tab:mod-edit-user}
+	\modtable{MA05}{EditUserController.php}%
 	{ユーザー情報編集画面を表示するモジュール}%
 	{
 		node [shape=diamond] c;
@@ -1123,8 +1123,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \subsubsection{ユーザー情報削除画面の表示}
 \begin{table}[H]
 	\centering
-	\caption{ユーザー情報削除画面の表示}\label{tab:mod-search}
-	\modtable{M00}{RootController.php}%
+	\caption{ユーザー情報削除画面の表示}\label{tab:mod-delete-user}
+	\modtable{MA06}{DeleteUserController.php}%
 	{ユーザー情報削除画面を表示するモジュール}%
 	{
 		node [shape=diamond] c;
@@ -1152,8 +1152,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \subsubsection{UGC監視・管理画面の表示}
 \begin{table}[H]
 	\centering
-	\caption{UGC監視・管理画面の表示}\label{tab:mod-search}
-	\modtable{M00}{RootController.php}%
+	\caption{UGC監視・管理画面の表示}\label{tab:mod-admin-ugc}
+	\modtable{MA07}{AdminUGCController.php}%
 	{UGC監視・管理画面を表示するモジュール}%
 	{
 		node [shape=diamond] c;
@@ -1181,8 +1181,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \subsubsection{サブスクリプション承認画面の表示}
 \begin{table}[H]
 	\centering
-	\caption{サブスクリプション承認画面の表示}\label{tab:mod-search}
-	\modtable{M00}{RootController.php}%
+	\caption{サブスクリプション承認画面の表示}\label{tab:mod-approve-subs}
+	\modtable{MA08}{SubscriptionApproveController.php}%
 	{サブスクリプション承認画面を表示するモジュール}%
 	{
 		node [shape=diamond] c;
@@ -1212,8 +1212,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \subsubsection{サブスクリプション解除画面の表示}
 \begin{table}[H]
 	\centering
-	\caption{サブスクリプション解除画面の表示}\label{tab:mod-search}
-	\modtable{M00}{RootController.php}%
+	\caption{サブスクリプション解除画面の表示}\label{tab:mod-cancel-subs}
+	\modtable{MA09}{SubscriptionCancelController.php}%
 	{サブスクリプション解除画面を表示するモジュール}%
 	{
 		node [shape=diamond] c;
