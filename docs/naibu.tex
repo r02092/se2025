@@ -465,10 +465,43 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \subsection{共通モジュール}
 % 【記述内容】ログイン/ログアウト、アカウント作成とかを記述？
 \newpage
-\subsubsection{ログイン画面の表示}
+\subsubsection{画面の共通部分を出力}
 \begin{table}[H]
 	\centering
-	\caption{ログイン画面の表示}\label{tab:mod-create-login}
+	\caption{画面の共通部分を出力}\label{tab:mod-view-mf}
+	\modtable{MV00}{resources/views/mf.blade.php}%
+	{画面の共通部分をテンプレートとして出力}%
+	{
+		a [label="画面の共通部分を出力",shape=box,style=rounded];
+	}%
+	{}%
+	{画面テンプレート}%
+	{}
+\end{table}
+\subsubsection{ログイン画面の出力}
+\begin{table}[H]
+	\centering
+	\caption{ログイン画面の出力}\label{tab:mod-view-login}
+	\modtable{MV01}{resources/views/login.blade.php}%
+	{ログイン画面を構成する}%
+	{
+		node [shape=box,style=rounded];
+		a [label="画面の共通部分モジュールを呼び出し"];
+		b [label="ログイン画面を構成"];
+		a -> b;
+	}%
+	{}%
+	{Webページ}%
+	{}
+\end{table}
+構成する画面が異なるのみであり、
+画面の共通部分モジュールを呼び出してそれを基に画面を構成する
+部分は同じであるため省略するが、原則このモジュールと同様に
+各画面に対応したモジュールを作成するものとする。
+\subsubsection{ログイン処理}
+\begin{table}[H]
+	\centering
+	\caption{ログイン処理}\label{tab:mod-create-login}
 	\modtable{MC01}{app/Http/Controllers/LoginController.php}%
 	{SceneTripのログインを行う。入力値の検証、ログイン名の重複チェック}%
 	{
