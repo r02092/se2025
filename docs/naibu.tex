@@ -257,16 +257,15 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{動作環境}\label{tab:honban}
-	\begin{tabularx}{0.9\textwidth}{|p{6\zw}|X|p{4\zw}|p{10\zw}|}
-		\hline
-		\thead{項目} & \thead{種類} & \thead{数量} & \thead{備考} \\ \hline
-		メインサーバ & OCI Compute & 1台 & Always Freeサービス（無料枠）\\ \hline
-		データベースサーバ & OCI Compute & 1台 & Always Freeサービス（無料枠）\\ \hline
-		管理者端末 & PCおよびスマートフォン & 管理者数 & \\ \hline
-		利用者端末 & PCおよびスマートフォン & 利用者数 & \\ \hline
-		端末OS & Android、Linux、Windows、iOS、macOS & & \\ \hline
-		端末ブラウザ & Firefox、Google Chrome、Safari & & \\ \hline
-	\end{tabularx}
+	\begin{NiceTabularX}{0.9\textwidth}{p{6\zw}Xp{4\zw}p{10\zw}}[hvlines]
+		\thead{項目} & \thead{種類} & \thead{数量} & \thead{備考} \\
+		メインサーバ & OCI Compute & 1台 & Always Freeサービス（無料枠）\\
+		データベースサーバ & OCI Compute & 1台 & Always Freeサービス（無料枠）\\
+		管理者端末 & PCおよびスマートフォン & 管理者数 & \\
+		利用者端末 & PCおよびスマートフォン & 利用者数 & \\
+		端末OS & Android、Linux、Windows、iOS、macOS & \diagbox{}{} & \\
+		端末ブラウザ & Firefox、Google Chrome、Safari & \diagbox{}{} & \\
+	\end{NiceTabularX}
 \end{table}
 
 \section{コーディング規約}
