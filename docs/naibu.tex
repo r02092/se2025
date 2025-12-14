@@ -141,7 +141,7 @@
 
 \section{技術スタック}
 % 【記述内容】使用するプログラミング言語、フレームワーク、主要ライブラリを記述。
-本システムは以下の技術を使用する。
+本システムは\cref{tab:tech}に示す技術を使用する。
 \begin{table}[H]
 	\centering
 	\caption{技術スタック}\label{tab:tech}
@@ -182,7 +182,7 @@ GNU/LinuxシステムまたはWindowsで動作するPCを開発用PCとして用
 開発用PCには、Node Version Managerをインストールし、
 それを用いてNode.jsをインストールし、それに含まれるnpmを用いてpnpmを
 インストールするものとする。
-また、開発用PCにコンテナを用いて以下の環境を作成し、開発をおこなう。
+また、開発用PCにコンテナを用いて\cref{tab:dev-con}に示す環境を作成し、開発をおこなう。
 コンテナ管理ツールとしてはPodmanまたはDockerを用いる。
 \begin{table}[H]
 	\centering
@@ -218,7 +218,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\end{itemize}
 	\item \emph{システム全体のデプロイ}
 \end{itemize}
-以下に、GitHub Actionsワークフローで用いる環境を示す。
+\cref{tab:dev-latex}および\cref{tab:dev-gha}に、GitHub Actionsワークフローで
+用いる環境を示す。
 この表に書いていない細かなソフトウェアは、
 パッケージ管理システム（UbuntuであればAPT、macOSで
 あればHomebrew）で導入されるバージョンを使用する。
@@ -252,7 +253,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 
 \section{動作環境}
 % 【記述内容】OS、Webサーバー、データベース、ネットワークなど、システムが稼働する環境を具体的に記述
-本システムは以下の環境で動作させる。
+本システムは\cref{tab:honban}に示す環境で動作させる。
 \begin{table}[H]
 	\centering
 	\caption{動作環境}\label{tab:honban}
