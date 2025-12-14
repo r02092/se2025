@@ -868,7 +868,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		node [shape=box,style=rounded] a;
 		start [label="開始", shape=oval];
 		input [label="QRデータ・GPS受信"];
-		decodeqr [label="QR検証(SpotID)", shape=diamond];
+		decodeqr [label="QR検証（SpotID）", shape=diamond];
 		getspot [label="Spot座標取得"];
 		calcdist [label="距離計算"];
 		checkdist [label="距離 <= 50m？", shape=diamond];
@@ -890,7 +890,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		savecoup -> msgsuccess -> end;
 	}%
 	{}%
-	{スタンプ取得結果, クーポン(条件達成時)}
+	{スタンプ取得結果, クーポン（条件達成時）}
 	{}
 \end{table}
 
@@ -939,11 +939,11 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		node [shape=box,style=rounded] a;
 		start [label="開始", shape=oval];
 		input [label="獲得スタンプID受信"];
-		fetchcond [label="関連クーポン検索(condspotid)"];
+		fetchcond [label="関連クーポン検索（condspotid）"];
 		checkhit [label="対象クーポンあり？", shape=diamond];
 		checkduplicate [label="既に獲得済み？", shape=diamond];
 		checkexpire [label="有効期限内？", shape=diamond];
-		savedb [label="usercoupons保存(利用可能状態で作成)"];
+		savedb [label="usercoupons保存（利用可能状態で作成）"];
 		ressuccess [label="獲得成功通知"];
 		resnone [label="獲得なし通知", shape=oval];
 		end [label="終了", shape=oval];
