@@ -12,6 +12,7 @@
 %--- 文書情報 ---%
 \title{内部設計書}
 
+% \dotfillで埋める文字をGitHub Actions（ヒラギノ角ゴ）の場合に変更
 \if"\directlua{tex.print(os.getenv("GITHUB_ACTIONS"))}"{}\else
 	\renewcommand\dotfill{\mboxfill[3.333333pt]{\CID{9778}}}
 \fi
