@@ -306,7 +306,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		\item PHPStanの指摘が起きないようにする。
 		設定は、デフォルトのルールを用い、
 		必要に応じて開発中に変更するものとする。
-		\item クラスおよび名前空間の命名には、アッパーキャメルケースを用いる。
+		\item クラスおよびトレイト、名前空間の命名には、アッパーキャメルケースを用いる。
 		\item 関数および変数の命名には、ローワーキャメルケースを用いる。
 		\item 定数の命名には、アッパースネークケースを用いる。
 		\item データベースのテーブルおよびカラムの命名には、
@@ -315,6 +315,11 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		末尾は、\verb|Controller|とする。
 		\item \verb|App\Models\|名前空間に存在するクラスの名前は、対応するデータベースのテーブル名に
 		基づくものとする。
+		\item \verb|App\Http\Controllers\Controller|クラスを継承するクラスから
+		呼び出される共通処理は、\verb|App\Traits\|名前空間に
+		属するトレイトとする。
+		\item \verb|App\Traits\|名前空間に属するトレイトの
+		名前の末尾は、\verb|Trait|とする。
 		\item クラスと対応するファイルの場所は、PSR-4に準拠したオートローダで読み込み可能な場所とする。
 		ただし、名前空間とディレクトリには\cref{tab:coding-psr4}のような対応付けがあるものとする。
 		\begin{table}[H]
@@ -407,6 +412,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 			.4 Controllers\textrm{\DTcomment{ルーティングから呼び出されるコントローラとなるプログラム}}.
 			.3 Models\textrm{\DTcomment{データベースのテーブルが表現する実体に対応したクラスを定義するプログラム}}.
 			.3 Providers\textrm{\DTcomment{サービスプロバイダとなるプログラム}}.
+			.3 Traits\textrm{\DTcomment{コントローラから呼び出される共通処理となるプログラム}}.
 			.2 bootstrap\textrm{\DTcomment{システムの起動時の処理を行うプログラム}}.
 			.3 cache.
 			.2 config\textrm{\DTcomment{システムの設定を記述するファイル}}.
@@ -558,7 +564,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{利用規約確認モジュール}\label{tab:mod-terms}
-	\modtable{MC03}{Terms.php}%
+	\modtable{MC03}{terms.blade.php}%
 	{SceneTripの利用規約確認を行う。}%
 	{
 		node [shape=box,style=rounded];
@@ -583,7 +589,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{空白検知モジュール}\label{tab:mod-blank}
-	\modtable{MC04}{BlankChecker.php}%
+	\modtable{MC04}{BlankCheckTrait.php}%
 	{SceneTripの入力値に空白が含まれていないか検査する。}%
 	{
 		node [shape=box,style=rounded];
@@ -608,7 +614,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{特殊文字検知モジュール}\label{tab:mod-special}
-	\modtable{MC05}{SpecialCharChecker.php}%
+	\modtable{MC05}{SpecialCharCheckTrait.php}%
 	{SceneTripの入力値に特殊文字が含まれていないか検査
 する。}%
 	{
@@ -634,7 +640,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{ログイン名重複チェックモジュール}\label{tab:mod-dup}
-	\modtable{MC06}{DupLoginNameChecker.php}%
+	\modtable{MC06}{DupLoginNameCheckTrait.php}%
 	{SceneTripのログイン名が重複していないか検査する。}%
 	{
 		node [shape=box,style=rounded];
@@ -659,7 +665,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{ログアウト画面の表示}\label{tab:mod-logout}
-	\modtable{MC07}{AccountCreater.php}%
+	\modtable{MC07}{LogoutController.php}%
 	{SceneTripのログアウトを行う。}%
 	{
 		node [shape=box,style=rounded];
@@ -712,7 +718,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{プロフィール編集画面の表示}\label{tab:mod-profile-edit}
-	\modtable{MC09}{ProfileController.php}%
+	\modtable{MC09}{ProfileEditController.php}%
 	{SceneTripのプロフィール編集画面を表示する。}%
 	{
 		node [shape=box,style=rounded];
@@ -763,7 +769,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{検索画面の表示}\label{tab:mod-search-display}
-	\modtable{MC00}{RootController.php}%
+	\modtable{MC00}{SearchController.php}%
 	{検索画面を表示するモジュール}%
 	{
 		node [shape=diamond] c;
@@ -789,7 +795,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{観光地・施設検索処理}\label{tab:mod-search}
-	\modtable{MU11}{RootController.php}%
+	\modtable{MU11}{SearchApiController.php}%
 	{キーワード・カテゴリに基づくスポット検索}%
 	{
 		node [shape=diamond] c;
@@ -822,7 +828,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{AI観光地推薦}\label{tab:mod-ai}
-	\modtable{MU13}{AiService.php}
+	\modtable{MU13}{AiApiController.php}
 	{ユーザーのチャット入力に基づく観光地推薦}%
 	{
 		node [shape=diamond] c;
@@ -860,7 +866,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{チェックイン判定}\label{tab:mod-checkin}
-	\modtable{MU14}{CheckinService.php}{QRコードと位置情報によるスタンプ付与}
+	\modtable{MU14}{CheckinApiController.php}{QRコードと位置情報によるスタンプ付与}
 	{
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
@@ -896,7 +902,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{評価・写真投稿}\label{tab:mod-review-photo}
-	\modtable{MU15}{ReviewService.php}{評価と写真をシステムに登録する}%
+	\modtable{MU15}{ReviewController.php}{評価と写真をシステムに登録する}%
 	{
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
@@ -931,7 +937,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{クーポン受け取り処理}\label{tab:mod-coupon-receive}
-	\modtable{MU16}{CouponService.php}{スタンプ獲得状況に基づくクーポン付与}%
+	\modtable{MU16}{CouponTrait.php}{スタンプ獲得状況に基づくクーポン付与}%
 	{
 		node [shape=diamond] c;
 		node [shape=box,style=rounded] a;
@@ -1153,7 +1159,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{UGC監視・管理画面の表示}\label{tab:mod-admin-ugc}
-	\modtable{MA07}{AdminUGCController.php}%
+	\modtable{MA07}{AdminUgcController.php}%
 	{UGC監視・管理画面を表示するモジュール}%
 	{
 		node [shape=diamond] c;
