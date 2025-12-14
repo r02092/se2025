@@ -661,7 +661,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \end{table}
 
 \newpage
-\subsection{ログアウト画面の表示}
+\subsubsection{ログアウト画面の表示}
 \begin{table}[H]
 	\centering
 	\caption{ログアウト画面の表示}\label{tab:mod-logout}
@@ -697,8 +697,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\modtable{MC08}{app/Http/Controllers/ProfileController.php}%
 	{SceneTripのプロフィール画面を表示する。}%
 	{
-		node [shape=diamond];
-		node [shape=box,style=rounded] a;
+		node [shape=box,style=rounded];
+    c [shape=diamond];
 		a [label="モジュール呼び出し"];
 		b [label="プロフィール画面を生成"];
 		c [label="ボタン選択"];
@@ -772,8 +772,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\modtable{MC00}{app/Http/Controllers/SearchController.php}%
 	{検索画面を表示するモジュール}%
 	{
-		node [shape=diamond];
 		node [shape=box,style=rounded];
+    c [shape=diamond];
 		a [label="/にアクセスされる"];
 		b [label="検索画面を生成"];
 		c [label="ログインしているか"];
@@ -800,20 +800,21 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	{
 		node [shape=diamond];
 		node [shape=box,style=rounded];
-		a [label="検索開始", shape=oval];
+		a [label="検索開始"];
 		b [label="キーワード・カテゴリ受信"];
 		c [label="入力値検証", shape=diamond];
 		c1 [label="入力エラー表示"];
-		d [label="DB検索実行", shape=diamond];
-		d1 [label="結果件数>0"];
+		d [label="DB検索実行"];
+		d1 [label="結果件数>0", shape=diamond];
 		d2 [label="「該当無し」表示"];
 		e [label="結果表示"];
 		f [label="終了"];
 		a->b->c;
-		c->c1 [label="NG"];
-		c->d [label="OK"];
-		d->d2 [label="No"];
-		d->e [label=Yes]
+		c->c1 [label="No"];
+		c->d [label="Yes"];
+    d->d1;
+		d1->d2 [label="No"];
+		d1->e [label=Yes];
 		d2->f;
 		e->f;
 	}%
@@ -833,7 +834,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	{
 		node [shape=diamond];
 		node [shape=box,style=rounded];
-		start [label="開始", shape=oval];
+		start [label="開始"];
 		input [label="チャット受信"];
 		checkempty [label="空文字チェック", shape=diamond];
 		fetchctx [label="周辺情報取得"];
@@ -844,8 +845,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		search [label="推薦スポット取得"];
 		checkhit [label="スポットあり？", shape=diamond];
 		resok [label="推薦回答"];
-		resng [label="エラー回答", shape=oval];
-		end [label="終了", shape=oval];
+		resng [label="エラー回答"];
+		end [label="終了"];
 		start -> input -> checkempty;
 		checkempty -> resng [label="空"];
 		checkempty -> fetchctx [label="OK"];
@@ -870,7 +871,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	{
 		node [shape=diamond];
 		node [shape=box,style=rounded];
-		start [label="開始", shape=oval];
+		start [label="開始"];
 		input [label="QRデータ・GPS受信"];
 		decodeqr [label="QR検証（SpotID）", shape=diamond];
 		getspot [label="Spot座標取得"];
@@ -880,8 +881,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		checkcoup [label="クーポン条件？", shape=diamond];
 		savecoup [label="クーポン付与"];
 		msgsuccess [label="成功画面"];
-		msgerror [label="エラー画面", shape=oval];
-		end [label="終了", shape=oval];
+		msgerror [label="エラー画面"];
+		end [label="終了"];
 		start -> input -> decodeqr;
 		decodeqr -> msgerror [label="不正"];
 		decodeqr -> getspot [label="正"];
@@ -906,7 +907,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	{
 		node [shape=diamond];
 		node [shape=box,style=rounded];
-		start [label="開始", shape=oval];
+		start [label="開始"];
 		input [label="投稿データ受信"];
 		validate [label="入力チェック", shape=diamond];
 		hasimg [label="画像あり？", shape=diamond];
@@ -915,8 +916,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		convert [label="座標変換"];
 		savedb [label="DB保存"];
 		success [label="完了表示"];
-		error [label="エラー表示", shape=oval];
-		end [label="終了", shape=oval];
+		error [label="エラー表示"];
+		end [label="終了"];
 		start -> input -> validate;
 		validate -> error [label="NG"];
 		validate -> hasimg [label="OK"];
@@ -941,7 +942,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	{
 		node [shape=diamond];
 		node [shape=box,style=rounded];
-		start [label="開始", shape=oval];
+		start [label="開始"];
 		input [label="獲得スタンプID受信"];
 		fetchcond [label="関連クーポン検索（condspotid）"];
 		checkhit [label="対象クーポンあり？", shape=diamond];
@@ -949,8 +950,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		checkexpire [label="有効期限内？", shape=diamond];
 		savedb [label="usercoupons保存（利用可能状態で作成）"];
 		ressuccess [label="獲得成功通知"];
-		resnone [label="獲得なし通知", shape=oval];
-		end [label="終了", shape=oval];
+		resnone [label="獲得なし通知"];
+		end [label="終了"];
 		start -> input -> fetchcond -> checkhit;
 		checkhit -> resnone [label="なし"];
 		checkhit -> checkduplicate [label="あり"];
@@ -1191,23 +1192,20 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\modtable{MA08}{app/Http/Controllers/SubscriptionApproveController.php}%
 	{サブスクリプション承認画面を表示するモジュール}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
+		node [shape=box,style=rounded];
+		d [shape=diamond];
 		a [label="ユーザー管理画面を選択"];
 		b [label="申請一覧画面を生成・選択"];
-		c [label="承認ボタンを選択"]
+		c [label="承認ボタンを選択"];
 		d [label="操作の確認画面の表示"];
 		e [label="SQLクエリを生成"];
 		f [label="元の画面を表示"];
 		g [label="契約情報を更新"];
-		h [label="情報削除完了画面を生成・表示"];
-		a->b;
-		b->c;
-		c->d;
+		h [label="承認完了画面を生成・表示"];
+		a->b->c->d;
 		d->e [label="Yes"];
 		d->f [label="No"];
-		d->f;
-		f->g;
+		e->g->h;
 	}%
 	{利用者から受け取ったHTTPリクエスト}%
 	{ウェブページ}%
@@ -1222,23 +1220,20 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\modtable{MA09}{app/Http/Controllers/SubscriptionCancelController.php}%
 	{サブスクリプション解除画面を表示するモジュール}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
+		node [shape=box,style=rounded];
+		d [shape=diamond];
 		a [label="ユーザー管理画面を選択"];
 		b [label="契約一覧画面を生成・選択"];
-		c [label="解除ボタンを選択"]
+		c [label="解除ボタンを選択"];
 		d [label="操作の確認画面の表示"];
 		e [label="SQLクエリを生成"];
 		f [label="元の画面を表示"];
 		g [label="契約情報を更新"];
 		h [label="契約解除完了画面を生成・表示"];
-		a->b;
-		b->c;
-		c->d;
+		a->b->c->d;
 		d->e [label="Yes"];
 		d->f [label="No"];
-		d->f;
-		f->g;
+		e->g->h;
 	}%
 	{利用者から受け取ったHTTPリクエスト}%
 	{ウェブページ}%
