@@ -3,12 +3,19 @@
 %--- 基本パッケージ ---%
 \usepackage[tmpdir]{graphviz} % フローチャートの作成
 \usepackage[verb]{bxghost}    % 和欧文間のアキを調整
+\usepackage{dirtree}          % ディレクトリ構造の図を作成
+\usepackage{mboxfill}         % 特定の文字で埋める
 \usepackage{nicematrix}       % 複雑な表の作成
 \usepackage{tabularx}         % 表の幅を調整
 \usepackage{xpatch}           % コマンドの改造
 
 %--- 文書情報 ---%
 \title{内部設計書}
+
+\if"\directlua{tex.print(os.getenv("GITHUB_ACTIONS"))}"{}\else
+	\renewcommand\dotfill{\mboxfill[3.333333pt]{\CID{9778}}}
+\fi
+\setlength\DTbaselineskip{9pt}
 
 \makeatletter
 	% GraphvizをLua経由で実行し、
@@ -383,10 +390,65 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \subsection{パッケージ構成図}
 % 【記述内容】システム全体の主要モジュールの関係を図示
 
-\subsection{物理ディレクトリ構造}\label{sec:dir}
-\begin{verbatim}
-
-\end{verbatim}
+\subsection{ディレクトリ構造}\label{sec:dir}
+ディレクトリ構造を示す図を\cref{fig:dir}に示す。
+\begin{figure}[H]
+	{
+		\footnotesize
+		\dirtree{%
+			.1 se2025\textrm{\DTcomment{リポジトリのルート}}.
+			.2 .github\textrm{\DTcomment{リモートリポジトリ関連の設定}}.
+			.3 workflows\textrm{\DTcomment{GitHub Actionsのワークフロー}}.
+			.2 .vscode\textrm{\DTcomment{Visual Studio Codeの設定}}.
+			.2 app\textrm{\DTcomment{システムの主な処理を行うプログラム}}.
+			.3 Http\textrm{\DTcomment{HTTPリクエストがあった場合に実行されるプログラム}}.
+			.4 Controllers\textrm{\DTcomment{ルーティングから呼び出されるコントローラとなるプログラム}}.
+			.3 Models\textrm{\DTcomment{データベースのテーブルが表現する実体に対応したクラスを定義するプログラム}}.
+			.3 Providers\textrm{\DTcomment{サービスプロバイダとなるプログラム}}.
+			.2 bootstrap\textrm{\DTcomment{システムの起動時の処理を行うプログラム}}.
+			.3 cache.
+			.2 config\textrm{\DTcomment{システムの設定を記述するファイル}}.
+			.2 database\textrm{\DTcomment{データベース関連のプログラム}}.
+			.3 factories\textrm{\DTcomment{ダミーのレコードの定義をおこなうプログラム}}.
+			.3 migrations\textrm{\DTcomment{テーブルの作成などをおこなうプログラム}}.
+			.3 seeders\textrm{\DTcomment{ダミーのレコードの挿入をおこなうプログラム}}.
+			.2 dev\textrm{\DTcomment{開発用コンテナ関連のファイル}}.
+			.3 db\textrm{\DTcomment{開発用コンテナ内のデータベースのマウントポイント}}.
+			.2 docs\textrm{\DTcomment{システム提案書や外部設計書、内部設計書のような文書}}.
+			.3 figure\textrm{\DTcomment{文書に使用する図}}.
+			.3 tmp\textrm{\DTcomment{文書に使用する自動生成された図}}.
+			.2 gas\textrm{\DTcomment{Google App Scriptのデプロイに用いるファイル}}.
+			.3 dist\textrm{\DTcomment{ViteによってビルドされたGoogle App Script}}.
+			.2 node\_modules\textrm{\DTcomment{Node.jsのパッケージ}}.
+			.2 public\textrm{\DTcomment{Webサーバのドキュメントルート}}.
+			.3 build\textrm{\DTcomment{Viteによってビルドされたフロントエンド関連のファイル}}.
+			.4 assets\textrm{\DTcomment{CSSスタイルシートとJavaScriptコード}}.
+			.2 resources\textrm{\DTcomment{フロントエンド関連のファイル}}.
+			.3 css\textrm{\DTcomment{CSSスタイルシート}}.
+			.3 ts\textrm{\DTcomment{TypeScriptコード}}.
+			.4 ci\textrm{\DTcomment{CIで使用するスクリプト}}.
+			.4 e2e\textrm{\DTcomment{E2Eテスト用のテストスクリプト}}.
+			.3 views\textrm{\DTcomment{Bladeテンプレート}}.
+			.2 routes\textrm{\DTcomment{ルーティング関連のファイル}}.
+			.2 storage\textrm{\DTcomment{Laravelが生成・使用するファイル}}.
+			.3 app.
+			.4 private.
+			.4 public.
+			.3 framework.
+			.4 cache.
+			.5 data.
+			.4 sessions.
+			.4 testing.
+			.4 views.
+			.3 logs.
+			.2 tests\textrm{\DTcomment{PHPUnitのテストスクリプト}}.
+			.3 Feature\textrm{\DTcomment{機能テストのテストスクリプト}}.
+			.3 Unit\textrm{\DTcomment{単体テストのテストスクリプト}}.
+			.2 vendor\textrm{\DTcomment{Composerのパッケージ}}.
+		}
+	}
+	\caption{主なディレクトリの一覧}\label{fig:dir}
+\end{figure}
 
 % ====================================
 
