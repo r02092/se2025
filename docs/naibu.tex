@@ -866,35 +866,29 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{チェックイン判定}\label{tab:mod-checkin}
-	\modtable{MU14}{app/Http/Controllers/CheckinApiController.php}{QRコードと位置情報によるスタンプ付与}
+	\modtable{MU14}{app/Http/Controllers/CheckinApiController.php}{送信された二次元コードと位置情報を基にスタンプ付与}
 	{
 		node [shape=diamond];
 		node [shape=box,style=rounded];
 		start [label="開始"];
-		input [label="QRデータ・GPS受信"];
-		decodeqr [label="QR検証（SpotID）", shape=diamond];
-		getspot [label="Spot座標取得"];
-		calcdist [label="距離計算"];
-		checkdist [label="距離 <= 50m？", shape=diamond];
+		decodeqr [label="入力を検証", shape=diamond];
+		getspot [label="スポットの情報を取得"];
+		calcdist [label="距離を計算"];
+		checkdist [label="距離が50m以下か？", shape=diamond];
 		savestamp [label="スタンプ保存"];
-		checkcoup [label="クーポン条件？", shape=diamond];
-		savecoup [label="クーポン付与"];
-		msgsuccess [label="成功画面"];
+		checkcoup [label="クーポン受け取りモジュールを呼び出し"];
 		msgerror [label="エラー画面"];
 		end [label="終了"];
-		start -> input -> decodeqr;
+		start -> decodeqr;
 		decodeqr -> msgerror [label="不正"];
 		decodeqr -> getspot [label="正"];
 		getspot -> calcdist -> checkdist;
 		checkdist -> msgerror [label="範囲外"];
 		checkdist -> savestamp [label="範囲内"];
-		savestamp -> checkcoup;
-		checkcoup -> msgsuccess [label="未達"];
-		checkcoup -> savecoup [label="達成"];
-		savecoup -> msgsuccess -> end;
+		savestamp -> checkcoup -> end;
 	}%
-	{}%
-	{スタンプ取得結果、クーポン（条件達成時）}
+	{二次元コード読み取り結果、位置情報}%
+	{スタンプ・クーポン取得結果}%
 	{}
 \end{table}
 
