@@ -517,63 +517,83 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \end{figure}
 
 % ====================================
-
+\newpage
 \section{モジュール詳細設計}
 % 【記述内容】外部設計書の機能要件を基に、各機能の入出力、責務、および内部処理フローを詳細に定義
 
 \subsection{共通モジュール}
 % 【記述内容】ログイン/ログアウト、アカウント作成とかを記述？
-\newpage
-\subsubsection{ログイン画面の表示}
+\subsubsection{画面の共通部分出力モジュール}
 \begin{table}[H]
 	\centering
-	\caption{ログイン画面の表示}\label{tab:mod-create-login}
+	\caption{画面の共通部分出力モジュール}\label{tab:mod-view-mf}
+	\modtable{MV00}{resources/views/mf.blade.php}%
+	{画面の共通部分をテンプレートとして出力}%
+	{
+		a [label="画面の共通部分を出力",shape=box,style=rounded];
+	}%
+	{}%
+	{画面テンプレート}%
+	{}
+\end{table}
+\subsubsection{ログイン画面出力モジュール}
+\begin{table}[H]
+	\centering
+	\caption{ログイン画面出力モジュール}\label{tab:mod-view-login}
+	\modtable{MV01}{resources/views/login.blade.php}%
+	{ログイン画面を構成する}%
+	{
+		node [shape=box,style=rounded];
+		a [label="画面の共通部分モジュールを呼び出し"];
+		b [label="ログイン画面を構成"];
+		a -> b;
+	}%
+	{}%
+	{Webページ}%
+	{}
+\end{table}
+構成する画面が異なるのみであり、
+画面の共通部分モジュールを呼び出してそれを基に画面を構成する
+部分は同じであるため省略するが、原則このモジュールと同様に
+各画面に対応したモジュールを作成するものとする。
+\subsubsection{ログイン処理モジュール}
+\begin{table}[H]
+	\centering
+	\caption{ログイン処理モジュール}\label{tab:mod-create-login}
 	\modtable{MC01}{app/Http/Controllers/LoginController.php}%
 	{SceneTripのログインを行う。入力値の検証、ログイン名の重複チェック}%
 	{
 		node [shape=box,style=rounded];%
-		b, h, k, l, r [shape=diamond];%
-		{ rank=source; a; }
-		a [label="モジュール呼び出し"];%
-		b [label="ボタン選択"];%
-		c [label="「アカウントをお持ちでない方はこちら」選択"];%
-		d [label="アカウント作成モジュールへ遷移"];%
-		e [label="入力項目へ入力"];%
-		f [label="ログインボタン選択"];%
+		b, h, r, k [shape=diamond];
+		{ rank=source; b; }
+		b [label="ログイン方式は何か？"];
 		g [label="空白検知モジュールを呼び出し"];%
-		h [label="入力内容が問題あるか"];%
-		i [label="エラーメッセージ表示"];%
+		h [label="入力内容が問題あるか？"];
+		i [label="エラーメッセージを含むページを応答"];
 		j [label="セッション生成"];%
-		k [label="ログイン確認"];%
-		l [label="一般利用者か事業者か管理者か"];%
-		m [label="一般利用者トップモジュールへ"];%
-		n [label="事業者トップモジュールへ"];%
-		o [label="管理者トップモジュールへ"];%
-		p [label="Google認証選択"];%
+		k [label="二要素認証は必要か？"];
+		l [label="二要素認証画面生成モジュールを呼び出し"];
+		m [label="応答"];
+		n [label="トップページへのリダイレクトを含む応答"];
 		q [label="OAuthを利用して認証を行い、GoogleのIDとユーザー名を取得"];%
 		r [label="取得したGoogleのIDが既に登録されているか"];%
-		s [label="新規アカウント作成"];%
 		t [label="usersテーブルにGoogleのIDとユーザー名を登録"];%
-		a->b;
-		b->c->d;%
-		b->e->f->g->h;%
+		b->g [label="SceneTripでログイン"];
+		g->h;
 		h->i [label="Yes"];%
-		i->a;%
 		h->j [label="No"];%
 		j->k;%
 		k->l [label="Yes"];%
-		k->a [label="No"];%
-		l->m [label="一般利用者"];%
-		l->n [label="事業者"];%
-		l->o [label="管理者"];%
-		b->p [label="Google認証選択"];%
-		p->q->r;%
+		k->n [label="No"];
+		l->m;
+		b->q [label="Googleでログイン"];
+		q->r;
 		r->k [label="Yes"];%
-		r->s [label="No"];%
-		s->t->k;%
+		r->t [label="No"];
+		t->k;
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{Webページ}%
+	{利用者から受け取ったログインに関するHTTPリクエスト}%
+	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
 	{}
 \end{table}
 
@@ -586,33 +606,21 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	{SceneTripのアカウント作成を行う。入力値の検証、ログイン名の重複チェック}%
 	{
 		node [shape=box,style=rounded];
-		b [shape=diamond];
-		{ rank=source; a; }
-		a [label="モジュール呼び出し"];
-		aEx [label="利用規約確認モジュールを呼び出し"];
-		b [label="ボタン選択"];
-		c [label="入力項目へ入力"];
+		h [shape=diamond];
+		{ rank=source; d; }
 		d [label="アカウント作成ボタン選択"];
 		e [label="空白検知、特殊文字検知モジュールを呼び出し"];
 		f [label="ログイン名重複チェックモジュールを呼び出し"];
-		g [label="パスワード確認モジュールを呼び出し"];
 		h [label="入力内容が問題あるか"];
-		i [label="エラーメッセージ表示"];
+		i [label="エラーメッセージを含むページを応答"];
 		j [label="usersテーブルにアカウント情報を登録"];
-		k [label="登録成功か"];
 		l [label="ログイン画面へ遷移"];
-		m [label="「すでにアカウントをお持ちの方はこちら」を選択"];
-		a->aEx->b;
-		b->c [label="アカウント作成"];
-		c->d->e->f->g->h;
+		d->e->f->h;
 		h->i [label="Yes"];
-		i->a;
 		h->j [label="No"];
-		j->k->l;
-		b->m [label="すでにアカウントをお持ちの方"];
-		m->l;
+		j->l;
 		}%
-	{利用者から受け取ったHTTPリクエスト}%
+	{利用者から受け取ったアカウント情報を含むHTTPリクエスト}%
 	{Webページ}%
 	{}
 \end{table}
@@ -622,23 +630,17 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{利用規約確認モジュール}\label{tab:mod-terms}
-	\modtable{MC03}{resources/views/terms.blade.php}%
+	\modtable{MC03}{resources/ts/terms.ts}%
 	{SceneTripの利用規約確認を行う。}%
 	{
 		node [shape=box,style=rounded];
-		c [shape=diamond];
-		{ rank=source; a; }
-		a [label="モジュール呼び出し"];
-		b [label="利用規約を表示"];
-		c [label="「同意する」選択"];
+		{ rank=source; c; }
+		c [label="「同意する」ボタンの押下を検知"];
 		d [label="アカウント作成画面へ遷移"];
-		a->b;
-		b->c;
-		c->d [label="同意する"];
-		c->b [label="同意しない"];
+		c->d;
 	}%
 	{}%
-	{ウェブページ}%
+	{}%
 	{}
 \end{table}
 
@@ -648,22 +650,19 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{空白検知モジュール}\label{tab:mod-blank}
 	\modtable{MC04}{app/Traits/BlankCheckTrait.php}%
-	{SceneTripの入力値に空白が含まれていないか検査する。}%
+	{入力値に空白が含まれていないか検査する。}%
 	{
 		node [shape=box,style=rounded];
 		b [shape=diamond];
-		{ rank=source; a; }
-		a [label="モジュール呼び出し"];
-		c [label="入力値を検査"];
+		{ rank=source; b; }
 		b [label="空白や特殊文字が含まれているか"];
 		d [label="エラーメッセージを返す"];
-		e [label="正常終了を返す"];
-		a->c->b;
+		e [label="含まれていない旨を返す"];
 		b->d [label="含まれている"];
 		b->e [label="含まれていない"];
 	}%
 	{}%
-	{エラーメッセージ または 正常終了}%
+	{エラーメッセージまたは正常終了の旨}%
 	{}
 \end{table}
 
@@ -673,23 +672,20 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{特殊文字検知モジュール}\label{tab:mod-special}
 	\modtable{MC05}{app/Traits/SpecialCharCheckTrait.php}%
-	{SceneTripの入力値に特殊文字が含まれていないか検査
+	{入力値に特殊文字が含まれていないか検査
 する。}%
 	{
 		node [shape=box,style=rounded];
 		b [shape=diamond];
-		{ rank=source; a; }
-		a [label="モジュール呼び出し"];
-		c [label="入力値を検査"];
+		{ rank=source; b; }
 		b [label="特殊文字が含まれているか"];
 		d [label="エラーメッセージを返す"];
-		e [label="正常終了を返す"];
-		a->c->b;
+		e [label="含まれていない旨を返す"];
 		b->d [label="含まれている"];
 		b->e [label="含まれていない"];
 	}%
 	{}%
-	{エラーメッセージ または 正常終了}%
+	{エラーメッセージまたは含まれていない旨}%
 	{}
 \end{table}
 
@@ -699,72 +695,55 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{ログイン名重複チェックモジュール}\label{tab:mod-dup}
 	\modtable{MC06}{app/Traits/DupLoginNameCheckTrait.php}%
-	{SceneTripのログイン名が重複していないか検査する。}%
+	{ログイン名が重複していないか検査する。}%
 	{
 		node [shape=box,style=rounded];
 		b [shape=diamond];
-		{ rank=source; a; }
-		a [label="モジュール呼び出し"];
-		c [label="入力値を検査"];
+		{ rank=source; b; }
 		b [label="ログイン名が重複しているか"];
 		d [label="エラーメッセージを返す"];
-		e [label="正常終了を返す"];
-		a->c->b;
+		e [label="重複していない旨を返す"];
 		b->d [label="重複している"];
 		b->e [label="重複していない"];
 	}%
 	{}%
-	{エラーメッセージ または 正常終了}%
+	{エラーメッセージまたは重複していない旨}%
 	{}
 \end{table}
 
 \newpage
-\subsubsection{ログアウト画面の表示}
+\subsubsection{ログアウト確認モジュール}
 \begin{table}[H]
 	\centering
-	\caption{ログアウト画面の表示}\label{tab:mod-logout}
-	\modtable{MC07}{app/Http/Controllers/LogoutController.php}%
-	{SceneTripのログアウトを行う。}%
+	\caption{ログアウト確認モジュール}\label{tab:mod-logout}
+	\modtable{MC07}{resources/ts/logout-confirm.ts}%
+	{ログアウトしても良いか確認する。}%
 	{
 		node [shape=box,style=rounded];
 		b [shape=diamond];
-		a [label="ボタン選択"];
-		b [label="続行を選択"];
-		c [label="ログアウト確認"];
-		d [label="ログアウト処理"];
-		e [label="ログアウトのポップアップ表示"];
-		f [label="ホーム画面へ遷移"];
-		g [label="キャンセル選択"];
-		h [label="前のモジュールに戻る"];
-		a->b;
+		b [label="ボタンの押下を検知"];
+		c [label="ログアウトを行うページに遷移"];
+		g [label="前のページに戻る"];
 		b->c [label="ログアウト"];
-		c->d->e->f;
 		b->g [label="キャンセル"];
-		g->h;
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{Webページ}%
+	{}%
+	{}%
 	{}
 \end{table}
 
 \newpage
-\subsubsection{プロフィール画面の表示}
+\subsubsection{プロフィール画面構成モジュール}
 \begin{table}[H]
 	\centering
-	\caption{プロフィール画面の表示}\label{tab:mod-profile}
+	\caption{プロフィール画面構成モジュール}\label{tab:mod-profile}
 	\modtable{MC08}{app/Http/Controllers/ProfileController.php}%
-	{SceneTripのプロフィール画面を表示する。}%
+	{SceneTripのプロフィール画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
-    c [shape=diamond];
-		a [label="モジュール呼び出し"];
-		b [label="プロフィール画面を生成"];
-		c [label="ボタン選択"];
-		d [label="プロフィール編集画面へ遷移"];
-		e [label="事業者申込画面へ遷移"];
-		a->b->c;
-		c->d [label="プロフィール編集を選択"];
-		c->e [label="登録を選択"];
+		a [label="プロフィールを利用者モジュールを用いて読み込み"];
+		b [label="プロフィール画面出力モジュールを呼び出し"];
+		a->b;
 	}%
 	{利用者から受け取ったHTTPリクエスト}%
 	{Webページ}%
@@ -772,50 +751,38 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \end{table}
 
 \newpage
-\subsubsection{プロフィール編集画面の表示}
+\subsubsection{プロフィール編集画面構成モジュール}
 \begin{table}[H]
 	\centering
-	\caption{プロフィール編集画面の表示}\label{tab:mod-profile-edit}
+	\caption{プロフィール編集画面構成モジュール}\label{tab:mod-profile-edit}
 	\modtable{MC09}{app/Http/Controllers/ProfileEditController.php}%
 	{SceneTripのプロフィール編集画面を表示する。}%
 	{
 		node [shape=box,style=rounded];
 		br1, br2, br3 [shape=diamond];
-		{ rank=source; a; }
-		a [label="編集ボタン選択"];
-		b [label="プロフィール編集画面を生成"];
-		br1 [label="ボタン選択"];
-		c [label="必要情報を入力"];
-		d [label="保存ボタン選択"];
+		{ rank=source; br1; }
+		br1 [label="何を編集するのか？"];
 		e [label="空白検知モジュールを呼び出し"];
 		f [label="ログイン名重複チェックモジュールを呼び出し"];
 		br2 [label="入力内容が問題あるか"];
-		g [label="エラーメッセージ表示"];
-		h [label="SQLクエリを生成"];
-		i [label="プロフィール更新できない旨ポップアップを表示"];
+		g [label="エラーメッセージを含むページを応答"];
 		j [label="プロフィール更新処理を実行"];
-		k [label="プロフィール更新完了画面を生成・表示"];
-		l [label="画像アップロードモジュールを呼び出し"];
+		k [label="プロフィール更新完了画面出力モジュールを呼び出し"];
 		br3 [label="入力内容が問題あるか"];
-		m [label="エラーメッセージ表示"];
+		m [label="エラーメッセージを含むページを応答"];
 		n [label="画像アップロード処理を実行"];
-		o [label="画像アップロード完了画面を生成・表示"];
-		p [label="二要素認証設定モジュールへ遷移"];
-		a->b->br1;
-		br1->c [label="編集"];
-		c->d->e->f->br2;
+		o [label="画像アップロード完了画面出力モジュールを呼び出し"];
+		br1->e [label="プロフィール情報"];
+		e->f->br2;
 		br2->g [label="Yes"];
-		br2->i [label="No"];
-		i->br1;
-		g->h->j->k;
-		br1->l [label="画像アップロードを選択"];
-		l->br3;
+		br2->j [label="No"];
+		j->k;
+		br1->br3 [label="アイコン"];
 		br3->m [label="Yes"];
 		br3->n [label="No"];
 		n->o;
-		br1->p [label="二要素認証設定を選択"];
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
+	{利用者から受け取ったアカウント情報を含むHTTPリクエスト}%
 	{Webページ}%
 	{}
 \end{table}
@@ -823,21 +790,19 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 
 
 \newpage
-\subsubsection{検索画面の表示}
+\subsubsection{検索画面構成モジュール}
 \begin{table}[H]
 	\centering
-	\caption{検索画面の表示}\label{tab:mod-search-display}
+	\caption{検索画面構成モジュール}\label{tab:mod-search-display}
 	\modtable{MC00}{app/Http/Controllers/SearchController.php}%
 	{検索画面を表示するモジュール}%
 	{
 		node [shape=box,style=rounded];
-    c [shape=diamond];
-		a [label="/にアクセスされる"];
+		c [shape=diamond];
 		b [label="検索画面を生成"];
-		c [label="ログインしているか"];
+		c [label="ログインしているか？"];
 		d [label="ログイン時のUIを生成"];
 		e [label="未ログイン時のUIを生成"];
-		a->b;
 		b->c;
 		c->d [label="Yes"];
 		c->e [label="No"];
@@ -848,447 +813,314 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \end{table}
 \subsection{利用者モジュール}
 % 【記述内容】各ステップのロジックを説明になるんかな？。
-\subsubsection{観光地・施設検索処理}
+\subsubsection{観光地・施設検索処理モジュール}
 
 \begin{table}[H]
 	\centering
-	\caption{観光地・施設検索処理}\label{tab:mod-search}
+	\caption{観光地・施設検索処理モジュール}\label{tab:mod-search}
 	\modtable{MU11}{app/Http/Controllers/SearchApiController.php}%
 	{キーワード・カテゴリに基づくスポット検索}%
 	{
-		node [shape=diamond];
 		node [shape=box,style=rounded];
-		a [label="検索開始"];
-		b [label="キーワード・カテゴリ受信"];
-		c [label="入力値検証", shape=diamond];
-		c1 [label="入力エラー表示"];
-		d [label="DB検索実行"];
-		d1 [label="結果件数>0", shape=diamond];
-		d2 [label="「該当無し」表示"];
-		e [label="結果表示"];
-		f [label="終了"];
-		a->b->c;
+		c [label="入力内容が問題あるか？", shape=diamond];
+		c1 [label="エラーメッセージを応答"];
+		d [label="検索実行"];
+		d1 [label="結果件数が存在するか？", shape=diamond];
+		d2 [label="該当するものがない旨を応答"];
+		e [label="結果を応答"];
 		c->c1 [label="No"];
 		c->d [label="Yes"];
-    d->d1;
+		d->d1;
 		d1->d2 [label="No"];
 		d1->e [label=Yes];
-		d2->f;
-		e->f;
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{検索結果リストまたはメッセージ}%
-	{入力値が空の場合は、仕様に合わせて実装}
+	{利用者から受け取った検索クエリを含むHTTPリクエスト}%
+	{エラーメッセージまたは検索結果リスト}%
+	{}
 \end{table}
 
-\subsubsection{経路作成}
-
-\subsubsection{AIによる観光地・施設推薦}
+\subsubsection{AI観光地推薦処理モジュール}
 \begin{table}[H]
 	\centering
-	\caption{AI観光地推薦}\label{tab:mod-ai}
+	\caption{AI観光地推薦処理モジュール}\label{tab:mod-ai}
 	\modtable{MU13}{app/Http/Controllers/AiApiController.php}
 	{ユーザーのチャット入力に基づく観光地推薦}%
 	{
-		node [shape=diamond];
 		node [shape=box,style=rounded];
-		start [label="開始"];
-		input [label="チャット受信"];
-		checkempty [label="空文字チェック", shape=diamond];
 		fetchctx [label="周辺情報取得"];
 		prompt [label="プロンプト構築"];
-		apicall [label="Gemini API送信"];
-		checkapi [label="API応答成功？", shape=diamond];
+		apicall [label="Gemini APIへの送信"];
+		checkapi [label="APIの応答が成功であるか？", shape=diamond];
 		parse [label="JSON解析"];
 		search [label="推薦スポット取得"];
-		checkhit [label="スポットあり？", shape=diamond];
-		resok [label="推薦回答"];
-		resng [label="エラー回答"];
-		end [label="終了"];
-		start -> input -> checkempty;
-		checkempty -> resng [label="空"];
-		checkempty -> fetchctx [label="OK"];
+		checkhit [label="結果が問題あるか？", shape=diamond];
+		resok [label="推薦文を応答"];
+		resng [label="エラーメッセージを応答"];
 		fetchctx -> prompt -> apicall -> checkapi;
-		checkapi -> resng [label="失敗"];
-		checkapi -> parse [label="成功"];
+		checkapi -> resng [label="No"];
+		checkapi -> parse [label="Yes"];
 		parse -> search -> checkhit;
-		checkhit -> resng [label="0件"];
-		checkhit -> resok [label="1件以上"];
-		resok -> end;
+		checkhit -> resng [label="Yes"];
+		checkhit -> resok [label="No"];
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{LLMの出力}%
+	{利用者から受け取ったチャット入力を含むHTTPリクエスト}%
+	{エラーメッセージまたはLLMの出力した推薦文}%
 	{}
 \end{table}
 
-\subsubsection{チェックイン}
+\subsubsection{チェックイン処理モジュール}
 \begin{table}[H]
 	\centering
-	\caption{チェックイン判定}\label{tab:mod-checkin}
+	\caption{チェックイン処理モジュール}\label{tab:mod-checkin}
 	\modtable{MU14}{app/Http/Controllers/CheckinApiController.php}{送信された二次元コードと位置情報を基にスタンプを付与}
 	{
-		node [shape=diamond];
 		node [shape=box,style=rounded];
-		start [label="開始"];
-		decodeqr [label="入力を検証", shape=diamond];
+		decodeqr [label="入力内容が問題あるか？", shape=diamond];
 		getspot [label="スポットの情報を取得"];
-		calcdist [label="距離を計算"];
+		calcdist [label="スポットとの距離を計算"];
 		checkdist [label="距離が50m以下か？", shape=diamond];
-		savestamp [label="スタンプ保存"];
+		savestamp [label="スタンプモジュールを呼び出しスタンプを記録"];
 		checkcoup [label="クーポン受け取りモジュールを呼び出し"];
-		msgerror [label="エラー画面"];
-		end [label="終了"];
-		start -> decodeqr;
-		decodeqr -> msgerror [label="不正"];
-		decodeqr -> getspot [label="正"];
+		msgerror [label="エラーメッセージを応答"];
+		decodeqr -> msgerror [label="YeS"];
+		decodeqr -> getspot [label="No"];
 		getspot -> calcdist -> checkdist;
-		checkdist -> msgerror [label="範囲外"];
-		checkdist -> savestamp [label="範囲内"];
-		savestamp -> checkcoup -> end;
+		checkdist -> msgerror [label="No"];
+		checkdist -> savestamp [label="Yes"];
+		savestamp -> checkcoup;
 	}%
-	{利用者から受け取ったHTTPリクエスト（二次元コード読み取り結果、位置情報を含ませたもの）}%
-	{スタンプ・クーポン取得結果}%
+	{利用者から受け取った二次元コード読み取り結果と位置情報を含むHTTPリクエスト}%
+	{エラーメッセージまたはスタンプ・クーポン取得結果}%
 	{}
 \end{table}
 
-\subsubsection{評価・写真投稿}
+\subsubsection{口コミ画面構成モジュール}
 \begin{table}[H]
 	\centering
-	\caption{評価・写真投稿}\label{tab:mod-review-photo}
-	\modtable{MU15}{app/Http/Controllers/ReviewController.php}{評価と写真をシステムに登録する}%
+	\caption{口コミ画面構成モジュール}\label{tab:mod-review-photo}
+	\modtable{MU15}{app/Http/Controllers/ReviewController.php}{口コミをシステムに登録する}%
 	{
-		node [shape=diamond];
 		node [shape=box,style=rounded];
-		start [label="開始"];
-		input [label="投稿データ受信"];
-		validate [label="入力チェック", shape=diamond];
-		hasimg [label="画像あり？", shape=diamond];
-		upload [label="画像アップロード"];
-		checkup [label="アップロード成功？", shape=diamond];
-		convert [label="座標変換"];
-		savedb [label="DB保存"];
-		success [label="完了表示"];
-		error [label="エラー表示"];
-		end [label="終了"];
-		start -> input -> validate;
-		validate -> error [label="NG"];
-		validate -> hasimg [label="OK"];
+		validate [label="入力内容が問題あるか？", shape=diamond];
+		hasimg [label="画像があるか？", shape=diamond];
+		upload [label="画像を保存"];
+		checkup [label="保存に成功したか？", shape=diamond];
+		savedb [label="口コミモジュールを用いて口コミを記録"];
+		success [label="口コミ画面へのリダイレクトを含む応答"];
+		error [label="エラーメッセージを含むページを応答"];
+		validate -> error [label="Yes"];
+		validate -> hasimg [label="No"];
 		hasimg -> savedb [label="No"];
 		hasimg -> upload [label="Yes"];
 		upload -> checkup;
 		checkup -> error [label="失敗"];
-		checkup -> convert [label="成功"];
-		convert -> savedb;
-		savedb -> success -> end;
+		checkup -> savedb [label="成功"];
+		savedb -> success;
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{投稿完了メッセージを表示するWebページ}%
+	{利用者から受け取った口コミを含むHTTPリクエスト}%
+	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
 	{}
 \end{table}
-\subsubsection{クーポン受け取り}
-\subsubsection{クーポン受け取り処理}
+\subsubsection{クーポン受け取り処理モジュール}
 \begin{table}[H]
 	\centering
-	\caption{クーポン受け取り処理}\label{tab:mod-coupon-receive}
+	\caption{クーポン受け取り処理モジュール}\label{tab:mod-coupon-receive}
 	\modtable{MU16}{app/Traits/CouponTrait.php}{スタンプ獲得状況に基づくクーポン付与}%
 	{
-		node [shape=diamond];
 		node [shape=box,style=rounded];
-		start [label="開始"];
-		input [label="獲得スタンプID受信"];
-		fetchcond [label="関連クーポン検索（condspotid）"];
-		checkhit [label="対象クーポンあり？", shape=diamond];
-		checkduplicate [label="既に獲得済み？", shape=diamond];
-		checkexpire [label="有効期限内？", shape=diamond];
-		savedb [label="usercoupons保存（利用可能状態で作成）"];
-		ressuccess [label="獲得成功通知"];
-		resnone [label="獲得なし通知"];
-		end [label="終了"];
-		start -> input -> fetchcond -> checkhit;
-		checkhit -> resnone [label="なし"];
-		checkhit -> checkduplicate [label="あり"];
-		checkduplicate -> resnone [label="Yes"];
-		checkduplicate -> checkexpire [label="No"];
-		checkexpire -> resnone [label="期限切"];
-		checkexpire -> savedb [label="有効"];
-		savedb -> ressuccess -> end;
+		fetchcond [label="クーポンモジュールを用いて関連クーポン検索"];
+		checkhit [label="対象クーポンがあるか？", shape=diamond];
+		checkexpire [label="有効期限内であるか？", shape=diamond];
+		savedb [label="利用者クーポンモジュールを用いてデータベースに記録"];
+		ressuccess [label="獲得に成功した旨を返す"];
+		resnone [label="獲得に失敗した旨を返す"];
+		fetchcond -> checkhit;
+		checkhit -> resnone [label="No"];
+		checkhit -> checkexpire [label="Yes"];
+		checkexpire -> resnone [label="No"];
+		checkexpire -> savedb [label="Yes"];
+		savedb -> ressuccess;
 	}%
-	{}%
-	{}%
+	{チェックインしたスポット}%
+	{獲得に成功したかどうか}%
 	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{スタンプ獲得トリガーで呼び出される想定。ユーザーが同じクーポンを重複して受け取らないようにする}\vspace{.35\zw}}
 \end{table}
-
-
-\subsection{事業者モジュール}
-% 【記述内容】各ステップのロジックを説明になるんかな？。
-
+\newpage
 \subsection{管理者モジュール}
 % 【記述内容】各ステップのロジックを説明になるんかな？。
 % ====================================
-\newpage
-\subsubsection{観光地・施設情報追加画面の表示}
+\subsubsection{スポット追加画面構成モジュール}
 \begin{table}[H]
 	\centering
-	\caption{観光地・施設情報追加画面の表示}\label{tab:mod-add-spot}
+	\caption{スポット追加画面構成モジュール}\label{tab:mod-add-spot}
 	\modtable{MA01}{app/Http/Controllers/InsertSpotController.php}%
-	{観光地・施設情報追加画面を表示するモジュール}%
+	{スポット追加画面を構成するモジュール}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
-		a [label="追加タブを選択"];
-		b [label="情報追加画面を生成"];
-		c [label="必要情報を入力"]
-		d [label="入力値を検証"];
-		e [label="SQLクエリを生成"];
-		f [label="情報追加できない旨のUIを生成"];
-		g [label="情報追加処理を実行"];
-		h [label="情報追加完了画面を生成・表示"];
-		a->b;
-		b->c;
-		c->d [label="Yes"];
-		c->e [label="No"];
-		d->f;
-		f->g;
+		node [shape=box,style=rounded];
+		c [label="入力内容が問題あるか？",shape=diamond];
+		f [label="エラーメッセージを含むページを応答"];
+		g [label="スポットモジュールを用いてスポット追加処理を実行"];
+		h [label="スポット一覧画面へのリダイレクトを含む応答"];
+		c->f [label="Yes"];
+		c->g [label="No"];
 		g->h;
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{Webページ}%
+	{利用者から受け取ったスポット情報を含むHTTPリクエスト}%
+	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
 	{}
 \end{table}
 
 \newpage
-\subsubsection{観光地・施設情報編集画面の表示}
+\subsubsection{スポット編集画面構成モジュール}
 \begin{table}[H]
 	\centering
-	\caption{観光地・施設情報編集画面の表示}\label{tab:mod-edit-spot}
+	\caption{スポット編集画面構成モジュール}\label{tab:mod-edit-spot}
 	\modtable{MA02}{app/Http/Controllers/EditSpotController.php}%
-	{観光地・施設情報編集画面を表示するモジュール}%
+	{スポット編集画面を構成するモジュール}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
-		a [label="編集タブを選択"];
-		b [label="情報編集画面を生成"];
-		c [label="必要情報を入力"]
-		d [label="入力値を検証"];
-		e [label="SQLクエリを生成"];
-		f [label="情報編集できない旨のUIを生成"];
-		g [label="情報編集処理を実行"];
-		h [label="情報編集完了画面を生成・表示"];
-		a->b;
-		b->c;
-		c->d;
-		d->e [label="Yes"];
-		d->f [label="No"];
-		f->g;
+		node [shape=box,style=rounded];
+		c [label="入力内容が問題あるか？",shape=diamond];
+		f [label="エラーメッセージを含むページを応答"];
+		g [label="スポットモジュールを用いてスポット編集処理を実行"];
+		h [label="スポット一覧画面へのリダイレクトを含む応答"];
+		c->f [label="Yes"];
+		c->g [label="No"];
 		g->h;
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{Webページ}%
+	{利用者から受け取ったスポット情報を含むHTTPリクエスト}%
+	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
 	{}
 \end{table}
 
 \newpage
-\subsubsection{観光地・施設情報削除画面の表示}
+\subsubsection{スポット削除画面構成モジュール}
 \begin{table}[H]
 	\centering
-	\caption{観光地・施設情報削除画面の表示}\label{tab:mod-delete-spot}
+	\caption{スポット削除画面構成モジュール}\label{tab:mod-delete-spot}
 	\modtable{MA03}{app/Http/Controllers/DeleteSpotController.php}%
-	{観光地・施設情報削除画面を表示するモジュール}%
+	{スポット削除画面を構成するモジュール}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
-		a [label="削除タブを選択"];
-		b [label="情報削除画面を生成"];
-		c [label="操作の確認画面の表示"];
-		d [label="SQLクエリを生成"];
-		e [label="元の画面を表示"];
-		f [label="情報削除処理を実行"];
-		g [label="情報削除完了画面を生成・表示"];
-		a->b;
-		b->c;
-		c->d [label="Yes"];
-		c->e [label="No"];
-		d->f;
-		f->g;
+		node [shape=box,style=rounded];
+		c [label="入力内容が問題あるか？",shape=diamond];
+		f [label="エラーメッセージを含むページを応答"];
+		g [label="スポットモジュールを用いてスポット削除処理を実行"];
+		h [label="スポット一覧画面へのリダイレクトを含む応答"];
+		c->f [label="Yes"];
+		c->g [label="No"];
+		g->h;
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{Webページ}%
+	{利用者から受け取ったスポットのIDを含むHTTPリクエスト}%
+	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
 	{}
 \end{table}
 
 \newpage
-\subsubsection{ユーザー情報追加画面の表示}
+\subsubsection{利用者追加画面構成モジュール}
 \begin{table}[H]
 	\centering
-	\caption{ユーザー情報追加画面の表示}\label{tab:mod-add-user}
+	\caption{利用者追加画面構成モジュール}\label{tab:mod-add-user}
 	\modtable{MA04}{app/Http/Controllers/InsertUserController.php}%
-	{ユーザー情報追加画面を表示するモジュール}%
+	{利用者追加画面を構成するモジュール}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
-		a [label="追加タブを選択"];
-		b [label="情報追加画面を生成"];
-		c [label="必要情報を入力"]
-		d [label="入力値を検証"];
-		e [label="SQLクエリを生成"];
-		f [label="情報追加できない旨のUIを生成"];
-		g [label="情報追加処理を実行"];
-		h [label="情報追加完了画面を生成・表示"];
-		a->b;
-		b->c;
-		c->d [label="Yes"];
-		c->e [label="No"];
-		d->f;
-		f->g;
+		node [shape=box,style=rounded];
+		c [label="入力内容が問題あるか？",shape=diamond];
+		f [label="エラーメッセージを含むページを応答"];
+		g [label="利用者モジュールを用いて利用者追加処理を実行"];
+		h [label="利用者一覧画面へのリダイレクトを含む応答"];
+		c->f [label="Yes"];
+		c->g [label="No"];
 		g->h;
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{Webページ}%
+	{利用者から受け取った利用者情報を含むHTTPリクエスト}%
+	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
 	{}
 \end{table}
 
 \newpage
-\subsubsection{ユーザー情報編集画面の表示}
+\subsubsection{利用者編集画面構成モジュール}
 \begin{table}[H]
 	\centering
-	\caption{ユーザー情報編集画面の表示}\label{tab:mod-edit-user}
+	\caption{利用者編集画面構成モジュール}\label{tab:mod-edit-user}
 	\modtable{MA05}{app/Http/Controllers/EditUserController.php}%
-	{ユーザー情報編集画面を表示するモジュール}%
+	{利用者編集画面を構成するモジュール}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
-		a [label="編集タブを選択"];
-		b [label="情報編集画面を生成"];
-		c [label="必要情報を入力"]
-		d [label="入力値を検証"];
-		e [label="SQLクエリを生成"];
-		f [label="情報編集できない旨のUIを生成"];
-		g [label="情報編集処理を実行"];
-		h [label="情報編集完了画面を生成・表示"];
-		a->b;
-		b->c;
-		c->d;
-		d->e [label="Yes"];
-		d->f [label="No"];
-		f->g;
+		node [shape=box,style=rounded];
+		c [label="入力内容が問題あるか？",shape=diamond];
+		f [label="エラーメッセージを含むページを応答"];
+		g [label="利用者モジュールを用いて利用者編集処理を実行"];
+		h [label="利用者一覧画面へのリダイレクトを含む応答"];
+		c->f [label="Yes"];
+		c->g [label="No"];
 		g->h;
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{Webページ}%
+	{利用者から受け取った利用者情報を含むHTTPリクエスト}%
+	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
 	{}
 \end{table}
 
 \newpage
-\subsubsection{ユーザー情報削除画面の表示}
+\subsubsection{利用者削除画面構成モジュール}
 \begin{table}[H]
 	\centering
-	\caption{ユーザー情報削除画面の表示}\label{tab:mod-delete-user}
+	\caption{利用者削除画面構成モジュール}\label{tab:mod-delete-user}
 	\modtable{MA06}{app/Http/Controllers/DeleteUserController.php}%
-	{ユーザー情報削除画面を表示するモジュール}%
+	{利用者削除画面を構成するモジュール}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
-		a [label="削除タブを選択"];
-		b [label="情報削除画面を生成"];
-		c [label="操作の確認画面の表示"];
-		d [label="SQLクエリを生成"];
-		e [label="元の画面を表示"];
-		f [label="情報削除処理を実行"];
-		g [label="情報削除完了画面を生成・表示"];
-		a->b;
-		b->c;
-		c->d [label="Yes"];
-		c->e [label="No"];
-		d->f;
-		f->g;
+		node [shape=box,style=rounded];
+		c [label="入力内容が問題あるか？",shape=diamond];
+		f [label="エラーメッセージを含むページを応答"];
+		g [label="利用者モジュールを用いて利用者削除処理を実行"];
+		h [label="利用者一覧画面へのリダイレクトを含む応答"];
+		c->f [label="Yes"];
+		c->g [label="No"];
+		g->h;
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{Webページ}%
+	{利用者から受け取った利用者のIDを含むHTTPリクエスト}%
+	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
 	{}
 \end{table}
 
 \newpage
-\subsubsection{UGC監視・管理画面の表示}
+\subsubsection{UGC監視・管理画面構成モジュール}
 \begin{table}[H]
 	\centering
-	\caption{UGC監視・管理画面の表示}\label{tab:mod-admin-ugc}
+	\caption{UGC監視・管理画面構成モジュール}\label{tab:mod-admin-ugc}
 	\modtable{MA07}{app/Http/Controllers/AdminUgcController.php}%
-	{UGC監視・管理画面を表示するモジュール}%
+	{UGC監視・管理画面を構成するモジュール}%
 	{
-		node [shape=diamond] c;
-		node [shape=box,style=rounded] a;
-		a [label="投稿を選択"];
-		b [label="投稿削除画面を生成"];
-		c [label="操作の確認画面の表示"];
-		d [label="SQLクエリを生成"];
-		e [label="元の画面を表示"];
-		f [label="情報削除処理を実行"];
-		g [label="情報削除完了画面を生成・表示"];
-		a->b;
-		b->c;
-		c->d [label="Yes"];
-		c->e [label="No"];
-		d->f;
-		f->g;
+		node [shape=box,style=rounded];
+		c [label="入力内容が問題あるか？",shape=diamond];
+		f [label="エラーメッセージを含むページを応答"];
+		g [label="口コミモジュールまたは写真モジュールを用いて削除処理を実行"];
+		h [label="UGC監視・管理画面へのリダイレクトを含む応答"];
+		c->f [label="Yes"];
+		c->g [label="No"];
+		g->h;
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{Webページ}%
+	{利用者から受け取ったUGCの種別とIDを含むHTTPリクエスト}%
+	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
 	{}
 \end{table}
 
 \newpage
-\subsubsection{サブスクリプション承認画面の表示}
+\subsubsection{サブスクリプション承認画面構成モジュール}
 \begin{table}[H]
 	\centering
-	\caption{サブスクリプション承認画面の表示}\label{tab:mod-approve-subs}
+	\caption{サブスクリプション承認画面構成モジュール}\label{tab:mod-approve-subs}
 	\modtable{MA08}{app/Http/Controllers/SubscriptionApproveController.php}%
 	{サブスクリプション承認画面を表示するモジュール}%
 	{
 		node [shape=box,style=rounded];
-		d [shape=diamond];
-		a [label="ユーザー管理画面を選択"];
-		b [label="申請一覧画面を生成・選択"];
-		c [label="承認ボタンを選択"];
-		d [label="操作の確認画面の表示"];
-		e [label="SQLクエリを生成"];
-		f [label="元の画面を表示"];
-		g [label="契約情報を更新"];
-		h [label="承認完了画面を生成・表示"];
-		a->b->c->d;
-		d->e [label="Yes"];
-		d->f [label="No"];
-		e->g->h;
+		c [label="入力内容が問題あるか？",shape=diamond];
+		f [label="エラーメッセージを含むページを応答"];
+		g [label="利用者モジュールを用いて承認処理を実行"];
+		h [label="承認要求一覧画面へのリダイレクトを含む応答"];
+		c->f [label="Yes"];
+		c->g [label="No"];
+		g->h;
 	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{Webページ}%
-	{}
-\end{table}
-
-\newpage
-\subsubsection{サブスクリプション解除画面の表示}
-\begin{table}[H]
-	\centering
-	\caption{サブスクリプション解除画面の表示}\label{tab:mod-cancel-subs}
-	\modtable{MA09}{app/Http/Controllers/SubscriptionCancelController.php}%
-	{サブスクリプション解除画面を表示するモジュール}%
-	{
-		node [shape=box,style=rounded];
-		d [shape=diamond];
-		a [label="ユーザー管理画面を選択"];
-		b [label="契約一覧画面を生成・選択"];
-		c [label="解除ボタンを選択"];
-		d [label="操作の確認画面の表示"];
-		e [label="SQLクエリを生成"];
-		f [label="元の画面を表示"];
-		g [label="契約情報を更新"];
-		h [label="契約解除完了画面を生成・表示"];
-		a->b->c->d;
-		d->e [label="Yes"];
-		d->f [label="No"];
-		e->g->h;
-	}%
-	{利用者から受け取ったHTTPリクエスト}%
-	{Webページ}%
+	{利用者から受け取った利用者のIDを含むHTTPリクエスト}%
+	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
 	{}
 \end{table}
 
