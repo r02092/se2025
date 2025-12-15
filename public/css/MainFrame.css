@@ -1,10 +1,17 @@
+:root {
+	--header-height: 42px;
+	--bottom-bar-height: 55px;
+}
+
 body {
 	margin: 0;
 	background: #d1d1d1;
+	/* ヘッダ固定分だけ全体を押し下げたい場合は必要に応じて使用 */
+	/* padding-top: var(--header-height); */
 }
 .header-bar {
 	background: #27f2b6;
-	height: 42px;
+	height: var(--header-height);
 	display: flex;
 	align-items: center;
 	padding: 0;
@@ -21,7 +28,7 @@ body {
 	position: absolute;
 	right: 8px;
 	top: 0;
-	height: 42px;
+	height: var(--header-height);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -70,7 +77,7 @@ body {
 }
 
 /* 小さい画面で少し小さく */
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
 	.header-profile {
 		width: 32px;
 		height: 32px;
@@ -79,11 +86,11 @@ body {
 		padding: 5px 8px;
 		font-size: 12px;
 	}
-}
+} */
 
 .hamburger {
 	width: 50px;
-	height: 42px;
+	height: var(--header-height);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -125,8 +132,8 @@ body {
 
 .main-area {
 	padding: 0;
-	padding-top: 42px; /* ← 追加（ヘッダー高さぶんずらす） */
-	padding-bottom: 55px; /*  ← ボトムバー分の余白 多分不要 */
+	padding-top: var(--header-height); /* ヘッダー高さぶんずらす */
+	padding-bottom: var(--bottom-bar-height); /* ボトムバー分の余白 */
 	background: #eee;
 	width: 100vw;
 	display: flex;
@@ -204,7 +211,7 @@ body {
 
 .bottom-bar {
 	background: #fff;
-	height: 55px;
+	height: var(--bottom-bar-height);
 	position: fixed;
 	bottom: 0;
 	width: 100vw;
