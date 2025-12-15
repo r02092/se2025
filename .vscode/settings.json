@@ -14,7 +14,7 @@
 		"podman",
 		"exec",
 		"-i",
-		"lab-asg-2025smr_app_1",
+		"se2025_app_1",
 		"vendor/bin/phpstan"
 	],
 	"phpstan.paths": {".": ""}
