@@ -54,30 +54,6 @@
             @endfor
         </div>
     </section>
-
-    <!-- ランキングセクション（.ranking h2 をタイトルに使用） -->
-    <section class="general-box ranking" aria-labelledby="ranking-title">
-        <h2 id="ranking-title">ランキング</h2>
-
-        <!-- 灰色の線（タイトルの下） -->
-        <div class="ranking-divider" aria-hidden="true"></div>
-
-        <!-- ランキングリスト -->
-        <ol class="ranking-list" role="list">
-            @foreach($rankings ?? [] as $index => $rank)
-            <li class="ranking-item" role="listitem">
-                <span class="ranking-rank">{{ $index + 1 }}</span>
-                <img
-                    src="{{ asset($rank['avatar'] ?? 'images/Profile_pic.JPG') }}"
-                    alt="ユーザーアバター"
-                    class="ranking-avatar"
-                />
-                <span class="ranking-name">{{ $rank['name'] }}</span>
-                <span class="ranking-score">{{ $rank['score'] }}pt</span>
-            </li>
-            @endforeach
-        </ol>
-    </section>
 </div>
 @endsection
 

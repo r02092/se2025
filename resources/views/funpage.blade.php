@@ -4,6 +4,7 @@
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/funpage.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/MainFrame.css') }}" />
 @endpush
 
 @section('content')
