@@ -548,11 +548,30 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	{画面テンプレート}%
 	{}
 \end{table}
+
+\newpage
+\subsubsection{エラーメッセージ出力モジュール}
+\begin{table}[H]
+	\centering
+	\caption{エラーメッセージ出力モジュール}\label{tab:mod-view-error}
+	\modtable{MV01}{resources/views/error.blade.php}%
+	{エラーメッセージ表示画面を構成する}%
+	{
+		node [shape=box,style=rounded];
+		a [label="画面の共通部分モジュールを呼び出し"];
+		b [label="エラーメッセージ表示画面を構成"];
+		a -> b;
+	}%
+	{エラーメッセージ}%
+	{Webページ}%
+	{}
+\end{table}
+
 \subsubsection{ログイン画面出力モジュール}
 \begin{table}[H]
 	\centering
 	\caption{ログイン画面出力モジュール}\label{tab:mod-view-login}
-	\modtable{MV01}{resources/views/login.blade.php}%
+	\modtable{MV02}{resources/views/login.blade.php}%
 	{ログイン画面を構成する}%
 	{
 		node [shape=box,style=rounded];
