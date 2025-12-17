@@ -246,7 +246,7 @@ GNU/LinuxシステムまたはWindowsで動作するPCを開発用PCとして用
 開発用PCには、Node Version Managerをインストールし、
 それを用いてNode.jsをインストールし、それに含まれるnpmを用いてpnpmを
 インストールするものとする。
-また、開発用PCにコンテナを用いて\cref{tab:dev-con}に示す環境を作成し、開発をおこなう。
+また、開発用PCにコンテナを用いて\cref{tab:dev-con}に示す環境を作成し、開発を行う。
 コンテナ管理ツールとしてはPodmanまたはDockerを用いる。
 \begin{table}[H]
 	\centering
@@ -260,7 +260,7 @@ GNU/LinuxシステムまたはWindowsで動作するPCを開発用PCとして用
 		自動レビュ & Reviewdog v0.18.1 & \\ \hline
 	\end{tabularx}
 \end{table}
-GitHub Actionsでは、以下の作業を自動でおこなう。
+GitHub Actionsでは、以下の作業を自動で行う。
 \begin{itemize}
 	\item \emph{\LaTeX 文書のコンパイル}
 	\begin{itemize}
@@ -310,10 +310,10 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\end{tabularx}
 \end{table}
 
-また、リポジトリには依存関係のアップデートをおこない、Pull Requestを
+また、リポジトリには依存関係のアップデートを行い、Pull Requestを
 自動で作成するbotであるRenovateを導入する。
 これにより、Composerおよびpnpmで管理する依存関係やGitHub Actionsの
-依存関係、Node.jsのアップデートを自動でおこない、最新の状態に保つ。
+依存関係、Node.jsのアップデートを自動で行い、最新の状態に保つ。
 
 \section{動作環境}
 % 【記述内容】OS、Webサーバー、データベース、ネットワークなど、システムが稼働する環境を具体的に記述
@@ -350,7 +350,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		列挙が改行を伴いかつ挿入が可能であれば挿入し、
 		そうでない場合は挿入しないものとする。
 		\item 可能な場合、Prettierを用いてコードの
-		自動整形をおこなう。
+		自動整形を行う。
 		設定は、ここに記述する規約を可能な限り
 		適用するものとする。
 		\item 環境変数の命名には、アッパースネークケースを用いる。
@@ -475,9 +475,9 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 			.3 cache.
 			.2 config\textrm{\DTcomment{システムの設定を記述するファイル}}.
 			.2 database\textrm{\DTcomment{データベース関連のプログラム}}.
-			.3 factories\textrm{\DTcomment{ダミーのレコードの定義をおこなうプログラム}}.
-			.3 migrations\textrm{\DTcomment{テーブルの作成などをおこなうプログラム}}.
-			.3 seeders\textrm{\DTcomment{ダミーのレコードの挿入をおこなうプログラム}}.
+			.3 factories\textrm{\DTcomment{ダミーのレコードの定義を行うプログラム}}.
+			.3 migrations\textrm{\DTcomment{テーブルの作成などを行うプログラム}}.
+			.3 seeders\textrm{\DTcomment{ダミーのレコードの挿入を行うプログラム}}.
 			.2 dev\textrm{\DTcomment{開発用コンテナ関連のファイル}}.
 			.3 db\textrm{\DTcomment{開発用コンテナ内のデータベースのマウントポイント}}.
 			.2 docs\textrm{\DTcomment{システム提案書や外部設計書、内部設計書のような文書}}.
