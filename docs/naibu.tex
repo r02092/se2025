@@ -667,11 +667,11 @@ GitHub Actionsでは、以下の作業を自動で行う。
 		node [shape=box,style=rounded];
 		b [shape=diamond];
 		{ rank=source; b; }
-		b [label="空白や特殊文字が含まれているか"];
+		b [label="空白や特殊文字が含まれているか？"];
 		d [label="エラーメッセージを返す"];
 		e [label="含まれていない旨を返す"];
-		b->d [label="含まれている"];
-		b->e [label="含まれていない"];
+		b->d [label="Yes"];
+		b->e [label="No"];
 	}%
 	{}%
 	{エラーメッセージまたは正常終了の旨}%
@@ -690,11 +690,11 @@ GitHub Actionsでは、以下の作業を自動で行う。
 		node [shape=box,style=rounded];
 		b [shape=diamond];
 		{ rank=source; b; }
-		b [label="特殊文字が含まれているか"];
+		b [label="特殊文字が含まれているか？"];
 		d [label="エラーメッセージを返す"];
 		e [label="含まれていない旨を返す"];
-		b->d [label="含まれている"];
-		b->e [label="含まれていない"];
+		b->d [label="Yes"];
+		b->e [label="No"];
 	}%
 	{}%
 	{エラーメッセージまたは含まれていない旨}%
@@ -712,11 +712,11 @@ GitHub Actionsでは、以下の作業を自動で行う。
 		node [shape=box,style=rounded];
 		b [shape=diamond];
 		{ rank=source; b; }
-		b [label="ログイン名が重複しているか"];
+		b [label="ログイン名が重複しているか？"];
 		d [label="エラーメッセージを返す"];
 		e [label="重複していない旨を返す"];
-		b->d [label="重複している"];
-		b->e [label="重複していない"];
+		b->d [label="Yes"];
+		b->e [label="No"];
 	}%
 	{}%
 	{エラーメッセージまたは重複していない旨}%
@@ -925,8 +925,8 @@ GitHub Actionsでは、以下の作業を自動で行う。
 		hasimg -> savedb [label="No"];
 		hasimg -> upload [label="Yes"];
 		upload -> checkup;
-		checkup -> error [label="失敗"];
-		checkup -> savedb [label="成功"];
+		checkup -> error [label="No"];
+		checkup -> savedb [label="Yes"];
 		savedb -> success;
 	}%
 	{利用者から受け取った口コミを含むHTTPリクエスト}%
