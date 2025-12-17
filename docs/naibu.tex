@@ -246,7 +246,7 @@ GNU/LinuxシステムまたはWindowsで動作するPCを開発用PCとして用
 開発用PCには、Node Version Managerをインストールし、
 それを用いてNode.jsをインストールし、それに含まれるnpmを用いてpnpmを
 インストールするものとする。
-また、開発用PCにコンテナを用いて\cref{tab:dev-con}に示す環境を作成し、開発をおこなう。
+また、開発用PCにコンテナを用いて\cref{tab:dev-con}に示す環境を作成し、開発を行う。
 コンテナ管理ツールとしてはPodmanまたはDockerを用いる。
 \begin{table}[H]
 	\centering
@@ -260,7 +260,7 @@ GNU/LinuxシステムまたはWindowsで動作するPCを開発用PCとして用
 		自動レビュ & Reviewdog v0.18.1 & \\ \hline
 	\end{tabularx}
 \end{table}
-GitHub Actionsでは、以下の作業を自動でおこなう。
+GitHub Actionsでは、以下の作業を自動で行う。
 \begin{itemize}
 	\item \emph{\LaTeX 文書のコンパイル}
 	\begin{itemize}
@@ -310,10 +310,10 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\end{tabularx}
 \end{table}
 
-また、リポジトリには依存関係のアップデートをおこない、Pull Requestを
+また、リポジトリには依存関係のアップデートを行い、Pull Requestを
 自動で作成するbotであるRenovateを導入する。
 これにより、Composerおよびpnpmで管理する依存関係やGitHub Actionsの
-依存関係、Node.jsのアップデートを自動でおこない、最新の状態に保つ。
+依存関係、Node.jsのアップデートを自動で行い、最新の状態に保つ。
 
 \section{動作環境}
 % 【記述内容】OS、Webサーバー、データベース、ネットワークなど、システムが稼働する環境を具体的に記述
@@ -350,7 +350,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		列挙が改行を伴いかつ挿入が可能であれば挿入し、
 		そうでない場合は挿入しないものとする。
 		\item 可能な場合、Prettierを用いてコードの
-		自動整形をおこなう。
+		自動整形を行う。
 		設定は、ここに記述する規約を可能な限り
 		適用するものとする。
 		\item 環境変数の命名には、アッパースネークケースを用いる。
@@ -475,9 +475,9 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 			.3 cache.
 			.2 config\textrm{\DTcomment{システムの設定を記述するファイル}}.
 			.2 database\textrm{\DTcomment{データベース関連のプログラム}}.
-			.3 factories\textrm{\DTcomment{ダミーのレコードの定義をおこなうプログラム}}.
-			.3 migrations\textrm{\DTcomment{テーブルの作成などをおこなうプログラム}}.
-			.3 seeders\textrm{\DTcomment{ダミーのレコードの挿入をおこなうプログラム}}.
+			.3 factories\textrm{\DTcomment{ダミーのレコードの定義を行うプログラム}}.
+			.3 migrations\textrm{\DTcomment{テーブルの作成などを行うプログラム}}.
+			.3 seeders\textrm{\DTcomment{ダミーのレコードの挿入を行うプログラム}}.
 			.2 dev\textrm{\DTcomment{開発用コンテナ関連のファイル}}.
 			.3 db\textrm{\DTcomment{開発用コンテナ内のデータベースのマウントポイント}}.
 			.2 docs\textrm{\DTcomment{システム提案書や外部設計書、内部設計書のような文書}}.
@@ -572,7 +572,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{ログイン画面出力モジュール}\label{tab:mod-view-login}
 	\modtable{MV02}{resources/views/login.blade.php}%
-	{ログイン画面を構成する}%
+	{ログイン画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
 		a [label="画面の共通部分モジュールを呼び出し"];
@@ -686,11 +686,11 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		node [shape=box,style=rounded];
 		b [shape=diamond];
 		{ rank=source; b; }
-		b [label="空白や特殊文字が含まれているか"];
+		b [label="空白や特殊文字が含まれているか？"];
 		d [label="エラーメッセージを返す"];
 		e [label="含まれていない旨を返す"];
-		b->d [label="含まれている"];
-		b->e [label="含まれていない"];
+		b->d [label="Yes"];
+		b->e [label="No"];
 	}%
 	{}%
 	{エラーメッセージまたは正常終了の旨}%
@@ -709,11 +709,11 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		node [shape=box,style=rounded];
 		b [shape=diamond];
 		{ rank=source; b; }
-		b [label="特殊文字が含まれているか"];
+		b [label="特殊文字が含まれているか？"];
 		d [label="エラーメッセージを返す"];
 		e [label="含まれていない旨を返す"];
-		b->d [label="含まれている"];
-		b->e [label="含まれていない"];
+		b->d [label="Yes"];
+		b->e [label="No"];
 	}%
 	{}%
 	{エラーメッセージまたは含まれていない旨}%
@@ -731,11 +731,11 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		node [shape=box,style=rounded];
 		b [shape=diamond];
 		{ rank=source; b; }
-		b [label="ログイン名が重複しているか"];
+		b [label="ログイン名が重複しているか？"];
 		d [label="エラーメッセージを返す"];
 		e [label="重複していない旨を返す"];
-		b->d [label="重複している"];
-		b->e [label="重複していない"];
+		b->d [label="Yes"];
+		b->e [label="No"];
 	}%
 	{}%
 	{エラーメッセージまたは重複していない旨}%
@@ -787,7 +787,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{プロフィール編集画面構成モジュール}\label{tab:mod-profile-edit}
 	\modtable{MC09}{app/Http/Controllers/ProfileEditController.php}%
-	{SceneTripのプロフィール編集画面を表示する。}%
+	{SceneTripのプロフィール編集画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
 		br1, br2, br3 [shape=diamond];
@@ -826,7 +826,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{検索画面構成モジュール}\label{tab:mod-search-display}
 	\modtable{MC00}{app/Http/Controllers/SearchController.php}%
-	{検索画面を表示するモジュール}%
+	{検索画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
 		c [shape=diamond];
@@ -929,7 +929,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 \begin{table}[H]
 	\centering
 	\caption{口コミ画面構成モジュール}\label{tab:mod-review-photo}
-	\modtable{MU15}{app/Http/Controllers/ReviewController.php}{口コミをシステムに登録する}%
+	\modtable{MU15}{app/Http/Controllers/ReviewController.php}{口コミをシステムに登録する。}%
 	{
 		node [shape=box,style=rounded];
 		validate [label="入力内容が問題あるか？", shape=diamond];
@@ -944,8 +944,8 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 		hasimg -> savedb [label="No"];
 		hasimg -> upload [label="Yes"];
 		upload -> checkup;
-		checkup -> error [label="失敗"];
-		checkup -> savedb [label="成功"];
+		checkup -> error [label="No"];
+		checkup -> savedb [label="Yes"];
 		savedb -> success;
 	}%
 	{利用者から受け取った口コミを含むHTTPリクエスト}%
@@ -985,7 +985,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{スポット追加画面構成モジュール}\label{tab:mod-add-spot}
 	\modtable{MA01}{app/Http/Controllers/InsertSpotController.php}%
-	{スポット追加画面を構成するモジュール}%
+	{スポット追加画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1007,7 +1007,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{スポット編集画面構成モジュール}\label{tab:mod-edit-spot}
 	\modtable{MA02}{app/Http/Controllers/EditSpotController.php}%
-	{スポット編集画面を構成するモジュール}%
+	{スポット編集画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1029,7 +1029,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{スポット削除画面構成モジュール}\label{tab:mod-delete-spot}
 	\modtable{MA03}{app/Http/Controllers/DeleteSpotController.php}%
-	{スポット削除画面を構成するモジュール}%
+	{スポット削除画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1051,7 +1051,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{利用者追加画面構成モジュール}\label{tab:mod-add-user}
 	\modtable{MA04}{app/Http/Controllers/InsertUserController.php}%
-	{利用者追加画面を構成するモジュール}%
+	{利用者追加画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1073,7 +1073,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{利用者編集画面構成モジュール}\label{tab:mod-edit-user}
 	\modtable{MA05}{app/Http/Controllers/EditUserController.php}%
-	{利用者編集画面を構成するモジュール}%
+	{利用者編集画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1095,7 +1095,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{利用者削除画面構成モジュール}\label{tab:mod-delete-user}
 	\modtable{MA06}{app/Http/Controllers/DeleteUserController.php}%
-	{利用者削除画面を構成するモジュール}%
+	{利用者削除画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1117,7 +1117,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{UGC監視・管理画面構成モジュール}\label{tab:mod-admin-ugc}
 	\modtable{MA07}{app/Http/Controllers/AdminUgcController.php}%
-	{UGC監視・管理画面を構成するモジュール}%
+	{UGC監視・管理画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1139,7 +1139,7 @@ GitHub Actionsでは、以下の作業を自動でおこなう。
 	\centering
 	\caption{サブスクリプション承認画面構成モジュール}\label{tab:mod-approve-subs}
 	\modtable{MA08}{app/Http/Controllers/SubscriptionApproveController.php}%
-	{サブスクリプション承認画面を表示するモジュール}%
+	{サブスクリプション承認画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
