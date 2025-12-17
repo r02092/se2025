@@ -976,6 +976,37 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	{獲得に成功したかどうか}%
 	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{スタンプ獲得トリガーで呼び出される想定。ユーザーが同じクーポンを重複して受け取らないようにする}\vspace{.35\zw}}
 \end{table}
+\subsubsection{Google マップ URL生成モジュール}
+\begin{table}[H]
+    \centering
+    \caption{Google マップ URL生成モジュール}\label{tab:mod-gmap-gen}
+    \modtable{MU20}{app/Http/Controllers/GoogleMapUrlController.php}
+    {指定されたスポットを巡るGoogle マップの経路URLを生成する}
+    {
+        node [shape=box,style=rounded];
+        input [label="出発地・目的地・経由地リストを受付"];
+        gemini [label="Gemini提案スポットがあるか？", shape=diamond];
+        add_waypoint [label="経由地リストに追加"];
+        format_loc [label="各地点を座標(緯度,経度)または名称・住所の形式に整形"];
+        build_query [label="URLパラメータ(origin, destination, nwaypoints)の構築"];
+        build_url [label="Google Maps URLの結合"];
+        output [label="生成されたURLをレスポンス"];
+
+        input -> gemini;
+        gemini -> add_waypoint [label="Yes"];
+        gemini -> format_loc [label="No"];
+        add_waypoint -> format_loc;
+        format_loc -> build_query;
+        build_query -> build_url;
+        build_url -> output;
+    }
+    {出発地、目的地、経由地リスト（Gemini提案含む）}
+    {Google マップへの遷移URL}
+    {\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
+        ・経路計算や所要時間の算出は行わず、Google マップへ委譲するURLスキームを生成する。\\
+        ・ユーザーはこのURLを開くことで、リアルタイムの交通状況を反映したナビゲーションを利用できる。
+    }}
+\end{table}
 \newpage
 \subsection{管理者モジュール}
 % 【記述内容】各ステップのロジックを説明になるんかな？。
