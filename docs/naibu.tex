@@ -909,7 +909,6 @@ GitHub Actionsでは、以下の作業を自動で行う。
         parse [label="JSON解析 (推薦IDを取得)"];
         res_ok [label="推薦文とスポット情報を応答"];
         res_ng [label="エラーまたは該当なしを応答"];
-
         input -> calc_bounds;
         calc_bounds -> search_db;
         search_db -> check_exist;
@@ -1019,7 +1018,6 @@ GitHub Actionsでは、以下の作業を自動で行う。
         build_query [label="URLパラメータ(origin, destination, waypoints)の構築"];
         build_url [label="Google Maps URLの結合"];
         output [label="生成されたURLをレスポンス"];
-
         input -> gemini;
         gemini -> add_waypoint [label="Yes"];
         gemini -> format_loc [label="No"];
