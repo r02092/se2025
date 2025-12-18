@@ -229,7 +229,7 @@ UGCの監視、投稿の削除ができる機能である。
 		地図表示 & MapLibre GL JS & \\ \hline
 		LLM & Gemini 2.5 Flash-Lite & Google AI Studioを使用 \\ \hline
 		地図 & OpenStreetMap & \\ \hline
-		交通情報 & 国土交通省交通量API & \\ \hline
+		% 交通情報 & 国土交通省交通量API & \\ \hline
 	\end{tabularx}
 \end{table}
 
@@ -899,25 +899,32 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	{ユーザーのチャット入力に基づくスポット推薦}%
 	{
 		node [shape=box,style=rounded];
-		fetchctx [label="周辺情報取得"];
-		prompt [label="プロンプト構築"];
-		apicall [label="Gemini APIへの送信"];
-		checkapi [label="APIの応答が成功であるか？", shape=diamond];
-		parse [label="JSON解析"];
-		search [label="推薦スポット取得"];
-		checkhit [label="結果が問題あるか？", shape=diamond];
-		resok [label="推薦文を応答"];
-		resng [label="エラーメッセージを応答"];
-		fetchctx -> prompt -> apicall -> checkapi;
-		checkapi -> resng [label="No"];
-		checkapi -> parse [label="Yes"];
-		parse -> search -> checkhit;
-		checkhit -> resng [label="Yes"];
-		checkhit -> resok [label="No"];
+        input [label="チャット入力と座標情報を受付"];
+        calc_bounds [label="検索範囲の計算(現在地周辺 or 出発・目的地の矩形範囲)"];
+        search_db [label="座標範囲(緯度・経度)でDBから候補スポットを検索"];
+        check_exist [label="候補が存在するか？", shape=diamond];
+        prompt [label="候補リストを含めたプロンプト構築"];
+        apicall [label="Gemini APIへの送信"];
+        check_api [label="APIの応答が成功であるか？", shape=diamond];
+        parse [label="JSON解析 (推薦IDを取得)"];
+        res_ok [label="推薦文とスポット情報を応答"];
+        res_ng [label="エラーまたは該当なしを応答"];
+
+        input -> calc_bounds;
+        calc_bounds -> search_db;
+        search_db -> check_exist;
+        check_exist -> res_ng [label="No"];
+        check_exist -> prompt [label="Yes"];
+        prompt -> apicall;
+        apicall -> check_api;
+        check_api -> res_ng [label="No"];
+        check_api -> parse [label="Yes"];
+        parse -> res_ok;
 	}%
-	{利用者から受け取ったチャット入力を含むHTTPリクエスト}%
-	{エラーメッセージまたはLLMの出力した推薦文}%
-	{}
+	{チャット入力、ユーザー現在地、(任意)目的地座標}%
+	{推薦スポット情報（ID含む）、推薦理由メッセージ}%
+	{・Geminiへのハルシネーション対策として、DB検索による候補絞り込みを行う。\\
+     ・検索範囲は、移動の始点と終点を含む矩形範囲（バウンディングボックス）を設定し、市町村をまたぐ移動に対応する。}
 \end{table}
 
 \subsubsection{チェックイン処理モジュール}
@@ -1001,15 +1008,15 @@ GitHub Actionsでは、以下の作業を自動で行う。
 \begin{table}[H]
     \centering
     \caption{Google マップ URL生成モジュール}\label{tab:mod-gmap-gen}
-    \modtable{MU20}{app/Http/Controllers/GoogleMapUrlController.php}
-    {指定されたスポットを巡るGoogle マップの経路URLを生成する}
+    \modtable{MU17}{app/Http/Controllers/GoogleMapUrlController.php}%
+    {指定されたスポットを巡るGoogle マップの経路URLを生成する}%
     {
         node [shape=box,style=rounded];
         input [label="出発地・目的地・経由地リストを受付"];
         gemini [label="Gemini提案スポットがあるか？", shape=diamond];
         add_waypoint [label="経由地リストに追加"];
         format_loc [label="各地点を座標(緯度,経度)または名称・住所の形式に整形"];
-        build_query [label="URLパラメータ(origin, destination, nwaypoints)の構築"];
+        build_query [label="URLパラメータ(origin, destination, waypoints)の構築"];
         build_url [label="Google Maps URLの結合"];
         output [label="生成されたURLをレスポンス"];
 
@@ -1020,9 +1027,9 @@ GitHub Actionsでは、以下の作業を自動で行う。
         format_loc -> build_query;
         build_query -> build_url;
         build_url -> output;
-    }
-    {出発地、目的地、経由地リスト（Gemini提案含む）}
-    {Google マップへの遷移URL}
+    }%
+    {出発地、目的地、経由地リスト（Gemini提案含む）}%
+    {Google マップへの遷移URL}%
     {\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
         ・経路計算や所要時間の算出は行わず、Google マップへ委譲するURLスキームを生成する。\\
         ・ユーザーはこのURLを開くことで、リアルタイムの交通状況を反映したナビゲーションを利用できる。
