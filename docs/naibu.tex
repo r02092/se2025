@@ -900,8 +900,8 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	{
 		node [shape=box,style=rounded];
         input [label="チャット入力と座標情報を受付"];
-        calc_bounds [label="検索範囲の計算\n(現在地周辺 or 出発・目的地の矩形範囲)"];
-        search_db [label="座標範囲(緯度・経度)で\nDBから候補スポットを検索"];
+        calc_bounds [label="検索範囲の計算(現在地周辺 or 出発・目的地の矩形範囲)"];
+        search_db [label="座標範囲(緯度・経度)でDBから候補スポットを検索"];
         check_exist [label="候補が存在するか？", shape=diamond];
         prompt [label="候補リストを含めたプロンプト構築"];
         apicall [label="Gemini APIへの送信"];
