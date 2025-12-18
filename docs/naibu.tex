@@ -845,6 +845,31 @@ GitHub Actionsでは、以下の作業を自動で行う。
 
 
 \newpage
+\subsubsection{二段階認証モジュール}
+\begin{table}[H]
+	\centering
+	\caption{二段階認証（TOTP）モジュール}\label{tab:mod-2fa}
+	\modtable{MC12}{app/Http/Controllers/TwoFactorController.php}%
+	{利用者がTOTPによる二段階認証を設定・検証・解除するための処理を提供する。}%
+	{
+		node [shape=box,style=rounded];
+    e [shape=diamond];
+		a [label="二段階認証設定要求を受け取る"];
+		b [label="シークレットを生成"];
+		c [label="QRコードを生成して表示"];
+		d [label="利用者がワンタイムコードを入力"];
+		e [label="TOTPを検証"];
+		f [label="シークレットを保存し、設定完了画面を表示"];
+		g [label="エラーを返す"];
+		a->b->c->d->e;
+		e->f [label="成功"];
+		e->g [label="失敗"];
+	}%
+	{利用者から受け取ったHTTPリクエスト}%
+	{Webページ}%
+	{}
+\end{table}
+
 \subsubsection{検索画面構成モジュール}
 \begin{table}[H]
 	\centering
