@@ -1065,6 +1065,26 @@ GitHub Actionsでは、以下の作業を自動で行う。
         ・ユーザーはこのURLを開くことで、リアルタイムの交通状況を反映したナビゲーションを利用できる。
     }}
 \end{table}
+\subsubsection{投稿マップ表示モジュール}
+\begin{table}[H]
+    \centering
+    \caption{投稿マップ表示モジュール}\label{tab:mod-post-map}
+    \modtable{MU19}{app/Http/Controllers/PostMapController.php}%
+    {ユーザーの投稿情報を取得し、地図上に表示するデータを構成する}%
+    {
+        node [shape=box,style=rounded];
+        req [label="リクエスト受信"];
+        fetch [label="photosテーブルから位置情報付きの投稿を取得"];
+        format [label="共通マップモジュール用にデータを整形(JSON化)"];
+        render [label="画面テンプレートを描画(共通マップモジュール起動)"];
+        req -> fetch;
+        fetch -> format;
+        format -> render;
+    }
+    {閲覧範囲または検索条件}%
+    {Webページ（投稿が表示された地図画面）}%
+    {・「投稿を見る」機能に対応する。}%
+\end{table}
 \newpage
 \subsection{管理者モジュール}
 % 【記述内容】各ステップのロジックを説明になるんかな？。
