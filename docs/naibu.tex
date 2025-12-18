@@ -561,8 +561,11 @@ GitHub Actionsでは、以下の作業を自動で行う。
 		a [label="画面の共通部分モジュールを呼び出し"];
 		b [label="エラーメッセージ表示画面を構成"];
 		a -> b;
+		b [label="エラーメッセージを表示"];
+		c [label="戻るボタンを配置"];
+		a -> b -> c;
 	}%
-	{エラーメッセージ}%
+	{エラーメッセージ、戻り先URL}%
 	{Webページ}%
 	{}
 \end{table}
@@ -840,26 +843,6 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	}%
 	{利用者から受け取ったHTTPリクエスト}%
 	{Webページ}%
-	{}
-\end{table}
-
-\subsubsection{エラーメッセージ出力モジュール}
-\begin{table}[H]
-	\centering
-	\caption{エラーメッセージ出力モジュール}\label{tab:mod-error}
-	\modtable{MC11}{}%
-	{エラー文を表示するモジュール}%
-	{
-		node [shape=box,style=rounded];
-		c [shape=diamond];
-		d [label="エラー番号取得"];
-		e [label="エラー番号判定"];
-		f [label="エラー文表示"];
-		d->e;
-		e->f;
-	}%
-	{エラー番号(MC04, MC05, MC06等)}%
-	{テキストとしてのエラー文}%
 	{}
 \end{table}
 
