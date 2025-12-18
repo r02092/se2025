@@ -1001,7 +1001,7 @@ GitHub Actionsでは、以下の作業を自動で行う。
 \begin{table}[H]
     \centering
     \caption{Google マップ URL生成モジュール}\label{tab:mod-gmap-gen}
-    \modtable{MU20}{app/Http/Controllers/GoogleMapUrlController.php}
+    \modtable{MU17}{app/Http/Controllers/GoogleMapUrlController.php}
     {指定されたスポットを巡るGoogle マップの経路URLを生成する}
     {
         node [shape=box,style=rounded];
@@ -1009,7 +1009,7 @@ GitHub Actionsでは、以下の作業を自動で行う。
         gemini [label="Gemini提案スポットがあるか？", shape=diamond];
         add_waypoint [label="経由地リストに追加"];
         format_loc [label="各地点を座標(緯度,経度)または名称・住所の形式に整形"];
-        build_query [label="URLパラメータ(origin, destination, nwaypoints)の構築"];
+        build_query [label="URLパラメータ(origin, destination, waypoints)の構築"];
         build_url [label="Google Maps URLの結合"];
         output [label="生成されたURLをレスポンス"];
 
