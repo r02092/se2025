@@ -561,8 +561,11 @@ GitHub Actionsでは、以下の作業を自動で行う。
 		a [label="画面の共通部分モジュールを呼び出し"];
 		b [label="エラーメッセージ表示画面を構成"];
 		a -> b;
+		b [label="エラーメッセージを表示"];
+		c [label="戻るボタンを配置"];
+		a -> b -> c;
 	}%
-	{エラーメッセージ}%
+	{エラーメッセージ、戻り先URL}%
 	{Webページ}%
 	{}
 \end{table}
@@ -818,9 +821,55 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	{}
 \end{table}
 
+\newpage
+\subsubsection{QRコード読み取りモジュール}
+\begin{table}[H]
+	\centering
+	\caption{QRコード読み取りモジュール}\label{tab:mod-qr}
+	\modtable{MC10}{app/Http/Controllers/QrCodeController.php}%
+	{カメラ等で読み取った二次元コードを解析し、対応したWebページにリダイレクトする。}%
+	{
+		node [shape=box,style=rounded];
+		c [label="入力内容が問題あるか？",shape=diamond];
+		f [label="エラーメッセージを含むページを応答"];
+		h [label="QRコード読み取りライブラリでデコード"];
+		i [label="Webページを表示"];
+		c->f [label="Yes"];
+		c->h [label="No"];
+		h->i;
+	}%
+	{利用者から受け取った二次元コードを含むHTTPリクエスト}%
+	{Webページ}%
+	{スポットのチェックイン用URLや、二要素認証設定用のURIなどを想定する。クライアント側で読み取りを行い、結果をサーバへ送信して処理する方式を想定する。}
+\end{table}
 
 
 \newpage
+\subsubsection{二段階認証モジュール}
+\begin{table}[H]
+	\centering
+	\caption{二段階認証（TOTP）モジュール}\label{tab:mod-2fa}
+	\modtable{MC12}{app/Http/Controllers/TwoFactorController.php}%
+	{利用者がTOTPによる二段階認証を設定・検証・解除するための処理を提供する。}%
+	{
+		node [shape=box,style=rounded];
+    e [shape=diamond];
+		a [label="二段階認証設定要求を受け取る"];
+		b [label="シークレットを生成"];
+		c [label="QRコードを生成して表示"];
+		d [label="利用者がワンタイムコードを入力"];
+		e [label="TOTPを検証"];
+		f [label="シークレットを保存し、設定完了画面を表示"];
+		g [label="エラーを返す"];
+		a->b->c->d->e;
+		e->f [label="成功"];
+		e->g [label="失敗"];
+	}%
+	{利用者から受け取ったHTTPリクエスト}%
+	{Webページ}%
+	{}
+\end{table}
+
 \subsubsection{検索画面構成モジュール}
 \begin{table}[H]
 	\centering
@@ -840,26 +889,6 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	}%
 	{利用者から受け取ったHTTPリクエスト}%
 	{Webページ}%
-	{}
-\end{table}
-
-\subsubsection{エラーメッセージ出力モジュール}
-\begin{table}[H]
-	\centering
-	\caption{エラーメッセージ出力モジュール}\label{tab:mod-error}
-	\modtable{MC11}{}%
-	{エラー文を表示するモジュール}%
-	{
-		node [shape=box,style=rounded];
-		c [shape=diamond];
-		d [label="エラー番号取得"];
-		e [label="エラー番号判定"];
-		f [label="エラー文表示"];
-		d->e;
-		e->f;
-	}%
-	{エラー番号(MC04, MC05, MC06等)}%
-	{テキストとしてのエラー文}%
 	{}
 \end{table}
 
