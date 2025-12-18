@@ -1004,11 +1004,41 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	{獲得に成功したかどうか}%
 	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{スタンプ獲得トリガーで呼び出される想定。ユーザーが同じクーポンを重複して受け取らないようにする}\vspace{.35\zw}}
 \end{table}
+\subsubsection{クーポン利用開始処理モジュール}
+\begin{table}[H]
+    \centering
+    \caption{クーポン利用開始処理モジュール}\label{tab:mod-coupon-activate}
+    \modtable{MU17}{app/Http/Controllers/CouponApiController.php5}
+    {クーポンのステータスを「利用可能」から「利用中」に変更する}%
+    {
+        node [shape=box,style=rounded];
+        input [label="クーポンIDを受付"];
+        check_owner [label="ユーザーが所持しているか確認", shape=diamond];
+        check_status [label="ステータスが「利用可能」か？", shape=diamond];
+        check_expire [label="有効期限内であるか？", shape=diamond];
+        update [label="ステータスを「利用中」に更新利用開始日時を記録"];
+        gen_key [label="確認用キー（署名）の生成"];
+        res_ok [label="成功応答（二次元コード用データ含む）"];
+        res_ng [label="エラー応答"];
+        input -> check_owner;
+        check_owner -> res_ng [label="No"];
+        check_owner -> check_status [label="Yes"];
+        check_status -> res_ng [label="No"];
+        check_status -> check_expire [label="Yes"];
+        check_expire -> res_ng [label="No"];
+        check_expire -> update [label="Yes"];
+        update -> gen_key;
+        gen_key -> res_ok;
+    }
+    {クーポンID}%
+    {処理結果、二次元コード表示用データ（署名付きトークン）}%
+    {UIの「スライドで利用」アクションに対応する}%
+\end{table}
 \subsubsection{Google マップ URL生成モジュール}
 \begin{table}[H]
     \centering
     \caption{Google マップ URL生成モジュール}\label{tab:mod-gmap-gen}
-    \modtable{MU17}{app/Http/Controllers/GoogleMapUrlController.php}%
+    \modtable{MU18}{app/Http/Controllers/GoogleMapUrlController.php}%
     {指定されたスポットを巡るGoogle マップの経路URLを生成する}%
     {
         node [shape=box,style=rounded];
