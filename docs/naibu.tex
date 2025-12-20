@@ -84,9 +84,12 @@
 % 【記述内容】本設計書の目的、対象システムの概要、および外部設計書からの変更点を記述。
 
 \section{システム概要}
-本書は「聖地巡礼サポートシステムSceneTrip 外部設計書 第2.0版」に基づき、
+本書は「聖地巡礼サポートシステムSceneTrip 外部設計書 第2.0版」
+（以下、単に「外部設計書」と称する）に基づき、
 システムのモジュール構成、データ処理ロジック、およびインターフェースの詳細を
 定義する。
+ただし、外部設計書と本書の内容に相違点がある場合、
+本書に記述された内容を優先するものとする。
 \subsection{共通機能}
 \subsubsection{アカウント作成機能}
 システムを利用するためにはアカウントを作成する必要がある。
@@ -194,7 +197,9 @@ UGCの監視、投稿の削除ができる機能である。
 
 \section{適用範囲と制約}
 外部設計書で指定されたパッケージ構成および環境設定（開発言語、セキュリティ、
-データベースの構成など）を変更せずに作成する。
+など）を変更せずに作成する。
+ただし、データベース設計については本書に記述するものに
+変更する。
 
 % ====================================
 
@@ -516,7 +521,316 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	\caption{主なディレクトリの一覧}\label{fig:dir}
 \end{figure}
 
-\section{データベースアクセス設計}
+\section{データベース設計}
+\subsection{ER図}
+IE記法によるデータベースのER図を\cref{fig:er}に示す。
+\begin{figure}[H]
+	\centering
+	\includegraphics[bb=16.408054 15.39 668.505917 581.561982,clip,scale=.66]{naibu-er.pdf}
+	\caption{ER図}\label{fig:er}
+\end{figure}
+\subsection{テーブルとカラムの詳細}
+各テーブルおよびカラムの詳細を示す。
+IDについて特筆なきものは、AUTO INCREMENT属性を
+指定することで自動で採番を行うものとする。
+経緯度については、以下に示す式を用いて度単位の値を変換し、
+得られた値を格納する。
+この変換は、各テーブルに対応するモデルとなるモジュールにて
+行う。
+\[
+	\text{[データベースに格納する値]}=\frac{\text{[元の値]}-\text{[最小値]}}{\text{[最大値]}-\text{[最小値]}}(2^{32}-1)
+\]
+このシステムでは、管理者や事業者を含む全ての利用者を
+共通のusersテーブル（\cref{tb:db-users}）で扱う。
+ログインにはGoogle アカウントも使用できるため、
+\cref{tb:db-users-provider}に値の意味を示すproviderカラムで
+アカウントのサービスプロバイダを区別し、
+識別子をlogin\_nameカラムに保存する。
+この設計によって、ソーシャルログインの
+サービスプロバイダの将来的な拡張も容易となるようにする。
+管理者であるかどうかは、\cref{tb:db-users-permission}に
+示すようにpermissionカラムの値により区別する。
+事業者であるかどうかの区別には
+契約の数を記録するカラムを用い、1つ以上の契約があれば
+事業者であると判断する。
+事業者の場合、住所の登録を要するものとする。
+住所は郵便番号およびJIS X 0402:2020で
+定められた市区町村コード（JIS X 0401:1973で定められた
+都道府県コードと併用するもの）と市区町村に続く住所の文字列の
+組合せにより保存する。
+また、ログイン時にTOTPによる二要素認証を
+行えるようにするためのカラムを設ける。
+総当たり攻撃を防ぐため、直近の認証時の時刻と
+認証回数を保持するカラムも設けており、
+高頻度な認証操作を制限する。OTPの更新頻度は30秒と
+するため、直近の認証時の時刻は、UNIX時刻を30で
+割った値として保存し、認証回数も30秒ごとに数え直す。
+\begin{table}[H]
+	\centering
+	\caption{usersテーブル（管理者や事業者を含む利用者）}\label{tb:db-users}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		provider & TINYINT UNSIGNED & UK, NOT NULL & サービスプロバイダ \\ \hline
+		login\_name & VARCHAR(255) & UK, NOT NULL & ログイン名 \\ \hline
+		password & VARCHAR(255) & & ハッシュ化されたパスワード \\ \hline
+		permission & TINYINT UNSIGNED & NOT NULL & 種別 \\ \hline
+		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
+		icon\_ext & VARCHAR(4) & NOT NULL & アイコンの拡張子 \\ \hline
+		num\_plan\_std & INT UNSIGNED & NOT NULL & スタンダードプランの契約数 \\ \hline
+		num\_plan\_prm & INT UNSIGNED & NOT NULL & プレミアムプランの契約数 \\ \hline
+		postal\_code & INT UNSIGNED & & 郵便番号 \\ \hline
+		addr\_city & INT UNSIGNED & & 市区町村コード \\ \hline
+		addr\_detail & VARCHAR(255) & & 市区町村名の後に続く住所 \\ \hline
+		totp\_secret & BINARY(20) & & TOTPのシークレット \\ \hline
+		totp\_iv & BINARY(12) & & TOTPの初期ベクトル \\ \hline
+		totp\_tag & BINARY(16) & & TOTPの認証タグ \\ \hline
+		totp\_last\_time & INT UNSIGNED & & TOTPの直近の認証時の時刻 \\ \hline
+		totp\_counter & TINYINT UNSIGNED & & TOTPの30秒ごとの認証回数 \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{usersテーブルのproviderカラムについて}\label{tb:db-users-provider}
+	\begin{tabular}{|r|l|}
+		\hline
+		\thead{provider} & \thead{意味} \\ \hline
+		0 & SceneTrip \\ \hline
+		1 & Google \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{usersテーブルのpermissionカラムについて}\label{tb:db-users-permission}
+	\begin{tabular}{|r|l|}
+		\hline
+		\thead{permission} & \thead{意味} \\ \hline
+		0 & 管理者 \\ \hline
+		1 & 利用者（未承認の事業者を含む） \\ \hline
+		2 & 承認済み事業者 \\ \hline
+	\end{tabular}
+\end{table}
+パスワードのハッシュ化にはPHPの\verb|password_hash()|関数を
+使用し、暗号学的ハッシュ関数であるArgon2idを用い、かつ
+ソルトを使用することで、安全にパスワードを保存する。
+
+観光地や観光施設、店などのスポットを
+保存するspotsテーブル（\cref{tb:db-spots}）は、
+近隣のグラフのノードに関連付けることで、
+経路検索にスポットを使用できるようにする。
+スポットは契約ごとに作成できるため、
+どちらのプランに対応するスポットであるかを保存するplanカラムを設けています。
+このカラムの値の意味を\cref{tb:db-spots-plan}に示す。
+また、keywordsテーブル（\cref{tb:db-keywords}）
+スポットにはキーワードを関連付ける。
+このキーワードはAI検索時のLLMのシステムプロンプトの構成などに
+使用する。
+\begin{table}[H]
+	\centering
+	\caption{spotsテーブル（観光地や観光施設、店などのスポット）}\label{tb:db-spots}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		node\_id & INT UNSIGNED & FK, NOT NULL & 関連付けたノード \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 登録者 \\ \hline
+		plan & TINYINT UNSIGNED & NOT NULL & プラン \\ \hline
+		type & TINYINT UNSIGNED & NOT NULL & カテゴリ \\ \hline
+		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
+		lng & INT UNSIGNED & NOT NULL & 経度 \\ \hline
+		lat & INT UNSIGNED & NOT NULL & 緯度 \\ \hline
+		postal\_code & INT UNSIGNED & & 郵便番号 \\ \hline
+		addr\_city & INT UNSIGNED & & 市区町村コード \\ \hline
+		addr\_detail & VARCHAR(255) & & 市区町村名の後に続く住所 \\ \hline
+		description & TEXT & NOT NULL & 説明文 \\ \hline
+		img\_ext & VARCHAR(4) & NOT NULL & 画像の拡張子 \\ \hline
+		stamp\_key & BIGINT UNSIGNED & UK2, NOT NULL & スタンプ確認用キー \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{spotsテーブルのplanカラムについて}\label{tb:db-spots-plan}
+	\begin{tabular}{|r|l|}
+		\hline
+		\thead{plan} & \thead{意味} \\ \hline
+		0 & スタンダードプラン \\ \hline
+		1 & プレミアムプラン \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{keywordsテーブル（スポットに関連付けるキーワード）}\label{tb:db-keywords}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		spot\_id & INT UNSIGNED & FK, UK, NOT NULL & 関連付けたスポット \\ \hline
+		keyword & VARCHAR(255) & UK, NOT NULL & キーワード \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+スポットに対する
+口コミは、reviewsテーブル（\cref{tb:db-reviews}）に
+保存する。口コミには、段階的な評価および文章を
+入力できるようにする。
+また、閲覧数も記録するようにし、
+よく閲覧されている口コミを事業者が確認できるようにする。
+\begin{table}[H]
+	\centering
+	\caption{reviewsテーブル（スポットに対する口コミ）}\label{tb:db-reviews}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		spot\_id & INT UNSIGNED & FK, NOT NULL & 関連付けたスポット \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 投稿者 \\ \hline
+		rate & TINYINT UNSIGNED & NOT NULL & 評価 \\ \hline
+		comment & TEXT & NOT NULL & 本文 \\ \hline
+		views & INT UNSIGNED & NOT NULL & 閲覧数 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+事業者が発行した
+クーポンはcouponsテーブル（\cref{tb:db-coupons}）に保存する。
+クーポンを手に入れるために行く必要のあるスポットも記録する。
+また、利用者が手に入れた
+クーポンはuser\_couponsテーブル（\cref{tb:db-user_coupons}）に
+保存する。クーポンの入手時に確認用キーが生成され、
+これを含む二次元コードを事業者に提示することで
+正規のクーポンであることを証明する。
+\begin{table}[H]
+	\centering
+	\caption{couponsテーブル（スポットに対して作成されたクーポン）}\label{tb:db-coupons}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		spot\_id & INT UNSIGNED & FK, NOT NULL & 使用できるスポット \\ \hline
+		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
+		cond\_spot\_id & INT UNSIGNED & & 行く必要のあるスポット \\ \hline
+		expires\_at & DATETIME & & 期限切れ時刻 \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{user\_couponsテーブル（利用者が手に入れたクーポン）}\label{tb:db-user_coupons}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		coupon\_id & INT UNSIGNED & FK, UK1, NOT NULL & 関連付けたクーポン \\ \hline
+		user\_id & INT UNSIGNED & FK, UK1, NOT NULL & 手に入れた利用者 \\ \hline
+		key & BIGINT UNSIGNED & UK2, NOT NULL & 確認用キー \\ \hline
+		is\_used & TINYINT UNSIGNED & NOT NULL & 使用されたか \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+	\end{tabular}
+\end{table}
+利用者が手に入れた
+スタンプはstampsテーブル（\cref{tb:db-stamps}）に
+保存する。スタンプの画像はファイルシステムに保存するため、
+それに対応するテーブルやカラムは存在しない。
+\begin{table}[H]
+	\centering
+	\caption{stampsテーブル（利用者が手に入れたスタンプ）}\label{tb:db-stamps}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		spot\_id & INT UNSIGNED & FK, UK, NOT NULL & 関連付けたスポット \\ \hline
+		user\_id & INT UNSIGNED & FK, UK, NOT NULL & 手に入れた利用者 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+	\end{tabular}
+\end{table}
+利用者の検索クエリは、事業者の分析に
+使用するため、queriesテーブル（\cref{tb:db-queries}）に
+保存する。経路検索を伴う場合は、その出発点および目的地も
+保存する。
+\begin{table}[H]
+	\centering
+	\caption{queriesテーブル（利用者の検索クエリ）}\label{tb:db-queries}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 検索した利用者 \\ \hline
+		query & TEXT & NOT NULL & 検索クエリ \\ \hline
+		from\_spot\_id & INT UNSIGNED & & 出発地 \\ \hline
+		to\_spot\_id & INT UNSIGNED & & 目的地 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+	\end{tabular}
+\end{table}
+利用者の投稿した写真は、photosテーブル（\cref{tb:db-photos}）に
+保存する。地図上に表示するため、写真の経緯度を保存する。
+\begin{table}[H]
+	\centering
+	\caption{photosテーブル（利用者の投稿した写真）}\label{tb:db-photos}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 投稿者 \\ \hline
+		lng & INT UNSIGNED & NOT NULL & 経度 \\ \hline
+		lat & INT UNSIGNED & NOT NULL & 緯度 \\ \hline
+		img\_ext & VARCHAR(4) & NOT NULL & 画像の拡張子 \\ \hline
+		comment & TEXT & NOT NULL & 写真に付けた文 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+事業者の
+発行したAPIキーは、api\_keysテーブル（\cref{tb:db-api_keys}）に
+保存する。
+パスワードと同様にAPIキーもハッシュ化を行い、安全に保存する。
+\begin{table}[H]
+	\centering
+	\caption{api\_keysテーブル（事業者の発行したAPIキー）}\label{tb:db-api_keys}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 発行者 \\ \hline
+		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
+		key & VARCHAR(255) & NOT NULL & ハッシュ化されたAPIキー \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection{データベースアクセス設計}
 % 【記述内容】データベースへのアクセス方法、外部設計書で指定された特殊なデータ形式やロジック（ID生成など）の詳細を定義
 データベースへのアクセスには、Laravelで
 採用されているORMであるEloquentを
