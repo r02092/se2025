@@ -618,10 +618,8 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 使用し、暗号学的ハッシュ関数であるArgon2idを用い、かつ
 ソルトを使用することで、安全にパスワードを保存する。
 
-観光地や観光施設、店などのスポットを
-保存するspotsテーブル（\cref{tb:db-spots}）は、
-近隣のグラフのノードに関連付けることで、
-経路検索にスポットを使用できるようにする。
+spotsテーブル（\cref{tb:db-spots}）は、
+観光地や観光施設、店などのスポットを保存する。
 スポットは契約ごとに作成できるため、
 どちらのプランに対応するスポットであるかを保存するplanカラムを設けています。
 このカラムの値の意味を\cref{tb:db-spots-plan}に示す。
@@ -638,7 +636,6 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
 		id & INT UNSIGNED & PK & ID \\ \hline
-		node\_id & INT UNSIGNED & FK, NOT NULL & 関連付けたノード \\ \hline
 		user\_id & INT UNSIGNED & FK, NOT NULL & 登録者 \\ \hline
 		plan & TINYINT UNSIGNED & NOT NULL & プラン \\ \hline
 		type & TINYINT UNSIGNED & NOT NULL & カテゴリ \\ \hline
