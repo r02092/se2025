@@ -418,7 +418,7 @@ GitHub Actionsでは、以下の作業を自動で行う。
 		\item IDの命名には、ローワースネークケースを用いる。
 		\item クラスの命名には、ケバブケースを用いる。
 		\item ファイルは、\verb|resources/views/|ディレクトリに配置するものとする。
-		\item ファイル名は、ローワースネークケースを用いた名前の末尾に“\verb|.blade.php|”を
+		\item ファイル名は、ケバブケースを用いた名前の末尾に“\verb|.blade.php|”を
 		付与するものとする。
 	\end{itemize}
 	\item \emph{CSSスタイルシート}
@@ -881,7 +881,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	{データベースから得られた値またはデータベースへの書き込み}%
 	{}
 \end{table}
-内容が同一のため省略するが、原則このモジュールと同様に、
+内容が同一のため省略するが、このモジュールと同様に、
 データベースの各テーブルに対応した
 モジュールを作成するものとする。
 作成する必要のあるモジュールの
@@ -911,7 +911,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \begin{table}[H]
 	\centering
 	\caption{画面の共通部分出力モジュール}\label{tab:mod-view-mf}
-	\modtable{MV00}{resources/views/mf.blade.php}%
+	\modtable{MV00}{resources/views/layouts/app.blade.php}%
 	{画面の共通部分をテンプレートとして出力}%
 	{
 		a [label="画面の共通部分を出力",shape=box,style=rounded];
@@ -963,6 +963,39 @@ spotsテーブル（\cref{tb:db-spots}）は、
 画面の共通部分モジュールを呼び出してそれを基に画面を構成する
 部分は同じであるため省略するが、原則このモジュールと同様に
 各画面に対応したモジュールを作成するものとする。
+作成する必要のあるモジュールの
+一覧を\cref{tab:mod-view-list}に示す。
+\begin{table}[H]
+	\centering
+	\caption{ビューモジュールの一覧}\label{tab:mod-view-list}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{モジュール名} & \thead{モジュールID} & \thead{ファイル名} \\ \hline
+		画面の共通部分 & MV00 & layouts/app.blade.php \\ \hline
+		エラーメッセージ表示画面 & MV01 & error.blade.php \\ \hline
+		ログイン画面 & MV02 & login.blade.php \\ \hline
+		ホーム画面 & MV03 & root.blade.php \\ \hline
+		アカウント情報確認画面 & MV04 & profile.blade.php \\ \hline
+		アカウント情報編集画面 & MV05 & profile-edit.blade.php \\ \hline
+		事業者申込画面 & MV06 & subscription-form.blade.php \\ \hline
+		事業者申込完了画面 & MV07 & subscription-confirm.blade.php \\ \hline
+		アカウント作成画面 & MV08 & signup.blade.php \\ \hline
+		ログアウト画面 & MV09 & logout.blade.php \\ \hline
+		スポット詳細画面 & MV10 & detail.blade.php \\ \hline
+		投稿画面 & MV20 & photo.blade.php \\ \hline
+		クーポン画面 & MV30 & coupon.blade.php \\ \hline
+		クーポン使用画面 & MV31 & coupon-selected.blade.php \\ \hline
+		お楽しみ機能画面 & MV40 & funpage.blade.php \\ \hline
+		管理者機能ホーム画面 & MV50 & admin.blade.php \\ \hline
+		ユーザー一覧画面 & MV51 & user.blade.php \\ \hline
+		ユーザー詳細画面 & MV52 & user-detail.blade.php \\ \hline
+		UGC監視・管理画面 & MV53 & post.blade.php \\ \hline
+		スポット情報編集画面 & MV54 & spot.blade.php \\ \hline
+		観光データ確認画面 & MV55 & data.blade.php \\ \hline
+		事業者機能ホーム画面 & MV56 & admin.blade.php \\ \hline
+		APIキー管理画面 & MV57 & api.blade.php \\ \hline
+	\end{tabular}
+\end{table}
 
 \newpage
 \subsection{コントローラモジュール}
@@ -1089,29 +1122,6 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	{Webページ}%
 	{}
 \end{table}
-
-\newpage
-\subsubsection{QRコード読み取りモジュール}
-\begin{table}[H]
-	\centering
-	\caption{QRコード読み取りモジュール}\label{tab:mod-qr}
-	\modtable{MC10}{app/Http/Controllers/QrCodeController.php}%
-	{カメラ等で読み取った二次元コードを解析し、対応したWebページにリダイレクトする。}%
-	{
-		node [shape=box,style=rounded];
-		c [label="入力内容が問題あるか？",shape=diamond];
-		f [label="エラーメッセージを含むページを応答"];
-		h [label="QRコード読み取りライブラリでデコード"];
-		i [label="Webページを表示"];
-		c->f [label="Yes"];
-		c->h [label="No"];
-		h->i;
-	}%
-	{利用者から受け取った二次元コードを含むHTTPリクエスト}%
-	{Webページ}%
-	{スポットのチェックイン用URLや、二要素認証設定用のURIなどを想定する。クライアント側で読み取りを行い、結果をサーバへ送信して処理する方式を想定する。}
-\end{table}
-
 
 \newpage
 \subsubsection{二段階認証モジュール}
@@ -1318,7 +1328,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \begin{table}[H]
 	\centering
 	\caption{スポット追加画面構成モジュール}\label{tab:mod-add-spot}
-	\modtable{MA01}{app/Http/Controllers/InsertSpotController.php}%
+	\modtable{MB00}{app/Http/Controllers/InsertSpotController.php}%
 	{スポット追加画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
@@ -1340,7 +1350,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \begin{table}[H]
 	\centering
 	\caption{スポット編集画面構成モジュール}\label{tab:mod-edit-spot}
-	\modtable{MA02}{app/Http/Controllers/EditSpotController.php}%
+	\modtable{MB01}{app/Http/Controllers/EditSpotController.php}%
 	{スポット編集画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
@@ -1362,7 +1372,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \begin{table}[H]
 	\centering
 	\caption{スポット削除画面構成モジュール}\label{tab:mod-delete-spot}
-	\modtable{MA03}{app/Http/Controllers/DeleteSpotController.php}%
+	\modtable{MB02}{app/Http/Controllers/DeleteSpotController.php}%
 	{スポット削除画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
