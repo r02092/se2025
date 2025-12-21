@@ -128,10 +128,9 @@ Geminiへのヒントを与える。
 出発地・到着地によって矩形に囲まれる範囲に収まるスポットに限定し、
 提案する経路を調整する。
 
-\subsubsection{Google マップ転送機能}
-ユーザーとGeminiからの入力によって作成した経路から
-Google マップ上で表示できるURLを生成する。
-ユーザーはURLを基にGoogle マップへと移動する。
+\subsubsection{Google マップによる経路案内機能}
+ユーザーとGeminiからの入力によって得られたスポットを経由する
+経路を、Google マップの埋め込み機能を用いて表示する。
 
 \subsubsection{評価機能}
 スポットに5段階の評価とコメントを投稿できる。
@@ -1216,16 +1215,16 @@ spotsテーブル（\cref{tab:db-spots}）は、
 	{ユーザーのチャット入力に基づくスポット推薦}%
 	{
 		node [shape=box,style=rounded];
-		input [label="チャット入力と座標情報を受付"];
-		calc_bounds [label="検索範囲の計算（現在地周辺 or 出発・目的地の矩形範囲）"];
-		search_db [label="座標範囲（緯度・経度）でDBから候補スポットを検索"];
+		input [label="チャット入力とスポット情報を受付"];
+		calc_bounds [label="検索する範囲を計算"];
+		search_db [label="座標の範囲内にあるスポットをデータベース上で検索"];
 		check_exist [label="候補が存在するか？", shape=diamond];
-		prompt [label="候補リストを含めたプロンプト構築"];
+		prompt [label="候補リストを含めたプロンプトを構築"];
 		apicall [label="Gemini APIへの送信"];
-		check_api [label="APIの応答が成功であるか？", shape=diamond];
-		parse [label="JSON解析 （推薦IDを取得）"];
+		check_api [label="APIの応答が解釈可能であるか？", shape=diamond];
+		parse [label="JSON解析（スポットを抽出）"];
 		res_ok [label="推薦文とスポット情報を応答"];
-		res_ng [label="エラーまたは該当なしを応答"];
+		res_ng [label="エラーまたは候補となるスポットがない旨を応答"];
 		input -> calc_bounds;
 		calc_bounds -> search_db;
 		search_db -> check_exist;
@@ -1237,10 +1236,18 @@ spotsテーブル（\cref{tab:db-spots}）は、
 		check_api -> parse [label="Yes"];
 		parse -> res_ok;
 	}%
-	{チャット入力、ユーザー現在地、（任意）目的地座標}%
-	{推薦スポット情報（ID含む）、推薦理由メッセージ}%
-	{・Geminiへのハルシネーション対策として、DB検索による候補絞り込みを行う。\\
-	 ・検索範囲は、移動の始点と終点を含む矩形範囲（バウンディングボックス）を設定し、市町村をまたぐ移動に対応する。}
+	{チャット入力、出発地、経路について探す場合は目的地も}%
+	{推薦スポット情報、推薦理由メッセージ}%
+	{
+		\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
+			\vspace{-1.7\zw}
+			\begin{itemize}
+				\item Geminiのハルシネーションの対策として、データベース上に登録されたスポットから絞り込んだ候補を用いる。
+				\item 検索する範囲は、周辺または出発地・目的地を結ぶ線分を対角線とした矩形の範囲
+			\end{itemize}
+			\vspace{-.35\zw}
+		}
+	}
 \end{table}
 
 \newpage
@@ -1297,38 +1304,6 @@ spotsテーブル（\cref{tab:db-spots}）は、
 	{利用者から受け取った口コミを含むHTTPリクエスト}%
 	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
 	{}
-\end{table}
-
-\newpage
-\subsubsection{Google マップ URL生成モジュール}
-\begin{table}[H]
-	\centering
-	\caption{Google マップ URL生成モジュール}\label{tab:mod-gmap-gen}
-	\modtable{MU17}{app/Http/Controllers/GoogleMapUrlController.php}%
-	{指定されたスポットを巡るGoogle マップの経路URLを生成する}%
-	{
-		node [shape=box,style=rounded];
-		input [label="出発地・目的地・経由地リストを受付"];
-		gemini [label="Gemini提案スポットがあるか？", shape=diamond];
-		add_waypoint [label="経由地リストに追加"];
-		format_loc [label="各地点を座標（緯度,経度）または名称・住所の形式に整形"];
-		build_query [label="URLパラメータ（origin, destination, waypoints）の構築"];
-		build_url [label="Google Maps URLの結合"];
-		output [label="生成されたURLをレスポンス"];
-		input -> gemini;
-		gemini -> add_waypoint [label="Yes"];
-		gemini -> format_loc [label="No"];
-		add_waypoint -> format_loc;
-		format_loc -> build_query;
-		build_query -> build_url;
-		build_url -> output;
-	}%
-	{出発地、目的地、経由地リスト（Gemini提案含む）}%
-	{Google マップへの遷移URL}%
-	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
-		・経路計算や所要時間の算出は行わず、Google マップへ委譲するURLスキームを生成する。\\
-		・ユーザーはこのURLを開くことで、リアルタイムの交通状況を反映したナビゲーションを利用できる。
-	}}
 \end{table}
 
 \newpage
@@ -1617,6 +1592,50 @@ spotsテーブル（\cref{tab:db-spots}）は、
 	{}%
 	{}
 \end{table}
+
+\newpage
+\subsubsection{Google マップURL生成モジュール}
+\begin{table}[H]
+	\centering
+	\caption{Google マップURL生成モジュール}\label{tab:mod-gmap-gen}
+	\modtable{MU17}{resources/ts/gmap\_url.ts}%
+	{指定したスポットを巡るGoogle マップの埋め込みURLを生成する}%
+	{
+		node [shape=box,style=rounded];
+		a [label="経由地の数を基にURLの先頭部分を生成"];
+		b [label="経由地ごとにパラメータをURLに追加"];
+		output [label="生成されたURLを出力"];
+		a->b->output;
+	}%
+	{出発地・経由地・目的地リスト}%
+	{Google マップの埋め込みURL}%
+	{
+		\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
+			\vspace{-1.7\zw}
+			\begin{itemize}
+				\item 経路や所要時間などの算出は行わず、Google マップへ委譲する。
+				\item \texttt{iframe}要素でこのURLを埋め込むことで、リアルタイムの交通状況を反映したナビゲーションを利用できるようにする。
+			\end{itemize}
+			\vspace{-.35\zw}
+		}
+	}
+\end{table}
+URLの先頭部分は、$x=[\text{出発地・目的地を含まない経由地の数}]\times 6$として、
+\begin{center}
+	\texttt{https://www.google.com/maps/embed?pb=!1m}[$x+28$]\texttt{!!!!!!!!!!!!!!4m}[$x+13$]\texttt{!}
+\end{center}
+の[]をその中に書いた式の計算結果を10進数のアラビア数字で
+置き換えた文字列とする。
+
+ここで、出発地・経由地・目的地となるスポットのリストの
+各要素に対して、
+\begin{center}
+	\texttt{!4m5!!2z}[$y$]\texttt{!!!}
+\end{center}
+の[$y$]をbase64urlでエンコードした地点名に置き換えた
+文字列をURLに追加する処理を行い、
+最後の要素まで処理し終わったら、\texttt{!}をURLに追加する。
+こうして得られたURLを出力とする。
 
 \subsubsection{住所自動入力モジュール}
 \begin{table}[H]
