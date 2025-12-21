@@ -1035,7 +1035,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{ログイン画面出力モジュール}\label{tab:mod-view-login}
 	\modtable{MV02}{resources/views/login.blade.php}%
-	{ログイン画面を構成する。}%
+	{ログイン画面を構成する}%
 	{
 		node [shape=box,style=rounded];
 		a [label="画面の共通部分モジュールを呼び出し"];
@@ -1159,7 +1159,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{プロフィール画面構成モジュール}\label{tab:mod-profile}
 	\modtable{MC08}{app/Http/Controllers/ProfileController.php}%
-	{SceneTripのプロフィール画面を構成する。}%
+	{SceneTripのプロフィール画面を構成する}%
 	{
 		node [shape=box,style=rounded];
 		a [label="プロフィールを利用者モジュールを用いて読み込み"];
@@ -1177,7 +1177,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{プロフィール編集画面構成モジュール}\label{tab:mod-profile-edit}
 	\modtable{MC09}{app/Http/Controllers/ProfileEditController.php}%
-	{SceneTripのプロフィール編集画面を構成する。}%
+	{SceneTripのプロフィール編集画面を構成する}%
 	{
 		node [shape=box,style=rounded];
 		br1, br2, br3 [shape=diamond];
@@ -1214,7 +1214,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{二要素認証モジュール}\label{tab:mod-2fa}
 	\modtable{MC12}{app/Http/Controllers/TwoFactorController.php}%
-	{利用者がTOTPによる二要素認証を設定・検証・解除するための処理を提供する。}%
+	{利用者がTOTPによる二要素認証を設定・検証・解除するための処理を提供する}%
 	{
 		node [shape=box,style=rounded];
 		br1, br2, br3 [shape=diamond];
@@ -1328,7 +1328,7 @@ APIへのアクセスはHTTPを用いて行う。
 			\vspace{-1.7\zw}
 			\begin{itemize}
 				\item Geminiのハルシネーションの対策として、データベース上に登録されたスポットから絞り込んだ候補を用いる。
-				\item 検索する範囲は、周辺または出発地・目的地を結ぶ線分を対角線とした矩形の範囲
+				\item 検索する範囲は、周辺または出発地・目的地を結ぶ線分を対角線とした矩形の範囲とする。
 			\end{itemize}
 			\vspace{-.35\zw}
 		}
@@ -1367,7 +1367,7 @@ APIへのアクセスはHTTPを用いて行う。
 \begin{table}[H]
 	\centering
 	\caption{口コミ画面構成モジュール}\label{tab:mod-review-photo}
-	\modtable{MU15}{app/Http/Controllers/ReviewController.php}{口コミをシステムに登録する。}%
+	\modtable{MU15}{app/Http/Controllers/ReviewController.php}{口コミをシステムに登録する}%
 	{
 		node [shape=box,style=rounded];
 		validate [label="入力内容が問題あるか？", shape=diamond];
@@ -1416,7 +1416,7 @@ APIへのアクセスはHTTPを用いて行う。
 	}
 	{クーポンIDを含むHTTPリクエスト}%
 	{処理結果、確認用キー}%
-	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{クーポンを利用する操作をした場合にフロントエンド側からHTTPリクエストを受けて実行される}}%
+	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{クーポンを利用する操作をした場合にフロントエンド側からHTTPリクエストを受けて実行される。}}%
 \end{table}
 
 \newpage
@@ -1438,7 +1438,7 @@ APIへのアクセスはHTTPを用いて行う。
 	}
 	{検索条件}%
 	{Webページ}%
-	{投稿画面に対応する。}%
+	{投稿画面に対応する}%
 \end{table}
 
 \newpage
@@ -1447,7 +1447,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{スポット追加画面構成モジュール}\label{tab:mod-add-spot}
 	\modtable{MB00}{app/Http/Controllers/InsertSpotController.php}%
-	{スポット追加画面を構成する。}%
+	{スポット追加画面を構成する}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1469,7 +1469,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{スポット編集画面構成モジュール}\label{tab:mod-edit-spot}
 	\modtable{MB01}{app/Http/Controllers/EditSpotController.php}%
-	{スポット編集画面を構成する。}%
+	{スポット編集画面を構成する}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1491,7 +1491,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{スポット削除画面構成モジュール}\label{tab:mod-delete-spot}
 	\modtable{MB02}{app/Http/Controllers/DeleteSpotController.php}%
-	{スポット削除画面を構成する。}%
+	{スポット削除画面を構成する}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1513,7 +1513,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{利用者追加画面構成モジュール}\label{tab:mod-add-user}
 	\modtable{MA04}{app/Http/Controllers/InsertUserController.php}%
-	{利用者追加画面を構成する。}%
+	{利用者追加画面を構成する}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1535,7 +1535,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{利用者編集画面構成モジュール}\label{tab:mod-edit-user}
 	\modtable{MA05}{app/Http/Controllers/EditUserController.php}%
-	{利用者編集画面を構成する。}%
+	{利用者編集画面を構成する}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1557,7 +1557,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{利用者削除画面構成モジュール}\label{tab:mod-delete-user}
 	\modtable{MA06}{app/Http/Controllers/DeleteUserController.php}%
-	{利用者削除画面を構成する。}%
+	{利用者削除画面を構成する}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1579,7 +1579,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{UGC監視・管理画面構成モジュール}\label{tab:mod-admin-ugc}
 	\modtable{MA07}{app/Http/Controllers/AdminUgcController.php}%
-	{UGC監視・管理画面を構成する。}%
+	{UGC監視・管理画面を構成する}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1601,7 +1601,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{サブスクリプション承認画面構成モジュール}\label{tab:mod-approve-subs}
 	\modtable{MA08}{app/Http/Controllers/SubscriptionApproveController.php}%
-	{サブスクリプション承認画面を構成する。}%
+	{サブスクリプション承認画面を構成する}%
 	{
 		node [shape=box,style=rounded];
 		c [label="入力内容が問題あるか？",shape=diamond];
@@ -1624,7 +1624,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{ログイン名重複チェックモジュール}\label{tab:mod-dup}
 	\modtable{MC06}{app/Traits/DupLoginNameCheckTrait.php}%
-	{ログイン名が重複していないか検査する。}%
+	{ログイン名が重複していないか検査する}%
 	{
 		node [shape=box,style=rounded];
 		b [shape=diamond];
@@ -1663,7 +1663,7 @@ APIへのアクセスはHTTPを用いて行う。
 	}%
 	{チェックインしたスポット}%
 	{獲得に成功したかどうか}%
-	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{スタンプ獲得トリガーで呼び出される想定。ユーザーが同じクーポンを重複して受け取らないようにする}\vspace{.35\zw}}
+	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{スタンプ獲得トリガーで呼び出される。ユーザーが同じクーポンを重複して受け取らないようにする。}\vspace{.35\zw}}
 \end{table}
 
 \newpage
@@ -1673,7 +1673,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{利用規約確認モジュール}\label{tab:mod-terms}
 	\modtable{MC03}{resources/ts/terms.ts}%
-	{SceneTripの利用規約確認を行う。}%
+	{SceneTripの利用規約確認を行う}%
 	{
 		node [shape=box,style=rounded];
 		{ rank=source; c; }
@@ -1693,7 +1693,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\caption{禁止文字検知モジュール}\label{tab:mod-special}
 	\modtable{MC05}{resources/ts/special\_char\_check.ts}%
 	{入力値に禁止文字が含まれていないか検査
-する。}%
+する}%
 	{
 		node [shape=box,style=rounded];
 		b [shape=diamond];
@@ -1714,7 +1714,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{ログアウト確認モジュール}\label{tab:mod-logout}
 	\modtable{MC07}{resources/ts/logout\_confirm.ts}%
-	{ログアウトしても良いか確認する。}%
+	{ログアウトしても良いか確認する}%
 	{
 		node [shape=box,style=rounded];
 		b [shape=diamond];
