@@ -549,16 +549,19 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 識別子をlogin\_nameカラムに保存する。
 この設計によって、ソーシャルログインの
 サービスプロバイダの将来的な拡張も容易となるようにする。
+
 管理者であるかどうかは、\cref{tb:db-users-permission}に
 示すようにpermissionカラムの値により区別する。
 事業者であるかどうかの区別には
 契約の数を記録するカラムを用い、1つ以上の契約があれば
 事業者であると判断する。
+
 事業者の場合、住所の登録を要するものとする。
 住所は郵便番号およびJIS X 0402:2020で
 定められた市区町村コード（JIS X 0401:1973で定められた
 都道府県コードと併用するもの）と市区町村に続く住所の文字列の
 組合せにより保存する。
+
 また、ログイン時にTOTPによる二要素認証を
 行えるようにするためのカラムを設ける。
 総当たり攻撃を防ぐため、直近の認証時の時刻と
@@ -599,7 +602,7 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 	\caption{usersテーブルのproviderカラムについて}\label{tb:db-users-provider}
 	\begin{tabular}{|r|l|}
 		\hline
-		\thead{provider} & \thead{意味} \\ \hline
+		\multicolumn{1}{|c|}{\thead{値}} & \thead{意味} \\ \hline
 		0 & SceneTrip \\ \hline
 		1 & Google \\ \hline
 	\end{tabular}
@@ -609,7 +612,7 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 	\caption{usersテーブルのpermissionカラムについて}\label{tb:db-users-permission}
 	\begin{tabular}{|r|l|}
 		\hline
-		\thead{permission} & \thead{意味} \\ \hline
+		\multicolumn{1}{|c|}{\thead{値}} & \thead{意味} \\ \hline
 		0 & 管理者 \\ \hline
 		1 & 利用者（未承認の事業者を含む） \\ \hline
 		2 & 承認済み事業者 \\ \hline
@@ -622,9 +625,10 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 spotsテーブル（\cref{tb:db-spots}）は、
 観光地や観光施設、店などのスポットを保存する。
 スポットは契約ごとに作成できるため、
-どちらのプランに対応するスポットであるかを保存するplanカラムを設けています。
+どちらのプランに対応するスポットであるかを保存するplanカラムを設けている。
 このカラムの値の意味を\cref{tb:db-spots-plan}に示す。
-また、keywordsテーブル（\cref{tb:db-keywords}）
+また、\cref{tb:db-spots-type}にカテゴリを表す値の一覧を
+示す。keywordsテーブル（\cref{tb:db-keywords}）
 スポットにはキーワードを関連付ける。
 
 スポットのカテゴリや名前、経緯度、住所、
@@ -659,9 +663,25 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	\caption{spotsテーブルのplanカラムについて}\label{tb:db-spots-plan}
 	\begin{tabular}{|r|l|}
 		\hline
-		\thead{plan} & \thead{意味} \\ \hline
+		\multicolumn{1}{|c|}{\thead{値}} & \thead{意味} \\ \hline
 		0 & スタンダードプラン \\ \hline
 		1 & プレミアムプラン \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{spotsテーブルのtypeカラムについて}\label{tb:db-spots-type}
+	\begin{tabular}{|r|l|}
+		\hline
+		\multicolumn{1}{|c|}{\thead{値}} & \thead{意味} \\ \hline
+		0 & 飲食 \\ \hline
+		1 & お土産 \\ \hline
+		2 & 観光 \\ \hline
+		3 & 体験アクティビティ \\ \hline
+		4 & 宿泊 \\ \hline
+		5 & 公共施設 \\ \hline
+		6 & 公共交通機関 \\ \hline
+		255 & その他 \\ \hline
 	\end{tabular}
 \end{table}
 \begin{table}[H]
