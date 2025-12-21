@@ -1619,23 +1619,23 @@ APIへのアクセスはHTTPを用いて行う。
 \newpage
 \subsubsection{APIキー発行処理モジュール}
 \begin{table}[H]
-  \centering
-  \caption{APIキー発行処理モジュール}\label{tab:mod-generate-api}
-  \modtable{MA09}{app/Http/Controllers/ApiKeyController.php}%
-  {APIキー発行処理を行う。}%
-  {
-    node [shape=box,style=rounded];
-    c [label="入力内容が問題あるか？",shape=diamond];
-    f [label="エラーメッセージを含むページを応答"];
-    g [label="APIキー発行処理を実行"];
-    h [label="APIキー管理画面へのリダイレクトを含む応答"];
-    c->f [label="Yes"];
-    c->g [label="No"];
-    g->h;
-  }%
-  {利用者から受け取ったAPIキー発行に関するHTTPリクエスト}%
-  {Webページ}%
-  {}
+	\centering
+	\caption{APIキー発行処理モジュール}\label{tab:mod-generate-api}
+	\modtable{MA09}{app/Http/Controllers/ApiKeyController.php}%
+	{APIキー発行処理を行う。}%
+	{
+		node [shape=box,style=rounded];
+		c [label="入力内容が問題あるか？",shape=diamond];
+		f [label="エラーメッセージを含むページを応答"];
+		g [label="APIキー発行処理を実行"];
+		h [label="APIキー管理画面へのリダイレクトを含む応答"];
+		c->f [label="Yes"];
+		c->g [label="No"];
+		g->h;
+	}%
+	{利用者から受け取ったAPIキー発行に関するHTTPリクエスト}%
+	{Webページ}%
+	{}
 \end{table}
 
 
