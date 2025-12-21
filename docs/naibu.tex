@@ -1576,6 +1576,27 @@ spotsテーブル（\cref{tab:db-spots}）は、
 \end{table}
 
 \newpage
+\subsubsection{禁止文字検知モジュール}
+\begin{table}[H]
+	\centering
+	\caption{禁止文字検知モジュール}\label{tab:mod-special}
+	\modtable{MC05}{resources/ts/special\_char\_check.ts}%
+	{入力値に禁止文字が含まれていないか検査
+する。}%
+	{
+		node [shape=box,style=rounded];
+		b [shape=diamond];
+		a [label="フォームへの入力を検知"];
+		b [label="禁止文字が含まれているか？"];
+		d [label="エラーメッセージを表示"];
+		b->d [label="Yes"];
+	}%
+	{}%
+	{}%
+	{}
+\end{table}
+
+\newpage
 \subsubsection{ログアウト確認モジュール}
 \begin{table}[H]
 	\centering
