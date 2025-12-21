@@ -1167,17 +1167,13 @@ spotsテーブル（\cref{tab:db-spots}）は、
 	\centering
 	\caption{検索画面構成モジュール}\label{tab:mod-search-display}
 	\modtable{MC00}{app/Http/Controllers/SearchController.php}%
-	{検索画面を構成する。}%
+	{検索画面を構成する。検索バーの下部に人気の観光地を一覧表示する}%
 	{
 		node [shape=box,style=rounded];
-		c [shape=diamond];
 		b [label="検索画面を生成"];
-		c [label="ログインしているか？"];
-		d [label="ログイン時のUIを生成"];
-		e [label="未ログイン時のUIを生成"];
-		b->c;
-		c->d [label="Yes"];
-		c->e [label="No"];
+		c [label="人気の観光情報をデータベースから取得"];
+		d [label="スポット情報を配置した検索画面を構成"];
+    b->c->d;
 	}%
 	{利用者から受け取ったHTTPリクエスト}%
 	{Webページ}%
