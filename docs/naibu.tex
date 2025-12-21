@@ -1020,10 +1020,9 @@ APIキーが有効でない、またはAPIキーが入力されていない場�
 	{エラーメッセージ表示画面を構成する}%
 	{
 		node [shape=box,style=rounded];
-		a [label="画面の共通部分モジュールを呼び出し"];
-		b [label="エラーメッセージ表示画面を構成"];
-		b [label="エラーメッセージを表示"];
-		c [label="戻るボタンを配置"];
+		a [label="画面の共通部分出力モジュールを呼び出し"];
+		b [label="エラーメッセージ表示部分を構成"];
+		c [label="戻るボタンを構成"];
 		a -> b -> c;
 	}%
 	{エラーメッセージ、戻り先URL}%
@@ -1040,7 +1039,7 @@ APIキーが有効でない、またはAPIキーが入力されていない場�
 	{ログイン画面を構成する}%
 	{
 		node [shape=box,style=rounded];
-		a [label="画面の共通部分モジュールを呼び出し"];
+		a [label="画面の共通部分出力モジュールを呼び出し"];
 		b [label="ログイン画面を構成"];
 		a -> b;
 	}%
@@ -1422,10 +1421,10 @@ APIキーが有効でない、またはAPIキーが入力されていない場�
 \end{table}
 
 \newpage
-\subsubsection{投稿マップ表示モジュール}
+\subsubsection{投稿マップ構成モジュール}
 \begin{table}[H]
 	\centering
-	\caption{投稿マップ表示モジュール}\label{tab:mod-post-map}
+	\caption{投稿マップ構成モジュール}\label{tab:mod-post-map}
 	\modtable{MU19}{app/Http/Controllers/PostMapController.php}%
 	{利用者の投稿情報を取得し、地図上に表示するデータを構成する}%
 	{
@@ -1443,6 +1442,8 @@ APIキーが有効でない、またはAPIキーが入力されていない場�
 	{投稿画面に対応する}%
 \end{table}
 
+\newpage
+\subsubsection{スポット詳細画面構成モジュール}
 \begin{table}[H]
 	\centering
 	\caption{スポット詳細画面構成モジュール}\label{tab:mod-detail}
