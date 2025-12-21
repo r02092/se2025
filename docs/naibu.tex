@@ -1125,25 +1125,32 @@ spotsテーブル（\cref{tab:db-spots}）は、
 \end{table}
 
 \newpage
-\subsubsection{二段階認証モジュール}
+\subsubsection{二要素認証モジュール}
 \begin{table}[H]
 	\centering
-	\caption{二段階認証（TOTP）モジュール}\label{tab:mod-2fa}
+	\caption{二要素認証（TOTP）モジュール}\label{tab:mod-2fa}
 	\modtable{MC12}{app/Http/Controllers/TwoFactorController.php}%
-	{利用者がTOTPによる二段階認証を設定・検証・解除するための処理を提供する。}%
+	{利用者がTOTPによる二要素認証を設定・検証・解除するための処理を提供する。}%
 	{
 		node [shape=box,style=rounded];
-		e [shape=diamond];
-		a [label="二段階認証設定要求を受け取る"];
+		br1, br2 [shape=diamond];
+		br1 [label="二要素認証の操作内容は？"];
 		b [label="シークレットを生成"];
-		c [label="二次元コードを生成して表示"];
-		d [label="利用者がワンタイムコードを入力"];
-		e [label="TOTPを検証"];
-		f [label="シークレットを保存し、設定完了画面を表示"];
-		g [label="エラーを返す"];
-		a->b->c->d->e;
-		e->f [label="成功"];
-		e->g [label="失敗"];
+		c [label="二次元コード化"];
+		d [label="二次元コードを含む設定画面に遷移"];
+		br2 [label="入力されたTOTPコードを検証"];
+		e [label="シークレットを暗号化して保存"];
+		f [label="設定完了画面に遷移"];
+		g [label="エラーメッセージを含むページを応答"];
+		br1->b [label="設定"];
+		b->c->d->br2;
+		br2->e [label="成功"];
+		e->f;
+		br2->g [label="失敗"];
+		h [label="シークレットを削除"];
+		i [label="解除完了画面に遷移"];
+		br1->h [label="解除"];
+		h->i;
 	}%
 	{利用者から受け取ったHTTPリクエスト}%
 	{Webページ}%
