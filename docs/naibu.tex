@@ -909,10 +909,10 @@ APIへのアクセスはHTTPを用いて行う。
 	\begin{tabular}{|l|l|l|}
 		\hline
 		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
-		formatVersion & number & 分析データのフォーマットバージョン \\ \hline
-		currentUserNum & number & 現在のサービスの利用者数 \\ \hline
-		spotData & Array of Object & スポットに関するデータ（参照: \cref{tab:api-response_spots}） \\ \hline
-		couponData & Array of Object & クーポンに関するデータ（参照: \cref{tab:api-response_coupons}） \\ \hline
+		\verb|formatVersion| & number & 分析データのフォーマットバージョン \\ \hline
+		\verb|currentUserNum| & number & 現在のサービスの利用者数 \\ \hline
+		\verb|spotData| & Array of Object & スポットに関するデータ（参照: \cref{tab:api-response_spots}） \\ \hline
+		\verb|couponData| & Array of Object & クーポンに関するデータ（参照: \cref{tab:api-response_coupons}） \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -922,10 +922,10 @@ APIへのアクセスはHTTPを用いて行う。
 	\begin{tabular}{|l|l|l|}
 		\hline
 		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
-		id & string & スポットのID \\ \hline
-		fromSpotName & number & 出発地として検索された回数 \\ \hline
-		toSpotName & number & 到着地として検索された回数 \\ \hline
-		propNum & number & AIによる提案回数 \\ \hline
+		\verb|id| & string & スポットのID \\ \hline
+		\verb|fromSpotName| & number & 出発地として検索された回数 \\ \hline
+		\verb|toSpotName| & number & 到着地として検索された回数 \\ \hline
+		\verb|propNum| & number & AIによる提案回数 \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -935,9 +935,9 @@ APIへのアクセスはHTTPを用いて行う。
 	\begin{tabular}{|l|l|l|}
 		\hline
 		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
-		id & string & クーポンのID \\ \hline
-		acquisitionNum & number & 取得した利用者数 \\ \hline
-		useNum & number & 使用した利用者数 \\ \hline
+		\verb|id| & string & クーポンのID \\ \hline
+		\verb|acquisitionNum| & number & 取得した利用者数 \\ \hline
+		\verb|useNum| & number & 使用した利用者数 \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -982,16 +982,16 @@ APIキーが有効でない、またはAPIキーが入力されていない場�
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{モジュール名} & \thead{モジュールID} & \thead{ファイル名} & \thead{対応するテーブル} \\ \hline
-		利用者 & MM00 & User.php & users \\ \hline
-		スポット & MM01 & Spot.php & spots \\ \hline
-		キーワード & MM02 & Keyword.php & keywords \\ \hline
-		口コミ & MM03 & Review.php & reviews \\ \hline
-		クーポン & MM04 & Coupon.php & coupons \\ \hline
-		利用者クーポン & MM05 & UserCoupon.php & user\_coupons \\ \hline
-		スタンプ & MM06 & Stamp.php & stamps \\ \hline
-		検索クエリ & MM07 & Query.php & queries \\ \hline
-		写真 & MM08 & Photo.php & photos \\ \hline
-		APIキー & MM09 & ApiKey.php & api\_keys \\ \hline
+		利用者 & MM00 & \verb|User.php| & users \\ \hline
+		スポット & MM01 & \verb|Spot.php| & spots \\ \hline
+		キーワード & MM02 & \verb|Keyword.php| & keywords \\ \hline
+		口コミ & MM03 & \verb|Review.php| & reviews \\ \hline
+		クーポン & MM04 & \verb|Coupon.php| & coupons \\ \hline
+		利用者クーポン & MM05 & \verb|UserCoupon.php| & user\_coupons \\ \hline
+		スタンプ & MM06 & \verb|Stamp.php| & stamps \\ \hline
+		検索クエリ & MM07 & \verb|Query.php| & queries \\ \hline
+		写真 & MM08 & \verb|Photo.php| & photos \\ \hline
+		APIキー & MM09 & \verb|ApiKey.php| & api\_keys \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -1060,29 +1060,29 @@ APIキーが有効でない、またはAPIキーが入力されていない場�
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{モジュール名} & \thead{モジュールID} & \thead{ファイル名} \\ \hline
-		画面の共通部分 & MV00 & layouts/app.blade.php \\ \hline
-		エラーメッセージ表示画面 & MV01 & error.blade.php \\ \hline
-		ログイン画面 & MV02 & login.blade.php \\ \hline
-		ホーム画面 & MV03 & root.blade.php \\ \hline
-		アカウント情報確認画面 & MV04 & profile.blade.php \\ \hline
-		アカウント情報編集画面 & MV05 & profile-edit.blade.php \\ \hline
-		事業者申込画面 & MV06 & subscription-form.blade.php \\ \hline
-		事業者申込完了画面 & MV07 & subscription-confirm.blade.php \\ \hline
-		アカウント作成画面 & MV08 & signup.blade.php \\ \hline
-		ログアウト画面 & MV09 & logout.blade.php \\ \hline
-		スポット詳細画面 & MV10 & detail.blade.php \\ \hline
-		投稿画面 & MV20 & photo.blade.php \\ \hline
-		クーポン画面 & MV30 & coupon.blade.php \\ \hline
-		クーポン使用画面 & MV31 & coupon-selected.blade.php \\ \hline
-		お楽しみ機能画面 & MV40 & funpage.blade.php \\ \hline
-		管理者機能ホーム画面 & MV50 & admin.blade.php \\ \hline
-		利用者一覧画面 & MV51 & user.blade.php \\ \hline
-		利用者詳細画面 & MV52 & user-detail.blade.php \\ \hline
-		UGC監視・管理画面 & MV53 & post.blade.php \\ \hline
-		スポット情報編集画面 & MV54 & spot.blade.php \\ \hline
-		観光データ確認画面 & MV55 & data.blade.php \\ \hline
-		事業者機能ホーム画面 & MV56 & admin.blade.php \\ \hline
-		APIキー管理画面 & MV57 & api.blade.php \\ \hline
+		画面の共通部分 & MV00 & \verb|layouts/app.blade.php| \\ \hline
+		エラーメッセージ表示画面 & MV01 & \verb|error.blade.php| \\ \hline
+		ログイン画面 & MV02 & \verb|login.blade.php| \\ \hline
+		ホーム画面 & MV03 & \verb|root.blade.php| \\ \hline
+		アカウント情報確認画面 & MV04 & \verb|profile.blade.php| \\ \hline
+		アカウント情報編集画面 & MV05 & \verb|profile-edit.blade.php| \\ \hline
+		事業者申込画面 & MV06 & \verb|subscription-form.blade.php| \\ \hline
+		事業者申込完了画面 & MV07 & \verb|subscription-confirm.blade.php| \\ \hline
+		アカウント作成画面 & MV08 & \verb|signup.blade.php| \\ \hline
+		ログアウト画面 & MV09 & \verb|logout.blade.php| \\ \hline
+		スポット詳細画面 & MV10 & \verb|detail.blade.php| \\ \hline
+		投稿画面 & MV20 & \verb|photo.blade.php| \\ \hline
+		クーポン画面 & MV30 & \verb|coupon.blade.php| \\ \hline
+		クーポン使用画面 & MV31 & \verb|coupon-selected.blade.php| \\ \hline
+		お楽しみ機能画面 & MV40 & \verb|funpage.blade.php| \\ \hline
+		管理者機能ホーム画面 & MV50 & \verb|admin.blade.php| \\ \hline
+		利用者一覧画面 & MV51 & \verb|user.blade.php| \\ \hline
+		利用者詳細画面 & MV52 & \verb|user-detail.blade.php| \\ \hline
+		UGC監視・管理画面 & MV53 & \verb|post.blade.php| \\ \hline
+		スポット情報編集画面 & MV54 & \verb|spot.blade.php| \\ \hline
+		観光データ確認画面 & MV55 & \verb|data.blade.php| \\ \hline
+		事業者機能ホーム画面 & MV56 & \verb|admin.blade.php| \\ \hline
+		APIキー管理画面 & MV57 & \verb|api.blade.php| \\ \hline
 	\end{tabular}
 \end{table}
 
