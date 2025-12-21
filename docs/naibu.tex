@@ -128,10 +128,9 @@ Geminiへのヒントを与える。
 出発地・到着地によって矩形に囲まれる範囲に収まるスポットに限定し、
 提案する経路を調整する。
 
-\subsubsection{Google マップ転送機能}
-ユーザーとGeminiからの入力によって作成した経路から
-Google マップ上で表示できるURLを生成する。
-ユーザーはURLを基にGoogle マップへと移動する。
+\subsubsection{Google マップによる経路案内機能}
+ユーザーとGeminiからの入力によって得られたスポットを経由する
+経路を、Google マップの埋め込み機能を用いて表示する。
 
 \subsubsection{評価機能}
 スポットに5段階の評価とコメントを投稿できる。
@@ -1312,38 +1311,6 @@ spotsテーブル（\cref{tab:db-spots}）は、
 \end{table}
 
 \newpage
-\subsubsection{Google マップ URL生成モジュール}
-\begin{table}[H]
-	\centering
-	\caption{Google マップ URL生成モジュール}\label{tab:mod-gmap-gen}
-	\modtable{MU17}{app/Http/Controllers/GoogleMapUrlController.php}%
-	{指定されたスポットを巡るGoogle マップの経路URLを生成する}%
-	{
-		node [shape=box,style=rounded];
-		input [label="出発地・目的地・経由地リストを受付"];
-		gemini [label="Gemini提案スポットがあるか？", shape=diamond];
-		add_waypoint [label="経由地リストに追加"];
-		format_loc [label="各地点を座標（緯度,経度）または名称・住所の形式に整形"];
-		build_query [label="URLパラメータ（origin, destination, waypoints）の構築"];
-		build_url [label="Google Maps URLの結合"];
-		output [label="生成されたURLをレスポンス"];
-		input -> gemini;
-		gemini -> add_waypoint [label="Yes"];
-		gemini -> format_loc [label="No"];
-		add_waypoint -> format_loc;
-		format_loc -> build_query;
-		build_query -> build_url;
-		build_url -> output;
-	}%
-	{出発地、目的地、経由地リスト（Gemini提案含む）}%
-	{Google マップへの遷移URL}%
-	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
-		・経路計算や所要時間の算出は行わず、Google マップへ委譲するURLスキームを生成する。\\
-		・ユーザーはこのURLを開くことで、リアルタイムの交通状況を反映したナビゲーションを利用できる。
-	}}
-\end{table}
-
-\newpage
 \subsubsection{スポット追加画面構成モジュール}
 \begin{table}[H]
 	\centering
@@ -1629,6 +1596,50 @@ spotsテーブル（\cref{tab:db-spots}）は、
 	{}%
 	{}
 \end{table}
+
+\newpage
+\subsubsection{Google マップURL生成モジュール}
+\begin{table}[H]
+	\centering
+	\caption{Google マップURL生成モジュール}\label{tab:mod-gmap-gen}
+	\modtable{MU17}{resources/ts/gmap\_url.ts}%
+	{指定したスポットを巡るGoogle マップの埋め込みURLを生成する}%
+	{
+		node [shape=box,style=rounded];
+		a [label="経由地の数を基にURLの先頭部分を生成"];
+		b [label="経由地ごとにパラメータをURLに追加"];
+		output [label="生成されたURLを出力"];
+		a->b->output;
+	}%
+	{出発地・経由地・目的地リスト}%
+	{Google マップの埋め込みURL}%
+	{
+		\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
+			\vspace{-1.7\zw}
+			\begin{itemize}
+				\item 経路や所要時間などの算出は行わず、Google マップへ委譲する。
+				\item \texttt{iframe}要素でこのURLを埋め込むことで、リアルタイムの交通状況を反映したナビゲーションを利用できるようにする。
+			\end{itemize}
+			\vspace{-.35\zw}
+		}
+	}
+\end{table}
+URLの先頭部分は、$x=[\text{出発地・目的地を含まない経由地の数}]\times 6$として、
+\begin{center}
+	\texttt{https://www.google.com/maps/embed?pb=!1m}[$x+28$]\texttt{!!!!!!!!!!!!!!4m}[$x+13$]\texttt{!}
+\end{center}
+の[]をその中に書いた式の計算結果を10進数のアラビア数字で
+置き換えた文字列とする。
+
+ここで、出発地・経由地・目的地となるスポットのリストの
+各要素に対して、
+\begin{center}
+	\texttt{!4m5!!2z}[$y$]\texttt{!!!}
+\end{center}
+の[$y$]をbase64urlでエンコードした地点名に置き換えた
+文字列をURLに追加する処理を行い、
+最後の要素まで処理し終わったら、\texttt{!}をURLに追加する。
+こうして得られたURLを出力とする。
 
 \subsubsection{住所自動入力モジュール}
 \begin{table}[H]
