@@ -1124,29 +1124,6 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \end{table}
 
 \newpage
-\subsubsection{QRコード読み取りモジュール}
-\begin{table}[H]
-	\centering
-	\caption{QRコード読み取りモジュール}\label{tab:mod-qr}
-	\modtable{MC10}{app/Http/Controllers/QrCodeController.php}%
-	{カメラ等で読み取った二次元コードを解析し、対応したWebページにリダイレクトする。}%
-	{
-		node [shape=box,style=rounded];
-		c [label="入力内容が問題あるか？",shape=diamond];
-		f [label="エラーメッセージを含むページを応答"];
-		h [label="QRコード読み取りライブラリでデコード"];
-		i [label="Webページを表示"];
-		c->f [label="Yes"];
-		c->h [label="No"];
-		h->i;
-	}%
-	{利用者から受け取った二次元コードを含むHTTPリクエスト}%
-	{Webページ}%
-	{スポットのチェックイン用URLや、二要素認証設定用のURIなどを想定する。クライアント側で読み取りを行い、結果をサーバへ送信して処理する方式を想定する。}
-\end{table}
-
-
-\newpage
 \subsubsection{二段階認証モジュール}
 \begin{table}[H]
 	\centering
