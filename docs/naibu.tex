@@ -1052,7 +1052,7 @@ spotsテーブル（\cref{tab:db-spots}）は、
 		h [shape=diamond];
 		{ rank=source; d; }
 		d [label="アカウント作成ボタン選択"];
-		e [label="空白検知、特殊文字検知モジュールを呼び出し"];
+		e [label="入力値のバリデーションを実行"];
 		f [label="ログイン名重複チェックモジュールを呼び出し"];
 		h [label="入力内容が問題あるか？"];
 		i [label="エラーメッセージを含むページを応答"];
@@ -1508,51 +1508,6 @@ spotsテーブル（\cref{tab:db-spots}）は、
 
 \newpage
 \subsection{トレイトモジュール}
-\subsubsection{空白検知モジュール}
-\begin{table}[H]
-	\centering
-	\caption{空白検知モジュール}\label{tab:mod-blank}
-	\modtable{MC04}{app/Traits/BlankCheckTrait.php}%
-	{入力値に空白が含まれていないか検査する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		{ rank=source; b; }
-		b [label="空白や特殊文字が含まれているか？"];
-		d [label="エラーメッセージを返す"];
-		e [label="含まれていない旨を返す"];
-		b->d [label="Yes"];
-		b->e [label="No"];
-	}%
-	{}%
-	{エラーメッセージまたは正常終了の旨}%
-	{}
-\end{table}
-
-\newpage
-\subsubsection{特殊文字検知モジュール}
-\begin{table}[H]
-	\centering
-	\caption{特殊文字検知モジュール}\label{tab:mod-special}
-	\modtable{MC05}{app/Traits/SpecialCharCheckTrait.php}%
-	{入力値に特殊文字が含まれていないか検査
-する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		{ rank=source; b; }
-		b [label="特殊文字が含まれているか？"];
-		d [label="エラーメッセージを返す"];
-		e [label="含まれていない旨を返す"];
-		b->d [label="Yes"];
-		b->e [label="No"];
-	}%
-	{}%
-	{エラーメッセージまたは含まれていない旨}%
-	{}
-\end{table}
-
-\newpage
 \subsubsection{ログイン名重複チェックモジュール}
 \begin{table}[H]
 	\centering
