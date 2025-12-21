@@ -883,7 +883,7 @@ APIへのアクセスはHTTPを用いて行う。
 分析データを取得するためにはリクエストを送信する。
 リクエストにはAPIキーと取得したい分析データの期間を指定する必要がある。
 リクエストはGETメソッドを利用できるものとし、
-更に以下の表\ref{tab:api-header}に示すようなヘッダーを利用できるものとする。
+更に以下の\cref{tab:api-header}に示すようなヘッダーを利用できるものとする。
 \begin{table}[H]
 	\centering
 	\caption{ヘッダー設定}\label{tab:api-header}
@@ -900,7 +900,7 @@ APIへのアクセスはHTTPを用いて行う。
 ログインに成功すると、ステータスコード200 OKを返し、
 リクエストに応じた分析データを返す。
 分析データはJSON形式の文字列として返す。
-分析データは以下の表\ref{tab:api-response_root}に示すオブジェクトである。
+分析データは以下の\cref{tab:api-response_root}に示すオブジェクトである。
 \begin{table}[H]
 	\centering
 	\caption{分析データ（JSON形式）}\label{tab:api-response_root}
@@ -909,8 +909,8 @@ APIへのアクセスはHTTPを用いて行う。
 		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
 		formatVersion & number & 分析データのフォーマットバージョン \\ \hline
 		currentUserNum & number & 現在のサービスの利用者数 \\ \hline
-		spotData & Array of Object & スポットに関するデータ（参照: 表\ref{tab:api-response_spots}） \\ \hline
-		couponData & Array of Object & クーポンに関するデータ（参照: 表\ref{tab:api-response_coupon}） \\ \hline
+		spotData & Array of Object & スポットに関するデータ（参照: \cref{tab:api-response_spots}） \\ \hline
+		couponData & Array of Object & クーポンに関するデータ（参照: \cref{tab:api-response_coupon}） \\ \hline
 	\end{tabular}
 \end{table}
 
