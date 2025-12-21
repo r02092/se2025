@@ -881,6 +881,65 @@ APIを利用するには予めサービスに対して事業者登録を行い�
 システムでは生成したトークンをハッシュ化したものを検証用としてデータベースに保存する。
 
 \subsection{アクセスと認証方法}
+APIへのアクセスはHTTPを用いて行う。
+分析データを取得するためにはリクエストを送信する。
+リクエストにはトークンと取得したい分析データの期間を指定する必要がある。
+リクエストはGETメソッドを利用できるものとし、
+更に以下の表\ref{tab:api-header}に示すようなヘッダーを利用できるものとする。
+\begin{table}[H]
+	\centering
+	\caption{ヘッダー設定}\label{tab:api-header}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\thead{フィールド} & \thead{例} & \thead{説明} \\ \hline
+		Authorization &  & 認証用トークン \\ \hline
+		From-Date & 2025-01-01 & 取得したい期間の始点の日付 \\ \hline
+		To-Date & 2025-12-12 & 取得したい期間の終点の日付 \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection{分析データ}
+ログインに成功すると、ステータスコード200 OKを返し、
+リクエストに応じた分析データを返す。
+分析データはJSON形式の文字列として返す。
+分析データは以下の表\ref{tab:api-response_root}に示すオブジェクトである。
+\begin{table}[H]
+	\centering
+	\caption{分析データ（JSON形式）}\label{tab:api-response_root}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
+		formatVersion & number & 分析データのフォーマットバージョン \\ \hline
+		currentUserNum & number & 現在のサービスのユーザー数 \\ \hline
+		spotData & Array of Object & スポットに関するデータ（参照: 表\ref{tab:api-response_spots}） \\ \hline
+		couponData & Array of Object & クーポンに関するデータ（参照: 表\ref{tab:api-response_coupon}） \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{スポットに関する分析データ（JSON形式）}\label{tab:api-response_spots}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
+		id & string & スポットのID \\ \hline
+		fromSpotName & number & 出発地として検索された回数 \\ \hline
+		toSpotName & number & 到着地として検索された回数 \\ \hline
+		propNum & number & AIによる提案回数 \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{クーポンに関する分析データ（JSON形式）}\label{tab:api-response_spots}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
+		id & string & クーポンのID \\ \hline
+		acquisitionNum & number & 取得したユーザー数 \\ \hline
+		useNum & number & 使用したユーザー数 \\ \hline
+	\end{tabular}
+\end{table}
 
 \subsection{ログインの失敗}
 
