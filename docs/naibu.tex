@@ -542,15 +542,15 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 	\text{[データベースに格納する値]}=\frac{\text{[元の値]}-\text{[最小値]}}{\text{[最大値]}-\text{[最小値]}}(2^{32}-1)
 \]
 このシステムでは、管理者や事業者を含む全ての利用者を
-共通のusersテーブル（\cref{tb:db-users}）で扱う。
+共通のusersテーブル（\cref{tab:db-users}）で扱う。
 ログインにはGoogle アカウントも使用できるため、
-\cref{tb:db-users-provider}に値の意味を示すproviderカラムで
+\cref{tab:db-users-provider}に値の意味を示すproviderカラムで
 アカウントのサービスプロバイダを区別し、
 識別子をlogin\_nameカラムに保存する。
 この設計によって、ソーシャルログインの
 サービスプロバイダの将来的な拡張も容易となるようにする。
 
-管理者であるかどうかは、\cref{tb:db-users-permission}に
+管理者であるかどうかは、\cref{tab:db-users-permission}に
 示すようにpermissionカラムの値により区別する。
 事業者であるかどうかの区別には
 契約の数を記録するカラムを用い、1つ以上の契約があれば
@@ -572,7 +572,7 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 割った値として保存し、認証回数も30秒ごとに数え直す。
 \begin{table}[H]
 	\centering
-	\caption{usersテーブル（管理者や事業者を含む利用者）}\label{tb:db-users}
+	\caption{usersテーブル（管理者や事業者を含む利用者）}\label{tab:db-users}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -600,7 +600,7 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 \end{table}
 \begin{table}[H]
 	\centering
-	\caption{usersテーブルのproviderカラムについて}\label{tb:db-users-provider}
+	\caption{usersテーブルのproviderカラムについて}\label{tab:db-users-provider}
 	\begin{tabular}{|r|l|}
 		\hline
 		\multicolumn{1}{|c|}{\thead{値}} & \thead{意味} \\ \hline
@@ -610,7 +610,7 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 \end{table}
 \begin{table}[H]
 	\centering
-	\caption{usersテーブルのpermissionカラムについて}\label{tb:db-users-permission}
+	\caption{usersテーブルのpermissionカラムについて}\label{tab:db-users-permission}
 	\begin{tabular}{|r|l|}
 		\hline
 		\multicolumn{1}{|c|}{\thead{値}} & \thead{意味} \\ \hline
@@ -623,13 +623,13 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 使用し、暗号学的ハッシュ関数であるArgon2idを用い、かつ
 ソルトを使用することで、安全にパスワードを保存する。
 
-spotsテーブル（\cref{tb:db-spots}）は、
+spotsテーブル（\cref{tab:db-spots}）は、
 観光地や観光施設、店などのスポットを保存する。
 スポットは契約ごとに作成できるため、
 どちらのプランに対応するスポットであるかを保存するplanカラムを設けている。
-このカラムの値の意味を\cref{tb:db-spots-plan}に示す。
-また、\cref{tb:db-spots-type}にカテゴリを表す値の一覧を
-示す。keywordsテーブル（\cref{tb:db-keywords}）
+このカラムの値の意味を\cref{tab:db-spots-plan}に示す。
+また、\cref{tab:db-spots-type}にカテゴリを表す値の一覧を
+示す。keywordsテーブル（\cref{tab:db-keywords}）
 スポットにはキーワードを関連付ける。
 
 スポットのカテゴリや名前、経緯度、住所、
@@ -637,7 +637,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 使用する。
 \begin{table}[H]
 	\centering
-	\caption{spotsテーブル（観光地や観光施設、店などのスポット）}\label{tb:db-spots}
+	\caption{spotsテーブル（観光地や観光施設、店などのスポット）}\label{tab:db-spots}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -661,7 +661,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \end{table}
 \begin{table}[H]
 	\centering
-	\caption{spotsテーブルのplanカラムについて}\label{tb:db-spots-plan}
+	\caption{spotsテーブルのplanカラムについて}\label{tab:db-spots-plan}
 	\begin{tabular}{|r|l|}
 		\hline
 		\multicolumn{1}{|c|}{\thead{値}} & \thead{意味} \\ \hline
@@ -671,7 +671,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \end{table}
 \begin{table}[H]
 	\centering
-	\caption{spotsテーブルのtypeカラムについて}\label{tb:db-spots-type}
+	\caption{spotsテーブルのtypeカラムについて}\label{tab:db-spots-type}
 	\begin{tabular}{|r|l|}
 		\hline
 		\multicolumn{1}{|c|}{\thead{値}} & \thead{意味} \\ \hline
@@ -687,7 +687,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \end{table}
 \begin{table}[H]
 	\centering
-	\caption{keywordsテーブル（スポットに関連付けるキーワード）}\label{tb:db-keywords}
+	\caption{keywordsテーブル（スポットに関連付けるキーワード）}\label{tab:db-keywords}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -700,14 +700,14 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	\end{tabular}
 \end{table}
 スポットに対する
-口コミは、reviewsテーブル（\cref{tb:db-reviews}）に
+口コミは、reviewsテーブル（\cref{tab:db-reviews}）に
 保存する。口コミには、段階的な評価および文章を
 入力できるようにする。
 また、閲覧数も記録するようにし、
 よく閲覧されている口コミを事業者が確認できるようにする。
 \begin{table}[H]
 	\centering
-	\caption{reviewsテーブル（スポットに対する口コミ）}\label{tb:db-reviews}
+	\caption{reviewsテーブル（スポットに対する口コミ）}\label{tab:db-reviews}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -726,16 +726,16 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	\end{tabular}
 \end{table}
 事業者が発行した
-クーポンはcouponsテーブル（\cref{tb:db-coupons}）に保存する。
+クーポンはcouponsテーブル（\cref{tab:db-coupons}）に保存する。
 クーポンを手に入れるために行く必要のあるスポットも記録する。
 また、利用者が手に入れた
-クーポンはuser\_couponsテーブル（\cref{tb:db-user_coupons}）に
+クーポンはuser\_couponsテーブル（\cref{tab:db-user_coupons}）に
 保存する。クーポンの入手時に確認用キーが生成され、
 これを含む二次元コードを事業者に提示することで
 正規のクーポンであることを証明する。
 \begin{table}[H]
 	\centering
-	\caption{couponsテーブル（スポットに対して作成されたクーポン）}\label{tb:db-coupons}
+	\caption{couponsテーブル（スポットに対して作成されたクーポン）}\label{tab:db-coupons}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -751,7 +751,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \end{table}
 \begin{table}[H]
 	\centering
-	\caption{user\_couponsテーブル（利用者が手に入れたクーポン）}\label{tb:db-user_coupons}
+	\caption{user\_couponsテーブル（利用者が手に入れたクーポン）}\label{tab:db-user_coupons}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -765,12 +765,12 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	\end{tabular}
 \end{table}
 利用者が手に入れた
-スタンプはstampsテーブル（\cref{tb:db-stamps}）に
+スタンプはstampsテーブル（\cref{tab:db-stamps}）に
 保存する。スタンプの画像はファイルシステムに保存するため、
 それに対応するテーブルやカラムは存在しない。
 \begin{table}[H]
 	\centering
-	\caption{stampsテーブル（利用者が手に入れたスタンプ）}\label{tb:db-stamps}
+	\caption{stampsテーブル（利用者が手に入れたスタンプ）}\label{tab:db-stamps}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -785,12 +785,12 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	\end{tabular}
 \end{table}
 利用者の検索クエリは、事業者の分析に
-使用するため、queriesテーブル（\cref{tb:db-queries}）に
+使用するため、queriesテーブル（\cref{tab:db-queries}）に
 保存する。経路検索を伴う場合は、その出発点および目的地も
 保存する。
 \begin{table}[H]
 	\centering
-	\caption{queriesテーブル（利用者の検索クエリ）}\label{tb:db-queries}
+	\caption{queriesテーブル（利用者の検索クエリ）}\label{tab:db-queries}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -806,11 +806,11 @@ spotsテーブル（\cref{tb:db-spots}）は、
 		updated\_at & DATETIME & & 更新時刻 \\ \hline
 	\end{tabular}
 \end{table}
-利用者の投稿した写真は、photosテーブル（\cref{tb:db-photos}）に
+利用者の投稿した写真は、photosテーブル（\cref{tab:db-photos}）に
 保存する。地図上に表示するため、写真の経緯度を保存する。
 \begin{table}[H]
 	\centering
-	\caption{photosテーブル（利用者の投稿した写真）}\label{tb:db-photos}
+	\caption{photosテーブル（利用者の投稿した写真）}\label{tab:db-photos}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -829,12 +829,12 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	\end{tabular}
 \end{table}
 事業者の
-発行したAPIキーは、api\_keysテーブル（\cref{tb:db-api_keys}）に
+発行したAPIキーは、api\_keysテーブル（\cref{tab:db-api_keys}）に
 保存する。
 パスワードと同様にAPIキーもハッシュ化を行い、安全に保存する。
 \begin{table}[H]
 	\centering
-	\caption{api\_keysテーブル（事業者の発行したAPIキー）}\label{tb:db-api_keys}
+	\caption{api\_keysテーブル（事業者の発行したAPIキー）}\label{tab:db-api_keys}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -1671,29 +1671,29 @@ spotsテーブル（\cref{tb:db-spots}）は、
 以下の処理を順に行うことで構築する。
 \begin{enumerate}
 	\item 町域名が“以下に掲載がない場合”のとき
-	（例: \cref{tab:mod-addr-ex}の〒782--0000）\\
+	（例: \cref{tab:mod-addr-ex-kenall}の〒782--0000）\\
 	結果を空文字列として処理を終了する。
 	\item 町域名が/（([１-９][０-９]*階|地階・階層不明)）\textdollar/に
 	マッチするとき
-	（例: \cref{tab:mod-addr-ex}の名古屋市中村区のもの）\\
+	（例: \cref{tab:mod-addr-ex-kenall}の名古屋市中村区のもの）\\
 	結果を空文字列として処理を終了する。
 	\item 町域名が/\textasciicircum(.+)（.+）\textdollar/にマッチするとき
-	（例: \cref{tab:mod-addr-ex}の〒782--0077）\\
+	（例: \cref{tab:mod-addr-ex-kenall}の〒782--0077）\\
 	町域名をキャプチャグループに変更して処理を続行する。
 	\item 市区町村名のカラムに対して/\textasciicircum.+群/を
 	空文字列に置換したものを<市区町村名>とした場合に
 	町域名が/\textasciicircum<市区町村名>[の次に.+がくる場合|一円]\textdollar/に
 	マッチするとき
-	（例: \cref{tab:mod-addr-ex}の仲多度郡琴平町のものや
+	（例: \cref{tab:mod-addr-ex-kenall}の仲多度郡琴平町のものや
 	〒781-2110、〒781-6410）\\
 	結果を空文字列として処理を終了する。
 	\item 町域名が/\textasciicircum(.*).+[、〜]\textbackslash 1.+\textdollar/に
 	マッチするとき
-	（例: \cref{tab:mod-addr-ex}の和賀郡西和賀町のものや〒761--4101）\\
+	（例: \cref{tab:mod-addr-ex-kenall}の和賀郡西和賀町のものや〒761--4101）\\
 	結果をキャプチャグループとして処理を終了する。
 	\item 町域名が/\textasciicircum(.+)の次に.+がくる場合\textdollar/に
 	マッチするとき
-	（例: \cref{tab:mod-addr-ex}の〒857--2427）\\
+	（例: \cref{tab:mod-addr-ex-kenall}の〒857--2427）\\
 	結果をキャプチャグループとして処理を終了する。
 	\item 結果を町域名として処理を終了する。
 \end{enumerate}
