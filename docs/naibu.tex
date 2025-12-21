@@ -1133,24 +1133,24 @@ spotsテーブル（\cref{tab:db-spots}）は、
 	{利用者がTOTPによる二要素認証を設定・検証・解除するための処理を提供する。}%
 	{
 		node [shape=box,style=rounded];
-    br1, br2 [shape=diamond];
-    br1 [label="二要素認証の操作内容は？"];
-    b [label="シークレットを生成"];
-    c [label="二次元コード化"];
-    d [label="二次元コードを含む設定画面に遷移"];
-    br2 [label="入力されたTOTPコードを検証"];
-    e [label="シークレットを暗号化して保存"];
-    f [label="設定完了画面に遷移"];
-    g [label="エラーメッセージを含むページを応答"];
-    br1->b [label="設定"];
-    b->c->d->br2;
-    br2->e [label="成功"];
-    e->f;
-    br2->g [label="失敗"];
-    h [label="シークレットを削除"];
-    i [label="解除完了画面に遷移"];
-    br1->h [label="解除"];
-    h->i;
+		br1, br2 [shape=diamond];
+		br1 [label="二要素認証の操作内容は？"];
+		b [label="シークレットを生成"];
+		c [label="二次元コード化"];
+		d [label="二次元コードを含む設定画面に遷移"];
+		br2 [label="入力されたTOTPコードを検証"];
+		e [label="シークレットを暗号化して保存"];
+		f [label="設定完了画面に遷移"];
+		g [label="エラーメッセージを含むページを応答"];
+		br1->b [label="設定"];
+		b->c->d->br2;
+		br2->e [label="成功"];
+		e->f;
+		br2->g [label="失敗"];
+		h [label="シークレットを削除"];
+		i [label="解除完了画面に遷移"];
+		br1->h [label="解除"];
+		h->i;
 	}%
 	{利用者から受け取ったHTTPリクエスト}%
 	{Webページ}%
@@ -1216,31 +1216,31 @@ spotsテーブル（\cref{tab:db-spots}）は、
 	{ユーザーのチャット入力に基づくスポット推薦}%
 	{
 		node [shape=box,style=rounded];
-        input [label="チャット入力と座標情報を受付"];
-        calc_bounds [label="検索範囲の計算(現在地周辺 or 出発・目的地の矩形範囲)"];
-        search_db [label="座標範囲(緯度・経度)でDBから候補スポットを検索"];
-        check_exist [label="候補が存在するか？", shape=diamond];
-        prompt [label="候補リストを含めたプロンプト構築"];
-        apicall [label="Gemini APIへの送信"];
-        check_api [label="APIの応答が成功であるか？", shape=diamond];
-        parse [label="JSON解析 (推薦IDを取得)"];
-        res_ok [label="推薦文とスポット情報を応答"];
-        res_ng [label="エラーまたは該当なしを応答"];
-        input -> calc_bounds;
-        calc_bounds -> search_db;
-        search_db -> check_exist;
-        check_exist -> res_ng [label="No"];
-        check_exist -> prompt [label="Yes"];
-        prompt -> apicall;
-        apicall -> check_api;
-        check_api -> res_ng [label="No"];
-        check_api -> parse [label="Yes"];
-        parse -> res_ok;
+		input [label="チャット入力と座標情報を受付"];
+		calc_bounds [label="検索範囲の計算（現在地周辺 or 出発・目的地の矩形範囲）"];
+		search_db [label="座標範囲（緯度・経度）でDBから候補スポットを検索"];
+		check_exist [label="候補が存在するか？", shape=diamond];
+		prompt [label="候補リストを含めたプロンプト構築"];
+		apicall [label="Gemini APIへの送信"];
+		check_api [label="APIの応答が成功であるか？", shape=diamond];
+		parse [label="JSON解析 （推薦IDを取得）"];
+		res_ok [label="推薦文とスポット情報を応答"];
+		res_ng [label="エラーまたは該当なしを応答"];
+		input -> calc_bounds;
+		calc_bounds -> search_db;
+		search_db -> check_exist;
+		check_exist -> res_ng [label="No"];
+		check_exist -> prompt [label="Yes"];
+		prompt -> apicall;
+		apicall -> check_api;
+		check_api -> res_ng [label="No"];
+		check_api -> parse [label="Yes"];
+		parse -> res_ok;
 	}%
-	{チャット入力、ユーザー現在地、(任意)目的地座標}%
+	{チャット入力、ユーザー現在地、（任意）目的地座標}%
 	{推薦スポット情報（ID含む）、推薦理由メッセージ}%
 	{・Geminiへのハルシネーション対策として、DB検索による候補絞り込みを行う。\\
-     ・検索範囲は、移動の始点と終点を含む矩形範囲（バウンディングボックス）を設定し、市町村をまたぐ移動に対応する。}
+	 ・検索範囲は、移動の始点と終点を含む矩形範囲（バウンディングボックス）を設定し、市町村をまたぐ移動に対応する。}
 \end{table}
 
 \newpage
@@ -1302,33 +1302,33 @@ spotsテーブル（\cref{tab:db-spots}）は、
 \newpage
 \subsubsection{Google マップ URL生成モジュール}
 \begin{table}[H]
-    \centering
-    \caption{Google マップ URL生成モジュール}\label{tab:mod-gmap-gen}
-    \modtable{MU17}{app/Http/Controllers/GoogleMapUrlController.php}%
-    {指定されたスポットを巡るGoogle マップの経路URLを生成する}%
-    {
-        node [shape=box,style=rounded];
-        input [label="出発地・目的地・経由地リストを受付"];
-        gemini [label="Gemini提案スポットがあるか？", shape=diamond];
-        add_waypoint [label="経由地リストに追加"];
-        format_loc [label="各地点を座標(緯度,経度)または名称・住所の形式に整形"];
-        build_query [label="URLパラメータ(origin, destination, waypoints)の構築"];
-        build_url [label="Google Maps URLの結合"];
-        output [label="生成されたURLをレスポンス"];
-        input -> gemini;
-        gemini -> add_waypoint [label="Yes"];
-        gemini -> format_loc [label="No"];
-        add_waypoint -> format_loc;
-        format_loc -> build_query;
-        build_query -> build_url;
-        build_url -> output;
-    }%
-    {出発地、目的地、経由地リスト（Gemini提案含む）}%
-    {Google マップへの遷移URL}%
-    {\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
-        ・経路計算や所要時間の算出は行わず、Google マップへ委譲するURLスキームを生成する。\\
-        ・ユーザーはこのURLを開くことで、リアルタイムの交通状況を反映したナビゲーションを利用できる。
-    }}
+	\centering
+	\caption{Google マップ URL生成モジュール}\label{tab:mod-gmap-gen}
+	\modtable{MU17}{app/Http/Controllers/GoogleMapUrlController.php}%
+	{指定されたスポットを巡るGoogle マップの経路URLを生成する}%
+	{
+		node [shape=box,style=rounded];
+		input [label="出発地・目的地・経由地リストを受付"];
+		gemini [label="Gemini提案スポットがあるか？", shape=diamond];
+		add_waypoint [label="経由地リストに追加"];
+		format_loc [label="各地点を座標（緯度,経度）または名称・住所の形式に整形"];
+		build_query [label="URLパラメータ（origin, destination, waypoints）の構築"];
+		build_url [label="Google Maps URLの結合"];
+		output [label="生成されたURLをレスポンス"];
+		input -> gemini;
+		gemini -> add_waypoint [label="Yes"];
+		gemini -> format_loc [label="No"];
+		add_waypoint -> format_loc;
+		format_loc -> build_query;
+		build_query -> build_url;
+		build_url -> output;
+	}%
+	{出発地、目的地、経由地リスト（Gemini提案含む）}%
+	{Google マップへの遷移URL}%
+	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
+		・経路計算や所要時間の算出は行わず、Google マップへ委譲するURLスキームを生成する。\\
+		・ユーザーはこのURLを開くことで、リアルタイムの交通状況を反映したナビゲーションを利用できる。
+	}}
 \end{table}
 
 \newpage
