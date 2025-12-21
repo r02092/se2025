@@ -1671,29 +1671,29 @@ spotsテーブル（\cref{tb:db-spots}）は、
 以下の処理を順に行うことで構築する。
 \begin{enumerate}
 	\item 町域名が“以下に掲載がない場合”のとき
-	（例: \cref{tab:mod-addr-ex}の〒782--0000）\\
+	（例: \cref{tab:mod-addr-ex-kenall}の〒782--0000）\\
 	結果を空文字列として処理を終了する。
 	\item 町域名が/（([１-９][０-９]*階|地階・階層不明)）\textdollar/に
 	マッチするとき
-	（例: \cref{tab:mod-addr-ex}の名古屋市中村区のもの）\\
+	（例: \cref{tab:mod-addr-ex-kenall}の名古屋市中村区のもの）\\
 	結果を空文字列として処理を終了する。
 	\item 町域名が/\textasciicircum(.+)（.+）\textdollar/にマッチするとき
-	（例: \cref{tab:mod-addr-ex}の〒782--0077）\\
+	（例: \cref{tab:mod-addr-ex-kenall}の〒782--0077）\\
 	町域名をキャプチャグループに変更して処理を続行する。
 	\item 市区町村名のカラムに対して/\textasciicircum.+群/を
 	空文字列に置換したものを<市区町村名>とした場合に
 	町域名が/\textasciicircum<市区町村名>[の次に.+がくる場合|一円]\textdollar/に
 	マッチするとき
-	（例: \cref{tab:mod-addr-ex}の仲多度郡琴平町のものや
+	（例: \cref{tab:mod-addr-ex-kenall}の仲多度郡琴平町のものや
 	〒781-2110、〒781-6410）\\
 	結果を空文字列として処理を終了する。
 	\item 町域名が/\textasciicircum(.*).+[、〜]\textbackslash 1.+\textdollar/に
 	マッチするとき
-	（例: \cref{tab:mod-addr-ex}の和賀郡西和賀町のものや〒761--4101）\\
+	（例: \cref{tab:mod-addr-ex-kenall}の和賀郡西和賀町のものや〒761--4101）\\
 	結果をキャプチャグループとして処理を終了する。
 	\item 町域名が/\textasciicircum(.+)の次に.+がくる場合\textdollar/に
 	マッチするとき
-	（例: \cref{tab:mod-addr-ex}の〒857--2427）\\
+	（例: \cref{tab:mod-addr-ex-kenall}の〒857--2427）\\
 	結果をキャプチャグループとして処理を終了する。
 	\item 結果を町域名として処理を終了する。
 \end{enumerate}
