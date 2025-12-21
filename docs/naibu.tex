@@ -1443,6 +1443,23 @@ APIキーが有効でない、またはAPIキーが入力されていない場�
 	{投稿画面に対応する}%
 \end{table}
 
+\begin{table}[H]
+	\centering
+	\caption{スポット詳細画面構成モジュール}\label{tab:mod-detail}
+	\modtable{MU20}{app/Http/Controllers/detailController.php}%
+	{スポット詳細画面の表示に必要なスポット情報および口コミの取得}%
+	{
+		node [shape=box,style=rounded];
+		a [label="スポットの情報を取得"];
+		b [label="スポットに対応する口コミを取得"];
+		c [label="スポット詳細画面を構成"];
+		a->b->c;
+	}%
+	{利用者から受け取った検索クエリを含むHTTPリクエスト}%
+	{Webページ}%
+	{}
+\end{table}
+
 \newpage
 \subsubsection{スポット追加画面構成モジュール}
 \begin{table}[H]
