@@ -62,7 +62,7 @@
 			& \emph{概要} & #3 \\
 			\Block{1-3}{\emph{処理手順}} \\
 			\Block{1-3}{
-				\digraph[scale=.43]{#1}{
+				\digraph[scale=.4]{#1}{
 					#4
 				}
 			}
@@ -867,6 +867,89 @@ spotsテーブル（\cref{tab:db-spots}）は、
 ここに記述する。このクラスをコントローラから使用することで、
 データベースの読み書きを行うことができる。
 
+\section{API仕様設計}
+\subsection{概要}
+本システムが提供する観光データ分析APIは
+本サービスでのユーザーの動向を調査し、観光分析に活用できるデータを提供する。
+APIへのアクセスにはHTTPリクエストを使用し、レスポンスとしてJSON形式の文字列を返すものとする。
+
+\subsection{トークン（APIキー）の発行}
+APIを利用するには予めサービスに対して事業者登録を行い、
+トークンの発行を行う必要がある。
+トークンの発行はAPIキー管理画面で行うことができる。
+システムでは生成したトークンをハッシュ化したものを検証用としてデータベースに保存する。
+
+\subsection{アクセスと認証方法}
+APIへのアクセスはHTTPを用いて行う。
+分析データを取得するためにはリクエストを送信する。
+リクエストにはトークンと取得したい分析データの期間を指定する必要がある。
+リクエストはGETメソッドを利用できるものとし、
+更に以下の表\ref{tab:api-header}に示すようなヘッダーを利用できるものとする。
+\begin{table}[H]
+	\centering
+	\caption{ヘッダー設定}\label{tab:api-header}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\thead{フィールド} & \thead{例} & \thead{説明} \\ \hline
+		Authorization &  & 認証用トークン \\ \hline
+		From-Date & 2025-01-01 & 取得したい期間の始点の日付 \\ \hline
+		To-Date & 2025-12-12 & 取得したい期間の終点の日付 \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection{分析データ}
+ログインに成功すると、ステータスコード200 OKを返し、
+リクエストに応じた分析データを返す。
+分析データはJSON形式の文字列として返す。
+分析データは以下の表\ref{tab:api-response_root}に示すオブジェクトである。
+\begin{table}[H]
+	\centering
+	\caption{分析データ（JSON形式）}\label{tab:api-response_root}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
+		formatVersion & number & 分析データのフォーマットバージョン \\ \hline
+		currentUserNum & number & 現在のサービスのユーザー数 \\ \hline
+		spotData & Array of Object & スポットに関するデータ（参照: 表\ref{tab:api-response_spots}） \\ \hline
+		couponData & Array of Object & クーポンに関するデータ（参照: 表\ref{tab:api-response_coupon}） \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{スポットに関する分析データ（JSON形式）}\label{tab:api-response_spots}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
+		id & string & スポットのID \\ \hline
+		fromSpotName & number & 出発地として検索された回数 \\ \hline
+		toSpotName & number & 到着地として検索された回数 \\ \hline
+		propNum & number & AIによる提案回数 \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{クーポンに関する分析データ（JSON形式）}\label{tab:api-response_spots}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
+		id & string & クーポンのID \\ \hline
+		acquisitionNum & number & 取得したユーザー数 \\ \hline
+		useNum & number & 使用したユーザー数 \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection{ログインの失敗}
+トークンにアクセス許可がない、またはトークンが入力されていない場合はログインに失敗する。
+このとき、システムはログインの失敗をクライアントに伝えるために
+ステータスコード401 Unauthorizedを返す。
+
+\subsection{アクセス制限}
+システムは短時間に複数の無効な資格情報を含むリクエストを検知すると
+同一発行元のリクエストに対して10分間、ステータスコード403 Forbiddenを返し、
+一定時間分析データへのアクセス要求を拒否する。
+
 % ====================================
 \newpage
 \section{モジュール詳細設計}
@@ -1306,6 +1389,60 @@ spotsテーブル（\cref{tab:db-spots}）は、
 \end{table}
 
 \newpage
+\subsubsection{クーポン利用開始処理モジュール}
+\begin{table}[H]
+	\centering
+	\caption{クーポン利用開始処理モジュール}\label{tab:mod-coupon-activate}
+	\modtable{MU17}{app/Http/Controllers/CouponApiController.php5}
+	{クーポンのステータスを「利用可能」から「利用中」に変更する}%
+	{
+		node [shape=box,style=rounded];
+		input [label="クーポンIDを受付"];
+		check_owner [label="ユーザーが所持しているか確認", shape=diamond];
+		check_status [label="ステータスが「利用可能」か？", shape=diamond];
+		check_expire [label="有効期限内であるか？", shape=diamond];
+		update [label="ステータスを「利用中」に更新利用開始日時を記録"];
+		gen_key [label="確認用キー（署名）の生成"];
+		res_ok [label="成功応答（二次元コード用データ含む）"];
+		res_ng [label="エラー応答"];
+		input -> check_owner;
+		check_owner -> res_ng [label="No"];
+		check_owner -> check_status [label="Yes"];
+		check_status -> res_ng [label="No"];
+		check_status -> check_expire [label="Yes"];
+		check_expire -> res_ng [label="No"];
+		check_expire -> update [label="Yes"];
+		update -> gen_key;
+		gen_key -> res_ok;
+	}
+	{クーポンID}%
+	{処理結果、二次元コード表示用データ（署名付きトークン）}%
+	{UIの「スライドで利用」アクションに対応する}%
+\end{table}
+
+\newpage
+\subsubsection{投稿マップ表示モジュール}
+\begin{table}[H]
+	\centering
+	\caption{投稿マップ表示モジュール}\label{tab:mod-post-map}
+	\modtable{MU19}{app/Http/Controllers/PostMapController.php}%
+	{ユーザーの投稿情報を取得し、地図上に表示するデータを構成する}%
+	{
+		node [shape=box,style=rounded];
+		req [label="リクエスト受信"];
+		fetch [label="photosテーブルから位置情報付きの投稿を取得"];
+		format [label="共通マップモジュール用にデータを整形(JSON化)"];
+		render [label="画面テンプレートを描画(共通マップモジュール起動)"];
+		req -> fetch;
+		fetch -> format;
+		format -> render;
+	}
+	{閲覧範囲または検索条件}%
+	{Webページ（投稿が表示された地図画面）}%
+	{・「投稿を見る」機能に対応する。}%
+\end{table}
+
+\newpage
 \subsubsection{スポット追加画面構成モジュール}
 \begin{table}[H]
 	\centering
@@ -1597,7 +1734,7 @@ spotsテーブル（\cref{tab:db-spots}）は、
 \begin{table}[H]
 	\centering
 	\caption{Google マップURL生成モジュール}\label{tab:mod-gmap-gen}
-	\modtable{MU17}{resources/ts/gmap\_url.ts}%
+	\modtable{MU18}{resources/ts/gmap\_url.ts}%
 	{指定したスポットを巡るGoogle マップの埋め込みURLを生成する}%
 	{
 		node [shape=box,style=rounded];
