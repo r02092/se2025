@@ -846,8 +846,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \section{モジュール詳細設計}
 % 【記述内容】外部設計書の機能要件を基に、各機能の入出力、責務、および内部処理フローを詳細に定義
 
-\subsection{共通モジュール}
-% 【記述内容】ログイン/ログアウト、アカウント作成とかを記述？
+\subsection{ビューモジュール}
 \subsubsection{画面の共通部分出力モジュール}
 \begin{table}[H]
 	\centering
@@ -883,6 +882,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	{}
 \end{table}
 
+\newpage
 \subsubsection{ログイン画面出力モジュール}
 \begin{table}[H]
 	\centering
@@ -903,6 +903,9 @@ spotsテーブル（\cref{tb:db-spots}）は、
 画面の共通部分モジュールを呼び出してそれを基に画面を構成する
 部分は同じであるため省略するが、原則このモジュールと同様に
 各画面に対応したモジュールを作成するものとする。
+
+\newpage
+\subsection{コントローラモジュール}
 \subsubsection{ログイン処理モジュール}
 \begin{table}[H]
 	\centering
@@ -969,113 +972,6 @@ spotsテーブル（\cref{tb:db-spots}）は、
 		}%
 	{利用者から受け取ったアカウント情報を含むHTTPリクエスト}%
 	{Webページ}%
-	{}
-\end{table}
-
-\newpage
-\subsubsection{利用規約確認モジュール}
-\begin{table}[H]
-	\centering
-	\caption{利用規約確認モジュール}\label{tab:mod-terms}
-	\modtable{MC03}{resources/ts/terms.ts}%
-	{SceneTripの利用規約確認を行う。}%
-	{
-		node [shape=box,style=rounded];
-		{ rank=source; c; }
-		c [label="「同意する」ボタンの押下を検知"];
-		d [label="アカウント作成画面へ遷移"];
-		c->d;
-	}%
-	{}%
-	{}%
-	{}
-\end{table}
-
-\newpage
-\subsubsection{空白検知モジュール}
-\begin{table}[H]
-	\centering
-	\caption{空白検知モジュール}\label{tab:mod-blank}
-	\modtable{MC04}{app/Traits/BlankCheckTrait.php}%
-	{入力値に空白が含まれていないか検査する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		{ rank=source; b; }
-		b [label="空白や特殊文字が含まれているか？"];
-		d [label="エラーメッセージを返す"];
-		e [label="含まれていない旨を返す"];
-		b->d [label="Yes"];
-		b->e [label="No"];
-	}%
-	{}%
-	{エラーメッセージまたは正常終了の旨}%
-	{}
-\end{table}
-
-\newpage
-\subsubsection{特殊文字検知モジュール}
-\begin{table}[H]
-	\centering
-	\caption{特殊文字検知モジュール}\label{tab:mod-special}
-	\modtable{MC05}{app/Traits/SpecialCharCheckTrait.php}%
-	{入力値に特殊文字が含まれていないか検査
-する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		{ rank=source; b; }
-		b [label="特殊文字が含まれているか？"];
-		d [label="エラーメッセージを返す"];
-		e [label="含まれていない旨を返す"];
-		b->d [label="Yes"];
-		b->e [label="No"];
-	}%
-	{}%
-	{エラーメッセージまたは含まれていない旨}%
-	{}
-\end{table}
-
-\newpage
-\subsubsection{ログイン名重複チェックモジュール}
-\begin{table}[H]
-	\centering
-	\caption{ログイン名重複チェックモジュール}\label{tab:mod-dup}
-	\modtable{MC06}{app/Traits/DupLoginNameCheckTrait.php}%
-	{ログイン名が重複していないか検査する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		{ rank=source; b; }
-		b [label="ログイン名が重複しているか？"];
-		d [label="エラーメッセージを返す"];
-		e [label="重複していない旨を返す"];
-		b->d [label="Yes"];
-		b->e [label="No"];
-	}%
-	{}%
-	{エラーメッセージまたは重複していない旨}%
-	{}
-\end{table}
-
-\newpage
-\subsubsection{ログアウト確認モジュール}
-\begin{table}[H]
-	\centering
-	\caption{ログアウト確認モジュール}\label{tab:mod-logout}
-	\modtable{MC07}{resources/ts/logout-confirm.ts}%
-	{ログアウトしても良いか確認する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		b [label="ボタンの押下を検知"];
-		c [label="ログアウトを行うページに遷移"];
-		g [label="前のページに戻る"];
-		b->c [label="ログアウト"];
-		b->g [label="キャンセル"];
-	}%
-	{}%
-	{}%
 	{}
 \end{table}
 
@@ -1183,6 +1079,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	{}
 \end{table}
 
+\newpage
 \subsubsection{検索画面構成モジュール}
 \begin{table}[H]
 	\centering
@@ -1205,8 +1102,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	{}
 \end{table}
 
-\subsection{利用者モジュール}
-% 【記述内容】各ステップのロジックを説明になるんかな？。
+\newpage
 \subsubsection{スポット検索処理モジュール}
 
 \begin{table}[H]
@@ -1233,6 +1129,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	{}
 \end{table}
 
+\newpage
 \subsubsection{AIスポット推薦処理モジュール}
 \begin{table}[H]
 	\centering
@@ -1268,6 +1165,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
      ・検索範囲は、移動の始点と終点を含む矩形範囲（バウンディングボックス）を設定し、市町村をまたぐ移動に対応する。}
 \end{table}
 
+\newpage
 \subsubsection{チェックイン処理モジュール}
 \begin{table}[H]
 	\centering
@@ -1294,6 +1192,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	{}
 \end{table}
 
+\newpage
 \subsubsection{口コミ画面構成モジュール}
 \begin{table}[H]
 	\centering
@@ -1321,30 +1220,8 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
 	{}
 \end{table}
-\subsubsection{クーポン受け取り処理モジュール}
-\begin{table}[H]
-	\centering
-	\caption{クーポン受け取り処理モジュール}\label{tab:mod-coupon-receive}
-	\modtable{MU16}{app/Traits/CouponTrait.php}{スタンプ獲得状況に基づくクーポン付与}%
-	{
-		node [shape=box,style=rounded];
-		fetchcond [label="クーポンモジュールを用いて関連クーポン検索"];
-		checkhit [label="対象クーポンがあるか？", shape=diamond];
-		checkexpire [label="有効期限内であるか？", shape=diamond];
-		savedb [label="利用者クーポンモジュールを用いてデータベースに記録"];
-		ressuccess [label="獲得に成功した旨を返す"];
-		resnone [label="獲得に失敗した旨を返す"];
-		fetchcond -> checkhit;
-		checkhit -> resnone [label="No"];
-		checkhit -> checkexpire [label="Yes"];
-		checkexpire -> resnone [label="No"];
-		checkexpire -> savedb [label="Yes"];
-		savedb -> ressuccess;
-	}%
-	{チェックインしたスポット}%
-	{獲得に成功したかどうか}%
-	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{スタンプ獲得トリガーで呼び出される想定。ユーザーが同じクーポンを重複して受け取らないようにする}\vspace{.35\zw}}
-\end{table}
+
+\newpage
 \subsubsection{Google マップ URL生成モジュール}
 \begin{table}[H]
     \centering
@@ -1375,10 +1252,8 @@ spotsテーブル（\cref{tb:db-spots}）は、
         ・ユーザーはこのURLを開くことで、リアルタイムの交通状況を反映したナビゲーションを利用できる。
     }}
 \end{table}
+
 \newpage
-\subsection{管理者モジュール}
-% 【記述内容】各ステップのロジックを説明になるんかな？。
-% ====================================
 \subsubsection{スポット追加画面構成モジュール}
 \begin{table}[H]
 	\centering
@@ -1551,6 +1426,141 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	}%
 	{利用者から受け取った利用者のIDを含むHTTPリクエスト}%
 	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
+	{}
+\end{table}
+
+\newpage
+\subsection{トレイトモジュール}
+\subsubsection{空白検知モジュール}
+\begin{table}[H]
+	\centering
+	\caption{空白検知モジュール}\label{tab:mod-blank}
+	\modtable{MC04}{app/Traits/BlankCheckTrait.php}%
+	{入力値に空白が含まれていないか検査する。}%
+	{
+		node [shape=box,style=rounded];
+		b [shape=diamond];
+		{ rank=source; b; }
+		b [label="空白や特殊文字が含まれているか？"];
+		d [label="エラーメッセージを返す"];
+		e [label="含まれていない旨を返す"];
+		b->d [label="Yes"];
+		b->e [label="No"];
+	}%
+	{}%
+	{エラーメッセージまたは正常終了の旨}%
+	{}
+\end{table}
+
+\newpage
+\subsubsection{特殊文字検知モジュール}
+\begin{table}[H]
+	\centering
+	\caption{特殊文字検知モジュール}\label{tab:mod-special}
+	\modtable{MC05}{app/Traits/SpecialCharCheckTrait.php}%
+	{入力値に特殊文字が含まれていないか検査
+する。}%
+	{
+		node [shape=box,style=rounded];
+		b [shape=diamond];
+		{ rank=source; b; }
+		b [label="特殊文字が含まれているか？"];
+		d [label="エラーメッセージを返す"];
+		e [label="含まれていない旨を返す"];
+		b->d [label="Yes"];
+		b->e [label="No"];
+	}%
+	{}%
+	{エラーメッセージまたは含まれていない旨}%
+	{}
+\end{table}
+
+\newpage
+\subsubsection{ログイン名重複チェックモジュール}
+\begin{table}[H]
+	\centering
+	\caption{ログイン名重複チェックモジュール}\label{tab:mod-dup}
+	\modtable{MC06}{app/Traits/DupLoginNameCheckTrait.php}%
+	{ログイン名が重複していないか検査する。}%
+	{
+		node [shape=box,style=rounded];
+		b [shape=diamond];
+		{ rank=source; b; }
+		b [label="ログイン名が重複しているか？"];
+		d [label="エラーメッセージを返す"];
+		e [label="重複していない旨を返す"];
+		b->d [label="Yes"];
+		b->e [label="No"];
+	}%
+	{}%
+	{エラーメッセージまたは重複していない旨}%
+	{}
+\end{table}
+
+\newpage
+\subsubsection{クーポン受け取り処理モジュール}
+\begin{table}[H]
+	\centering
+	\caption{クーポン受け取り処理モジュール}\label{tab:mod-coupon-receive}
+	\modtable{MU16}{app/Traits/CouponTrait.php}{スタンプ獲得状況に基づくクーポン付与}%
+	{
+		node [shape=box,style=rounded];
+		fetchcond [label="クーポンモジュールを用いて関連クーポン検索"];
+		checkhit [label="対象クーポンがあるか？", shape=diamond];
+		checkexpire [label="有効期限内であるか？", shape=diamond];
+		savedb [label="利用者クーポンモジュールを用いてデータベースに記録"];
+		ressuccess [label="獲得に成功した旨を返す"];
+		resnone [label="獲得に失敗した旨を返す"];
+		fetchcond -> checkhit;
+		checkhit -> resnone [label="No"];
+		checkhit -> checkexpire [label="Yes"];
+		checkexpire -> resnone [label="No"];
+		checkexpire -> savedb [label="Yes"];
+		savedb -> ressuccess;
+	}%
+	{チェックインしたスポット}%
+	{獲得に成功したかどうか}%
+	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{スタンプ獲得トリガーで呼び出される想定。ユーザーが同じクーポンを重複して受け取らないようにする}\vspace{.35\zw}}
+\end{table}
+
+\newpage
+\subsection{フロントエンドモジュール}
+\subsubsection{利用規約確認モジュール}
+\begin{table}[H]
+	\centering
+	\caption{利用規約確認モジュール}\label{tab:mod-terms}
+	\modtable{MC03}{resources/ts/terms.ts}%
+	{SceneTripの利用規約確認を行う。}%
+	{
+		node [shape=box,style=rounded];
+		{ rank=source; c; }
+		c [label="「同意する」ボタンの押下を検知"];
+		d [label="アカウント作成画面へ遷移"];
+		c->d;
+	}%
+	{}%
+	{}%
+	{}
+\end{table}
+
+\newpage
+\subsubsection{ログアウト確認モジュール}
+\begin{table}[H]
+	\centering
+	\caption{ログアウト確認モジュール}\label{tab:mod-logout}
+	\modtable{MC07}{resources/ts/logout-confirm.ts}%
+	{ログアウトしても良いか確認する。}%
+	{
+		node [shape=box,style=rounded];
+		b [shape=diamond];
+		b [label="ボタンの押下を検知"];
+		c [label="ログアウトを行うページに遷移"];
+		g [label="前のページに戻る"];
+		b->c [label="ログアウト"];
+		b->g [label="キャンセル"];
+	}%
+	{}%
+	{}%
 	{}
 \end{table}
 
