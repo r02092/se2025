@@ -84,9 +84,12 @@
 % 【記述内容】本設計書の目的、対象システムの概要、および外部設計書からの変更点を記述。
 
 \section{システム概要}
-本書は「聖地巡礼サポートシステムSceneTrip 外部設計書 第2.0版」に基づき、
+本書は「聖地巡礼サポートシステムSceneTrip 外部設計書 第2.0版」
+（以下、単に「外部設計書」と称する）に基づき、
 システムのモジュール構成、データ処理ロジック、およびインターフェースの詳細を
 定義する。
+ただし、外部設計書と本書の内容に相違点がある場合、
+本書に記述された内容を優先するものとする。
 \subsection{共通機能}
 \subsubsection{アカウント作成機能}
 システムを利用するためにはアカウントを作成する必要がある。
@@ -104,7 +107,7 @@
 システムはログイン用画面でログイン名とパスワードを受け取り、検証を行う。
 Google アカウントを使用する方法では、OAuthを用いて認証を行い、
 GoogleのIDとユーザー名から検証を行う。
-また、RFC 6238に準拠したTOTPによる二要素認証を受け付けており、
+また、RFC 6238に準拠したTOTPによる二要素認証に対応しており、
 プロフィール画面から設定を行えるものとする。
 
 \subsection{利用者（ログイン不要）}
@@ -158,7 +161,7 @@ Google マップ上で表示できるURIを生成する。
 追加したスポットの情報は後で編集、削除できる。
 
 \subsubsection{事業者情報変更機能}
-登録した店舗情報（店舗名、所在地、店舗写真）を変更する機能である。
+登録した店舗情報（店舗名、所在地、紹介文、店舗写真など）を変更する機能である。
 
 \subsubsection{観光データ分析API}
 システムは逐一、ユーザーのスポット検索の検索内容やユーザーのIDなどを収集し、
@@ -193,8 +196,10 @@ UGCの監視、投稿の削除ができる機能である。
 強制的にサブスクリプションを解除または停止できるものとする。
 
 \section{適用範囲と制約}
-外部設計書で指定されたパッケージ構成および環境設定（開発言語、セキュリティ、
-データベースの構成など）を変更せずに作成する。
+外部設計書で指定されたパッケージ構成や
+開発言語、セキュリティに関する要件などを変更せずに作成する。
+ただし、データベース設計については本書に記述するものに
+変更する。
 
 % ====================================
 
@@ -376,8 +381,9 @@ GitHub Actionsでは、以下の作業を自動で行う。
 		ローワースネークケースを用いる。
 		\item \verb|App\Http\Controllers\Controller|クラスを継承するクラスの名前の
 		末尾は、\verb|Controller|とする。
-		\item \verb|App\Models\|名前空間に存在するクラスの名前は、対応するデータベースのテーブル名に
-		基づくものとする。
+		\item \verb|App\Models\|名前空間に存在するクラスの
+		名前は、対応するデータベースのテーブル名を
+		英語として解釈し、それを単数形にしたものとする。
 		\item \verb|App\Http\Controllers\Controller|クラスを継承するクラスから
 		呼び出される共通処理は、\verb|App\Traits\|名前空間に
 		属するトレイトとする。
@@ -516,7 +522,315 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	\caption{主なディレクトリの一覧}\label{fig:dir}
 \end{figure}
 
-\section{データベースアクセス設計}
+\section{データベース設計}
+\subsection{ER図}
+IE記法によるデータベースのER図を\cref{fig:er}に示す。
+\begin{figure}[H]
+	\centering
+	\includegraphics[bb=16.408054 15.39 668.505917 581.561982,clip,scale=.66]{naibu-er.pdf}
+	\caption{ER図}\label{fig:er}
+\end{figure}
+\subsection{テーブルとカラムの詳細}
+各テーブルおよびカラムの詳細を示す。
+IDについて特筆なきものは、AUTO INCREMENT属性を
+指定することで自動で採番を行うものとする。
+経緯度については、以下に示す式を用いて度単位の値を変換し、
+得られた値を格納する。
+この変換は、各テーブルに対応するモデルとなるモジュールにて
+行う。
+\[
+	\text{[データベースに格納する値]}=\frac{\text{[元の値]}-\text{[最小値]}}{\text{[最大値]}-\text{[最小値]}}(2^{32}-1)
+\]
+このシステムでは、管理者や事業者を含む全ての利用者を
+共通のusersテーブル（\cref{tb:db-users}）で扱う。
+ログインにはGoogle アカウントも使用できるため、
+\cref{tb:db-users-provider}に値の意味を示すproviderカラムで
+アカウントのサービスプロバイダを区別し、
+識別子をlogin\_nameカラムに保存する。
+この設計によって、ソーシャルログインの
+サービスプロバイダの将来的な拡張も容易となるようにする。
+管理者であるかどうかは、\cref{tb:db-users-permission}に
+示すようにpermissionカラムの値により区別する。
+事業者であるかどうかの区別には
+契約の数を記録するカラムを用い、1つ以上の契約があれば
+事業者であると判断する。
+事業者の場合、住所の登録を要するものとする。
+住所は郵便番号およびJIS X 0402:2020で
+定められた市区町村コード（JIS X 0401:1973で定められた
+都道府県コードと併用するもの）と市区町村に続く住所の文字列の
+組合せにより保存する。
+また、ログイン時にTOTPによる二要素認証を
+行えるようにするためのカラムを設ける。
+総当たり攻撃を防ぐため、直近の認証時の時刻と
+認証回数を保持するカラムも設けており、
+高頻度な認証操作を制限する。OTPの更新頻度は30秒と
+するため、直近の認証時の時刻は、UNIX時刻を30で
+割った値として保存し、認証回数も30秒ごとに数え直す。
+\begin{table}[H]
+	\centering
+	\caption{usersテーブル（管理者や事業者を含む利用者）}\label{tb:db-users}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		provider & TINYINT UNSIGNED & UK, NOT NULL & サービスプロバイダ \\ \hline
+		login\_name & VARCHAR(255) & UK, NOT NULL & ログイン名 \\ \hline
+		password & VARCHAR(255) & & ハッシュ化されたパスワード \\ \hline
+		permission & TINYINT UNSIGNED & NOT NULL & 種別 \\ \hline
+		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
+		icon\_ext & VARCHAR(4) & NOT NULL & アイコンの拡張子 \\ \hline
+		num\_plan\_std & INT UNSIGNED & NOT NULL & スタンダードプランの契約数 \\ \hline
+		num\_plan\_prm & INT UNSIGNED & NOT NULL & プレミアムプランの契約数 \\ \hline
+		postal\_code & INT UNSIGNED & & 郵便番号 \\ \hline
+		addr\_city & INT UNSIGNED & & 市区町村コード \\ \hline
+		addr\_detail & VARCHAR(255) & & 市区町村名の後に続く住所 \\ \hline
+		totp\_secret & BINARY(20) & & TOTPのシークレット \\ \hline
+		totp\_iv & BINARY(12) & & TOTPの初期ベクトル \\ \hline
+		totp\_tag & BINARY(16) & & TOTPの認証タグ \\ \hline
+		totp\_last\_time & INT UNSIGNED & & TOTPの直近の認証時の時刻 \\ \hline
+		totp\_counter & TINYINT UNSIGNED & & TOTPの30秒ごとの認証回数 \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{usersテーブルのproviderカラムについて}\label{tb:db-users-provider}
+	\begin{tabular}{|r|l|}
+		\hline
+		\thead{provider} & \thead{意味} \\ \hline
+		0 & SceneTrip \\ \hline
+		1 & Google \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{usersテーブルのpermissionカラムについて}\label{tb:db-users-permission}
+	\begin{tabular}{|r|l|}
+		\hline
+		\thead{permission} & \thead{意味} \\ \hline
+		0 & 管理者 \\ \hline
+		1 & 利用者（未承認の事業者を含む） \\ \hline
+		2 & 承認済み事業者 \\ \hline
+	\end{tabular}
+\end{table}
+パスワードのハッシュ化にはPHPの\verb|password_hash()|関数を
+使用し、暗号学的ハッシュ関数であるArgon2idを用い、かつ
+ソルトを使用することで、安全にパスワードを保存する。
+
+spotsテーブル（\cref{tb:db-spots}）は、
+観光地や観光施設、店などのスポットを保存する。
+スポットは契約ごとに作成できるため、
+どちらのプランに対応するスポットであるかを保存するplanカラムを設けています。
+このカラムの値の意味を\cref{tb:db-spots-plan}に示す。
+また、keywordsテーブル（\cref{tb:db-keywords}）
+スポットにはキーワードを関連付ける。
+
+スポットのカテゴリや名前、経緯度、住所、
+キーワードはAI検索時のLLMのシステムプロンプトの構成などに
+使用する。
+\begin{table}[H]
+	\centering
+	\caption{spotsテーブル（観光地や観光施設、店などのスポット）}\label{tb:db-spots}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 登録者 \\ \hline
+		plan & TINYINT UNSIGNED & NOT NULL & プラン \\ \hline
+		type & TINYINT UNSIGNED & NOT NULL & カテゴリ \\ \hline
+		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
+		lng & INT UNSIGNED & NOT NULL & 経度 \\ \hline
+		lat & INT UNSIGNED & NOT NULL & 緯度 \\ \hline
+		postal\_code & INT UNSIGNED & & 郵便番号 \\ \hline
+		addr\_city & INT UNSIGNED & & 市区町村コード \\ \hline
+		addr\_detail & VARCHAR(255) & & 市区町村名の後に続く住所 \\ \hline
+		description & TEXT & NOT NULL & 説明文 \\ \hline
+		img\_ext & VARCHAR(4) & NOT NULL & 画像の拡張子 \\ \hline
+		stamp\_key & BIGINT UNSIGNED & UK2, NOT NULL & スタンプ確認用キー \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{spotsテーブルのplanカラムについて}\label{tb:db-spots-plan}
+	\begin{tabular}{|r|l|}
+		\hline
+		\thead{plan} & \thead{意味} \\ \hline
+		0 & スタンダードプラン \\ \hline
+		1 & プレミアムプラン \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{keywordsテーブル（スポットに関連付けるキーワード）}\label{tb:db-keywords}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		spot\_id & INT UNSIGNED & FK, UK, NOT NULL & 関連付けたスポット \\ \hline
+		keyword & VARCHAR(255) & UK, NOT NULL & キーワード \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+スポットに対する
+口コミは、reviewsテーブル（\cref{tb:db-reviews}）に
+保存する。口コミには、段階的な評価および文章を
+入力できるようにする。
+また、閲覧数も記録するようにし、
+よく閲覧されている口コミを事業者が確認できるようにする。
+\begin{table}[H]
+	\centering
+	\caption{reviewsテーブル（スポットに対する口コミ）}\label{tb:db-reviews}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		spot\_id & INT UNSIGNED & FK, NOT NULL & 関連付けたスポット \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 投稿者 \\ \hline
+		rate & TINYINT UNSIGNED & NOT NULL & 評価 \\ \hline
+		comment & TEXT & NOT NULL & 本文 \\ \hline
+		views & INT UNSIGNED & NOT NULL & 閲覧数 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+事業者が発行した
+クーポンはcouponsテーブル（\cref{tb:db-coupons}）に保存する。
+クーポンを手に入れるために行く必要のあるスポットも記録する。
+また、利用者が手に入れた
+クーポンはuser\_couponsテーブル（\cref{tb:db-user_coupons}）に
+保存する。クーポンの入手時に確認用キーが生成され、
+これを含む二次元コードを事業者に提示することで
+正規のクーポンであることを証明する。
+\begin{table}[H]
+	\centering
+	\caption{couponsテーブル（スポットに対して作成されたクーポン）}\label{tb:db-coupons}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		spot\_id & INT UNSIGNED & FK, NOT NULL & 使用できるスポット \\ \hline
+		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
+		cond\_spot\_id & INT UNSIGNED & & 行く必要のあるスポット \\ \hline
+		expires\_at & DATETIME & & 期限切れ時刻 \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{user\_couponsテーブル（利用者が手に入れたクーポン）}\label{tb:db-user_coupons}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		coupon\_id & INT UNSIGNED & FK, UK1, NOT NULL & 関連付けたクーポン \\ \hline
+		user\_id & INT UNSIGNED & FK, UK1, NOT NULL & 手に入れた利用者 \\ \hline
+		key & BIGINT UNSIGNED & UK2, NOT NULL & 確認用キー \\ \hline
+		is\_used & TINYINT UNSIGNED & NOT NULL & 使用されたか \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+	\end{tabular}
+\end{table}
+利用者が手に入れた
+スタンプはstampsテーブル（\cref{tb:db-stamps}）に
+保存する。スタンプの画像はファイルシステムに保存するため、
+それに対応するテーブルやカラムは存在しない。
+\begin{table}[H]
+	\centering
+	\caption{stampsテーブル（利用者が手に入れたスタンプ）}\label{tb:db-stamps}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		spot\_id & INT UNSIGNED & FK, UK, NOT NULL & 関連付けたスポット \\ \hline
+		user\_id & INT UNSIGNED & FK, UK, NOT NULL & 手に入れた利用者 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+	\end{tabular}
+\end{table}
+利用者の検索クエリは、事業者の分析に
+使用するため、queriesテーブル（\cref{tb:db-queries}）に
+保存する。経路検索を伴う場合は、その出発点および目的地も
+保存する。
+\begin{table}[H]
+	\centering
+	\caption{queriesテーブル（利用者の検索クエリ）}\label{tb:db-queries}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 検索した利用者 \\ \hline
+		query & TEXT & NOT NULL & 検索クエリ \\ \hline
+		from\_spot\_id & INT UNSIGNED & & 出発地 \\ \hline
+		to\_spot\_id & INT UNSIGNED & & 目的地 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+	\end{tabular}
+\end{table}
+利用者の投稿した写真は、photosテーブル（\cref{tb:db-photos}）に
+保存する。地図上に表示するため、写真の経緯度を保存する。
+\begin{table}[H]
+	\centering
+	\caption{photosテーブル（利用者の投稿した写真）}\label{tb:db-photos}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 投稿者 \\ \hline
+		lng & INT UNSIGNED & NOT NULL & 経度 \\ \hline
+		lat & INT UNSIGNED & NOT NULL & 緯度 \\ \hline
+		img\_ext & VARCHAR(4) & NOT NULL & 画像の拡張子 \\ \hline
+		comment & TEXT & NOT NULL & 写真に付けた文 \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+事業者の
+発行したAPIキーは、api\_keysテーブル（\cref{tb:db-api_keys}）に
+保存する。
+パスワードと同様にAPIキーもハッシュ化を行い、安全に保存する。
+\begin{table}[H]
+	\centering
+	\caption{api\_keysテーブル（事業者の発行したAPIキー）}\label{tb:db-api_keys}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
+		id & INT UNSIGNED & PK & ID \\ \hline
+		user\_id & INT UNSIGNED & FK, NOT NULL & 発行者 \\ \hline
+		name & VARCHAR(255) & NOT NULL & 名前 \\ \hline
+		key & VARCHAR(255) & NOT NULL & ハッシュ化されたAPIキー \\ \hline
+		ip\_addr & VARBINARY(16) & NOT NULL & IPアドレス \\ \hline
+		port & SMALLINT UNSIGNED & NOT NULL & ポート番号 \\ \hline
+		user\_agent & VARCHAR(255) & NOT NULL & User-Agent \\ \hline
+		created\_at & DATETIME & & 作成時刻 \\ \hline
+		updated\_at & DATETIME & & 更新時刻 \\ \hline
+		deleted\_at & DATETIME & & 削除時刻 \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection{データベースアクセス設計}
 % 【記述内容】データベースへのアクセス方法、外部設計書で指定された特殊なデータ形式やロジック（ID生成など）の詳細を定義
 データベースへのアクセスには、Laravelで
 採用されているORMであるEloquentを
@@ -533,8 +847,46 @@ GitHub Actionsでは、以下の作業を自動で行う。
 \section{モジュール詳細設計}
 % 【記述内容】外部設計書の機能要件を基に、各機能の入出力、責務、および内部処理フローを詳細に定義
 
-\subsection{共通モジュール}
-% 【記述内容】ログイン/ログアウト、アカウント作成とかを記述？
+\subsection{モデルモジュール}
+\subsubsection{例: 利用者モジュール}
+\begin{table}[H]
+	\centering
+	\caption{利用者モジュール}\label{tab:mod-model-user}
+	\modtable{MM00}{app/Models/User.php}%
+	{データベースのusersテーブルのデータの読み込みおよび書き込みを行う}%
+	{
+		a [label="ORMのクラスを継承し、データベース内外の値の変換を行う",shape=box,style=rounded];
+	}%
+	{クラス内の関数の呼び出し}%
+	{データベースから得られた値またはデータベースへの書き込み}%
+	{}
+\end{table}
+内容が同一のため省略するが、原則このモジュールと同様に、
+データベースの各テーブルに対応した
+モジュールを作成するものとする。
+作成する必要のあるモジュールの
+一覧を\cref{tab:mod-model-list}に示す。
+\begin{table}[H]
+	\centering
+	\caption{モデルモジュールの一覧}\label{tab:mod-model-list}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{モジュール名} & \thead{モジュールID} & \thead{ファイル名} & \thead{対応するテーブル} \\ \hline
+		利用者 & MM00 & User.php & users \\ \hline
+		スポット & MM01 & Spot.php & spots \\ \hline
+		キーワード & MM02 & Keyword.php & keywords \\ \hline
+		口コミ & MM03 & Review.php & reviews \\ \hline
+		クーポン & MM04 & Coupon.php & coupons \\ \hline
+		利用者クーポン & MM05 & UserCoupon.php & user\_coupons \\ \hline
+		スタンプ & MM06 & Stamp.php & stamps \\ \hline
+		検索クエリ & MM07 & Query.php & queries \\ \hline
+		写真 & MM08 & Photo.php & photos \\ \hline
+		APIキー & MM09 & ApiKey.php & api\_keys \\ \hline
+	\end{tabular}
+\end{table}
+
+\newpage
+\subsection{ビューモジュール}
 \subsubsection{画面の共通部分出力モジュール}
 \begin{table}[H]
 	\centering
@@ -561,12 +913,16 @@ GitHub Actionsでは、以下の作業を自動で行う。
 		a [label="画面の共通部分モジュールを呼び出し"];
 		b [label="エラーメッセージ表示画面を構成"];
 		a -> b;
+		b [label="エラーメッセージを表示"];
+		c [label="戻るボタンを配置"];
+		a -> b -> c;
 	}%
-	{エラーメッセージ}%
+	{エラーメッセージ、戻り先URL}%
 	{Webページ}%
 	{}
 \end{table}
 
+\newpage
 \subsubsection{ログイン画面出力モジュール}
 \begin{table}[H]
 	\centering
@@ -587,6 +943,9 @@ GitHub Actionsでは、以下の作業を自動で行う。
 画面の共通部分モジュールを呼び出してそれを基に画面を構成する
 部分は同じであるため省略するが、原則このモジュールと同様に
 各画面に対応したモジュールを作成するものとする。
+
+\newpage
+\subsection{コントローラモジュール}
 \subsubsection{ログイン処理モジュール}
 \begin{table}[H]
 	\centering
@@ -657,113 +1016,6 @@ GitHub Actionsでは、以下の作業を自動で行う。
 \end{table}
 
 \newpage
-\subsubsection{利用規約確認モジュール}
-\begin{table}[H]
-	\centering
-	\caption{利用規約確認モジュール}\label{tab:mod-terms}
-	\modtable{MC03}{resources/ts/terms.ts}%
-	{SceneTripの利用規約確認を行う。}%
-	{
-		node [shape=box,style=rounded];
-		{ rank=source; c; }
-		c [label="「同意する」ボタンの押下を検知"];
-		d [label="アカウント作成画面へ遷移"];
-		c->d;
-	}%
-	{}%
-	{}%
-	{}
-\end{table}
-
-\newpage
-\subsubsection{空白検知モジュール}
-\begin{table}[H]
-	\centering
-	\caption{空白検知モジュール}\label{tab:mod-blank}
-	\modtable{MC04}{app/Traits/BlankCheckTrait.php}%
-	{入力値に空白が含まれていないか検査する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		{ rank=source; b; }
-		b [label="空白や特殊文字が含まれているか？"];
-		d [label="エラーメッセージを返す"];
-		e [label="含まれていない旨を返す"];
-		b->d [label="Yes"];
-		b->e [label="No"];
-	}%
-	{}%
-	{エラーメッセージまたは正常終了の旨}%
-	{}
-\end{table}
-
-\newpage
-\subsubsection{特殊文字検知モジュール}
-\begin{table}[H]
-	\centering
-	\caption{特殊文字検知モジュール}\label{tab:mod-special}
-	\modtable{MC05}{app/Traits/SpecialCharCheckTrait.php}%
-	{入力値に特殊文字が含まれていないか検査
-する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		{ rank=source; b; }
-		b [label="特殊文字が含まれているか？"];
-		d [label="エラーメッセージを返す"];
-		e [label="含まれていない旨を返す"];
-		b->d [label="Yes"];
-		b->e [label="No"];
-	}%
-	{}%
-	{エラーメッセージまたは含まれていない旨}%
-	{}
-\end{table}
-
-\newpage
-\subsubsection{ログイン名重複チェックモジュール}
-\begin{table}[H]
-	\centering
-	\caption{ログイン名重複チェックモジュール}\label{tab:mod-dup}
-	\modtable{MC06}{app/Traits/DupLoginNameCheckTrait.php}%
-	{ログイン名が重複していないか検査する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		{ rank=source; b; }
-		b [label="ログイン名が重複しているか？"];
-		d [label="エラーメッセージを返す"];
-		e [label="重複していない旨を返す"];
-		b->d [label="Yes"];
-		b->e [label="No"];
-	}%
-	{}%
-	{エラーメッセージまたは重複していない旨}%
-	{}
-\end{table}
-
-\newpage
-\subsubsection{ログアウト確認モジュール}
-\begin{table}[H]
-	\centering
-	\caption{ログアウト確認モジュール}\label{tab:mod-logout}
-	\modtable{MC07}{resources/ts/logout-confirm.ts}%
-	{ログアウトしても良いか確認する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		b [label="ボタンの押下を検知"];
-		c [label="ログアウトを行うページに遷移"];
-		g [label="前のページに戻る"];
-		b->c [label="ログアウト"];
-		b->g [label="キャンセル"];
-	}%
-	{}%
-	{}%
-	{}
-\end{table}
-
-\newpage
 \subsubsection{プロフィール画面構成モジュール}
 \begin{table}[H]
 	\centering
@@ -818,7 +1070,54 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	{}
 \end{table}
 
+\newpage
+\subsubsection{QRコード読み取りモジュール}
+\begin{table}[H]
+	\centering
+	\caption{QRコード読み取りモジュール}\label{tab:mod-qr}
+	\modtable{MC10}{app/Http/Controllers/QrCodeController.php}%
+	{カメラ等で読み取った二次元コードを解析し、対応したWebページにリダイレクトする。}%
+	{
+		node [shape=box,style=rounded];
+		c [label="入力内容が問題あるか？",shape=diamond];
+		f [label="エラーメッセージを含むページを応答"];
+		h [label="QRコード読み取りライブラリでデコード"];
+		i [label="Webページを表示"];
+		c->f [label="Yes"];
+		c->h [label="No"];
+		h->i;
+	}%
+	{利用者から受け取った二次元コードを含むHTTPリクエスト}%
+	{Webページ}%
+	{スポットのチェックイン用URLや、二要素認証設定用のURIなどを想定する。クライアント側で読み取りを行い、結果をサーバへ送信して処理する方式を想定する。}
+\end{table}
 
+
+\newpage
+\subsubsection{二段階認証モジュール}
+\begin{table}[H]
+	\centering
+	\caption{二段階認証（TOTP）モジュール}\label{tab:mod-2fa}
+	\modtable{MC12}{app/Http/Controllers/TwoFactorController.php}%
+	{利用者がTOTPによる二段階認証を設定・検証・解除するための処理を提供する。}%
+	{
+		node [shape=box,style=rounded];
+    e [shape=diamond];
+		a [label="二段階認証設定要求を受け取る"];
+		b [label="シークレットを生成"];
+		c [label="QRコードを生成して表示"];
+		d [label="利用者がワンタイムコードを入力"];
+		e [label="TOTPを検証"];
+		f [label="シークレットを保存し、設定完了画面を表示"];
+		g [label="エラーを返す"];
+		a->b->c->d->e;
+		e->f [label="成功"];
+		e->g [label="失敗"];
+	}%
+	{利用者から受け取ったHTTPリクエスト}%
+	{Webページ}%
+	{}
+\end{table}
 
 \newpage
 \subsubsection{検索画面構成モジュール}
@@ -843,28 +1142,7 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	{}
 \end{table}
 
-\subsubsection{エラーメッセージ出力モジュール}
-\begin{table}[H]
-	\centering
-	\caption{エラーメッセージ出力モジュール}\label{tab:mod-error}
-	\modtable{MC11}{}%
-	{エラー文を表示するモジュール}%
-	{
-		node [shape=box,style=rounded];
-		c [shape=diamond];
-		d [label="エラー番号取得"];
-		e [label="エラー番号判定"];
-		f [label="エラー文表示"];
-		d->e;
-		e->f;
-	}%
-	{エラー番号(MC04, MC05, MC06等)}%
-	{テキストとしてのエラー文}%
-	{}
-\end{table}
-
-\subsection{利用者モジュール}
-% 【記述内容】各ステップのロジックを説明になるんかな？。
+\newpage
 \subsubsection{スポット検索処理モジュール}
 
 \begin{table}[H]
@@ -891,6 +1169,7 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	{}
 \end{table}
 
+\newpage
 \subsubsection{AIスポット推薦処理モジュール}
 \begin{table}[H]
 	\centering
@@ -926,6 +1205,7 @@ GitHub Actionsでは、以下の作業を自動で行う。
      ・検索範囲は、移動の始点と終点を含む矩形範囲（バウンディングボックス）を設定し、市町村をまたぐ移動に対応する。}
 \end{table}
 
+\newpage
 \subsubsection{チェックイン処理モジュール}
 \begin{table}[H]
 	\centering
@@ -952,6 +1232,7 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	{}
 \end{table}
 
+\newpage
 \subsubsection{口コミ画面構成モジュール}
 \begin{table}[H]
 	\centering
@@ -979,30 +1260,8 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
 	{}
 \end{table}
-\subsubsection{クーポン受け取り処理モジュール}
-\begin{table}[H]
-	\centering
-	\caption{クーポン受け取り処理モジュール}\label{tab:mod-coupon-receive}
-	\modtable{MU16}{app/Traits/CouponTrait.php}{スタンプ獲得状況に基づくクーポン付与}%
-	{
-		node [shape=box,style=rounded];
-		fetchcond [label="クーポンモジュールを用いて関連クーポン検索"];
-		checkhit [label="対象クーポンがあるか？", shape=diamond];
-		checkexpire [label="有効期限内であるか？", shape=diamond];
-		savedb [label="利用者クーポンモジュールを用いてデータベースに記録"];
-		ressuccess [label="獲得に成功した旨を返す"];
-		resnone [label="獲得に失敗した旨を返す"];
-		fetchcond -> checkhit;
-		checkhit -> resnone [label="No"];
-		checkhit -> checkexpire [label="Yes"];
-		checkexpire -> resnone [label="No"];
-		checkexpire -> savedb [label="Yes"];
-		savedb -> ressuccess;
-	}%
-	{チェックインしたスポット}%
-	{獲得に成功したかどうか}%
-	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{スタンプ獲得トリガーで呼び出される想定。ユーザーが同じクーポンを重複して受け取らないようにする}\vspace{.35\zw}}
-\end{table}
+
+\newpage
 \subsubsection{クーポン利用開始処理モジュール}
 \begin{table}[H]
     \centering
@@ -1033,6 +1292,8 @@ GitHub Actionsでは、以下の作業を自動で行う。
     {処理結果、二次元コード表示用データ（署名付きトークン）}%
     {UIの「スライドで利用」アクションに対応する}%
 \end{table}
+
+\newpage
 \subsubsection{Google マップ URL生成モジュール}
 \begin{table}[H]
     \centering
@@ -1063,6 +1324,8 @@ GitHub Actionsでは、以下の作業を自動で行う。
         ・ユーザーはこのURLを開くことで、リアルタイムの交通状況を反映したナビゲーションを利用できる。
     }}
 \end{table}
+
+\newpage
 \subsubsection{投稿マップ表示モジュール}
 \begin{table}[H]
     \centering
@@ -1083,10 +1346,8 @@ GitHub Actionsでは、以下の作業を自動で行う。
     {Webページ（投稿が表示された地図画面）}%
     {・「投稿を見る」機能に対応する。}%
 \end{table}
+
 \newpage
-\subsection{管理者モジュール}
-% 【記述内容】各ステップのロジックを説明になるんかな？。
-% ====================================
 \subsubsection{スポット追加画面構成モジュール}
 \begin{table}[H]
 	\centering
@@ -1259,6 +1520,141 @@ GitHub Actionsでは、以下の作業を自動で行う。
 	}%
 	{利用者から受け取った利用者のIDを含むHTTPリクエスト}%
 	{Webページまたはリダイレクト応答となるHTTPレスポンス}%
+	{}
+\end{table}
+
+\newpage
+\subsection{トレイトモジュール}
+\subsubsection{空白検知モジュール}
+\begin{table}[H]
+	\centering
+	\caption{空白検知モジュール}\label{tab:mod-blank}
+	\modtable{MC04}{app/Traits/BlankCheckTrait.php}%
+	{入力値に空白が含まれていないか検査する。}%
+	{
+		node [shape=box,style=rounded];
+		b [shape=diamond];
+		{ rank=source; b; }
+		b [label="空白や特殊文字が含まれているか？"];
+		d [label="エラーメッセージを返す"];
+		e [label="含まれていない旨を返す"];
+		b->d [label="Yes"];
+		b->e [label="No"];
+	}%
+	{}%
+	{エラーメッセージまたは正常終了の旨}%
+	{}
+\end{table}
+
+\newpage
+\subsubsection{特殊文字検知モジュール}
+\begin{table}[H]
+	\centering
+	\caption{特殊文字検知モジュール}\label{tab:mod-special}
+	\modtable{MC05}{app/Traits/SpecialCharCheckTrait.php}%
+	{入力値に特殊文字が含まれていないか検査
+する。}%
+	{
+		node [shape=box,style=rounded];
+		b [shape=diamond];
+		{ rank=source; b; }
+		b [label="特殊文字が含まれているか？"];
+		d [label="エラーメッセージを返す"];
+		e [label="含まれていない旨を返す"];
+		b->d [label="Yes"];
+		b->e [label="No"];
+	}%
+	{}%
+	{エラーメッセージまたは含まれていない旨}%
+	{}
+\end{table}
+
+\newpage
+\subsubsection{ログイン名重複チェックモジュール}
+\begin{table}[H]
+	\centering
+	\caption{ログイン名重複チェックモジュール}\label{tab:mod-dup}
+	\modtable{MC06}{app/Traits/DupLoginNameCheckTrait.php}%
+	{ログイン名が重複していないか検査する。}%
+	{
+		node [shape=box,style=rounded];
+		b [shape=diamond];
+		{ rank=source; b; }
+		b [label="ログイン名が重複しているか？"];
+		d [label="エラーメッセージを返す"];
+		e [label="重複していない旨を返す"];
+		b->d [label="Yes"];
+		b->e [label="No"];
+	}%
+	{}%
+	{エラーメッセージまたは重複していない旨}%
+	{}
+\end{table}
+
+\newpage
+\subsubsection{クーポン受け取り処理モジュール}
+\begin{table}[H]
+	\centering
+	\caption{クーポン受け取り処理モジュール}\label{tab:mod-coupon-receive}
+	\modtable{MU16}{app/Traits/CouponTrait.php}{スタンプ獲得状況に基づくクーポン付与}%
+	{
+		node [shape=box,style=rounded];
+		fetchcond [label="クーポンモジュールを用いて関連クーポン検索"];
+		checkhit [label="対象クーポンがあるか？", shape=diamond];
+		checkexpire [label="有効期限内であるか？", shape=diamond];
+		savedb [label="利用者クーポンモジュールを用いてデータベースに記録"];
+		ressuccess [label="獲得に成功した旨を返す"];
+		resnone [label="獲得に失敗した旨を返す"];
+		fetchcond -> checkhit;
+		checkhit -> resnone [label="No"];
+		checkhit -> checkexpire [label="Yes"];
+		checkexpire -> resnone [label="No"];
+		checkexpire -> savedb [label="Yes"];
+		savedb -> ressuccess;
+	}%
+	{チェックインしたスポット}%
+	{獲得に成功したかどうか}%
+	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{スタンプ獲得トリガーで呼び出される想定。ユーザーが同じクーポンを重複して受け取らないようにする}\vspace{.35\zw}}
+\end{table}
+
+\newpage
+\subsection{フロントエンドモジュール}
+\subsubsection{利用規約確認モジュール}
+\begin{table}[H]
+	\centering
+	\caption{利用規約確認モジュール}\label{tab:mod-terms}
+	\modtable{MC03}{resources/ts/terms.ts}%
+	{SceneTripの利用規約確認を行う。}%
+	{
+		node [shape=box,style=rounded];
+		{ rank=source; c; }
+		c [label="「同意する」ボタンの押下を検知"];
+		d [label="アカウント作成画面へ遷移"];
+		c->d;
+	}%
+	{}%
+	{}%
+	{}
+\end{table}
+
+\newpage
+\subsubsection{ログアウト確認モジュール}
+\begin{table}[H]
+	\centering
+	\caption{ログアウト確認モジュール}\label{tab:mod-logout}
+	\modtable{MC07}{resources/ts/logout-confirm.ts}%
+	{ログアウトしても良いか確認する。}%
+	{
+		node [shape=box,style=rounded];
+		b [shape=diamond];
+		b [label="ボタンの押下を検知"];
+		c [label="ログアウトを行うページに遷移"];
+		g [label="前のページに戻る"];
+		b->c [label="ログアウト"];
+		b->g [label="キャンセル"];
+	}%
+	{}%
+	{}%
 	{}
 \end{table}
 
