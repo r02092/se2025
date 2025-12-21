@@ -118,15 +118,20 @@ GoogleのIDとユーザー名から検証を行う。
 \subsection{利用者（ログイン必須）}
 
 \subsubsection{経路作成}
-ユーザーが入力した出発地・到着地となるスポットから経路を生成する。
-また、Gemini APIを利用して、Geminiからスポットの提案を行う。
-提案したスポットは出発地から到着地の中継地点として経路に含める。
-本システムでは経路をノードとエッジを用いたグラフとして表す。
+ユーザーが入力した出発地・到着地となるスポットを基に
+Gemini APIを利用してGeminiから中継地点となるスポットとともに
+経路の提案を取得し、ユーザーに返す。
+加えて、Geminiからの回答をより正確にするために、
+スポットを住所によって市区町村単位に分類し、
+Geminiへのヒントを与える。
+更に、Geminiから提案されたスポットはその経度・緯度から
+出発地・到着地によって矩形に囲まれる範囲に収まるスポットに限定し、
+提案する経路を調整する。
 
 \subsubsection{Google マップ転送機能}
 ユーザーとGeminiからの入力によって作成した経路から
-Google マップ上で表示できるURIを生成する。
-ユーザーはURIを基にGoogle マップへと移動する。
+Google マップ上で表示できるURLを生成する。
+ユーザーはURLを基にGoogle マップへと移動する。
 
 \subsubsection{評価機能}
 スポットに5段階の評価とコメントを投稿できる。
@@ -137,16 +142,16 @@ Google マップ上で表示できるURIを生成する。
 システムは写真とコメントを該当する経度、緯度と関連付ける。
 
 \subsubsection{チェックイン機能}
-訪れたスポットのスタンプを現地まで赴いた実績として入手できる機能である。
+現地まで赴いた実績として訪れたスポットのスタンプを入手できる機能である。
 システムはユーザーのカメラ映像から二次元コードを読み取り、
-ユーザーの位置情報を基にスポットから半径50\,mの範囲にユーザーが位置しているか検証を行う。
+同時にデバイスの位置情報を基に誤差範囲を利用してユーザーがスポットの周囲に位置していることを確認する。
 
 \subsubsection{クーポンの受け取り・利用機能}
 本システム上で提供されるクーポンの受け取り、並びにそのクーポンの利用ができる。
 クーポンはスポットなどでの割引や特典に利用できる。
 クーポンは、利用可能・利用中・利用済み・期限切れの4状態で表示する。
 クーポンの「利用中」とは、クーポンを提示して店舗などで利用手続きを行った状態を指し、
-翌日5時には「利用済み」となる。
+翌日午前5時に「利用済み」となる。
 ユーザーは画面上でクーポンが「利用可能」なのか、「利用中」なのかを確認できるものとする。
 
 \subsection{事業者}
@@ -164,8 +169,8 @@ Google マップ上で表示できるURIを生成する。
 登録した店舗情報（店舗名、所在地、紹介文、店舗写真など）を変更する機能である。
 
 \subsubsection{観光データ分析API}
-システムは逐一、ユーザーのスポット検索の検索内容やユーザーのIDなどを収集し、
-観光データ分析に生かせるAPIの機能を提供する。
+システムはユーザーの検索履歴やクーポンの使用履歴を記録し、
+そのデータを取得できるAPIを提供する。
 
 \subsubsection{クーポン発行機能}
 システム上でクーポンを発行できる。
@@ -173,7 +178,7 @@ Google マップ上で表示できるURIを生成する。
 作成時に使用できるスポット、クーポン名、行く必要のあるスポット、期限を入力する必要がある。
 
 \subsubsection{請求書ダウンロード機能}
-受領した請求書をPDF形式でダウンロードできるものとする。
+PDF形式のファイルをダウンロードすることで、請求書を受領できるものとする。
 
 \subsection{管理者}
 
@@ -186,8 +191,8 @@ UGCの監視、投稿の削除ができる機能である。
 利用規約違反があると判断した場合、
 投稿の削除を行えるものとする。
 
-\subsubsection{データ閲覧・分析機能}
-観光分析APIのデータやダッシュボードを監視する機能である。
+\subsubsection{分析データ閲覧機能}
+観光分析APIで提供するデータを閲覧する機能である。
 
 \subsubsection{サブスクリプション承認・解除機能}
 事業者からのサブスクリプション登録の申請の承認または却下、
@@ -418,7 +423,7 @@ GitHub Actionsでは、以下の作業を自動で行う。
 		\item IDの命名には、ローワースネークケースを用いる。
 		\item クラスの命名には、ケバブケースを用いる。
 		\item ファイルは、\verb|resources/views/|ディレクトリに配置するものとする。
-		\item ファイル名は、ローワースネークケースを用いた名前の末尾に“\verb|.blade.php|”を
+		\item ファイル名は、ケバブケースを用いた名前の末尾に“\verb|.blade.php|”を
 		付与するものとする。
 	\end{itemize}
 	\item \emph{CSSスタイルシート}
@@ -542,23 +547,27 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 	\text{[データベースに格納する値]}=\frac{\text{[元の値]}-\text{[最小値]}}{\text{[最大値]}-\text{[最小値]}}(2^{32}-1)
 \]
 このシステムでは、管理者や事業者を含む全ての利用者を
-共通のusersテーブル（\cref{tb:db-users}）で扱う。
+共通のusersテーブル（\cref{tab:db-users}）で扱う。
 ログインにはGoogle アカウントも使用できるため、
-\cref{tb:db-users-provider}に値の意味を示すproviderカラムで
+\cref{tab:db-users-provider}に値の意味を示すproviderカラムで
 アカウントのサービスプロバイダを区別し、
 識別子をlogin\_nameカラムに保存する。
 この設計によって、ソーシャルログインの
 サービスプロバイダの将来的な拡張も容易となるようにする。
-管理者であるかどうかは、\cref{tb:db-users-permission}に
+
+管理者であるかどうかは、\cref{tab:db-users-permission}に
 示すようにpermissionカラムの値により区別する。
 事業者であるかどうかの区別には
 契約の数を記録するカラムを用い、1つ以上の契約があれば
 事業者であると判断する。
+
 事業者の場合、住所の登録を要するものとする。
 住所は郵便番号およびJIS X 0402:2020で
 定められた市区町村コード（JIS X 0401:1973で定められた
-都道府県コードと併用するもの）と市区町村に続く住所の文字列の
+都道府県コードと併用するもの、これ以降に述べる場合も同様）と
+市区町村に続く住所の文字列の
 組合せにより保存する。
+
 また、ログイン時にTOTPによる二要素認証を
 行えるようにするためのカラムを設ける。
 総当たり攻撃を防ぐため、直近の認証時の時刻と
@@ -568,7 +577,7 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 割った値として保存し、認証回数も30秒ごとに数え直す。
 \begin{table}[H]
 	\centering
-	\caption{usersテーブル（管理者や事業者を含む利用者）}\label{tb:db-users}
+	\caption{usersテーブル（管理者や事業者を含む利用者）}\label{tab:db-users}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -596,20 +605,20 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 \end{table}
 \begin{table}[H]
 	\centering
-	\caption{usersテーブルのproviderカラムについて}\label{tb:db-users-provider}
+	\caption{usersテーブルのproviderカラムについて}\label{tab:db-users-provider}
 	\begin{tabular}{|r|l|}
 		\hline
-		\thead{provider} & \thead{意味} \\ \hline
+		\multicolumn{1}{|c|}{\thead{値}} & \thead{意味} \\ \hline
 		0 & SceneTrip \\ \hline
 		1 & Google \\ \hline
 	\end{tabular}
 \end{table}
 \begin{table}[H]
 	\centering
-	\caption{usersテーブルのpermissionカラムについて}\label{tb:db-users-permission}
+	\caption{usersテーブルのpermissionカラムについて}\label{tab:db-users-permission}
 	\begin{tabular}{|r|l|}
 		\hline
-		\thead{permission} & \thead{意味} \\ \hline
+		\multicolumn{1}{|c|}{\thead{値}} & \thead{意味} \\ \hline
 		0 & 管理者 \\ \hline
 		1 & 利用者（未承認の事業者を含む） \\ \hline
 		2 & 承認済み事業者 \\ \hline
@@ -619,12 +628,13 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 使用し、暗号学的ハッシュ関数であるArgon2idを用い、かつ
 ソルトを使用することで、安全にパスワードを保存する。
 
-spotsテーブル（\cref{tb:db-spots}）は、
+spotsテーブル（\cref{tab:db-spots}）は、
 観光地や観光施設、店などのスポットを保存する。
 スポットは契約ごとに作成できるため、
-どちらのプランに対応するスポットであるかを保存するplanカラムを設けています。
-このカラムの値の意味を\cref{tb:db-spots-plan}に示す。
-また、keywordsテーブル（\cref{tb:db-keywords}）
+どちらのプランに対応するスポットであるかを保存するplanカラムを設けている。
+このカラムの値の意味を\cref{tab:db-spots-plan}に示す。
+また、\cref{tab:db-spots-type}にカテゴリを表す値の一覧を
+示す。keywordsテーブル（\cref{tab:db-keywords}）
 スポットにはキーワードを関連付ける。
 
 スポットのカテゴリや名前、経緯度、住所、
@@ -632,7 +642,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 使用する。
 \begin{table}[H]
 	\centering
-	\caption{spotsテーブル（観光地や観光施設、店などのスポット）}\label{tb:db-spots}
+	\caption{spotsテーブル（観光地や観光施設、店などのスポット）}\label{tab:db-spots}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -656,17 +666,33 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \end{table}
 \begin{table}[H]
 	\centering
-	\caption{spotsテーブルのplanカラムについて}\label{tb:db-spots-plan}
+	\caption{spotsテーブルのplanカラムについて}\label{tab:db-spots-plan}
 	\begin{tabular}{|r|l|}
 		\hline
-		\thead{plan} & \thead{意味} \\ \hline
+		\multicolumn{1}{|c|}{\thead{値}} & \thead{意味} \\ \hline
 		0 & スタンダードプラン \\ \hline
 		1 & プレミアムプラン \\ \hline
 	\end{tabular}
 \end{table}
 \begin{table}[H]
 	\centering
-	\caption{keywordsテーブル（スポットに関連付けるキーワード）}\label{tb:db-keywords}
+	\caption{spotsテーブルのtypeカラムについて}\label{tab:db-spots-type}
+	\begin{tabular}{|r|l|}
+		\hline
+		\multicolumn{1}{|c|}{\thead{値}} & \thead{意味} \\ \hline
+		0 & 飲食 \\ \hline
+		1 & お土産 \\ \hline
+		2 & 観光 \\ \hline
+		3 & 体験アクティビティ \\ \hline
+		4 & 宿泊 \\ \hline
+		5 & 公共施設 \\ \hline
+		6 & 公共交通機関 \\ \hline
+		255 & その他 \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{keywordsテーブル（スポットに関連付けるキーワード）}\label{tab:db-keywords}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -679,14 +705,14 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	\end{tabular}
 \end{table}
 スポットに対する
-口コミは、reviewsテーブル（\cref{tb:db-reviews}）に
+口コミは、reviewsテーブル（\cref{tab:db-reviews}）に
 保存する。口コミには、段階的な評価および文章を
 入力できるようにする。
 また、閲覧数も記録するようにし、
 よく閲覧されている口コミを事業者が確認できるようにする。
 \begin{table}[H]
 	\centering
-	\caption{reviewsテーブル（スポットに対する口コミ）}\label{tb:db-reviews}
+	\caption{reviewsテーブル（スポットに対する口コミ）}\label{tab:db-reviews}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -705,16 +731,16 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	\end{tabular}
 \end{table}
 事業者が発行した
-クーポンはcouponsテーブル（\cref{tb:db-coupons}）に保存する。
+クーポンはcouponsテーブル（\cref{tab:db-coupons}）に保存する。
 クーポンを手に入れるために行く必要のあるスポットも記録する。
 また、利用者が手に入れた
-クーポンはuser\_couponsテーブル（\cref{tb:db-user_coupons}）に
+クーポンはuser\_couponsテーブル（\cref{tab:db-user_coupons}）に
 保存する。クーポンの入手時に確認用キーが生成され、
 これを含む二次元コードを事業者に提示することで
 正規のクーポンであることを証明する。
 \begin{table}[H]
 	\centering
-	\caption{couponsテーブル（スポットに対して作成されたクーポン）}\label{tb:db-coupons}
+	\caption{couponsテーブル（スポットに対して作成されたクーポン）}\label{tab:db-coupons}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -730,7 +756,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \end{table}
 \begin{table}[H]
 	\centering
-	\caption{user\_couponsテーブル（利用者が手に入れたクーポン）}\label{tb:db-user_coupons}
+	\caption{user\_couponsテーブル（利用者が手に入れたクーポン）}\label{tab:db-user_coupons}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -744,12 +770,12 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	\end{tabular}
 \end{table}
 利用者が手に入れた
-スタンプはstampsテーブル（\cref{tb:db-stamps}）に
+スタンプはstampsテーブル（\cref{tab:db-stamps}）に
 保存する。スタンプの画像はファイルシステムに保存するため、
 それに対応するテーブルやカラムは存在しない。
 \begin{table}[H]
 	\centering
-	\caption{stampsテーブル（利用者が手に入れたスタンプ）}\label{tb:db-stamps}
+	\caption{stampsテーブル（利用者が手に入れたスタンプ）}\label{tab:db-stamps}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -764,12 +790,12 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	\end{tabular}
 \end{table}
 利用者の検索クエリは、事業者の分析に
-使用するため、queriesテーブル（\cref{tb:db-queries}）に
+使用するため、queriesテーブル（\cref{tab:db-queries}）に
 保存する。経路検索を伴う場合は、その出発点および目的地も
 保存する。
 \begin{table}[H]
 	\centering
-	\caption{queriesテーブル（利用者の検索クエリ）}\label{tb:db-queries}
+	\caption{queriesテーブル（利用者の検索クエリ）}\label{tab:db-queries}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -785,11 +811,11 @@ spotsテーブル（\cref{tb:db-spots}）は、
 		updated\_at & DATETIME & & 更新時刻 \\ \hline
 	\end{tabular}
 \end{table}
-利用者の投稿した写真は、photosテーブル（\cref{tb:db-photos}）に
+利用者の投稿した写真は、photosテーブル（\cref{tab:db-photos}）に
 保存する。地図上に表示するため、写真の経緯度を保存する。
 \begin{table}[H]
 	\centering
-	\caption{photosテーブル（利用者の投稿した写真）}\label{tb:db-photos}
+	\caption{photosテーブル（利用者の投稿した写真）}\label{tab:db-photos}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -808,12 +834,12 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	\end{tabular}
 \end{table}
 事業者の
-発行したAPIキーは、api\_keysテーブル（\cref{tb:db-api_keys}）に
+発行したAPIキーは、api\_keysテーブル（\cref{tab:db-api_keys}）に
 保存する。
 パスワードと同様にAPIキーもハッシュ化を行い、安全に保存する。
 \begin{table}[H]
 	\centering
-	\caption{api\_keysテーブル（事業者の発行したAPIキー）}\label{tb:db-api_keys}
+	\caption{api\_keysテーブル（事業者の発行したAPIキー）}\label{tab:db-api_keys}
 	\begin{tabular}{|l|l|l|l|}
 		\hline
 		\thead{カラム名} & \thead{データ型} & \thead{制約} & \thead{説明} \\ \hline
@@ -861,7 +887,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	{データベースから得られた値またはデータベースへの書き込み}%
 	{}
 \end{table}
-内容が同一のため省略するが、原則このモジュールと同様に、
+内容が同一のため省略するが、このモジュールと同様に、
 データベースの各テーブルに対応した
 モジュールを作成するものとする。
 作成する必要のあるモジュールの
@@ -891,7 +917,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \begin{table}[H]
 	\centering
 	\caption{画面の共通部分出力モジュール}\label{tab:mod-view-mf}
-	\modtable{MV00}{resources/views/mf.blade.php}%
+	\modtable{MV00}{resources/views/layouts/app.blade.php}%
 	{画面の共通部分をテンプレートとして出力}%
 	{
 		a [label="画面の共通部分を出力",shape=box,style=rounded];
@@ -912,7 +938,6 @@ spotsテーブル（\cref{tb:db-spots}）は、
 		node [shape=box,style=rounded];
 		a [label="画面の共通部分モジュールを呼び出し"];
 		b [label="エラーメッセージ表示画面を構成"];
-		a -> b;
 		b [label="エラーメッセージを表示"];
 		c [label="戻るボタンを配置"];
 		a -> b -> c;
@@ -943,6 +968,39 @@ spotsテーブル（\cref{tb:db-spots}）は、
 画面の共通部分モジュールを呼び出してそれを基に画面を構成する
 部分は同じであるため省略するが、原則このモジュールと同様に
 各画面に対応したモジュールを作成するものとする。
+作成する必要のあるモジュールの
+一覧を\cref{tab:mod-view-list}に示す。
+\begin{table}[H]
+	\centering
+	\caption{ビューモジュールの一覧}\label{tab:mod-view-list}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{モジュール名} & \thead{モジュールID} & \thead{ファイル名} \\ \hline
+		画面の共通部分 & MV00 & layouts/app.blade.php \\ \hline
+		エラーメッセージ表示画面 & MV01 & error.blade.php \\ \hline
+		ログイン画面 & MV02 & login.blade.php \\ \hline
+		ホーム画面 & MV03 & root.blade.php \\ \hline
+		アカウント情報確認画面 & MV04 & profile.blade.php \\ \hline
+		アカウント情報編集画面 & MV05 & profile-edit.blade.php \\ \hline
+		事業者申込画面 & MV06 & subscription-form.blade.php \\ \hline
+		事業者申込完了画面 & MV07 & subscription-confirm.blade.php \\ \hline
+		アカウント作成画面 & MV08 & signup.blade.php \\ \hline
+		ログアウト画面 & MV09 & logout.blade.php \\ \hline
+		スポット詳細画面 & MV10 & detail.blade.php \\ \hline
+		投稿画面 & MV20 & photo.blade.php \\ \hline
+		クーポン画面 & MV30 & coupon.blade.php \\ \hline
+		クーポン使用画面 & MV31 & coupon-selected.blade.php \\ \hline
+		お楽しみ機能画面 & MV40 & funpage.blade.php \\ \hline
+		管理者機能ホーム画面 & MV50 & admin.blade.php \\ \hline
+		ユーザー一覧画面 & MV51 & user.blade.php \\ \hline
+		ユーザー詳細画面 & MV52 & user-detail.blade.php \\ \hline
+		UGC監視・管理画面 & MV53 & post.blade.php \\ \hline
+		スポット情報編集画面 & MV54 & spot.blade.php \\ \hline
+		観光データ確認画面 & MV55 & data.blade.php \\ \hline
+		事業者機能ホーム画面 & MV56 & admin.blade.php \\ \hline
+		APIキー管理画面 & MV57 & api.blade.php \\ \hline
+	\end{tabular}
+\end{table}
 
 \newpage
 \subsection{コントローラモジュール}
@@ -999,7 +1057,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 		h [shape=diamond];
 		{ rank=source; d; }
 		d [label="アカウント作成ボタン選択"];
-		e [label="空白検知、特殊文字検知モジュールを呼び出し"];
+		e [label="入力値のバリデーションを実行"];
 		f [label="ログイン名重複チェックモジュールを呼び出し"];
 		h [label="入力内容が問題あるか？"];
 		i [label="エラーメッセージを含むページを応答"];
@@ -1071,48 +1129,32 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \end{table}
 
 \newpage
-\subsubsection{QRコード読み取りモジュール}
+\subsubsection{二要素認証モジュール}
 \begin{table}[H]
 	\centering
-	\caption{QRコード読み取りモジュール}\label{tab:mod-qr}
-	\modtable{MC10}{app/Http/Controllers/QrCodeController.php}%
-	{カメラ等で読み取った二次元コードを解析し、対応したWebページにリダイレクトする。}%
-	{
-		node [shape=box,style=rounded];
-		c [label="入力内容が問題あるか？",shape=diamond];
-		f [label="エラーメッセージを含むページを応答"];
-		h [label="QRコード読み取りライブラリでデコード"];
-		i [label="Webページを表示"];
-		c->f [label="Yes"];
-		c->h [label="No"];
-		h->i;
-	}%
-	{利用者から受け取った二次元コードを含むHTTPリクエスト}%
-	{Webページ}%
-	{スポットのチェックイン用URLや、二要素認証設定用のURIなどを想定する。クライアント側で読み取りを行い、結果をサーバへ送信して処理する方式を想定する。}
-\end{table}
-
-
-\newpage
-\subsubsection{二段階認証モジュール}
-\begin{table}[H]
-	\centering
-	\caption{二段階認証（TOTP）モジュール}\label{tab:mod-2fa}
+	\caption{二要素認証（TOTP）モジュール}\label{tab:mod-2fa}
 	\modtable{MC12}{app/Http/Controllers/TwoFactorController.php}%
-	{利用者がTOTPによる二段階認証を設定・検証・解除するための処理を提供する。}%
+	{利用者がTOTPによる二要素認証を設定・検証・解除するための処理を提供する。}%
 	{
 		node [shape=box,style=rounded];
-    e [shape=diamond];
-		a [label="二段階認証設定要求を受け取る"];
+		br1, br2 [shape=diamond];
+		br1 [label="二要素認証の操作内容は？"];
 		b [label="シークレットを生成"];
-		c [label="QRコードを生成して表示"];
-		d [label="利用者がワンタイムコードを入力"];
-		e [label="TOTPを検証"];
-		f [label="シークレットを保存し、設定完了画面を表示"];
-		g [label="エラーを返す"];
-		a->b->c->d->e;
-		e->f [label="成功"];
-		e->g [label="失敗"];
+		c [label="二次元コード化"];
+		d [label="二次元コードを含む設定画面に遷移"];
+		br2 [label="入力されたTOTPコードを検証"];
+		e [label="シークレットを暗号化して保存"];
+		f [label="設定完了画面に遷移"];
+		g [label="エラーメッセージを含むページを応答"];
+		br1->b [label="設定"];
+		b->c->d->br2;
+		br2->e [label="成功"];
+		e->f;
+		br2->g [label="失敗"];
+		h [label="シークレットを削除"];
+		i [label="解除完了画面に遷移"];
+		br1->h [label="解除"];
+		h->i;
 	}%
 	{利用者から受け取ったHTTPリクエスト}%
 	{Webページ}%
@@ -1178,31 +1220,31 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	{ユーザーのチャット入力に基づくスポット推薦}%
 	{
 		node [shape=box,style=rounded];
-        input [label="チャット入力と座標情報を受付"];
-        calc_bounds [label="検索範囲の計算(現在地周辺 or 出発・目的地の矩形範囲)"];
-        search_db [label="座標範囲(緯度・経度)でDBから候補スポットを検索"];
-        check_exist [label="候補が存在するか？", shape=diamond];
-        prompt [label="候補リストを含めたプロンプト構築"];
-        apicall [label="Gemini APIへの送信"];
-        check_api [label="APIの応答が成功であるか？", shape=diamond];
-        parse [label="JSON解析 (推薦IDを取得)"];
-        res_ok [label="推薦文とスポット情報を応答"];
-        res_ng [label="エラーまたは該当なしを応答"];
-        input -> calc_bounds;
-        calc_bounds -> search_db;
-        search_db -> check_exist;
-        check_exist -> res_ng [label="No"];
-        check_exist -> prompt [label="Yes"];
-        prompt -> apicall;
-        apicall -> check_api;
-        check_api -> res_ng [label="No"];
-        check_api -> parse [label="Yes"];
-        parse -> res_ok;
+		input [label="チャット入力と座標情報を受付"];
+		calc_bounds [label="検索範囲の計算（現在地周辺 or 出発・目的地の矩形範囲）"];
+		search_db [label="座標範囲（緯度・経度）でDBから候補スポットを検索"];
+		check_exist [label="候補が存在するか？", shape=diamond];
+		prompt [label="候補リストを含めたプロンプト構築"];
+		apicall [label="Gemini APIへの送信"];
+		check_api [label="APIの応答が成功であるか？", shape=diamond];
+		parse [label="JSON解析 （推薦IDを取得）"];
+		res_ok [label="推薦文とスポット情報を応答"];
+		res_ng [label="エラーまたは該当なしを応答"];
+		input -> calc_bounds;
+		calc_bounds -> search_db;
+		search_db -> check_exist;
+		check_exist -> res_ng [label="No"];
+		check_exist -> prompt [label="Yes"];
+		prompt -> apicall;
+		apicall -> check_api;
+		check_api -> res_ng [label="No"];
+		check_api -> parse [label="Yes"];
+		parse -> res_ok;
 	}%
-	{チャット入力、ユーザー現在地、(任意)目的地座標}%
+	{チャット入力、ユーザー現在地、（任意）目的地座標}%
 	{推薦スポット情報（ID含む）、推薦理由メッセージ}%
 	{・Geminiへのハルシネーション対策として、DB検索による候補絞り込みを行う。\\
-     ・検索範囲は、移動の始点と終点を含む矩形範囲（バウンディングボックス）を設定し、市町村をまたぐ移動に対応する。}
+	 ・検索範囲は、移動の始点と終点を含む矩形範囲（バウンディングボックス）を設定し、市町村をまたぐ移動に対応する。}
 \end{table}
 
 \newpage
@@ -1296,33 +1338,33 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \newpage
 \subsubsection{Google マップ URL生成モジュール}
 \begin{table}[H]
-    \centering
-    \caption{Google マップ URL生成モジュール}\label{tab:mod-gmap-gen}
-    \modtable{MU18}{app/Http/Controllers/GoogleMapUrlController.php}%
-    {指定されたスポットを巡るGoogle マップの経路URLを生成する}%
-    {
-        node [shape=box,style=rounded];
-        input [label="出発地・目的地・経由地リストを受付"];
-        gemini [label="Gemini提案スポットがあるか？", shape=diamond];
-        add_waypoint [label="経由地リストに追加"];
-        format_loc [label="各地点を座標(緯度,経度)または名称・住所の形式に整形"];
-        build_query [label="URLパラメータ(origin, destination, waypoints)の構築"];
-        build_url [label="Google Maps URLの結合"];
-        output [label="生成されたURLをレスポンス"];
-        input -> gemini;
-        gemini -> add_waypoint [label="Yes"];
-        gemini -> format_loc [label="No"];
-        add_waypoint -> format_loc;
-        format_loc -> build_query;
-        build_query -> build_url;
-        build_url -> output;
-    }%
-    {出発地、目的地、経由地リスト（Gemini提案含む）}%
-    {Google マップへの遷移URL}%
-    {\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
-        ・経路計算や所要時間の算出は行わず、Google マップへ委譲するURLスキームを生成する。\\
-        ・ユーザーはこのURLを開くことで、リアルタイムの交通状況を反映したナビゲーションを利用できる。
-    }}
+	\centering
+	\caption{Google マップ URL生成モジュール}\label{tab:mod-gmap-gen}
+	\modtable{MU18}{app/Http/Controllers/GoogleMapUrlController.php}%
+	{指定されたスポットを巡るGoogle マップの経路URLを生成する}%
+	{
+		node [shape=box,style=rounded];
+		input [label="出発地・目的地・経由地リストを受付"];
+		gemini [label="Gemini提案スポットがあるか？", shape=diamond];
+		add_waypoint [label="経由地リストに追加"];
+		format_loc [label="各地点を座標（緯度,経度）または名称・住所の形式に整形"];
+		build_query [label="URLパラメータ（origin, destination, waypoints）の構築"];
+		build_url [label="Google Maps URLの結合"];
+		output [label="生成されたURLをレスポンス"];
+		input -> gemini;
+		gemini -> add_waypoint [label="Yes"];
+		gemini -> format_loc [label="No"];
+		add_waypoint -> format_loc;
+		format_loc -> build_query;
+		build_query -> build_url;
+		build_url -> output;
+	}%
+	{出発地、目的地、経由地リスト（Gemini提案含む）}%
+	{Google マップへの遷移URL}%
+	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
+		・経路計算や所要時間の算出は行わず、Google マップへ委譲するURLスキームを生成する。\\
+		・ユーザーはこのURLを開くことで、リアルタイムの交通状況を反映したナビゲーションを利用できる。
+	}}
 \end{table}
 
 \newpage
@@ -1352,7 +1394,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \begin{table}[H]
 	\centering
 	\caption{スポット追加画面構成モジュール}\label{tab:mod-add-spot}
-	\modtable{MA01}{app/Http/Controllers/InsertSpotController.php}%
+	\modtable{MB00}{app/Http/Controllers/InsertSpotController.php}%
 	{スポット追加画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
@@ -1374,7 +1416,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \begin{table}[H]
 	\centering
 	\caption{スポット編集画面構成モジュール}\label{tab:mod-edit-spot}
-	\modtable{MA02}{app/Http/Controllers/EditSpotController.php}%
+	\modtable{MB01}{app/Http/Controllers/EditSpotController.php}%
 	{スポット編集画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
@@ -1396,7 +1438,7 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \begin{table}[H]
 	\centering
 	\caption{スポット削除画面構成モジュール}\label{tab:mod-delete-spot}
-	\modtable{MA03}{app/Http/Controllers/DeleteSpotController.php}%
+	\modtable{MB02}{app/Http/Controllers/DeleteSpotController.php}%
 	{スポット削除画面を構成する。}%
 	{
 		node [shape=box,style=rounded];
@@ -1525,51 +1567,6 @@ spotsテーブル（\cref{tb:db-spots}）は、
 
 \newpage
 \subsection{トレイトモジュール}
-\subsubsection{空白検知モジュール}
-\begin{table}[H]
-	\centering
-	\caption{空白検知モジュール}\label{tab:mod-blank}
-	\modtable{MC04}{app/Traits/BlankCheckTrait.php}%
-	{入力値に空白が含まれていないか検査する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		{ rank=source; b; }
-		b [label="空白や特殊文字が含まれているか？"];
-		d [label="エラーメッセージを返す"];
-		e [label="含まれていない旨を返す"];
-		b->d [label="Yes"];
-		b->e [label="No"];
-	}%
-	{}%
-	{エラーメッセージまたは正常終了の旨}%
-	{}
-\end{table}
-
-\newpage
-\subsubsection{特殊文字検知モジュール}
-\begin{table}[H]
-	\centering
-	\caption{特殊文字検知モジュール}\label{tab:mod-special}
-	\modtable{MC05}{app/Traits/SpecialCharCheckTrait.php}%
-	{入力値に特殊文字が含まれていないか検査
-する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		{ rank=source; b; }
-		b [label="特殊文字が含まれているか？"];
-		d [label="エラーメッセージを返す"];
-		e [label="含まれていない旨を返す"];
-		b->d [label="Yes"];
-		b->e [label="No"];
-	}%
-	{}%
-	{エラーメッセージまたは含まれていない旨}%
-	{}
-\end{table}
-
-\newpage
 \subsubsection{ログイン名重複チェックモジュール}
 \begin{table}[H]
 	\centering
@@ -1638,6 +1635,27 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \end{table}
 
 \newpage
+\subsubsection{禁止文字検知モジュール}
+\begin{table}[H]
+	\centering
+	\caption{禁止文字検知モジュール}\label{tab:mod-special}
+	\modtable{MC05}{resources/ts/special\_char\_check.ts}%
+	{入力値に禁止文字が含まれていないか検査
+する。}%
+	{
+		node [shape=box,style=rounded];
+		b [shape=diamond];
+		a [label="フォームへの入力を検知"];
+		b [label="禁止文字が含まれているか？"];
+		d [label="エラーメッセージを表示"];
+		b->d [label="Yes"];
+	}%
+	{}%
+	{}%
+	{}
+\end{table}
+
+\newpage
 \subsubsection{ログアウト確認モジュール}
 \begin{table}[H]
 	\centering
@@ -1656,6 +1674,111 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	{}%
 	{}%
 	{}
+\end{table}
+
+\subsubsection{住所自動入力モジュール}
+\begin{table}[H]
+	\centering
+	\caption{住所自動入力モジュール}\label{tab:mod-addr}
+	\modtable{MB03}{resources/ts/addr.ts}%
+	{郵便番号から住所を自動で入力する}%
+	{
+		node [shape=box,style=rounded];
+		a [label="日本郵便のWebサイトよりutf_ken_all.zipをダウンロード"];
+		b [label="日本郵便のWebサイトよりjigyosyo.zipをダウンロード"];
+		c [label="各ZIPファイルを展開"];
+		d [label="自動入力ボタンの押下を待つ"];
+		e [label="utf_ken_all.csv内に郵便番号を含むレコードがあるか？",shape=diamond];
+		f [label="郵便番号を含む全てのレコードについて、市区町村に続く住所の文字列を表外に示す手法で構築"];
+		g [label="郵便番号を含む全てのレコードで共通するデータのみを抽出"];
+		h [label="共通する部分があるか？",shape=diamond];
+		i [label="郵便番号を自動入力"];
+		j [label="JIGYOSYO.CSV内に郵便番号を含むレコードがあるか？",shape=diamond];
+		k [label="郵便番号の自動入力ができない旨を表示"];
+		a->b->c->d->e;
+		e->f [label="Yes"];
+		f->g->h;
+		h->i [label="Yes"];
+		e->j [label="No"];
+		h->k [label="No"];
+		j->i [label="Yes"];
+		j->k [label="No"];
+	}%
+	{}%
+	{}%
+	{都道府県および市区町村の自動入力には、市区町村コードのカラムを用いる。}
+\end{table}
+市区町村の後に続く住所の文字列は、
+以下の処理を順に行うことで構築する。
+\begin{enumerate}
+	\item 町域名が“以下に掲載がない場合”のとき
+	（例: \cref{tab:mod-addr-ex-kenall}の〒782--0000）\\
+	結果を空文字列として処理を終了する。
+	\item 町域名が/（([１-９][０-９]*階|地階・階層不明)）\textdollar/に
+	マッチするとき
+	（例: \cref{tab:mod-addr-ex-kenall}の名古屋市中村区のもの）\\
+	結果を空文字列として処理を終了する。
+	\item 町域名が/\textasciicircum(.+)（.+）\textdollar/にマッチするとき
+	（例: \cref{tab:mod-addr-ex-kenall}の〒782--0077）\\
+	町域名をキャプチャグループに変更して処理を続行する。
+	\item 市区町村名のカラムに対して/\textasciicircum.+群/を
+	空文字列に置換したものを<市区町村名>とした場合に
+	町域名が/\textasciicircum<市区町村名>[の次に.+がくる場合|一円]\textdollar/に
+	マッチするとき
+	（例: \cref{tab:mod-addr-ex-kenall}の仲多度郡琴平町のものや
+	〒781-2110、〒781-6410）\\
+	結果を空文字列として処理を終了する。
+	\item 町域名が/\textasciicircum(.*).+[、〜]\textbackslash 1.+\textdollar/に
+	マッチするとき
+	（例: \cref{tab:mod-addr-ex-kenall}の和賀郡西和賀町のものや〒761--4101）\\
+	結果をキャプチャグループとして処理を終了する。
+	\item 町域名が/\textasciicircum(.+)の次に.+がくる場合\textdollar/に
+	マッチするとき
+	（例: \cref{tab:mod-addr-ex-kenall}の〒857--2427）\\
+	結果をキャプチャグループとして処理を終了する。
+	\item 結果を町域名として処理を終了する。
+\end{enumerate}
+\begin{table}[H]
+	\centering
+	\caption{\texttt{utf\_ken\_all.csv}のレコード（一部カラムを抜粋）の例}\label{tab:mod-addr-ex-kenall}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{郵便番号} & \thead{市区町村名} & \thead{町域名} \\ \hline
+		〒029--5501 & 和賀郡西和賀町 & 左草１地割〜左草６地割 \\ \hline
+		〒029--5502 & 和賀郡西和賀町 & 樺沢１６地割、樺沢１７地割 \\ \hline
+		〒453--6101 & 名古屋市中村区 & 平池町グローバルゲート（１階） \\ \hline
+		〒453--6190 & 名古屋市中村区 & 平池町グローバルゲート（地階・階層不明） \\ \hline
+		〒761--4101 & 小豆郡土庄町 & 甲、乙（その他） \\ \hline
+		〒766--0001 & 仲多度郡琴平町 & 琴平町の次に４２７番地以降がくる場合（川西） \\ \hline
+		〒766--0002 & 仲多度郡琴平町 & 琴平町の次に１〜４２６番地がくる場合（川東） \\ \hline
+		〒781--2110 & 吾川郡いの町 & いの町の次に番地がくる場合 \\ \hline
+		〒781--6410 & 安芸郡田野町 & 田野町一円 \\ \hline
+		〒782--0000 & 香美市 & 以下に掲載がない場合 \\ \hline
+		〒782--0003 & 香美市 & 土佐山田町宮ノ口 \\ \hline
+		〒782--0077 & 香美市 & 土佐山田町佐野（仁井田） \\ \hline
+		〒857--2427 & 西海市 & 大島町の次に番地がくる場合 \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{処理結果の例（空欄は空文字列）}\label{tab:mod-addr-ex-out}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{郵便番号} & \thead{結果} \\ \hline
+		〒029--5501 & 左草 \\ \hline
+		〒029--5502 & 樺沢１ \\ \hline
+		〒453--6101 & \\ \hline
+		〒453--6190 & \\ \hline
+		〒761--4101 & \\ \hline
+		〒766--0001 & \\ \hline
+		〒766--0002 & \\ \hline
+		〒781--2110 & \\ \hline
+		〒781--6410 & \\ \hline
+		〒782--0000 & \\ \hline
+		〒782--0003 & 土佐山田町宮ノ口 \\ \hline
+		〒782--0077 & 土佐山田町佐野 \\ \hline
+		〒857--2427 & 大島町\\ \hline
+	\end{tabular}
 \end{table}
 
 \end{document}
