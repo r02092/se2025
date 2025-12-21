@@ -559,7 +559,8 @@ IDについて特筆なきものは、AUTO INCREMENT属性を
 事業者の場合、住所の登録を要するものとする。
 住所は郵便番号およびJIS X 0402:2020で
 定められた市区町村コード（JIS X 0401:1973で定められた
-都道府県コードと併用するもの）と市区町村に続く住所の文字列の
+都道府県コードと併用するもの、これ以降に述べる場合も同様）と
+市区町村に続く住所の文字列の
 組合せにより保存する。
 
 また、ログイン時にTOTPによる二要素認証を
@@ -1632,6 +1633,111 @@ spotsテーブル（\cref{tb:db-spots}）は、
 	{}%
 	{}%
 	{}
+\end{table}
+
+\subsubsection{住所自動入力モジュール}
+\begin{table}[H]
+	\centering
+	\caption{住所自動入力モジュール}\label{tab:mod-addr}
+	\modtable{MB03}{resources/ts/addr.ts}%
+	{郵便番号から住所を自動で入力する}%
+	{
+		node [shape=box,style=rounded];
+		a [label="日本郵便のWebサイトよりutf_ken_all.zipをダウンロード"];
+		b [label="日本郵便のWebサイトよりjigyosyo.zipをダウンロード"];
+		c [label="各ZIPファイルを展開"];
+		d [label="自動入力ボタンの押下を待つ"];
+		e [label="utf_ken_all.csv内に郵便番号を含むレコードがあるか？",shape=diamond];
+		f [label="郵便番号を含む全てのレコードについて、市区町村に続く住所の文字列を表外に示す手法で構築"];
+		g [label="郵便番号を含む全てのレコードで共通するデータのみを抽出"];
+		h [label="共通する部分があるか？",shape=diamond];
+		i [label="郵便番号を自動入力"];
+		j [label="JIGYOSYO.CSV内に郵便番号を含むレコードがあるか？",shape=diamond];
+		k [label="郵便番号の自動入力ができない旨を表示"];
+		a->b->c->d->e;
+		e->f [label="Yes"];
+		f->g->h;
+		h->i [label="Yes"];
+		e->j [label="No"];
+		h->k [label="No"];
+		j->i [label="Yes"];
+		j->k [label="No"];
+	}%
+	{}%
+	{}%
+	{都道府県および市区町村の自動入力には、市区町村コードのカラムを用いる。}
+\end{table}
+市区町村の後に続く住所の文字列は、
+以下の処理を順に行うことで構築する。
+\begin{enumerate}
+	\item 町域名が“以下に掲載がない場合”のとき
+	（例: \cref{tab:mod-addr-ex}の〒782--0000）\\
+	結果を空文字列として処理を終了する。
+	\item 町域名が/（([１-９][０-９]*階|地階・階層不明)）\textdollar/に
+	マッチするとき
+	（例: \cref{tab:mod-addr-ex}の名古屋市中村区のもの）\\
+	結果を空文字列として処理を終了する。
+	\item 町域名が/\textasciicircum(.+)（.+）\textdollar/にマッチするとき
+	（例: \cref{tab:mod-addr-ex}の〒782--0077）\\
+	町域名をキャプチャグループに変更して処理を続行する。
+	\item 市区町村名のカラムに対して/\textasciicircum.+群/を
+	空文字列に置換したものを<市区町村名>とした場合に
+	町域名が/\textasciicircum<市区町村名>[の次に.+がくる場合|一円]\textdollar/に
+	マッチするとき
+	（例: \cref{tab:mod-addr-ex}の仲多度郡琴平町のものや
+	〒781-2110、〒781-6410）\\
+	結果を空文字列として処理を終了する。
+	\item 町域名が/\textasciicircum(.*).+[、〜]\textbackslash 1.+\textdollar/に
+	マッチするとき
+	（例: \cref{tab:mod-addr-ex}の和賀郡西和賀町のものや〒761--4101）\\
+	結果をキャプチャグループとして処理を終了する。
+	\item 町域名が/\textasciicircum(.+)の次に.+がくる場合\textdollar/に
+	マッチするとき
+	（例: \cref{tab:mod-addr-ex}の〒857--2427）\\
+	結果をキャプチャグループとして処理を終了する。
+	\item 結果を町域名として処理を終了する。
+\end{enumerate}
+\begin{table}[H]
+	\centering
+	\caption{\texttt{utf\_ken\_all.csv}のレコード（一部カラムを抜粋）の例}\label{tab:mod-addr-ex-kenall}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{郵便番号} & \thead{市区町村名} & \thead{町域名} \\ \hline
+		〒029--5501 & 和賀郡西和賀町 & 左草１地割〜左草６地割 \\ \hline
+		〒029--5502 & 和賀郡西和賀町 & 樺沢１６地割、樺沢１７地割 \\ \hline
+		〒453--6101 & 名古屋市中村区 & 平池町グローバルゲート（１階） \\ \hline
+		〒453--6190 & 名古屋市中村区 & 平池町グローバルゲート（地階・階層不明） \\ \hline
+		〒761--4101 & 小豆郡土庄町 & 甲、乙（その他） \\ \hline
+		〒766--0001 & 仲多度郡琴平町 & 琴平町の次に４２７番地以降がくる場合（川西） \\ \hline
+		〒766--0002 & 仲多度郡琴平町 & 琴平町の次に１〜４２６番地がくる場合（川東） \\ \hline
+		〒781--2110 & 吾川郡いの町 & いの町の次に番地がくる場合 \\ \hline
+		〒781--6410 & 安芸郡田野町 & 田野町一円 \\ \hline
+		〒782--0000 & 香美市 & 以下に掲載がない場合 \\ \hline
+		〒782--0003 & 香美市 & 土佐山田町宮ノ口 \\ \hline
+		〒782--0077 & 香美市 & 土佐山田町佐野（仁井田） \\ \hline
+		〒857--2427 & 西海市 & 大島町の次に番地がくる場合 \\ \hline
+	\end{tabular}
+\end{table}
+\begin{table}[H]
+	\centering
+	\caption{処理結果の例（空欄は空文字列）}\label{tab:mod-addr-ex-out}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{郵便番号} & \thead{結果} \\ \hline
+		〒029--5501 & 左草 \\ \hline
+		〒029--5502 & 樺沢１ \\ \hline
+		〒453--6101 & \\ \hline
+		〒453--6190 & \\ \hline
+		〒761--4101 & \\ \hline
+		〒766--0001 & \\ \hline
+		〒766--0002 & \\ \hline
+		〒781--2110 & \\ \hline
+		〒781--6410 & \\ \hline
+		〒782--0000 & \\ \hline
+		〒782--0003 & 土佐山田町宮ノ口 \\ \hline
+		〒782--0077 & 土佐山田町佐野 \\ \hline
+		〒857--2427 & 大島町\\ \hline
+	\end{tabular}
 \end{table}
 
 \end{document}
