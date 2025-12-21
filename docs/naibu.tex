@@ -1210,13 +1210,13 @@ spotsテーブル（\cref{tab:db-spots}）は、
 	{
 		node [shape=box,style=rounded];
         input [label="チャット入力と座標情報を受付"];
-        calc_bounds [label="検索範囲の計算(現在地周辺 or 出発・目的地の矩形範囲)"];
-        search_db [label="座標範囲(緯度・経度)でDBから候補スポットを検索"];
+        calc_bounds [label="検索範囲の計算（現在地周辺 or 出発・目的地の矩形範囲）"];
+        search_db [label="座標範囲（緯度・経度）でDBから候補スポットを検索"];
         check_exist [label="候補が存在するか？", shape=diamond];
         prompt [label="候補リストを含めたプロンプト構築"];
         apicall [label="Gemini APIへの送信"];
         check_api [label="APIの応答が成功であるか？", shape=diamond];
-        parse [label="JSON解析 (推薦IDを取得)"];
+        parse [label="JSON解析 （推薦IDを取得）"];
         res_ok [label="推薦文とスポット情報を応答"];
         res_ng [label="エラーまたは該当なしを応答"];
         input -> calc_bounds;
@@ -1230,7 +1230,7 @@ spotsテーブル（\cref{tab:db-spots}）は、
         check_api -> parse [label="Yes"];
         parse -> res_ok;
 	}%
-	{チャット入力、ユーザー現在地、(任意)目的地座標}%
+	{チャット入力、ユーザー現在地、（任意）目的地座標}%
 	{推薦スポット情報（ID含む）、推薦理由メッセージ}%
 	{・Geminiへのハルシネーション対策として、DB検索による候補絞り込みを行う。\\
      ・検索範囲は、移動の始点と終点を含む矩形範囲（バウンディングボックス）を設定し、市町村をまたぐ移動に対応する。}
@@ -1304,8 +1304,8 @@ spotsテーブル（\cref{tab:db-spots}）は、
         input [label="出発地・目的地・経由地リストを受付"];
         gemini [label="Gemini提案スポットがあるか？", shape=diamond];
         add_waypoint [label="経由地リストに追加"];
-        format_loc [label="各地点を座標(緯度,経度)または名称・住所の形式に整形"];
-        build_query [label="URLパラメータ(origin, destination, waypoints)の構築"];
+        format_loc [label="各地点を座標（緯度,経度）または名称・住所の形式に整形"];
+        build_query [label="URLパラメータ（origin, destination, waypoints）の構築"];
         build_url [label="Google Maps URLの結合"];
         output [label="生成されたURLをレスポンス"];
         input -> gemini;
