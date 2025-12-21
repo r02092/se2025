@@ -1097,7 +1097,6 @@ APIへのアクセスはHTTPを用いて行う。
 		b, h, r, k [shape=diamond];
 		{ rank=source; b; }
 		b [label="ログイン方式は何か？"];
-		g [label="空白検知モジュールを呼び出し"];%
 		h [label="入力内容が問題あるか？"];
 		i [label="エラーメッセージを含むページを応答"];
 		j [label="セッション生成"];%
@@ -1108,8 +1107,7 @@ APIへのアクセスはHTTPを用いて行う。
 		q [label="OAuthを利用して認証を行い、GoogleのIDとユーザー名を取得"];%
 		r [label="取得したGoogleのIDが既に登録されているか"];%
 		t [label="usersテーブルにGoogleのIDとユーザー名を登録"];%
-		b->g [label="SceneTripでログイン"];
-		g->h;
+		b->h [label="SceneTripでログイン"];
 		h->i [label="Yes"];%
 		h->j [label="No"];%
 		j->k;%
