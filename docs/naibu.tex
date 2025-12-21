@@ -100,13 +100,12 @@
 
 \subsubsection{ログイン・ログアウト機能}
 本システムにはアカウントの作成に伴い、ログイン及びログアウトの機能がある。
-ログインを行うことで、ユーザーは本システムの全ての機能を利用できる。
+ログインを行うことで、利用者は本システムの全ての機能を利用できる。
 一方ログインを行わない場合、利用できる機能はスポット検索機能に制限される。
 ログインには本システムで作成するアカウントを使用する方法とGoogle アカウントを使用する方法がある。
 本システムで作成したアカウントを使用する方法では、
-システムはログイン用画面でログイン名とパスワードを受け取り、検証を行う。
-Google アカウントを使用する方法では、OAuthを用いて認証を行い、
-GoogleのIDとユーザー名から検証を行う。
+システムはログイン用画面でログイン名とパスワードを受け取り、認証を行う。
+Google アカウントを使用する方法では、OAuthを用いて認証を行う。
 また、RFC 6238に準拠したTOTPによる二要素認証に対応しており、
 プロフィール画面から設定を行えるものとする。
 
@@ -118,9 +117,9 @@ GoogleのIDとユーザー名から検証を行う。
 \subsection{利用者（ログイン必須）}
 
 \subsubsection{経路作成}
-ユーザーが入力した出発地・到着地となるスポットを基に
+利用者が入力した出発地・到着地となるスポットを基に
 Gemini APIを利用してGeminiから中継地点となるスポットとともに
-経路の提案を取得し、ユーザーに返す。
+経路の提案を取得し、利用者に返す。
 加えて、Geminiからの回答をより正確にするために、
 スポットを住所によって市区町村単位に分類し、
 Geminiへのヒントを与える。
@@ -129,7 +128,7 @@ Geminiへのヒントを与える。
 提案する経路を調整する。
 
 \subsubsection{Google マップによる経路案内機能}
-ユーザーとGeminiからの入力によって得られたスポットを経由する
+利用者とGeminiからの入力によって得られたスポットを経由する
 経路を、Google マップの埋め込み機能を用いて表示する。
 
 \subsubsection{評価機能}
@@ -142,8 +141,8 @@ Geminiへのヒントを与える。
 
 \subsubsection{チェックイン機能}
 現地まで赴いた実績として訪れたスポットのスタンプを入手できる機能である。
-システムはユーザーのカメラ映像から二次元コードを読み取り、
-同時にデバイスの位置情報を基に誤差範囲を利用してユーザーがスポットの周囲に位置していることを確認する。
+システムは利用者のカメラ映像から二次元コードを読み取り、
+同時にデバイスの位置情報を基に誤差範囲を利用して利用者がスポットの周囲に位置していることを確認する。
 
 \subsubsection{クーポンの受け取り・利用機能}
 本システム上で提供されるクーポンの受け取り、並びにそのクーポンの利用ができる。
@@ -151,7 +150,7 @@ Geminiへのヒントを与える。
 クーポンは、利用可能・利用中・利用済み・期限切れの4状態で表示する。
 クーポンの「利用中」とは、クーポンを提示して店舗などで利用手続きを行った状態を指し、
 翌日午前5時に「利用済み」となる。
-ユーザーは画面上でクーポンが「利用可能」なのか、「利用中」なのかを確認できるものとする。
+利用者は画面上でクーポンが「利用可能」なのか、「利用中」なのかを確認できるものとする。
 
 \subsection{事業者}
 \subsubsection{サブスクリプション登録機能}
@@ -168,7 +167,7 @@ Geminiへのヒントを与える。
 登録した店舗情報（店舗名、所在地、紹介文、店舗写真など）を変更する機能である。
 
 \subsubsection{観光データ分析API}
-システムはユーザーの検索履歴やクーポンの使用履歴を記録し、
+システムは利用者の検索履歴やクーポンの使用履歴を記録し、
 そのデータを取得できるAPIを提供する。
 
 \subsubsection{クーポン発行機能}
@@ -181,8 +180,8 @@ PDF形式のファイルをダウンロードすることで、請求書を受�
 
 \subsection{管理者}
 
-\subsubsection{ユーザー管理}
-アカウントの作成、ユーザー情報の編集、削除を行う機能である。
+\subsubsection{利用者管理}
+アカウントの作成、利用者情報の編集、削除を行う機能である。
 
 \subsubsection{UGCの監視・管理機能}
 UGCの監視、投稿の削除ができる機能である。
@@ -870,7 +869,7 @@ spotsテーブル（\cref{tab:db-spots}）は、
 \section{API仕様設計}
 \subsection{概要}
 本システムが提供する観光データ分析APIは
-本サービスでのユーザーの動向を調査し、観光分析に活用できるデータを提供する。
+本サービスでの利用者の動向を調査し、観光分析に活用できるデータを提供する。
 APIへのアクセスにはHTTPリクエストを使用し、レスポンスとしてJSON形式の文字列を返すものとする。
 
 \subsection{トークン（APIキー）の発行}
@@ -909,7 +908,7 @@ APIへのアクセスはHTTPを用いて行う。
 		\hline
 		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
 		formatVersion & number & 分析データのフォーマットバージョン \\ \hline
-		currentUserNum & number & 現在のサービスのユーザー数 \\ \hline
+		currentUserNum & number & 現在のサービスの利用者数 \\ \hline
 		spotData & Array of Object & スポットに関するデータ（参照: 表\ref{tab:api-response_spots}） \\ \hline
 		couponData & Array of Object & クーポンに関するデータ（参照: 表\ref{tab:api-response_coupon}） \\ \hline
 	\end{tabular}
@@ -935,8 +934,8 @@ APIへのアクセスはHTTPを用いて行う。
 		\hline
 		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
 		id & string & クーポンのID \\ \hline
-		acquisitionNum & number & 取得したユーザー数 \\ \hline
-		useNum & number & 使用したユーザー数 \\ \hline
+		acquisitionNum & number & 取得した利用者数 \\ \hline
+		useNum & number & 使用した利用者数 \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -1074,8 +1073,8 @@ APIへのアクセスはHTTPを用いて行う。
 		クーポン使用画面 & MV31 & coupon-selected.blade.php \\ \hline
 		お楽しみ機能画面 & MV40 & funpage.blade.php \\ \hline
 		管理者機能ホーム画面 & MV50 & admin.blade.php \\ \hline
-		ユーザー一覧画面 & MV51 & user.blade.php \\ \hline
-		ユーザー詳細画面 & MV52 & user-detail.blade.php \\ \hline
+		利用者一覧画面 & MV51 & user.blade.php \\ \hline
+		利用者詳細画面 & MV52 & user-detail.blade.php \\ \hline
 		UGC監視・管理画面 & MV53 & post.blade.php \\ \hline
 		スポット情報編集画面 & MV54 & spot.blade.php \\ \hline
 		観光データ確認画面 & MV55 & data.blade.php \\ \hline
@@ -1297,7 +1296,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{AIスポット推薦処理モジュール}\label{tab:mod-ai}
 	\modtable{MU13}{app/Http/Controllers/AiApiController.php}
-	{ユーザーのチャット入力に基づくスポット推薦}%
+	{利用者のチャット入力に基づくスポット推薦}%
 	{
 		node [shape=box,style=rounded];
 		input [label="チャット入力とスポット情報を受付"];
@@ -1400,7 +1399,7 @@ APIへのアクセスはHTTPを用いて行う。
 	{クーポンの利用開始時にフロントエンドのプログラムから呼び出される}%
 	{
 		node [shape=box,style=rounded];
-		check_owner [label="ユーザーが所持しているか確認", shape=diamond];
+		check_owner [label="利用者が所持しているか確認", shape=diamond];
 		check_status [label="利用可能か？", shape=diamond];
 		check_expire [label="有効期限内であるか？", shape=diamond];
 		gen_key [label="確認用キーの生成とデータベースへの記録"];
@@ -1425,7 +1424,7 @@ APIへのアクセスはHTTPを用いて行う。
 	\centering
 	\caption{投稿マップ表示モジュール}\label{tab:mod-post-map}
 	\modtable{MU19}{app/Http/Controllers/PostMapController.php}%
-	{ユーザーの投稿情報を取得し、地図上に表示するデータを構成する}%
+	{利用者の投稿情報を取得し、地図上に表示するデータを構成する}%
 	{
 		node [shape=box,style=rounded];
 		req [label="リクエスト受信"];
@@ -1686,7 +1685,7 @@ APIへのアクセスはHTTPを用いて行う。
 	}%
 	{チェックインしたスポット}%
 	{獲得に成功したかどうか}%
-	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{スタンプ獲得トリガーで呼び出される。ユーザーが同じクーポンを重複して受け取らないようにする。}\vspace{.35\zw}}
+	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{スタンプ獲得トリガーで呼び出される。利用者が同じクーポンを重複して受け取らないようにする。}\vspace{.35\zw}}
 \end{table}
 
 \newpage
