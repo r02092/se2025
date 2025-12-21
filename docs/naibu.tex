@@ -1509,51 +1509,6 @@ spotsテーブル（\cref{tab:db-spots}）は、
 
 \newpage
 \subsection{トレイトモジュール}
-\subsubsection{空白検知モジュール}
-\begin{table}[H]
-	\centering
-	\caption{空白検知モジュール}\label{tab:mod-blank}
-	\modtable{MC04}{app/Traits/BlankCheckTrait.php}%
-	{入力値に空白が含まれていないか検査する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		{ rank=source; b; }
-		b [label="空白や特殊文字が含まれているか？"];
-		d [label="エラーメッセージを返す"];
-		e [label="含まれていない旨を返す"];
-		b->d [label="Yes"];
-		b->e [label="No"];
-	}%
-	{}%
-	{エラーメッセージまたは正常終了の旨}%
-	{}
-\end{table}
-
-\newpage
-\subsubsection{特殊文字検知モジュール}
-\begin{table}[H]
-	\centering
-	\caption{特殊文字検知モジュール}\label{tab:mod-special}
-	\modtable{MC05}{app/Traits/SpecialCharCheckTrait.php}%
-	{入力値に特殊文字が含まれていないか検査
-する。}%
-	{
-		node [shape=box,style=rounded];
-		b [shape=diamond];
-		{ rank=source; b; }
-		b [label="特殊文字が含まれているか？"];
-		d [label="エラーメッセージを返す"];
-		e [label="含まれていない旨を返す"];
-		b->d [label="Yes"];
-		b->e [label="No"];
-	}%
-	{}%
-	{エラーメッセージまたは含まれていない旨}%
-	{}
-\end{table}
-
-\newpage
 \subsubsection{ログイン名重複チェックモジュール}
 \begin{table}[H]
 	\centering
@@ -1615,6 +1570,27 @@ spotsテーブル（\cref{tab:db-spots}）は、
 		c [label="「同意する」ボタンの押下を検知"];
 		d [label="アカウント作成画面へ遷移"];
 		c->d;
+	}%
+	{}%
+	{}%
+	{}
+\end{table}
+
+\newpage
+\subsubsection{禁止文字検知モジュール}
+\begin{table}[H]
+	\centering
+	\caption{禁止文字検知モジュール}\label{tab:mod-special}
+	\modtable{MC05}{resources/ts/special\_char\_check.ts}%
+	{入力値に禁止文字が含まれていないか検査
+する。}%
+	{
+		node [shape=box,style=rounded];
+		b [shape=diamond];
+		a [label="フォームへの入力を検知"];
+		b [label="禁止文字が含まれているか？"];
+		d [label="エラーメッセージを表示"];
+		b->d [label="Yes"];
 	}%
 	{}%
 	{}%
