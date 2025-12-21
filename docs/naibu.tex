@@ -882,17 +882,19 @@ APIキーの発行はAPIキー管理画面で行うことができる。
 APIへのアクセスはHTTPを用いて行う。
 分析データを取得するためにはリクエストを送信する。
 リクエストにはAPIキーと取得したい分析データの期間を指定する必要がある。
-リクエストはGETメソッドを利用できるものとし、
-更に以下の\cref{tab:api-header}に示すようなヘッダーを利用できるものとする。
+リクエストはGETメソッドで\verb|/api/|に
+アクセスし、\cref{tab:api-param}に示すパラメータを
+渡すことで利用できるものとする。
+パラメータの日付はISO 8601の拡張形式を用いる。
+また、認証にはBearer認証を用いる。
 \begin{table}[H]
 	\centering
-	\caption{ヘッダー設定}\label{tab:api-header}
+	\caption{パラメータ}\label{tab:api-param}
 	\begin{tabular}{|l|l|l|}
 		\hline
-		\thead{フィールド} & \thead{例} & \thead{説明} \\ \hline
-		Authorization &  & 認証用APIキー \\ \hline
-		From-Date & 2025-01-01 & 取得したい期間の始点の日付 \\ \hline
-		To-Date & 2025-12-12 & 取得したい期間の終点の日付 \\ \hline
+		\thead{名前} & \thead{例} & \thead{説明} \\ \hline
+		\verb|from_date| & 2025-01-01 & 取得したい期間の始点の日付 \\ \hline
+		\verb|to_date| & 2025-12-12 & 取得したい期間の終点の日付 \\ \hline
 	\end{tabular}
 \end{table}
 
