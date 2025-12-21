@@ -1220,16 +1220,16 @@ spotsテーブル（\cref{tab:db-spots}）は、
 	{ユーザーのチャット入力に基づくスポット推薦}%
 	{
 		node [shape=box,style=rounded];
-		input [label="チャット入力と座標情報を受付"];
-		calc_bounds [label="検索範囲の計算（現在地周辺 or 出発・目的地の矩形範囲）"];
-		search_db [label="座標範囲（緯度・経度）でDBから候補スポットを検索"];
+		input [label="チャット入力とスポット情報を受付"];
+		calc_bounds [label="検索する範囲を計算"];
+		search_db [label="座標の範囲内にあるスポットをデータベース上で検索"];
 		check_exist [label="候補が存在するか？", shape=diamond];
-		prompt [label="候補リストを含めたプロンプト構築"];
+		prompt [label="候補リストを含めたプロンプトを構築"];
 		apicall [label="Gemini APIへの送信"];
-		check_api [label="APIの応答が成功であるか？", shape=diamond];
-		parse [label="JSON解析 （推薦IDを取得）"];
+		check_api [label="APIの応答が解釈可能であるか？", shape=diamond];
+		parse [label="JSON解析（スポットを抽出）"];
 		res_ok [label="推薦文とスポット情報を応答"];
-		res_ng [label="エラーまたは該当なしを応答"];
+		res_ng [label="エラーまたは候補となるスポットがない旨を応答"];
 		input -> calc_bounds;
 		calc_bounds -> search_db;
 		search_db -> check_exist;
@@ -1241,10 +1241,18 @@ spotsテーブル（\cref{tab:db-spots}）は、
 		check_api -> parse [label="Yes"];
 		parse -> res_ok;
 	}%
-	{チャット入力、ユーザー現在地、（任意）目的地座標}%
-	{推薦スポット情報（ID含む）、推薦理由メッセージ}%
-	{・Geminiへのハルシネーション対策として、DB検索による候補絞り込みを行う。\\
-	 ・検索範囲は、移動の始点と終点を含む矩形範囲（バウンディングボックス）を設定し、市町村をまたぐ移動に対応する。}
+	{チャット入力、出発地、経路について探す場合は目的地も}%
+	{推薦スポット情報、推薦理由メッセージ}%
+	{
+		\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
+			\vspace{-1.7\zw}
+			\begin{itemize}
+				\item Geminiのハルシネーションの対策として、データベース上に登録されたスポットから絞り込んだ候補を用いる。
+				\item 検索する範囲は、周辺または出発地・目的地を結ぶ線分を対角線とした矩形の範囲
+			\end{itemize}
+			\vspace{-.35\zw}
+		}
+	}
 \end{table}
 
 \newpage
