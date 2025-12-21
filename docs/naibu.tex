@@ -381,8 +381,9 @@ GitHub Actionsでは、以下の作業を自動で行う。
 		ローワースネークケースを用いる。
 		\item \verb|App\Http\Controllers\Controller|クラスを継承するクラスの名前の
 		末尾は、\verb|Controller|とする。
-		\item \verb|App\Models\|名前空間に存在するクラスの名前は、対応するデータベースのテーブル名に
-		基づくものとする。
+		\item \verb|App\Models\|名前空間に存在するクラスの
+		名前は、対応するデータベースのテーブル名を
+		英語として解釈し、それを単数形にしたものとする。
 		\item \verb|App\Http\Controllers\Controller|クラスを継承するクラスから
 		呼び出される共通処理は、\verb|App\Traits\|名前空間に
 		属するトレイトとする。
@@ -846,6 +847,45 @@ spotsテーブル（\cref{tb:db-spots}）は、
 \section{モジュール詳細設計}
 % 【記述内容】外部設計書の機能要件を基に、各機能の入出力、責務、および内部処理フローを詳細に定義
 
+\subsection{モデルモジュール}
+\subsubsection{例: 利用者モジュール}
+\begin{table}[H]
+	\centering
+	\caption{利用者モジュール}\label{tab:mod-model-user}
+	\modtable{MM00}{app/Models/User.php}%
+	{データベースのusersテーブルのデータの読み込みおよび書き込みを行う}%
+	{
+		a [label="ORMのクラスを継承し、データベース内外の値の変換を行う",shape=box,style=rounded];
+	}%
+	{クラス内の関数の呼び出し}%
+	{データベースから得られた値またはデータベースへの書き込み}%
+	{}
+\end{table}
+内容が同一のため省略するが、原則このモジュールと同様に、
+データベースの各テーブルに対応した
+モジュールを作成するものとする。
+作成する必要のあるモジュールの
+一覧を\cref{tab:mod-model-list}に示す。
+\begin{table}[H]
+	\centering
+	\caption{モデルモジュールの一覧}\label{tab:mod-model-list}
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		\thead{モジュール名} & \thead{モジュールID} & \thead{ファイル名} & \thead{対応するテーブル} \\ \hline
+		利用者 & MM00 & User.php & users \\ \hline
+		スポット & MM01 & Spot.php & spots \\ \hline
+		キーワード & MM02 & Keyword.php & keywords \\ \hline
+		口コミ & MM03 & Review.php & reviews \\ \hline
+		クーポン & MM04 & Coupon.php & coupons \\ \hline
+		利用者クーポン & MM05 & UserCoupon.php & user\_coupons \\ \hline
+		スタンプ & MM06 & Stamp.php & stamps \\ \hline
+		検索クエリ & MM07 & Query.php & queries \\ \hline
+		写真 & MM08 & Photo.php & photos \\ \hline
+		APIキー & MM09 & ApiKey.php & api\_keys \\ \hline
+	\end{tabular}
+\end{table}
+
+\newpage
 \subsection{ビューモジュール}
 \subsubsection{画面の共通部分出力モジュール}
 \begin{table}[H]
