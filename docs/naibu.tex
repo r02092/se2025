@@ -1255,7 +1255,7 @@ APIへのアクセスはHTTPを用いて行う。
 		b [label="検索画面を生成"];
 		c [label="人気の観光情報をデータベースから取得"];
 		d [label="スポット情報を配置した検索画面を構成"];
-    b->c->d;
+		b->c->d;
 	}%
 	{利用者から受け取ったHTTPリクエスト}%
 	{Webページ}%
@@ -1392,55 +1392,55 @@ APIへのアクセスはHTTPを用いて行う。
 \newpage
 \subsubsection{クーポン利用開始処理モジュール}
 \begin{table}[H]
-    \centering
-    \caption{クーポン利用開始処理モジュール}\label{tab:mod-coupon-activate}
-    \modtable{MU17}{app/Http/Controllers/CouponApiController.php5}
-    {クーポンのステータスを「利用可能」から「利用中」に変更する}%
-    {
-        node [shape=box,style=rounded];
-        input [label="クーポンIDを受付"];
-        check_owner [label="ユーザーが所持しているか確認", shape=diamond];
-        check_status [label="ステータスが「利用可能」か？", shape=diamond];
-        check_expire [label="有効期限内であるか？", shape=diamond];
-        update [label="ステータスを「利用中」に更新利用開始日時を記録"];
-        gen_key [label="確認用キー（署名）の生成"];
-        res_ok [label="成功応答（二次元コード用データ含む）"];
-        res_ng [label="エラー応答"];
-        input -> check_owner;
-        check_owner -> res_ng [label="No"];
-        check_owner -> check_status [label="Yes"];
-        check_status -> res_ng [label="No"];
-        check_status -> check_expire [label="Yes"];
-        check_expire -> res_ng [label="No"];
-        check_expire -> update [label="Yes"];
-        update -> gen_key;
-        gen_key -> res_ok;
-    }
-    {クーポンID}%
-    {処理結果、二次元コード表示用データ（署名付きトークン）}%
-    {UIの「スライドで利用」アクションに対応する}%
+	\centering
+	\caption{クーポン利用開始処理モジュール}\label{tab:mod-coupon-activate}
+	\modtable{MU17}{app/Http/Controllers/CouponApiController.php5}
+	{クーポンのステータスを「利用可能」から「利用中」に変更する}%
+	{
+		node [shape=box,style=rounded];
+		input [label="クーポンIDを受付"];
+		check_owner [label="ユーザーが所持しているか確認", shape=diamond];
+		check_status [label="ステータスが「利用可能」か？", shape=diamond];
+		check_expire [label="有効期限内であるか？", shape=diamond];
+		update [label="ステータスを「利用中」に更新利用開始日時を記録"];
+		gen_key [label="確認用キー（署名）の生成"];
+		res_ok [label="成功応答（二次元コード用データ含む）"];
+		res_ng [label="エラー応答"];
+		input -> check_owner;
+		check_owner -> res_ng [label="No"];
+		check_owner -> check_status [label="Yes"];
+		check_status -> res_ng [label="No"];
+		check_status -> check_expire [label="Yes"];
+		check_expire -> res_ng [label="No"];
+		check_expire -> update [label="Yes"];
+		update -> gen_key;
+		gen_key -> res_ok;
+	}
+	{クーポンID}%
+	{処理結果、二次元コード表示用データ（署名付きトークン）}%
+	{UIの「スライドで利用」アクションに対応する}%
 \end{table}
 
 \newpage
 \subsubsection{投稿マップ表示モジュール}
 \begin{table}[H]
-    \centering
-    \caption{投稿マップ表示モジュール}\label{tab:mod-post-map}
-    \modtable{MU19}{app/Http/Controllers/PostMapController.php}%
-    {ユーザーの投稿情報を取得し、地図上に表示するデータを構成する}%
-    {
-        node [shape=box,style=rounded];
-        req [label="リクエスト受信"];
-        fetch [label="photosテーブルから位置情報付きの投稿を取得"];
-        format [label="共通マップモジュール用にデータを整形(JSON化)"];
-        render [label="画面テンプレートを描画(共通マップモジュール起動)"];
-        req -> fetch;
-        fetch -> format;
-        format -> render;
-    }
-    {閲覧範囲または検索条件}%
-    {Webページ（投稿が表示された地図画面）}%
-    {・「投稿を見る」機能に対応する。}%
+	\centering
+	\caption{投稿マップ表示モジュール}\label{tab:mod-post-map}
+	\modtable{MU19}{app/Http/Controllers/PostMapController.php}%
+	{ユーザーの投稿情報を取得し、地図上に表示するデータを構成する}%
+	{
+		node [shape=box,style=rounded];
+		req [label="リクエスト受信"];
+		fetch [label="photosテーブルから位置情報付きの投稿を取得"];
+		format [label="共通マップモジュール用にデータを整形(JSON化)"];
+		render [label="画面テンプレートを描画(共通マップモジュール起動)"];
+		req -> fetch;
+		fetch -> format;
+		format -> render;
+	}
+	{閲覧範囲または検索条件}%
+	{Webページ（投稿が表示された地図画面）}%
+	{・「投稿を見る」機能に対応する。}%
 \end{table}
 
 \newpage
