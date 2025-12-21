@@ -62,7 +62,7 @@
 			& \emph{概要} & #3 \\
 			\Block{1-3}{\emph{処理手順}} \\
 			\Block{1-3}{
-				\digraph[scale=.43]{#1}{
+				\digraph[scale=.4]{#1}{
 					#4
 				}
 			}
@@ -128,10 +128,9 @@ Geminiへのヒントを与える。
 出発地・到着地によって矩形に囲まれる範囲に収まるスポットに限定し、
 提案する経路を調整する。
 
-\subsubsection{Google マップ転送機能}
-ユーザーとGeminiからの入力によって作成した経路から
-Google マップ上で表示できるURLを生成する。
-ユーザーはURLを基にGoogle マップへと移動する。
+\subsubsection{Google マップによる経路案内機能}
+ユーザーとGeminiからの入力によって得られたスポットを経由する
+経路を、Google マップの埋め込み機能を用いて表示する。
 
 \subsubsection{評価機能}
 スポットに5段階の評価とコメントを投稿できる。
@@ -868,6 +867,89 @@ spotsテーブル（\cref{tab:db-spots}）は、
 ここに記述する。このクラスをコントローラから使用することで、
 データベースの読み書きを行うことができる。
 
+\section{API仕様設計}
+\subsection{概要}
+本システムが提供する観光データ分析APIは
+本サービスでのユーザーの動向を調査し、観光分析に活用できるデータを提供する。
+APIへのアクセスにはHTTPリクエストを使用し、レスポンスとしてJSON形式の文字列を返すものとする。
+
+\subsection{トークン（APIキー）の発行}
+APIを利用するには予めサービスに対して事業者登録を行い、
+トークンの発行を行う必要がある。
+トークンの発行はAPIキー管理画面で行うことができる。
+システムでは生成したトークンをハッシュ化したものを検証用としてデータベースに保存する。
+
+\subsection{アクセスと認証方法}
+APIへのアクセスはHTTPを用いて行う。
+分析データを取得するためにはリクエストを送信する。
+リクエストにはトークンと取得したい分析データの期間を指定する必要がある。
+リクエストはGETメソッドを利用できるものとし、
+更に以下の表\ref{tab:api-header}に示すようなヘッダーを利用できるものとする。
+\begin{table}[H]
+	\centering
+	\caption{ヘッダー設定}\label{tab:api-header}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\thead{フィールド} & \thead{例} & \thead{説明} \\ \hline
+		Authorization &  & 認証用トークン \\ \hline
+		From-Date & 2025-01-01 & 取得したい期間の始点の日付 \\ \hline
+		To-Date & 2025-12-12 & 取得したい期間の終点の日付 \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection{分析データ}
+ログインに成功すると、ステータスコード200 OKを返し、
+リクエストに応じた分析データを返す。
+分析データはJSON形式の文字列として返す。
+分析データは以下の表\ref{tab:api-response_root}に示すオブジェクトである。
+\begin{table}[H]
+	\centering
+	\caption{分析データ（JSON形式）}\label{tab:api-response_root}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
+		formatVersion & number & 分析データのフォーマットバージョン \\ \hline
+		currentUserNum & number & 現在のサービスのユーザー数 \\ \hline
+		spotData & Array of Object & スポットに関するデータ（参照: 表\ref{tab:api-response_spots}） \\ \hline
+		couponData & Array of Object & クーポンに関するデータ（参照: 表\ref{tab:api-response_coupon}） \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{スポットに関する分析データ（JSON形式）}\label{tab:api-response_spots}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
+		id & string & スポットのID \\ \hline
+		fromSpotName & number & 出発地として検索された回数 \\ \hline
+		toSpotName & number & 到着地として検索された回数 \\ \hline
+		propNum & number & AIによる提案回数 \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{クーポンに関する分析データ（JSON形式）}\label{tab:api-response_spots}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\thead{キー} & \thead{データ型} & \thead{説明} \\ \hline
+		id & string & クーポンのID \\ \hline
+		acquisitionNum & number & 取得したユーザー数 \\ \hline
+		useNum & number & 使用したユーザー数 \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection{ログインの失敗}
+トークンにアクセス許可がない、またはトークンが入力されていない場合はログインに失敗する。
+このとき、システムはログインの失敗をクライアントに伝えるために
+ステータスコード401 Unauthorizedを返す。
+
+\subsection{アクセス制限}
+システムは短時間に複数の無効な資格情報を含むリクエストを検知すると
+同一発行元のリクエストに対して10分間、ステータスコード403 Forbiddenを返し、
+一定時間分析データへのアクセス要求を拒否する。
+
 % ====================================
 \newpage
 \section{モジュール詳細設計}
@@ -1167,21 +1249,17 @@ spotsテーブル（\cref{tab:db-spots}）は、
 	\centering
 	\caption{検索画面構成モジュール}\label{tab:mod-search-display}
 	\modtable{MC00}{app/Http/Controllers/SearchController.php}%
-	{検索画面を構成する。}%
+	{検索画面を構成する。検索バーの下部に人気の観光地を一覧表示する}%
 	{
 		node [shape=box,style=rounded];
-		c [shape=diamond];
 		b [label="検索画面を生成"];
-		c [label="ログインしているか？"];
-		d [label="ログイン時のUIを生成"];
-		e [label="未ログイン時のUIを生成"];
-		b->c;
-		c->d [label="Yes"];
-		c->e [label="No"];
+		c [label="人気の観光情報をデータベースから取得"];
+		d [label="スポット情報を配置した検索画面を構成"];
+    b->c->d;
 	}%
 	{利用者から受け取ったHTTPリクエスト}%
 	{Webページ}%
-	{}
+	{表示するスポット情報は写真、スポット名を含む。}
 \end{table}
 
 \newpage
@@ -1220,16 +1298,16 @@ spotsテーブル（\cref{tab:db-spots}）は、
 	{ユーザーのチャット入力に基づくスポット推薦}%
 	{
 		node [shape=box,style=rounded];
-		input [label="チャット入力と座標情報を受付"];
-		calc_bounds [label="検索範囲の計算（現在地周辺 or 出発・目的地の矩形範囲）"];
-		search_db [label="座標範囲（緯度・経度）でDBから候補スポットを検索"];
+		input [label="チャット入力とスポット情報を受付"];
+		calc_bounds [label="検索する範囲を計算"];
+		search_db [label="座標の範囲内にあるスポットをデータベース上で検索"];
 		check_exist [label="候補が存在するか？", shape=diamond];
-		prompt [label="候補リストを含めたプロンプト構築"];
+		prompt [label="候補リストを含めたプロンプトを構築"];
 		apicall [label="Gemini APIへの送信"];
-		check_api [label="APIの応答が成功であるか？", shape=diamond];
-		parse [label="JSON解析 （推薦IDを取得）"];
+		check_api [label="APIの応答が解釈可能であるか？", shape=diamond];
+		parse [label="JSON解析（スポットを抽出）"];
 		res_ok [label="推薦文とスポット情報を応答"];
-		res_ng [label="エラーまたは該当なしを応答"];
+		res_ng [label="エラーまたは候補となるスポットがない旨を応答"];
 		input -> calc_bounds;
 		calc_bounds -> search_db;
 		search_db -> check_exist;
@@ -1241,10 +1319,18 @@ spotsテーブル（\cref{tab:db-spots}）は、
 		check_api -> parse [label="Yes"];
 		parse -> res_ok;
 	}%
-	{チャット入力、ユーザー現在地、（任意）目的地座標}%
-	{推薦スポット情報（ID含む）、推薦理由メッセージ}%
-	{・Geminiへのハルシネーション対策として、DB検索による候補絞り込みを行う。\\
-	 ・検索範囲は、移動の始点と終点を含む矩形範囲（バウンディングボックス）を設定し、市町村をまたぐ移動に対応する。}
+	{チャット入力、出発地、経路について探す場合は目的地も}%
+	{推薦スポット情報、推薦理由メッセージ}%
+	{
+		\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
+			\vspace{-1.7\zw}
+			\begin{itemize}
+				\item Geminiのハルシネーションの対策として、データベース上に登録されたスポットから絞り込んだ候補を用いる。
+				\item 検索する範囲は、周辺または出発地・目的地を結ぶ線分を対角線とした矩形の範囲
+			\end{itemize}
+			\vspace{-.35\zw}
+		}
+	}
 \end{table}
 
 \newpage
@@ -1333,38 +1419,6 @@ spotsテーブル（\cref{tab:db-spots}）は、
     {クーポンID}%
     {処理結果、二次元コード表示用データ（署名付きトークン）}%
     {UIの「スライドで利用」アクションに対応する}%
-\end{table}
-
-\newpage
-\subsubsection{Google マップ URL生成モジュール}
-\begin{table}[H]
-	\centering
-	\caption{Google マップ URL生成モジュール}\label{tab:mod-gmap-gen}
-	\modtable{MU18}{app/Http/Controllers/GoogleMapUrlController.php}%
-	{指定されたスポットを巡るGoogle マップの経路URLを生成する}%
-	{
-		node [shape=box,style=rounded];
-		input [label="出発地・目的地・経由地リストを受付"];
-		gemini [label="Gemini提案スポットがあるか？", shape=diamond];
-		add_waypoint [label="経由地リストに追加"];
-		format_loc [label="各地点を座標（緯度,経度）または名称・住所の形式に整形"];
-		build_query [label="URLパラメータ（origin, destination, waypoints）の構築"];
-		build_url [label="Google Maps URLの結合"];
-		output [label="生成されたURLをレスポンス"];
-		input -> gemini;
-		gemini -> add_waypoint [label="Yes"];
-		gemini -> format_loc [label="No"];
-		add_waypoint -> format_loc;
-		format_loc -> build_query;
-		build_query -> build_url;
-		build_url -> output;
-	}%
-	{出発地、目的地、経由地リスト（Gemini提案含む）}%
-	{Google マップへの遷移URL}%
-	{\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
-		・経路計算や所要時間の算出は行わず、Google マップへ委譲するURLスキームを生成する。\\
-		・ユーザーはこのURLを開くことで、リアルタイムの交通状況を反映したナビゲーションを利用できる。
-	}}
 \end{table}
 
 \newpage
@@ -1675,6 +1729,50 @@ spotsテーブル（\cref{tab:db-spots}）は、
 	{}%
 	{}
 \end{table}
+
+\newpage
+\subsubsection{Google マップURL生成モジュール}
+\begin{table}[H]
+	\centering
+	\caption{Google マップURL生成モジュール}\label{tab:mod-gmap-gen}
+	\modtable{MU18}{resources/ts/gmap\_url.ts}%
+	{指定したスポットを巡るGoogle マップの埋め込みURLを生成する}%
+	{
+		node [shape=box,style=rounded];
+		a [label="経由地の数を基にURLの先頭部分を生成"];
+		b [label="経由地ごとにパラメータをURLに追加"];
+		output [label="生成されたURLを出力"];
+		a->b->output;
+	}%
+	{出発地・経由地・目的地リスト}%
+	{Google マップの埋め込みURL}%
+	{
+		\parbox[t]{\dimexpr\textwidth-2\tabcolsep\relax}{
+			\vspace{-1.7\zw}
+			\begin{itemize}
+				\item 経路や所要時間などの算出は行わず、Google マップへ委譲する。
+				\item \texttt{iframe}要素でこのURLを埋め込むことで、リアルタイムの交通状況を反映したナビゲーションを利用できるようにする。
+			\end{itemize}
+			\vspace{-.35\zw}
+		}
+	}
+\end{table}
+URLの先頭部分は、$x=[\text{出発地・目的地を含まない経由地の数}]\times 6$として、
+\begin{center}
+	\texttt{https://www.google.com/maps/embed?pb=!1m}[$x+28$]\texttt{!!!!!!!!!!!!!!4m}[$x+13$]\texttt{!}
+\end{center}
+の[]をその中に書いた式の計算結果を10進数のアラビア数字で
+置き換えた文字列とする。
+
+ここで、出発地・経由地・目的地となるスポットのリストの
+各要素に対して、
+\begin{center}
+	\texttt{!4m5!!2z}[$y$]\texttt{!!!}
+\end{center}
+の[$y$]をbase64urlでエンコードした地点名に置き換えた
+文字列をURLに追加する処理を行い、
+最後の要素まで処理し終わったら、\texttt{!}をURLに追加する。
+こうして得られたURLを出力とする。
 
 \subsubsection{住所自動入力モジュール}
 \begin{table}[H]
