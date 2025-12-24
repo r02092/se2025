@@ -3,11 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserCoupon extends Model
 {
-    protected array $casts = [
+    protected $casts = [
         'id' => 'int',
         'coupon_id' => 'int',
         'user_id' => 'int',
@@ -17,11 +16,11 @@ class UserCoupon extends Model
         'updated_at' => 'datetime',
     ];
     protected $guarded = ['id'];
-    public function coupon(): BelongsTo
+    public function coupon()
     {
         return $this->belongsTo('App\Models\Coupon');
     }
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo('App\Models\User');
     }

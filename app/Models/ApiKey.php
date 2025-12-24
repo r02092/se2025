@@ -3,11 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ApiKey extends Model
 {
-    protected array $casts = [
+    protected $casts = [
         'id' => 'int',
         'user_id' => 'int',
         'name' => 'string',
@@ -20,7 +19,7 @@ class ApiKey extends Model
         'deleted_at' => 'datetime',
     ];
     protected $guarded = ['id'];
-    public function user(): BelongsTo
+    public function user()
     {
         return $this->belongsTo('App\Models\User');
     }
