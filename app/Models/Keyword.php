@@ -12,7 +12,7 @@ class Keyword extends Model
         'keyword' => 'string',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'deleted_at' => 'datetime'
+        'deleted_at' => 'datetime',
     ];
     protected $guarded = ['id'];
     public function spot()
@@ -20,4 +20,3 @@ class Keyword extends Model
         return $this->belongsTo(Spot::class);
     }
 }
-

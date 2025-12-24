@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /** 利用者モジュール(MM00)
  * データベースの users テーブルのデータの読み込みおよび書き込みを行う
-*/
+ */
 class User extends Model
 {
     protected $casts = [
@@ -29,7 +29,7 @@ class User extends Model
         'totp_counter' => 'int',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'deleted_at' => 'datetime'
+        'deleted_at' => 'datetime',
     ];
     protected $guarded = ['id'];
     public function spots()

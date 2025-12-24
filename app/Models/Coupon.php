@@ -14,7 +14,7 @@ class Coupon extends Model
         'expires_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'deleted_at' => 'datetime'
+        'deleted_at' => 'datetime',
     ];
     protected $guarded = ['id'];
     public function spot()
