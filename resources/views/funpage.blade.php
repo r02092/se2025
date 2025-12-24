@@ -2,11 +2,6 @@
 
 @section('title', 'SceneTrip - お楽しみ機能')
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/funpage.css') }}" />
-<link rel="stylesheet" href="{{ asset('css/MainFrame.css') }}" />
-@endpush
-
 @section('content')
 <h1>お楽しみ機能</h1>
 

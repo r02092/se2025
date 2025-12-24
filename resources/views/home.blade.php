@@ -3,9 +3,6 @@
 @section('title', 'SceneTrip - ホーム')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/home.css') }}" />
-<link rel="stylesheet" href="{{ asset('css/MainFrame.css') }}" />
-
 <link href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css" rel="stylesheet" />
 @endpush
 
@@ -13,7 +10,7 @@
 <!-- グラデーション トップ -->
 <div class="gradient-top"></div>
 
-<div class="map-area" style="padding-top: 42px;">
+<div class="map-area">
     <div id="map"></div>
 </div>
 

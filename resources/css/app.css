@@ -3,12 +3,27 @@
 	--header-height: 42px;
 	--bottom-bar-height: 55px;
 }
-
 body {
-	margin: 0;
-	background: #d1d1d1;
-	/* padding-top: var(--header-height); */
+	padding: 0;
+	padding-top: var(--header-height);
+	padding-bottom: var(--bottom-bar-height); /*  ← ボトムバー分の余白 多分不要 */
+	background: #eee;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: flex-start;
 }
+.general-box {
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+h1 {
+	text-align: center;
+}
+
+/* Header Bar */
 .header-bar {
 	background: #27f2b6;
 	height: var(--header-height);
@@ -108,16 +123,57 @@ body {
 	pointer-events: none;
 }
 
-.main-area {
-	padding: 0;
-	padding-top: var(--header-height);
-	padding-bottom: var(--bottom-bar-height);
-	background: #eee; /* merged: MainFrame + coupon + post */
+/* Bottom Bar */
+.bottom-bar {
+	background: #fff;
+	height: var(--bottom-bar-height);
+	position: fixed;
+	bottom: 0;
 	width: 100vw;
+	left: 0;
+	box-shadow: 0 0 8px rgba(90, 90, 90, 0.6);
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+	z-index: 1000;
+}
+.bottom-menu {
+	display: flex;
+	width: 100%;
+	height: 100%;
+}
+.bottom-btn {
+	flex: 1;
+	background: none;
+	border: none;
+	cursor: pointer;
 	display: flex;
 	flex-direction: column;
-	align-items: stretch;
-	justify-content: flex-start;
+	align-items: center;
+	justify-content: center;
+	color: #222;
+	height: 100%;
+	transition:
+		background 0.2s,
+		color 0.2s;
+	font-size: 12px;
+	text-decoration: none;
+}
+.bottom-btn.selected {
+	background: #5af3c5;
+}
+.bottom-btn:active,
+.bottom-btn:hover {
+	background: #c2ebdc;
+}
+.bottom-icon {
+	width: 26px;
+	height: 26px;
+	margin-bottom: 3px;
+}
+.bottom-label {
+	font-size: 11px;
+	white-space: nowrap;
 }
 
 /* merged ai-suggest: funpage.css + home.css + search.css (final margin/padding from search) */
@@ -179,58 +235,7 @@ body {
 	background-color: #108a66;
 }
 
-.bottom-bar {
-	background: #fff;
-	height: var(--bottom-bar-height);
-	position: fixed;
-	bottom: 0;
-	width: 100vw;
-	left: 0;
-	box-shadow: 0 0 8px rgba(90, 90, 90, 0.6);
-	display: flex;
-	align-items: stretch;
-	justify-content: center;
-	z-index: 1000;
-}
-.bottom-menu {
-	display: flex;
-	width: 100%;
-	height: 100%;
-}
-.bottom-btn {
-	flex: 1;
-	background: none;
-	border: none;
-	cursor: pointer;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	color: #222;
-	height: 100%;
-	transition:
-		background 0.2s,
-		color 0.2s;
-	font-size: 12px;
-	text-decoration: none;
-}
-.bottom-btn.selected {
-	background: #5af3c5;
-}
-.bottom-btn:active,
-.bottom-btn:hover {
-	background: #c2ebdc;
-}
-.bottom-icon {
-	width: 26px;
-	height: 26px;
-	margin-bottom: 3px;
-}
-.bottom-label {
-	font-size: 11px;
-	white-space: nowrap;
-}
-
+/* ==== Coupon list (from coupon.css) ==== */
 .container {
 	width: 100vw;
 	min-width: 0;
@@ -240,28 +245,8 @@ body {
 	border-radius: 0;
 	height: 100vh;
 }
-@media (max-width: 480px) {
-	.container {
-		max-width: 100vw;
-	}
-}
-
-/* ==== Coupon list (from coupon.css) ==== */
-
 .hidden {
 	display: none !important;
-}
-
-.sr-only {
-	position: absolute !important;
-	width: 1px !important;
-	height: 1px !important;
-	padding: 0 !important;
-	margin: -1px !important;
-	overflow: hidden !important;
-	clip: rect(0, 0, 0, 0) !important;
-	white-space: nowrap !important;
-	border: 0 !important;
 }
 .coupon-filter {
 	width: 100%;
@@ -471,19 +456,6 @@ body {
 	fill: #14b888;
 }
 /* merged ai-suggest: funpage.css + home.css + search.css (final margin/padding from search) */
-.ai-suggest {
-	width: 80%;
-	height: auto;
-	max-height: calc(100vh - 200px);
-	overflow-y: auto;
-	margin: 30px auto;
-	padding: 1% 5% 5% 5%;
-	min-height: 120px;
-}
-.ai-suggest h2 {
-	text-align: center;
-	width: 100%;
-}
 .spot-divider {
 	height: 1px;
 	background-color: #e0e0e0;
@@ -539,21 +511,6 @@ body {
 	margin: 6px 0 0 0;
 	color: #666;
 	font-size: 14px;
-}
-
-/* ==== home.css ==== */
-.ai-suggest {
-	width: 80%;
-	height: auto;
-	max-height: calc(100vh - 200px);
-	overflow-y: auto;
-	margin: 30px auto;
-	padding: 1% 5% 5% 5%;
-	min-height: 120px;
-}
-.ai-suggest h2 {
-	text-align: center;
-	width: 100%;
 }
 
 /* ==== login.css ==== */
@@ -1342,7 +1299,122 @@ body {
 		transform 0.08s linear;
 }
 
-/* ==== funpage-checkin.css ==== */
+/* ==== funpage.css ==== */
+.general-box.checkin-box {
+	width: 80%;
+	margin: 40px auto;
+	padding: 1% 5% 1% 5%;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+}
+.general-box.checkin-box h2 {
+	text-align: center;
+	width: 100%;
+}
+.marker-icon {
+	width: 15%; /* 親の幅に対する15%表示 */
+	min-width: 30px; /* モバイルや小画面対策で最小値も入れると良い */
+	max-width: 40px; /* 最大値も任意で */
+	height: auto;
+}
+
+/* --- achievement セクション（checkin-box と同じ枠スタイル） --- */
+.achievement {
+	width: 90%;
+	margin: 40px auto 80px; /* 上は checkin と同じ、下はボトムバー回避 */
+	padding: 1% 5% 5% 5%;
+	box-sizing: border-box;
+}
+
+/* タイトルは .checkin-box h2 と同じ見た目 */
+.achievement h2 {
+	text-align: center;
+	width: 100%;
+}
+
+/* 灰色の線（タイトルの下） */
+.achievement-divider {
+	height: 1px;
+	background-color: #e0e0e0;
+	width: 100%;
+	margin-top: 8px;
+	margin-bottom: 12px;
+	border-radius: 1px;
+}
+
+/* バッジ群（4列 × 2行 = 8個） */
+.achievement-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 18px;
+	align-items: start;
+	justify-items: center;
+	padding: 8px 4px 0 4px;
+}
+
+/* 個々のバッジラッパー */
+.achievement-item {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+}
+
+/* 丸いバッジスタイル（固定サイズ） */
+.achievement-badge {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #ffffff 0%, #f0f4f1 40%, #c8efd9 100%);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+	border: 2px solid rgba(20, 184, 136, 0.12);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	padding: 0;
+	outline: none;
+	transition:
+		transform 0.14s ease,
+		box-shadow 0.14s ease;
+}
+.badge-inner {
+	font-size: 18px;
+	font-weight: 700;
+	color: #0b6b4d;
+}
+.achievement-badge:hover,
+.achievement-badge:focus {
+	transform: translateY(-3px) scale(1.03);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+}
+
+.achievement-label {
+	font-size: 12px;
+	color: #333;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+/* スクリーンリーダー用（必要なら使う） */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
 .checkin-qr-overlay {
 	position: fixed;
 	inset: 0;
