@@ -8,7 +8,6 @@
 
 @section('content')
 <!-- グラデーション トップ -->
-<div class="gradient-top"></div>
 
 <div class="map-area">
     <div id="map"></div>

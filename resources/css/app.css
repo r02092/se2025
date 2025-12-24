@@ -13,6 +13,21 @@ body {
 	flex-direction: column;
 	align-items: stretch;
 	justify-content: flex-start;
+	margin: 0;
+}
+.container {
+	width: 100vw;
+	min-width: 0;
+	max-width: 100vw;
+	margin: 0;
+	box-sizing: border-box;
+	border-radius: 0;
+	height: 100vh;
+}
+@media (max-width: 480px) {
+	.container {
+		max-width: 100vw;
+	}
 }
 .general-box {
 	background: #fff;
@@ -29,7 +44,6 @@ h1 {
 	height: var(--header-height);
 	display: flex;
 	align-items: center;
-	padding: 0;
 	box-sizing: border-box;
 	position: fixed;
 	top: 0;
@@ -236,15 +250,6 @@ h1 {
 }
 
 /* ==== Coupon list (from coupon.css) ==== */
-.container {
-	width: 100vw;
-	min-width: 0;
-	max-width: 100vw;
-	margin: 0;
-	box-sizing: border-box;
-	border-radius: 0;
-	height: 100vh;
-}
 .hidden {
 	display: none !important;
 }
@@ -419,9 +424,8 @@ h1 {
 	opacity: 0.6;
 }
 
-/* ==== funpage.css ==== */
+/* ==== home.css ==== */
 .map-area {
-	padding: 0;
 	background: #aad3df;
 	height: 320px;
 	width: 100vw;
@@ -1320,22 +1324,18 @@ h1 {
 	height: auto;
 }
 
-/* --- achievement セクション（checkin-box と同じ枠スタイル） --- */
-.achievement {
+.general-box.achievement {
 	width: 90%;
 	margin: 40px auto 80px; /* 上は checkin と同じ、下はボトムバー回避 */
 	padding: 1% 5% 5% 5%;
 	box-sizing: border-box;
 }
-
-/* タイトルは .checkin-box h2 と同じ見た目 */
-.achievement h2 {
+.general-box.achievement h2 {
 	text-align: center;
 	width: 100%;
 }
-
 /* 灰色の線（タイトルの下） */
-.achievement-divider {
+.general-box.divider {
 	height: 1px;
 	background-color: #e0e0e0;
 	width: 100%;
@@ -1343,7 +1343,6 @@ h1 {
 	margin-bottom: 12px;
 	border-radius: 1px;
 }
-
 /* バッジ群（4列 × 2行 = 8個） */
 .achievement-grid {
 	display: grid;
@@ -1353,7 +1352,6 @@ h1 {
 	justify-items: center;
 	padding: 8px 4px 0 4px;
 }
-
 /* 個々のバッジラッパー */
 .achievement-item {
 	width: 100%;
@@ -1362,7 +1360,6 @@ h1 {
 	align-items: center;
 	gap: 8px;
 }
-
 /* 丸いバッジスタイル（固定サイズ） */
 .achievement-badge {
 	width: 60px;
@@ -1391,7 +1388,6 @@ h1 {
 	transform: translateY(-3px) scale(1.03);
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
 }
-
 .achievement-label {
 	font-size: 12px;
 	color: #333;

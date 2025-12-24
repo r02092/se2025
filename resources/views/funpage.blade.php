@@ -19,7 +19,7 @@
 
 <section class="general-box achievement" aria-labelledby="achievement-title">
     <h2 id="achievement-title">実績スタンプ</h2>
-    <div class="achievement-divider" aria-hidden="true"></div>
+    <div class="general-box divider" aria-hidden="true"></div>
 
     <div class="achievement-grid" role="list">
         @for($i = 1; $i <= 8; $i++)
