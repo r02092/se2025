@@ -6,4 +6,4 @@ parameters:
 		- vendor
 	paths:
 		- .
-	level: 9
+	level: 5
