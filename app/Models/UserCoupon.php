@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserCoupon extends Model
 {
-    protected $casts = [
+    protected string[] $casts = [
         'id' => 'int',
         'coupon_id' => 'int',
         'user_id' => 'int',
@@ -16,11 +16,11 @@ class UserCoupon extends Model
         'updated_at' => 'datetime',
     ];
     protected $guarded = ['id'];
-    public function coupon()
+    public function coupon(): BelongsTo
     {
         return $this->belongsTo('App\Models\Coupon');
     }
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }

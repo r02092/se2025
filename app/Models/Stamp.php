@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Stamp extends Model
 {
-    protected $casts = [
+    protected string[] $casts = [
         'id' => 'int',
         'spot_id' => 'int',
         'user_id' => 'int',
@@ -17,11 +18,11 @@ class Stamp extends Model
         'updated_at' => 'datetime',
     ];
     protected $guarded = ['id'];
-    public function spot()
+    public function spot(): BelongsTo
     {
         return $this->belongsTo('App\Models\Spot');
     }
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }
