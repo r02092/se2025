@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserCoupon extends Model
 {
-    protected string[] $casts = [
+    protected array $casts = [
         'id' => 'int',
         'coupon_id' => 'int',
         'user_id' => 'int',

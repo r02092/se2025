@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ApiKey extends Model
 {
-    protected string[] $casts = [
+    protected array $casts = [
         'id' => 'int',
         'user_id' => 'int',
         'name' => 'string',

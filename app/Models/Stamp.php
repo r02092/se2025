@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Stamp extends Model
 {
-    protected string[] $casts = [
+    protected array $casts = [
         'id' => 'int',
         'spot_id' => 'int',
         'user_id' => 'int',
