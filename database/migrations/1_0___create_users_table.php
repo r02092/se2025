@@ -12,15 +12,15 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->unsignedInteger('id')->autoIncrement()->primary();
-            $table->unsignedTinyInteger('provider');
+            $table->unsignedTinyInteger('provider')->default(0);
             $table->string('login_name');
             $table->unique(['provider', 'login_name']);
             $table->string('password')->nullable();
-            $table->unsignedTinyInteger('permission');
+            $table->unsignedTinyInteger('permission')->default(1);
             $table->string('name');
-            $table->string('icon_ext', 4);
-            $table->unsignedInteger('num_plan_std');
-            $table->unsignedInteger('num_plan_prm');
+            $table->string('icon_ext', 4)->nullable();
+            $table->unsignedInteger('num_plan_std')->default(0);
+            $table->unsignedInteger('num_plan_prm')->default(0);
             $table->unsignedInteger('postal_code')->nullable();
             $table->unsignedInteger('addr_city')->nullable();
             $table->string('addr_detail')->nullable();
