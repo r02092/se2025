@@ -13,7 +13,7 @@ body {
 	flex-direction: column;
 	align-items: stretch;
 	justify-content: flex-start;
-	margin: 0;
+	margin: 0; /*ユーザーエージェントスタイルシート設定の削除*/
 }
 .container {
 	width: 100vw;
@@ -23,11 +23,6 @@ body {
 	box-sizing: border-box;
 	border-radius: 0;
 	height: 100vh;
-}
-@media (max-width: 480px) {
-	.container {
-		max-width: 100vw;
-	}
 }
 .general-box {
 	background: #fff;

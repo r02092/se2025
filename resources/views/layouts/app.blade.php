@@ -16,13 +16,7 @@
 
         @include('layouts.partials.bottom-bar')
 
-        <div class="modal-overlay" id="modal-overlay"></div>
-        <div class="modal" id="modal">
-            <button class="close-modal" id="close-modal" aria-label="閉じる">
-                ×
-            </button>
-            <div class="modal-content" id="modal-content"></div>
-        </div>
+
     </div>
 
     @yield('scripts')
