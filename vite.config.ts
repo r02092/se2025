@@ -11,7 +11,16 @@ export default defineConfig(({mode}) => {
 		},
 		plugins: [
 			laravel({
-				input: ["resources/css/app.css", "resources/ts/app.ts"],
+				input: [
+					"resources/css/app.css",
+					"resources/ts/app.ts",
+					// 個別TS modules - app.ts経由で動的import
+					"resources/ts/post.ts",
+					"resources/ts/coupon.ts",
+					"resources/ts/coupon-QR.ts",
+					"resources/ts/coupon-selected.ts",
+					"resources/ts/funpage-checkin.ts",
+				],
 				refresh: true,
 			}),
 			{

@@ -69,18 +69,6 @@ body {
 	display: block;
 }
 
-/* 小さい画面で少し小さく */
-@media (max-width: 480px) {
-	.header-profile {
-		width: 32px;
-		height: 32px;
-	}
-	.header-login button {
-		padding: 5px 8px;
-		font-size: 12px;
-	}
-}
-
 .hamburger {
 	width: 50px;
 	height: 42px;
