@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountCreateController;
 
 // ホームページ
 Route::get('/', function () {
@@ -40,9 +41,7 @@ Route::post('/login', function () {
     // ログイン処理を実装
 })->name('login.post');
 
-Route::get('/signup', function () {
-    return view('signup');
-})->name('signup');
+Route::get('/signup', [AccountCreateController::class, 'get'])->name('signup');
 
 Route::post('/logout', function () {
     // ログアウト処理を実装
