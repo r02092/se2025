@@ -26,6 +26,8 @@ cat <<-EOF > ~/entrypoint.sh
 		done
 		mariadb -e 'CREATE DATABASE dev_db;
 			GRANT ALL PRIVILEGES ON dev_db.* TO dev_user@localhost IDENTIFIED BY "dev_pass";'
+		mariadb -e 'CREATE DATABASE test_db;
+			GRANT ALL PRIVILEGES ON test_db.* TO dev_user@localhost;'
 		php artisan migrate
 	fi
 	php artisan serve --host=0.0.0.0

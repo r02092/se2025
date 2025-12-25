@@ -43,6 +43,16 @@ jobs:
   reviewdog:
     name: Reviewdogによる自動レビュ
     runs-on: ubuntu-latest
+    services:
+      db:
+        image: mariadb:10.11.13
+        env:
+          MARIADB_DATABASE: dev_db
+          MARIADB_USER: dev_user
+          MARIADB_PASSWORD: dev_pass
+          MARIADB_RANDOM_ROOT_PASSWORD: 1
+        ports:
+          - 3306:3306
     steps:
       - uses: actions/checkout@v6
         with:
@@ -50,6 +60,10 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
+      - run: |
+          env=`cat .env.sample`
+          echo "${env/DB_HOST=localhost
+          DB_SOCKET=\/run\/mysqld\/mysqld.sock/}" > .env
       - run: mkdir -p storage/framework/{cache/data,sessions,testing,views}
       - run: composer install
       - run: npm i -g pnpm
@@ -58,6 +72,7 @@ jobs:
         working-directory: ${{vars.CHKTEX}}
       - run: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/fd59714416d6d9a1c0692d872e38e7f8448df4fc/install.sh | sh -s -- -b . v0.18.1
       - run: pnpm i
+      - run: php artisan migrate
       - run: node resources/ts/ci/reviewdog.ts ${{github.event.before != '' && github.event.before || 'HEAD^'}} ${{secrets.GITHUB_TOKEN}}
   phpunit:
     name: PHPUnitによる自動テスト
@@ -66,7 +81,7 @@ jobs:
       db:
         image: mariadb:10.11.13
         env:
-          MARIADB_DATABASE: dev_db
+          MARIADB_DATABASE: test_db
           MARIADB_USER: dev_user
           MARIADB_PASSWORD: dev_pass
           MARIADB_RANDOM_ROOT_PASSWORD: 1
@@ -84,7 +99,6 @@ jobs:
       - run: pnpm i
       - run: pnpm run build
       - run: php artisan key:generate
-      - run: php artisan migrate
       - run: composer test
   status:
     name: ステータス更新
