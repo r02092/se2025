@@ -19,10 +19,10 @@ class Stamp extends Model
     protected $guarded = ['id'];
     public function spot()
     {
-        return $this->belongsTo('App\Models\Spot');
+        return $this->belongsTo(Spot::class);
     }
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(User::class);
     }
 }
