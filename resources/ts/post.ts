@@ -42,7 +42,7 @@ interface CurrentUser {
 	};
 
 	// 初期化：既存投稿読み込み（localStorage）
-	let posts: PostItem[] = loadPosts();
+	const posts: PostItem[] = loadPosts();
 
 	// DOM要素
 	const composerText = q("#composer-text") as HTMLTextAreaElement | null;
@@ -57,20 +57,21 @@ interface CurrentUser {
 		if (posts.length === 0) {
 			const empty = document.createElement("div");
 			empty.className = "empty";
-			empty.textContent =
-				"まだ投稿がありません。さっそく投稿してみましょう！";
+			empty.textContent = "まだ投稿がありません。さっそく投稿してみましょう！";
 			feedEl.appendChild(empty);
 			return;
 		}
 		posts.forEach((post: PostItem): void => {
 			if (!template) return;
 			const frag = template.content.cloneNode(true) as DocumentFragment;
-			const avatarEl = frag.querySelector(".post-avatar") as HTMLImageElement | null;
+			const avatarEl = frag.querySelector(
+				".post-avatar",
+			) as HTMLImageElement | null;
 			const authorEl = frag.querySelector(".post-author") as HTMLElement | null;
 			const timeEl = frag.querySelector(".post-time") as HTMLElement | null;
 			const bodyEl = frag.querySelector(".post-body") as HTMLElement | null;
 			const imgEl = frag.querySelector(
-				".post-image"
+				".post-image",
 			) as HTMLImageElement | null;
 
 			if (avatarEl) avatarEl.src = post.avatar;
@@ -162,7 +163,7 @@ interface CurrentUser {
 		return new Promise(
 			(
 				res: (value: string | ArrayBuffer | null) => void,
-				rej: (reason?: any) => void
+				rej: (reason?: any) => void,
 			) => {
 				const r = new FileReader();
 				r.onload = (): void => {
@@ -172,7 +173,7 @@ interface CurrentUser {
 					rej(r.error);
 				};
 				r.readAsDataURL(file);
-			}
+			},
 		);
 	}
 	function timeAgo(date: Date): string {
@@ -190,10 +191,7 @@ interface CurrentUser {
 			'"': "&quot;",
 			"'": "&#39;",
 		};
-		return String(s).replace(
-			/[&<>"']/g,
-			(c: string) => escapeMap[c] || c
-		);
+		return String(s).replace(/[&<>"']/g, (c: string) => escapeMap[c] || c);
 	}
 
 	// 初回レンダー
