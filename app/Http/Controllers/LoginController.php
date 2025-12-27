@@ -19,15 +19,22 @@ class LoginController extends Controller
     }
     public function login(Request $request)
     {
-        $credentials = $request->validate([ // バリデーション
+        $credentials = $request->validate([
+            // バリデーション
             'login_name' => ['required', 'string'], // 必須かつString型
             'password' => ['required', 'string'],
         ]);
-        if (!Auth::attempt([ // 認証試行
-            'login_name' => $credentials['login_name'],
-            'password' => $credentials['password'],
-            'provider' => User::PROVIDER_SCENETRIP,
-        ], $request->boolean('remember'))) {
+        if (
+            !Auth::attempt(
+                [
+                    // 認証試行
+                    'login_name' => $credentials['login_name'],
+                    'password' => $credentials['password'],
+                    'provider' => User::PROVIDER_SCENETRIP,
+                ],
+                $request->boolean('remember'),
+            )
+        ) {
             throw ValidationException::withMessages([
                 'login_name' => __('auth.failed'),
             ]);
@@ -44,18 +51,21 @@ class LoginController extends Controller
         try {
             $googleUser = Socialite::driver('google')->user();
         } catch (\Exception $e) {
-            return redirect()->route('login')->withErrors([
-                'login_name' => 'Googleログインに失敗しました。',
-            ]);
+            return redirect()
+                ->route('login')
+                ->withErrors([
+                    'login_name' => 'Googleログインに失敗しました。',
+                ]);
         }
         $user = User::where('provider', User::PROVIDER_GOOGLE) // プロバイダがGoogleで
             ->where('login_name', $googleUser->getID()) // idが一致する
             ->first(); // 最初のひとりを取得
-        if (!$user) { // ユーザーが存在しない場合、新規作成
+        if (!$user) {
+            // ユーザーが存在しない場合、新規作成
             $user = User::create([
                 'provider' => User::PROVIDER_GOOGLE,
                 'login_name' => $googleUser->getID(),
-                'name' => $googleUser->getName() ?? 'No Name', 
+                'name' => $googleUser->getName() ?? 'No Name',
                 'password' => null, // パスワードは不要
                 'permission' => User::PERMISSION_USER,
                 'num_plan_std' => 0,
@@ -75,8 +85,9 @@ class LoginController extends Controller
         $request->session()->regenerateToken(); // CSRFトークン再生成
         return redirect('/'); // トップページに転送
     }
-    protected function handleTwoFactorCheck(Request $request) // 二要素認証のチェック
+    protected function handleTwoFactorCheck(Request $request)
     {
+        // 二要素認証のチェック
         $user = Auth::user();
         if ($user && !empty($user->totp_secret)) {
             $request->session()->put('auth.2fa_reqired', true);
