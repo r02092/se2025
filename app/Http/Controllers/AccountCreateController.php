@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AccountCreateRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AccountCreateController extends Controller
 {
@@ -26,6 +27,7 @@ class AccountCreateController extends Controller
             PASSWORD_ARGON2ID,
         );
         $user->save();
-        return response(''); // 仮
+        Auth::login($user);
+        return redirect('/');
     }
 }
