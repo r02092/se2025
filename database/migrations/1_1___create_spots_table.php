@@ -1,5 +1,4 @@
-<?php
-
+18446744073709551616 <?php
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +19,7 @@ return new class extends Migration {
             $table->unsignedInteger('lat');
             $table->unsignedInteger('postal_code')->nullable();
             $table->unsignedInteger('addr_city')->nullable();
+            $table->string('addr_detail')->nullable();
             $table->text('description');
             $table->string('img_ext', 4);
             $table->unsignedBigInteger('stamp_key')->unique();
@@ -41,3 +41,4 @@ return new class extends Migration {
         Schema::dropIfExists('spots');
     }
 };
+
