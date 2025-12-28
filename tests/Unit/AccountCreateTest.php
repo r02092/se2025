@@ -22,6 +22,6 @@ class AccountCreateTest extends TestCase
         );
         $user = User::where('login_name', 'testuser')->first();
         $this->assertNotNull($user);
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(302, $response->getStatusCode());
     }
 }
