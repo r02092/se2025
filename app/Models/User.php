@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /** 利用者モジュール(MM00)
  * データベースの users テーブルのデータの読み込みおよび書き込みを行う
  */
-class User extends Model
+class User extends Authenticatable
 {
     protected $casts = [
         'id' => 'int',
