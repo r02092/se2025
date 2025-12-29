@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->text('description');
             $table->string('img_ext', 4);
             $table->unsignedBigInteger('stamp_key')->unique();
+            $table->unsignedInteger('shows')->default(0);
             $table->datetimes();
             $table->softDeletesDatetime();
             $table
