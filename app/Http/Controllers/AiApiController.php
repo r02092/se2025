@@ -132,7 +132,7 @@ class AiApiController extends Controller
             ]);
         }
         return response()->json([
-            'recommended_spots' => $recommendedSpots ?? [],
+            'recommended_spots' => $recommendedSpots,
             'explanation' => $matches[2] ?? '',
         ]);
     }
