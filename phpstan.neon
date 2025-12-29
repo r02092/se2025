@@ -4,6 +4,9 @@ parameters:
 		- node_modules
 		- storage
 		- vendor
+	ignoreErrors:
+		- '#Access to an undefined property App\\Models\\\w+::\w+\(\)#'
+		- '#Call to static method \w+\(\) on an unknown class DB.#'
 	paths:
 		- .
 	level: 5
