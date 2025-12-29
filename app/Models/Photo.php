@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use app\Traits\TransformCoordTrait;
+use App\Traits\TransformCoordTrait;
 
 class Photo extends Model
 {
