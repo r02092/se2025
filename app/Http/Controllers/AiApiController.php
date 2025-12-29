@@ -80,33 +80,37 @@ class AiApiController extends Controller
         preg_match(
             '/^([,\d]+\d)\n(.+)$/s',
             json_decode(
-                file_get_contents(
-                    'https://openrouter.ai/api/v1/chat/completions',
-                    false,
-                    stream_context_create([
-                        'http' => [
-                            'method' => 'POST',
-                            'header' => [
-                                'Content-Type: application/json',
-                                'Authorization: Bearer ' .
-                                env('OPENROUTER_API_KEY'),
-                            ],
-                            'content' => json_encode([
-                                'model' => 'xiaomi/mimo-v2-flash:free',
-                                'messages' => [
-                                    [
-                                        'role' => 'system',
-                                        'content' => $prompt,
-                                    ],
-                                    [
-                                        'role' => 'user',
-                                        'content' => $request->input('chat'),
-                                    ],
+                env('OPENROUTER_API_KEY')
+                    ? file_get_contents(
+                        'https://openrouter.ai/api/v1/chat/completions',
+                        false,
+                        stream_context_create([
+                            'http' => [
+                                'method' => 'POST',
+                                'header' => [
+                                    'Content-Type: application/json',
+                                    'Authorization: Bearer ' .
+                                    env('OPENROUTER_API_KEY'),
                                 ],
-                            ]),
-                        ],
-                    ]),
-                ),
+                                'content' => json_encode([
+                                    'model' => 'xiaomi/mimo-v2-flash:free',
+                                    'messages' => [
+                                        [
+                                            'role' => 'system',
+                                            'content' => $prompt,
+                                        ],
+                                        [
+                                            'role' => 'user',
+                                            'content' => $request->input(
+                                                'chat',
+                                            ),
+                                        ],
+                                    ],
+                                ]),
+                            ],
+                        ]),
+                    )
+                    : "3,4\nテスト用の回答です。",
             )->choices[0]->message->content,
             $matches,
         );
