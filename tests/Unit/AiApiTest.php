@@ -19,7 +19,6 @@ class AiApiTest extends TestCase
                 'to' => 6,
             ]),
         );
-        echo $response->getContent();
         $this->assertEquals(200, $response->getStatusCode());
     }
 }
