@@ -110,7 +110,7 @@ class AiApiController extends Controller
                             ],
                         ]),
                     )
-                    : "3,4\nテスト用の回答です。",
+                    : '{"choices":[{"message":{"content":"3,4\nテスト用の回答です。"}}]}',
             )->choices[0]->message->content,
             $matches,
         );
