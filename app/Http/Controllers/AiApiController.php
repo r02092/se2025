@@ -25,7 +25,6 @@ class AiApiController extends Controller
             'port' => $request->getPort() ?? 0,
             'user_agent' => $request->userAgent() ?? '',
         ]);
-        echo Query::latest()->first()->ip_addr;
         if ($request->input('from') === $request->input('to')) {
             return response()->json(
                 ['error' => '出発地と目的地が同じです。'],
