@@ -20,9 +20,9 @@ class ProfileEditController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        
+
         return view('profile-edit', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -35,15 +35,24 @@ class ProfileEditController extends Controller
 
         // 1. 入力値のバリデーション (MC05等のフロントエンド検知と同期)
         $request->validate([
-            'name'       => 'required|string|max:255',
-            'login_name' => 'required|string|max:255|unique:users,login_name,' . $user->id,
+            'name' => 'required|string|max:255',
+            'login_name' =>
+                'required|string|max:255|unique:users,login_name,' . $user->id,
         ]);
 
         // 2. ログイン名重複チェック (Trait MC06 の呼び出し)
         // ※バリデーションのuniqueでもチェック可能ですが、設計書のフローに従います
-        if ($this->isDuplicateLoginName($request->input('login_name'), $user->id)) {
-            return redirect()->back()
-                ->withErrors(['login_name' => 'このログイン名は既に使用されています。'])
+        if (
+            $this->isDuplicateLoginName(
+                $request->input('login_name'),
+                $user->id,
+            )
+        ) {
+            return redirect()
+                ->back()
+                ->withErrors([
+                    'login_name' => 'このログイン名は既に使用されています。',
+                ])
                 ->withInput();
         }
 
@@ -53,7 +62,8 @@ class ProfileEditController extends Controller
         $user->save();
 
         // 4. 更新完了画面（または編集画面）へ遷移
-        return redirect()->route('profile.edit')
+        return redirect()
+            ->route('profile.edit')
             ->with('status', 'profile-updated');
     }
 
@@ -81,10 +91,13 @@ class ProfileEditController extends Controller
             $user->icon_ext = $extension;
             $user->save();
 
-            return redirect()->route('profile.edit')
+            return redirect()
+                ->route('profile.edit')
                 ->with('status', 'icon-updated');
         }
 
-        return redirect()->back()->withErrors(['icon' => '画像のアップロードに失敗しました。']);
+        return redirect()
+            ->back()
+            ->withErrors(['icon' => '画像のアップロードに失敗しました。']);
     }
 }
