@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use app\Traits\TransformCoordTrait;
 
 class Photo extends Model
 {
+    use TransformCoordTrait;
+
     protected $casts = [
         'id' => 'int',
         'user_id' => 'int',
@@ -25,20 +28,12 @@ class Photo extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function getLngAttribute($value)
-    {
-        return ($value * 360) / (2 ** 32 - 1) - 180;
-    }
-    public function getLatAttribute($value)
-    {
-        return ($value * 180) / (2 ** 32 - 1) - 90;
-    }
     public function setLngAttribute($value)
     {
-        $this->attributes['lng'] = (($value + 180) * (2 ** 32 - 1)) / 360;
+        $this->attributes['lng'] = $this->encodeLng($value);
     }
     public function setLatAttribute($value)
     {
-        $this->attributes['lat'] = (($value + 90) * (2 ** 32 - 1)) / 180;
+        $this->attributes['lat'] = $this->encodeLat($value);
     }
 }
