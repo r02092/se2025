@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AdminUgcRequest;
 use App\Models\Review;
 use App\Models\Photo;
 use DB;
+use App\Http\Requests\AdminUgcRequest;
 
 class AdminUgcController extends Controller
 {
