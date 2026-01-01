@@ -19,12 +19,46 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'login_name' => 'share_admin',
-            'password' => password_hash('password', PASSWORD_ARGON2ID),
-            'permission' => 0,
-            'name' => 'Share',
-            'created_at' => now(),
-            'updated_at' => now(),
+            [
+                'login_name' => 'share_admin',
+                'password' => password_hash('password', PASSWORD_ARGON2ID),
+                'permission' => 0,
+                'name' => 'Share',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'login_name' => 'yabashi_harimaaaa',
+                'password' => password_hash('password', PASSWORD_ARGON2ID),
+                'permission' => 1,
+                'name' => 'はりまや',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'login_name' => 'hekiku_ramen',
+                'password' => password_hash('password', PASSWORD_ARGON2ID),
+                'permission' => 2,
+                'name' => '中華そば 碧空',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'login_name' => 'tsuruhashi04',
+                'password' => password_hash('password', PASSWORD_ARGON2ID),
+                'permission' => 1,
+                'name' => 'ツル☆ハシ',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'login_name' => 'yanagi_yuki',
+                'password' => password_hash('password', PASSWORD_ARGON2ID),
+                'permission' => 1,
+                'name' => '柳 勇樹',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
         DB::table('spots')->insert([
             [
@@ -187,6 +221,37 @@ class DatabaseSeeder extends Seeder
             [
                 'spot_id' => 6,
                 'keyword' => '東海オンエア',
+            ],
+        ]);
+        DB::table('reviews')->insert([
+            [
+                'spot_id' => 2,
+                'user_id' => 1,
+                'rate' => 5,
+                'comment' => '車窓から海が見えて最高でした！',
+                'views' => 1,
+                'ip_addr' => '192.0.2.1',
+                'port' => 49152,
+                'user_agent' =>
+                    'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
+        DB::table('photos')->insert([
+            [
+                'user_id' => 4,
+                'lng' => $this->encodeLng(133.685047),
+                'lat' => $this->encodeLat(33.607133),
+                'img_ext' => 'jpg',
+                'comment' =>
+                    'ついに香美市に到着！あのゲームにも出てきた場所、土佐山田駅だ！',
+                'ip_addr' => '192.0.2.2',
+                'port' => 49153,
+                'user_agent' =>
+                    'Mozilla/5.0 (Android 15; Mobile; rv:146.0) Gecko/146.0 Firefox/146.0',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }

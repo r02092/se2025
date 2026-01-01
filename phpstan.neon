@@ -5,7 +5,7 @@ parameters:
 		- storage
 		- vendor
 	ignoreErrors:
-		- '#Access to an undefined property App\\Models\\\w+::\w+\(\)#'
+		- '#(Access to an undefined property|Call to an undefined static method) App\\Models\\\w+::\w+\(\)#'
 		- '#Call to static method \w+\(\) on an unknown class DB.#'
 	paths:
 		- .
