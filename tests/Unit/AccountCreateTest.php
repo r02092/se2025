@@ -11,17 +11,19 @@ class AccountCreateTest extends TestCase
 {
     public function test_アカウント作成(): void
     {
-        $controller = new AccountCreateController();
-        $response = $controller->post(
-            new AccountCreateRequest([
-                'name' => 'Test User',
-                'login_name' => 'testuser',
-                'password' => 'testpass',
-                'password_confirm' => 'testpass',
-            ]),
+        $this->assertEquals(
+            302,
+            (new AccountCreateController())
+                ->post(
+                    new AccountCreateRequest([
+                        'name' => 'Test User',
+                        'login_name' => 'testuser',
+                        'password' => 'testpass',
+                        'password_confirm' => 'testpass',
+                    ]),
+                )
+                ->getStatusCode(),
         );
-        $user = User::where('login_name', 'testuser')->first();
-        $this->assertNotNull($user);
-        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertNotNull(User::where('login_name', 'testuser')->first());
     }
 }
