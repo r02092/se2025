@@ -5,8 +5,8 @@ parameters:
 		- storage
 		- vendor
 	ignoreErrors:
-		- '#(Access to an undefined property|Call to an undefined static method) App\\Models\\\w+::\w+\(\)#'
-		- '#Call to static method \w+\(\) on an unknown class DB.#'
+		- '#^(Access to an undefined property|Call to an undefined static method) (App\\Models\\\w+|Illuminate\\Contracts\\Auth\\Authenticatable)::#'
+		- '#^Call to static method \w+\(\) on an unknown class DB.$#'
 	paths:
 		- .
 	level: 5
