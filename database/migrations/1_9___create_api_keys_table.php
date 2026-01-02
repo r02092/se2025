@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->unsignedInteger('id')->autoIncrement()->primary();
             $table->unsignedInteger('user_id');
             $table->string('name');
-            $table->string('key')->unique();
+            $table->binary('key', 64)->unique();
             $table->ipAddress('ip_addr');
             $table->unsignedSmallInteger('port');
             $table->string('user_agent');
