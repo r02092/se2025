@@ -28,7 +28,7 @@ class ApiKeyTest extends TestCase
             $controller
                 ->post(
                     new ApiKeyRequest([
-                        'delete_id' => 1,
+                        'delete_id' => 2,
                     ]),
                 )
                 ->getStatusCode(),
