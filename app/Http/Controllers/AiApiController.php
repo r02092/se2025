@@ -164,6 +164,7 @@ class AiApiController extends Controller
         } else {
             return response()->json([
                 'error' => 'LLMから適切な回答が得られませんでした。',
+                400,
             ]);
         }
         return response()->json([
