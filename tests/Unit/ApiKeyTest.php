@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Requests\ApiKeyRequest;
-use App\Models\User;
 
 class ApiKeyTest extends TestCase
 {

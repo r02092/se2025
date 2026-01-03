@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Http\Controllers\AiApiController;
 use App\Http\Requests\AiApiRequest;
-use App\Models\User;
 
 class AiApiTest extends TestCase
 {
