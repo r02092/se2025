@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ApiRequest;
 use App\Models\ApiKey;
 use App\Models\User;
-use App\Models\Query;
 use App\Models\Spot;
+use App\Models\Query;
 use App\Models\Coupon;
 use App\Models\UserCoupon;
 
