@@ -39,32 +39,64 @@ class AiApiController extends Controller
                 400,
             );
         }
-        $spots = Spot::where('id', '<>', $from->id)
-            ->where('id', '<>', $to->id)
-            ->where('lng', '>=', $this->encodeLng(min($from->lng, $to->lng)))
-            ->where('lng', '<=', $this->encodeLng(max($from->lng, $to->lng)))
-            ->where('lat', '>=', $this->encodeLat(min($from->lat, $to->lat)))
-            ->where('lat', '<=', $this->encodeLat(max($from->lat, $to->lat)))
-            ->get();
+        if ($to) {
+            $spots = Spot::where('id', '<>', $from->id)
+                ->where('id', '<>', $to->id)
+                ->where(
+                    'lng',
+                    '>=',
+                    $this->encodeLng(min($from->lng, $to->lng)),
+                )
+                ->where(
+                    'lng',
+                    '<=',
+                    $this->encodeLng(max($from->lng, $to->lng)),
+                )
+                ->where(
+                    'lat',
+                    '>=',
+                    $this->encodeLat(min($from->lat, $to->lat)),
+                )
+                ->where(
+                    'lat',
+                    '<=',
+                    $this->encodeLat(max($from->lat, $to->lat)),
+                )
+                ->get();
+        } else {
+            $spots = Spot::where('id', '<>', $from->id)
+                ->where('lng', '>=', $this->encodeLng($from->lng - 0.1))
+                ->where('lng', '<=', $this->encodeLng($from->lng + 0.1))
+                ->where('lat', '>=', $this->encodeLat($from->lat - 0.1))
+                ->where('lat', '<=', $this->encodeLat($from->lat + 0.1))
+                ->get();
+        }
+        if ($spots->count() < 1) {
+            return response()->json(
+                ['error' => '候補となるスポットが見つかりませんでした。'],
+                400,
+            );
+        }
         $prompt = 'あなたは優秀な観光プランナーです。';
         $prompt .= 'これから示すスポットの情報を基に、';
         $prompt .= "ユーザーの質問に対して、正確な情報を提供してください。\n";
         $prompt .= 'スポットの情報の「キーワード」は、';
         $prompt .= "そのスポットが登場する作品などを表しています。\n\n";
-        $prompt .= "ユーザーが入力した出発地は以下に示すスポットです:\n";
+        $prompt .= 'ユーザーが入力した' . ($to ? '出発地' : 'スポット');
+        $prompt .= "は以下に示すスポットです:\n";
         $prompt .= $this->spotToMarkdown($from);
         $prompt .= "\n";
-        $prompt .= "ユーザーが入力した目的地は以下に示すスポットです:\n";
-        $prompt .= $this->spotToMarkdown($to);
-        $prompt .= "\n";
-        if ($spots->count() > 0) {
-            $prompt .= 'ユーザーにスポットを推薦する場合は、';
-            $prompt .= "以下の中から選んでください:\n";
-            foreach ($spots as $spot) {
-                $prompt .= $this->spotToMarkdown($spot);
-            }
+        if ($to) {
+            $prompt .= "ユーザーが入力した目的地は以下に示すスポットです:\n";
+            $prompt .= $this->spotToMarkdown($to);
             $prompt .= "\n";
         }
+        $prompt .= 'ユーザーにスポットを推薦する場合は、';
+        $prompt .= "以下の中から選んでください:\n";
+        foreach ($spots as $spot) {
+            $prompt .= $this->spotToMarkdown($spot);
+        }
+        $prompt .= "\n";
         $prompt .= '回答の最初の行は、推薦するスポットのIDを';
         $prompt .= 'カンマ区切りで並べたものにしてください。';
         $prompt .= '例えば`1,2,4`のようにします。';
@@ -132,6 +164,7 @@ class AiApiController extends Controller
         } else {
             return response()->json([
                 'error' => 'LLMから適切な回答が得られませんでした。',
+                400,
             ]);
         }
         return response()->json([
