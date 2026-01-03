@@ -27,6 +27,14 @@ class ApiController extends Controller
             $id = $spot->id;
             $spotData[] = [
                 'id' => $id,
+                'type' => $spot->type,
+                'name' => $spot->name,
+                'lng' => $spot->lng,
+                'lat' => $spot->lat,
+                'postalCode' => strval($spot->postal_code),
+                'addrCity' => $spot->addr_city,
+                'addrDetail' => $spot->addr_detail,
+                'description' => $spot->description,
                 'fromNum' => Query::whereBetween('created_at', [
                     $request->input('from_date'),
                     $request->input('to_date'),
@@ -48,6 +56,8 @@ class ApiController extends Controller
             $userCoupon = UserCoupon::where('coupon_id', $id);
             $couponData[] = [
                 'id' => $id,
+                'spotId' => $coupon->spot_id,
+                'name' => $coupon->name,
                 'acquisitionNum' => $userCoupon->count(),
                 'useNum' => $userCoupon->where('is_used', true)->count(),
             ];
