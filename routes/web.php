@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountCreateController;
+use App\Http\Controllers\ApiController;
 
 // ホームページ
 Route::get('/', function () {
@@ -46,6 +47,8 @@ Route::get('/signup', [AccountCreateController::class, 'get'])->name('signup');
 Route::post('/logout', function () {
     // ログアウト処理を実装
 })->name('logout');
+
+Route::get('/api', [ApiController::class, 'get'])->name('api');
 
 // 認証が必要なルート
 Route::middleware(['auth'])->group(function () {

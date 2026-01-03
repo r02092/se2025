@@ -74,7 +74,8 @@ class DatabaseSeeder extends Seeder
                 'description' =>
                     '人気絵本「パンどろぼう」のモチーフになったとされる、土佐山田のパン屋。',
                 'img_ext' => 'jpg',
-                'stamp_key' => $this->randStampKey(),
+                'stamp_key' => $this->randKey(),
+                'shows' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -91,7 +92,8 @@ class DatabaseSeeder extends Seeder
                 'description' =>
                     '南国市後免町と安芸郡奈半利町を結ぶ、2002年に開業した第三セクター路線。JR四国の路線と接続している。',
                 'img_ext' => 'jpg',
-                'stamp_key' => $this->randStampKey(),
+                'stamp_key' => $this->randKey(),
+                'shows' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -108,7 +110,8 @@ class DatabaseSeeder extends Seeder
                 'description' =>
                     '南国市・高知市・吾川郡いの町を結ぶ路面電車。高知県唯一の電車でもある。',
                 'img_ext' => 'jpg',
-                'stamp_key' => $this->randStampKey(),
+                'stamp_key' => $this->randKey(),
+                'shows' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -125,7 +128,8 @@ class DatabaseSeeder extends Seeder
                 'description' =>
                     '高知市の中心部にある橋。日本三大がっかり名所の一つとして知られる。',
                 'img_ext' => 'jpg',
-                'stamp_key' => $this->randStampKey(),
+                'stamp_key' => $this->randKey(),
+                'shows' => 1,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -142,7 +146,8 @@ class DatabaseSeeder extends Seeder
                 'description' =>
                     'デカ盛りの聖地として知られる食堂。メディアに取り上げられることも多く、全国的に有名。',
                 'img_ext' => 'jpg',
-                'stamp_key' => $this->randStampKey(),
+                'stamp_key' => $this->randKey(),
+                'shows' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -159,7 +164,8 @@ class DatabaseSeeder extends Seeder
                 'description' =>
                     '飲食店や土産物店が軒を連ねる市場。観光スポットとしても、地元民の飲みの場としても人気。',
                 'img_ext' => 'jpg',
-                'stamp_key' => $this->randStampKey(),
+                'stamp_key' => $this->randKey(),
+                'shows' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -230,10 +236,85 @@ class DatabaseSeeder extends Seeder
                 'rate' => 5,
                 'comment' => '車窓から海が見えて最高でした！',
                 'views' => 1,
-                'ip_addr' => '192.0.2.1',
-                'port' => 49152,
+                'ip_addr' => '192.0.2.11',
+                'port' => 49211,
                 'user_agent' =>
                     'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
+        DB::table('coupons')->insert([
+            [
+                'spot_id' => 1,
+                'name' => 'テストクーポン（実際には使用できません）',
+                'cond_spot_id' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
+        DB::table('user_coupons')->insert([
+            [
+                'coupon_id' => 1,
+                'user_id' => 2,
+                'key' => $this->randKey(),
+                'is_used' => false,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'coupon_id' => 1,
+                'user_id' => 5,
+                'key' => $this->randKey(),
+                'is_used' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
+        DB::table('stamps')->insert([
+            [
+                'spot_id' => 2,
+                'user_id' => 2,
+                'ip_addr' => '192.0.2.21',
+                'port' => 49231,
+                'user_agent' =>
+                    'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'spot_id' => 2,
+                'user_id' => 5,
+                'ip_addr' => '192.0.2.22',
+                'port' => 49231,
+                'user_agent' =>
+                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
+        DB::table('queries')->insert([
+            [
+                'user_id' => 2,
+                'query' => 'この間にある観光スポットを推薦して',
+                'from_spot_id' => 2,
+                'to_spot_id' => 6,
+                'ip_addr' => '192.0.2.31',
+                'port' => 49231,
+                'user_agent' =>
+                    'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'user_id' => 4,
+                'query' => '「ものべの」の聖地はどこ？',
+                'from_spot_id' => null,
+                'to_spot_id' => null,
+                'ip_addr' => '192.0.2.32',
+                'port' => 49232,
+                'user_agent' =>
+                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -246,16 +327,33 @@ class DatabaseSeeder extends Seeder
                 'img_ext' => 'jpg',
                 'comment' =>
                     'ついに香美市に到着！あのゲームにも出てきた場所、土佐山田駅だ！',
-                'ip_addr' => '192.0.2.2',
-                'port' => 49153,
+                'ip_addr' => '192.0.2.41',
+                'port' => 49241,
                 'user_agent' =>
                     'Mozilla/5.0 (Android 15; Mobile; rv:146.0) Gecko/146.0 Firefox/146.0',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
         ]);
+        DB::table('api_keys')->insert([
+            [
+                'user_id' => 3,
+                'name' => 'テスト用',
+                'key' => hash(
+                    'sha3-512',
+                    'R9AnJFbw34/CWEQhwBVzDC4BGiAfM6IigWoU5pKm9L7y3zh6mzKEB32KjcyhPdq.d6hNo6+Iykh0EOVHQ/Wyp',
+                    true,
+                ),
+                'ip_addr' => '192.0.2.51',
+                'port' => 49251,
+                'user_agent' =>
+                    'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
-    private function randStampKey()
+    private function randKey()
     {
         return rand(0, PHP_INT_MAX);
     }
