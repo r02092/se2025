@@ -6,7 +6,7 @@ interface User {
 }
 
 interface Post {
-	id:  string;
+	id: string;
 	author: string;
 	avatar: string;
 	time: string;
@@ -17,7 +17,8 @@ interface Post {
 (function (): void {
 	// Utilities
 	const q = (s: string): HTMLElement | null => document.querySelector(s);
-	const qa = (s: string): HTMLElement[] => Array.from(document.querySelectorAll(s));
+	const qa = (s: string): HTMLElement[] =>
+		Array.from(document.querySelectorAll(s));
 
 	const feedEl = q("#feed") as HTMLElement;
 	const template = q("#post-template") as HTMLTemplateElement;
@@ -30,7 +31,7 @@ interface Post {
 	};
 
 	// 初期化：既存投稿読み込み（localStorage）
-	let posts:  Post[] = loadPosts();
+	const posts: Post[] = loadPosts();
 
 	// DOM要素
 	const composerText = q("#composer-text") as HTMLTextAreaElement;
@@ -40,7 +41,7 @@ interface Post {
 
 	// レンダリング
 	function renderFeed(): void {
-		if (! feedEl) return;
+		if (!feedEl) return;
 
 		feedEl.innerHTML = "";
 		if (posts.length === 0) {
@@ -51,22 +52,25 @@ interface Post {
 			return;
 		}
 		posts.forEach((post: Post) => {
-			if (! template) return;
+			if (!template) return;
 
-			const frag = template.content. cloneNode(true) as DocumentFragment;
+			const frag = template.content.cloneNode(true) as DocumentFragment;
 			const article = frag.querySelector(". post-card") as HTMLElement;
-			(frag.querySelector(".post-avatar") as HTMLImageElement).src = post.avatar;
-			(frag.querySelector(". post-author") as HTMLElement).textContent = post.author;
+			(frag.querySelector(".post-avatar") as HTMLImageElement).src =
+				post.avatar;
+			(frag.querySelector(". post-author") as HTMLElement).textContent =
+				post.author;
 			(frag.querySelector(".post-time") as HTMLElement).textContent = timeAgo(
 				new Date(post.time),
 			);
-			(frag.querySelector(".post-body") as HTMLElement).textContent = post.text || "";
+			(frag.querySelector(".post-body") as HTMLElement).textContent =
+				post.text || "";
 			const imgEl = frag.querySelector(".post-image") as HTMLImageElement;
 			if (post.image) {
-				imgEl.src = post. image;
+				imgEl.src = post.image;
 				imgEl.style.display = "block";
 			} else {
-				imgEl. style.display = "none";
+				imgEl.style.display = "none";
 			}
 
 			feedEl.appendChild(frag);
@@ -76,7 +80,7 @@ interface Post {
 	// 保存・読み込み
 	function savePosts(): void {
 		try {
-			localStorage.setItem(storageKey, JSON. stringify(posts));
+			localStorage.setItem(storageKey, JSON.stringify(posts));
 		} catch (e) {
 			console.error("Failed to save posts:", e);
 		}
@@ -103,17 +107,17 @@ interface Post {
 						avatar: "Harimaya_Bridge.jpg",
 						time: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
 						text: "最高だった！窓際の席でゆっくりできます ☕️",
-						image:  null,
+						image: null,
 					},
 					{
-						id:  "p_sample_2",
+						id: "p_sample_2",
 						author: "bob",
 						avatar: "Profile_pic.JPG",
 						time: new Date(Date.now() - 1000 * 60 * 120).toISOString(),
 						text: "ここのパンケーキ絶品です🥞",
 						image: null,
 					},
-			  ]
+				]
 			: [];
 	}
 
@@ -122,7 +126,7 @@ interface Post {
 		const now = new Date();
 		const diffMs = now.getTime() - date.getTime();
 		const diffMin = Math.floor(diffMs / (1000 * 60));
-		const diffHr = Math. floor(diffMs / (1000 * 60 * 60));
+		const diffHr = Math.floor(diffMs / (1000 * 60 * 60));
 		const diffDay = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
 		if (diffMin < 1) return "たった今";

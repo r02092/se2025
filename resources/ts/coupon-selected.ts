@@ -12,39 +12,42 @@ document.addEventListener("DOMContentLoaded", function (): void {
 
 	if (!track || !handle || !fill) return;
 
-	let dragging:  boolean = false;
-	let trackRect: DOMRect | null = null;
-	let handleWidth: number = 0;
+	const dragging: boolean = false;
+	const trackRect: DOMRect | null = null;
+	const handleWidth: number = 0;
 	const PADDING: number = 6; // CSS と一致
 	const THRESHOLD: number = 0.999; // 100% 判定（ほぼ 100%）
 
 	// clientX 抽出（pointer/mouse/touch 対応）
-	function getClientXFromEvent(e: MouseEvent | TouchEvent | PointerEvent): number | null {
-		if ('clientX' in e && typeof e.clientX === "number") return e.clientX;
-		if ('touches' in e && e.touches && e.touches[0]) return e.touches[0].clientX;
-		if ('changedTouches' in e && e.changedTouches && e.changedTouches[0])
+	function getClientXFromEvent(
+		e: MouseEvent | TouchEvent | PointerEvent,
+	): number | null {
+		if ("clientX" in e && typeof e.clientX === "number") return e.clientX;
+		if ("touches" in e && e.touches && e.touches[0])
+			return e.touches[0].clientX;
+		if ("changedTouches" in e && e.changedTouches && e.changedTouches[0])
 			return e.changedTouches[0].clientX;
 		return null;
 	}
 
-	function resetHandle(animated:  boolean = false): void {
-		if (! handle || !fill) return;
+	function resetHandle(animated: boolean = false): void {
+		if (!handle || !fill) return;
 
-		const leftPx:  number = PADDING;
+		const leftPx: number = PADDING;
 		if (animated) {
 			handle.style.transition = "left 240ms ease, transform 120ms ease";
 			fill.style.transition = "width 240ms ease";
 		} else {
 			handle.style.transition = "";
-			fill.style. transition = "";
+			fill.style.transition = "";
 		}
 		handle.style.left = leftPx + "px";
 		fill.style.width = "0%";
 		if (animated) {
 			setTimeout((): void => {
-				if (! handle || !fill) return;
+				if (!handle || !fill) return;
 				handle.style.transition = "";
-				fill.style. transition = "";
+				fill.style.transition = "";
 			}, 300);
 		}
 	}
@@ -52,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function (): void {
 	function completeAndOpenQr(): void {
 		if (!track || !handle || !fill) return;
 
-		const rect:  DOMRect = track.getBoundingClientRect();
+		const rect: DOMRect = track.getBoundingClientRect();
 		const maxLeft: number = rect.width - handleWidth - PADDING;
 		handle.style.transition = "left 120ms linear";
 		fill.style.transition = "width 120ms linear";
@@ -64,7 +67,9 @@ document.addEventListener("DOMContentLoaded", function (): void {
 				overlay.classList.add("show");
 				overlay.setAttribute("aria-hidden", "false");
 				document.body.style.overflow = "hidden";
-				const firstFocusable = overlay.querySelector(".qr-close") as HTMLElement | null;
+				const firstFocusable = overlay.querySelector(
+					".qr-close",
+				) as HTMLElement | null;
 				firstFocusable?.focus();
 			} else {
 				// フォールバック: 別ページへ遷移
@@ -106,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function (): void {
 			const xDiff: number = Math.abs(e.clientX - clickStartX);
 
 			// ドラッグでない場合（短時間 & 移動が少ない）
-			if (timeDiff < 200 && xDiff < 5 && ! dragging) {
+			if (timeDiff < 200 && xDiff < 5 && !dragging) {
 				openQrPage();
 			}
 		});

@@ -5,8 +5,12 @@ document.addEventListener("DOMContentLoaded", function (): void {
 	const overlay = document.getElementById("qr-overlay") as HTMLElement | null;
 	if (!overlay) return;
 
-	const closeBtn = overlay.querySelector(".qr-modal-close") as HTMLElement | null;
-	const closeLink = overlay.querySelector(".qr-modal-close-btn") as HTMLAnchorElement | null;
+	const closeBtn = overlay.querySelector(
+		".qr-modal-close",
+	) as HTMLElement | null;
+	const closeLink = overlay.querySelector(
+		".qr-modal-close-btn",
+	) as HTMLAnchorElement | null;
 
 	function showOverlay(): void {
 		if (!overlay) return;
@@ -15,11 +19,13 @@ document.addEventListener("DOMContentLoaded", function (): void {
 		overlay.setAttribute("aria-hidden", "false");
 		// フォーカスを閉じるボタンへ移す（アクセシビリティ）
 		setTimeout((): void => {
-			const btn = overlay.querySelector(".qr-modal-close") as HTMLElement | null;
+			const btn = overlay.querySelector(
+				".qr-modal-close",
+			) as HTMLElement | null;
 			if (btn) btn.focus();
 		}, 50);
 		// 背景スクロール抑止
-		document. documentElement.style.overflow = "hidden";
+		document.documentElement.style.overflow = "hidden";
 		document.body.style.overflow = "hidden";
 	}
 
@@ -29,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function (): void {
 		overlay.classList.remove("show");
 		overlay.setAttribute("aria-hidden", "true");
 		document.documentElement.style.overflow = "";
-		document.body.style. overflow = "";
+		document.body.style.overflow = "";
 		// フォーカスを戻す（戻るリンクがあれば）
 		const backLink = document.querySelector(".qr-back") as HTMLElement | null;
 		if (backLink) backLink.focus();
@@ -56,8 +62,8 @@ document.addEventListener("DOMContentLoaded", function (): void {
 	});
 
 	// ESC で閉じる
-	document. addEventListener("keydown", function (e: KeyboardEvent): void {
-		if (e.key === "Escape" && overlay. classList.contains("show")) {
+	document.addEventListener("keydown", function (e: KeyboardEvent): void {
+		if (e.key === "Escape" && overlay.classList.contains("show")) {
 			hideOverlay();
 		}
 	});

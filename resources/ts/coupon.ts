@@ -1,13 +1,19 @@
 document.addEventListener("DOMContentLoaded", function (): void {
-	const viewSelect = document.getElementById("view-select") as HTMLSelectElement | null;
-	const activeSection = document.getElementById("active-coupons") as HTMLElement | null;
-	const availableSection = document.getElementById("available-coupons") as HTMLElement | null;
+	const viewSelect = document.getElementById(
+		"view-select",
+	) as HTMLSelectElement | null;
+	const activeSection = document.getElementById(
+		"active-coupons",
+	) as HTMLElement | null;
+	const availableSection = document.getElementById(
+		"available-coupons",
+	) as HTMLElement | null;
 	const live = document.getElementById("view-live") as HTMLElement | null;
 
 	if (!viewSelect || !activeSection || !availableSection) return;
 
 	function applyView(): void {
-		if (! viewSelect || !activeSection || !availableSection) return;
+		if (!viewSelect || !activeSection || !availableSection) return;
 
 		const v = viewSelect.value;
 		if (v === "all") {
@@ -18,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function (): void {
 			availableSection.classList.add("hidden");
 		} else if (v === "available") {
 			activeSection.classList.add("hidden");
-			availableSection. classList.remove("hidden");
+			availableSection.classList.remove("hidden");
 		}
 		if (live) {
 			live.textContent =
@@ -46,7 +52,11 @@ document.addEventListener("DOMContentLoaded", function (): void {
 		// キーボード（Enter / Space）での有効化
 		card.addEventListener("keydown", (e: Event): void => {
 			const keyboardEvent = e as KeyboardEvent;
-			if (keyboardEvent.key === "Enter" || keyboardEvent.key === " " || keyboardEvent.key === "Spacebar") {
+			if (
+				keyboardEvent.key === "Enter" ||
+				keyboardEvent.key === " " ||
+				keyboardEvent.key === "Spacebar"
+			) {
 				keyboardEvent.preventDefault();
 				location.href = href;
 			}

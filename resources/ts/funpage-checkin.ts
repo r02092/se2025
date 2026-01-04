@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function (): void {
 	console.log("funpage-checkin-qr.js: loaded");
 
 	// overlay を探す（id / class の候補を順に試す）
-	const overlayCandidates:  string[] = [
+	const overlayCandidates: string[] = [
 		"checkin-qr-overlay",
 		"checkin-qr-overlay", // 同じが重複しても安全
 		"qr-overlay",
@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", function (): void {
 	// class 名でも探す
 	if (!overlay)
 		overlay =
-			document.querySelector(".checkin-qr-overlay") as HTMLElement ||
-			document.querySelector(".qr-overlay") as HTMLElement;
+			(document.querySelector(".checkin-qr-overlay") as HTMLElement) ||
+			(document.querySelector(".qr-overlay") as HTMLElement);
 
 	if (!overlay) {
 		console.error(
@@ -36,10 +36,10 @@ document.addEventListener("DOMContentLoaded", function (): void {
 	}
 
 	// 開閉ボタンやリンク
-	const openTarget:  HTMLElement | null =
+	const openTarget: HTMLElement | null =
 		document.getElementById("checkinBox") ||
-		document.querySelector(".checkin-box") as HTMLElement;
-	const closeBtn:  HTMLElement | null =
+		(document.querySelector(".checkin-box") as HTMLElement);
+	const closeBtn: HTMLElement | null =
 		overlay.querySelector(".checkin-qr-close") ||
 		overlay.querySelector(".qr-modal-close") ||
 		overlay.querySelector(".qr-close");
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function (): void {
 
 	// show / hide 実装
 	function preventScroll(): void {
-		document. documentElement.style.overflow = "hidden";
+		document.documentElement.style.overflow = "hidden";
 		document.body.style.overflow = "hidden";
 	}
 
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function (): void {
 		preventScroll();
 		// フォーカス移動（アクセシビリティ）
 		setTimeout((): void => {
-			if (! overlay) return;
+			if (!overlay) return;
 			const btn = overlay.querySelector(
 				".checkin-qr-close, .qr-modal-close, .qr-close",
 			) as HTMLElement | null;
