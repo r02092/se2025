@@ -19,11 +19,15 @@ class InsertUserController extends Controller
             'login_name' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['requrired', 'string', 'min:8'],
             'name' => ['required', 'string', 'max:255'],
-            'permission' => ['required', 'integer', Rule::in([
-                User::PERMISSION_ADMIN,
-                User::PERMISSION_USER,
-                User::PERMISSION_BUSINESS
-            ])],
+            'permission' => [
+                'required',
+                'integer',
+                Rule::in([
+                    User::PERMISSION_ADMIN,
+                    User::PERMISSION_USER,
+                    User::PERMISSION_BUSINESS,
+                ]),
+            ],
             'postal_code' => ['nullable', 'intager'],
             'address' => ['nullable', 'intager'],
             'addr_detail' => ['nullable', 'string'],
@@ -41,7 +45,8 @@ class InsertUserController extends Controller
             'addr_city' => $validated['addr_city'] ?? null,
             'addr_detail' => $validated['addr_detail'] ?? null,
         ]);
-        return redirect()->route('admin.users.index')
+        return redirect()
+            ->route('admin.users.index')
             ->with('success', '利用者を登録しました。');
     }
 }
