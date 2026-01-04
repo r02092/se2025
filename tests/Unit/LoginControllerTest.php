@@ -26,9 +26,9 @@ class LoginControllerTest extends TestCase
             'login_name' => 'test_user',
             'password' => 'password123',
             'provider' => User::PROVIDER_SCENETRIP,
-            'totp_secret' =>null,
+            'totp_secret' => null,
             'permission' => User::PERMISSION_USER,
-            'name' =>  'Test User',
+            'name' => 'Test User',
             'icon_ext' => 'png',
             'num_plan_std' => 0,
             'num_plan_prm' => 0,
@@ -48,12 +48,12 @@ class LoginControllerTest extends TestCase
             'password' => 'password123',
             'provider' => User::PROVIDER_SCENETRIP,
             'permission' => 1,
-            'name' =>  'test',
+            'name' => 'test',
             'icon_ext' => 'png',
             'num_plan_std' => 0,
             'num_plan_prm' => 0,
         ]);
-        $this->form(route('login'))->post(route('login'),[
+        $this->form(route('login'))->post(route('login'), [
             'login_name' => 'test_user',
             'password' => 'wrongpassword',
         ]);
@@ -69,12 +69,12 @@ class LoginControllerTest extends TestCase
             'provider' => User::PROVIDER_SCENETRIP,
             'totp_secret' => 'binary_secret_data',
             'permission' => 1,
-            'name' =>  'test',
+            'name' => 'test',
             'icon_ext' => 'png',
             'num_plan_std' => 0,
             'num_plan_prm' => 0,
         ]);
-        $response = $this->post(route('login'),[
+        $response = $this->post(route('login'), [
             'login_name' => 'test_user',
             'password' => 'password123',
         ]);
@@ -89,12 +89,16 @@ class LoginControllerTest extends TestCase
         $abstractUser->shouldReceive('getID')->andReturn('google_id_123');
         $abstractUser->shouldReceive('getName')->andReturn('Google User');
         $abstractUser->shouldReceive('getEmail')->andReturn('test@example.com');
-        $abstractUser->shouldReceive('getAvatar')->andReturn('http://example.com/avatar.jpg');
+        $abstractUser
+            ->shouldReceive('getAvatar')
+            ->andReturn('http://example.com/avatar.jpg');
         $provider = Mockery::mock('Laravel\Socialite\Contracts\Provider');
         $provider->shouldReceive('user')->andReturn($abstractUser);
-        Socialite::shouldReceive('deiver')->with('google')->andReturn($provider);
+        Socialite::shouldReceive('deiver')
+            ->with('google')
+            ->andReturn($provider);
         $response = $this->get('/login/google/callback');
-        $this->assertDatabaseHas('users',[
+        $this->assertDatabaseHas('users', [
             'provider' => User::PROVIDER_GOOGLE,
             'login_name' => 'google_id_123',
             'name' => 'Google User',
@@ -107,7 +111,7 @@ class LoginControllerTest extends TestCase
     {
         $user = User::factory()->create([
             'permission' => 1,
-            'name' =>  'test',
+            'name' => 'test',
             'icon_ext' => 'png',
             'num_plan_std' => 0,
             'num_plan_prm' => 0,
