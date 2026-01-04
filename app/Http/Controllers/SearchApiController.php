@@ -15,18 +15,14 @@ class SearchApiController extends Controller
         $keyword = $request->input('keyword');
         $type = $request->input('type');
 
-        // カテゴリとキーワードの両方が指定されていない場合、エラーレスポンスを返す
-        if (!$keyword && !$type) {
-            return response()->json(
-                [
-                    'error' =>
-                        'キーワードまたはカテゴリのいずれかを指定してください。',
-                ],
-                400,
-            );
-        }
+        $spots = Spot::all();
 
-        $spots = Spot::where('type', $type)->get();
+        // カテゴリが指定されている場合、カテゴリに基づいてフィルタリング
+        if ($type) {
+            $spots = $spots->filter(function ($spot) {
+                return $spot->type === $type;
+            });
+        }
 
         //キーワードが指定されている場合、キーワードに基づいてフィルタリング
         if ($keyword) {
