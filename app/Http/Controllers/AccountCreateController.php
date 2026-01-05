@@ -10,7 +10,7 @@ class AccountCreateController extends Controller
 {
     public function get()
     {
-        return response(''); // 仮
+        return view('signup');
     }
     public function post(AccountCreateRequest $request)
     {
