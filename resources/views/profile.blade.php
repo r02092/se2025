@@ -17,7 +17,7 @@
     </div>
     <div class="profile-box">
         <dl class="profile">
-            <dt>ユーザー名</dt>
+            <dt>表示名</dt>
             <dd>{{ Auth::user()->name }}</dd>
 
             <dt>ログイン名</dt>

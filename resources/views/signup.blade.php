@@ -8,7 +8,7 @@
 		<h2>アカウント作成</h2>
 		<form method="POST">
 			@csrf
-			<label for="name">ユーザー名</label>
+			<label for="name">表示名</label>
 			<input type="text" id="name" name="name" required />
 
 			<label for="username">ログイン名</label>
