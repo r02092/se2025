@@ -1660,3 +1660,9 @@ h1 {
 .subscription-form-container button[type="submit"]:hover {
 	background-color: #108a66;
 }
+
+.h5 {
+	display: block;
+	font-size: 0.83em;
+	font-weight: bold;
+}

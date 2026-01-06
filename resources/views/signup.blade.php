@@ -26,7 +26,7 @@
 
 			<button type="submit">アカウント作成</button>
 		</form>
-		<h5>既にアカウントをお持ちの方は <a href="login.html">こちら</a></h5>
+		<div class="h5">既にアカウントをお持ちの方は <a href="login.html">こちら</a></div>
 	</div>
 </div>
 @endsection
