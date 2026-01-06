@@ -17,7 +17,7 @@ class AccountCreateTest extends TestCase
                 ->post(
                     new AccountCreateRequest([
                         'name' => 'Test User',
-                        'login_name' => 'testuser',
+                        'username' => 'testuser',
                         'password' => 'testpass',
                         'password_confirm' => 'testpass',
                     ]),
