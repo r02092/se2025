@@ -6,21 +6,22 @@
 <div class="main-area">
 	<div class="general-box form-container">
 		<h2>アカウント作成</h2>
-		<form>
-			<label for="username">ユーザー名</label>
-			<input type="text" id="username" name="username" required />
+		<form method="POST">
+			@csrf
+			<label for="name">ユーザー名</label>
+			<input type="text" id="name" name="name" required />
 
-			<label for="email">ログイン名</label>
-			<input type="email" id="email" name="email" required />
+			<label for="username">ログイン名</label>
+			<input type="text" id="username" name="username" required />
 
 			<label for="password">パスワード</label>
 			<input type="password" id="password" name="password" required />
 
-			<label for="confirm-password">パスワード（確認用）</label>
+			<label for="password_confirm">パスワード（確認用）</label>
 			<input
 				type="password"
-				id="confirm-password"
-				name="confirm-password"
+				id="password_confirm"
+				name="password_confirm"
 				required
 			/>
 
