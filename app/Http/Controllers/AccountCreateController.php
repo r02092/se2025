@@ -8,10 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountCreateController extends Controller
 {
-    public function get()
-    {
-        return response(''); // 仮
-    }
     public function post(AccountCreateRequest $request)
     {
         if (
@@ -21,7 +17,7 @@ class AccountCreateController extends Controller
         }
         $user = new User();
         $user->name = $request->input('name');
-        $user->login_name = $request->input('login_name');
+        $user->login_name = $request->input('username');
         $user->password = password_hash(
             $request->input('password'),
             PASSWORD_ARGON2ID,
