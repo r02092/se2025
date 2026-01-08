@@ -37,8 +37,7 @@ class LoginControllerTest extends TestCase
     public function test_users_can_not_authenticate_with_invalid_password()
     {
         Auth::logout();
-        $this->from(route('login'))
-        ->post(route('login'), [
+        $this->from(route('login'))->post(route('login'), [
             'login_name' => 'test_user',
             'password' => 'wrong-password',
         ]);
