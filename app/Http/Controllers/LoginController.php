@@ -47,7 +47,7 @@ class LoginController extends Controller
         }
 
         // 6. 通常ログイン完了
-        return redirect()->intended(route('home'));
+        return redirect()->intended(route('root'));
     }
 
     // ログアウト処理
