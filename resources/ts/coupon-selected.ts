@@ -2,21 +2,19 @@
 // ハンドルは幅 80px を想定。ドラッグで動き、100% 到達で QR 表示（既存ロジック）。
 // クリック（ドラッグ中でなければ）は Coupon-QR.html へ遷移します。
 
-document.addEventListener("DOMContentLoaded", function (): void {
-	const track = document.querySelector(".slider-track") as HTMLElement | null;
-	const handle = document.querySelector(".slider-handle") as HTMLElement | null;
-	const fill = document.querySelector(".slider-fill") as HTMLElement | null;
-	// overlay は従来のモーダルを残していますが、クリックは別ページへ遷移します
-	const overlay = document.getElementById("qr-overlay") as HTMLElement | null;
-	const closeBtn = overlay?.querySelector(".qr-close") as HTMLElement | null;
+const track = document.querySelector(".slider-track") as HTMLElement | null;
+const handle = document.querySelector(".slider-handle") as HTMLElement | null;
+const fill = document.querySelector(".slider-fill") as HTMLElement | null;
+// overlay は従来のモーダルを残していますが、クリックは別ページへ遷移します
+const overlay = document.getElementById("qr-overlay") as HTMLElement | null;
+const closeBtn = overlay?.querySelector(".qr-close") as HTMLElement | null;
 
-	if (!track || !handle || !fill) return;
-
-	const dragging: boolean = false;
-	const trackRect: DOMRect | null = null;
-	const handleWidth: number = 0;
-	const PADDING: number = 6; // CSS と一致
-	const THRESHOLD: number = 0.999; // 100% 判定（ほぼ 100%）
+if (track && handle && fill) {
+	let dragging = false;
+	let trackRect: DOMRect | null = null;
+	let handleWidth = 0;
+	const PADDING = 6; // CSS と一致
+	const THRESHOLD = 0.999; // 100% 判定（ほぼ 100%）
 
 	// clientX 抽出（pointer/mouse/touch 対応）
 	function getClientXFromEvent(
@@ -119,4 +117,6 @@ document.addEventListener("DOMContentLoaded", function (): void {
 
 	// 初期化
 	resetHandle(false);
-});
+}
+
+export {};

@@ -4,37 +4,34 @@
 // - 閉じるはボタン・背景クリック・Escで可能
 // - デバッグ用の console.log 出力あり（動作確認後は消してOK）
 
-document.addEventListener("DOMContentLoaded", function (): void {
-	console.log("funpage-checkin-qr.js: loaded");
+console.log("funpage-checkin-qr.ts: loaded");
 
-	// overlay を探す（id / class の候補を順に試す）
-	const overlayCandidates: string[] = [
-		"checkin-qr-overlay",
-		"checkin-qr-overlay", // 同じが重複しても安全
-		"qr-overlay",
-		"checkin-overlay",
-	];
-	let overlay: HTMLElement | null = null;
-	for (const id of overlayCandidates) {
-		const elById = document.getElementById(id);
-		if (elById) {
-			overlay = elById;
-			break;
-		}
+// overlay を探す（id / class の候補を順に試す）
+const overlayCandidates: string[] = [
+	"checkin-qr-overlay",
+	"checkin-qr-overlay", // 同じが重複しても安全
+	"qr-overlay",
+	"checkin-overlay",
+];
+let overlay: HTMLElement | null = null;
+for (const id of overlayCandidates) {
+	const elById = document.getElementById(id);
+	if (elById) {
+		overlay = elById;
+		break;
 	}
-	// class 名でも探す
-	if (!overlay)
-		overlay =
-			(document.querySelector(".checkin-qr-overlay") as HTMLElement) ||
-			(document.querySelector(".qr-overlay") as HTMLElement);
+}
+// class 名でも探す
+if (!overlay)
+	overlay =
+		(document.querySelector(".checkin-qr-overlay") as HTMLElement) ||
+		(document.querySelector(".qr-overlay") as HTMLElement);
 
-	if (!overlay) {
-		console.error(
-			"funpage-checkin-qr.js: overlay element not found.  Ensure the HTML contains an element with id/class like 'checkin-qr-overlay' or 'checkin-qr-overlay'.",
-		);
-		return;
-	}
-
+if (!overlay) {
+	console.error(
+		"funpage-checkin-qr.js: overlay element not found.  Ensure the HTML contains an element with id/class like 'checkin-qr-overlay' or 'checkin-qr-overlay'.",
+	);
+} else {
 	// 開閉ボタンやリンク
 	const openTarget: HTMLElement | null =
 		document.getElementById("checkinBox") ||
@@ -99,13 +96,11 @@ document.addEventListener("DOMContentLoaded", function (): void {
 	if (actionCloseBtn) actionCloseBtn.addEventListener("click", hideOverlay);
 
 	// 背景クリックで閉じる
-	if (overlay) {
-		overlay.addEventListener("click", function (e: MouseEvent): void {
-			if (e.target === overlay) {
-				hideOverlay();
-			}
-		});
-	}
+	overlay.addEventListener("click", function (e: MouseEvent): void {
+		if (e.target === overlay) {
+			hideOverlay();
+		}
+	});
 
 	// ESC で閉じる
 	document.addEventListener("keydown", function (e: KeyboardEvent): void {
@@ -113,4 +108,6 @@ document.addEventListener("DOMContentLoaded", function (): void {
 			hideOverlay();
 		}
 	});
-});
+}
+
+export {};
