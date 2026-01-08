@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountCreateController;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\LoginController;
 
 // ホームページ
 Route::get('/', function () {
@@ -33,20 +34,15 @@ Route::get('/funpage/checkin', function () {
     return view('funpage-checkin');
 })->name('funpage.checkin');
 
-// 認証関連
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+// ログイン画面
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 
-Route::post('/login', function () {
-    // ログイン処理を実装
-})->name('login.post');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login.post');
 
 Route::get('/signup', [AccountCreateController::class, 'get'])->name('signup');
 
-Route::post('/logout', function () {
-    // ログアウト処理を実装
-})->name('logout');
+// ログアウト処理
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/api', [ApiController::class, 'get'])->name('api');
 

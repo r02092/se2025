@@ -13,8 +13,7 @@ return new class extends Migration {
         Schema::create('users', function (Blueprint $table) {
             $table->unsignedInteger('id')->autoIncrement()->primary();
             $table->unsignedTinyInteger('provider')->default(0);
-            $table->string('login_name');
-            $table->unique(['provider', 'login_name']);
+            $table->string('login_name')->unique();
             $table->string('password')->nullable();
             $table->unsignedTinyInteger('permission')->default(1);
             $table->string('name');
@@ -24,7 +23,7 @@ return new class extends Migration {
             $table->unsignedInteger('postal_code')->nullable();
             $table->unsignedInteger('addr_city')->nullable();
             $table->string('addr_detail')->nullable();
-            $table->binary('totp_secret', 10, true)->nullable();
+            $table->binary('totp_secret')->nullable();
             $table->binary('totp_iv', 12, true)->nullable();
             $table->binary('totp_tag', 16, true)->nullable();
             $table->unsignedInteger('totp_last_time')->nullable();
