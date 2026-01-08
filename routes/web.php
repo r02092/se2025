@@ -4,11 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountCreateController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ReviewController; // 追加: MU15
+use App\Http\Controllers\SearchController; // 追加: MC00
 
-// ホームページ
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+// ホームページ(MC00:人気スポットロジックを使用)
+Route::get('/', [SearchController::class, 'index'])->name('root');
 // 公開ページ（ログイン不要）
 Route::get('/post', function () {
     return view('post');
