@@ -30,7 +30,7 @@
                 <label for="avatar-img">画像をアップロード</label>
             </div>
 
-            <label for="username">ユーザー名</label>
+            <label for="username">表示名</label>
             <input
                 type="text"
                 id="username"

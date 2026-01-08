@@ -42,7 +42,13 @@ Route::post('/login', function () {
     // ログイン処理を実装
 })->name('login.post');
 
-Route::get('/signup', [AccountCreateController::class, 'get'])->name('signup');
+Route::get('/signup', function () {
+    return view('signup');
+})->name('signup');
+
+Route::post('/signup', [AccountCreateController::class, 'post'])->name(
+    'signup.post',
+);
 
 Route::post('/logout', function () {
     // ログアウト処理を実装
