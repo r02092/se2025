@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountCreateController;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\ReviewController; // 追加: MU15
 
 // ホームページ
 Route::get('/', function () {
@@ -58,6 +59,10 @@ Route::get('/api', [ApiController::class, 'get'])->name('api');
 
 // 認証が必要なルート
 Route::middleware(['auth'])->group(function () {
+    // ▼▼▼ 追加部分 (MU15: 口コミ投稿) ▼▼▼
+    Route::post('/reviews', [ReviewController::class, 'store'])->name(
+        'reviews.store',
+    );
     // プロフィール
     Route::get('/profile', function () {
         return view('profile');
