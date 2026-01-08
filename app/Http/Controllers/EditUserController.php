@@ -17,9 +17,9 @@ class EditUserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        
+
         return view('user-detail', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -32,14 +32,14 @@ class EditUserController extends Controller
     {
         // 1. 入力内容のバリデーション
         $request->validate([
-            'id'           => 'required|integer|exists:users,id',
-            'name'         => 'required|string|max:255',
-            'permission'   => 'required|integer|between:0,2',
+            'id' => 'required|integer|exists:users,id',
+            'name' => 'required|string|max:255',
+            'permission' => 'required|integer|between:0,2',
             'num_plan_std' => 'required|integer|min:0',
             'num_plan_prm' => 'required|integer|min:0',
-            'postal_code'  => 'nullable|integer',
-            'addr_city'    => 'nullable|integer',
-            'addr_detail'  => 'nullable|string|max:255',
+            'postal_code' => 'nullable|integer',
+            'addr_city' => 'nullable|integer',
+            'addr_detail' => 'nullable|string|max:255',
         ]);
 
         $user = User::find($request->input('id'));
@@ -49,7 +49,7 @@ class EditUserController extends Controller
         $user->permission = $request->input('permission');
         $user->num_plan_std = $request->input('num_plan_std');
         $user->num_plan_prm = $request->input('num_plan_prm');
-        
+
         // 住所情報の更新（任意項目）
         $user->postal_code = $request->input('postal_code');
         $user->addr_city = $request->input('addr_city');
@@ -58,12 +58,14 @@ class EditUserController extends Controller
         // 保存
         if ($user->save()) {
             // 3. 利用者一覧画面へのリダイレクトを含む応答
-            return redirect()->route('admin.users.index')
+            return redirect()
+                ->route('admin.users.index')
                 ->with('status', 'user-updated');
         }
 
         // エラーメッセージを含むページを応答
-        return redirect()->back()
+        return redirect()
+            ->back()
             ->withErrors(['error' => '利用者情報の更新に失敗しました。'])
             ->withInput();
     }
