@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 #use Illuminate\Support\Facades\Hash;
 #use Lalavel\Socialite\Facades\Socialite;
 #use Mockery;
@@ -33,10 +34,12 @@ class LoginControllerTest extends TestCase
     /* パスワードが間違っているときのテスト */
     public function test_users_can_not_authenticate_with_invalid_password()
     {
-        $this->from(route('login'))->post(route('login', [
+        Auth::logout();
+        $this->from(route('login'))
+        ->post(route('login'), [
             'login_name' => 'test_user',
             'password' => 'wrong-password',
-        ]));
+        ]);
         $this->assertGuest();
     }
     /* Seederで作った「2FA設定済みユーザー」は2FA画面へリダイレクトされるか */
