@@ -76,7 +76,3 @@
     @endif
 </section>
 @endsection
-
-@push('scripts')
-<script src="{{ asset('js/coupon.js') }}"></script>
-@endpush

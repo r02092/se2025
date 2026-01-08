@@ -19,7 +19,7 @@ class LoginController extends Controller
         // 1. バリデーション
         $credentials = $request->validate([
             'login_name' => ['required', 'string'],
-            'password'   => ['required', 'string'],
+            'password' => ['required', 'string'],
         ]);
 
         // 2. ユーザー検索
@@ -27,7 +27,10 @@ class LoginController extends Controller
 
         // 3. 認証チェック
         // ユーザーがいない(null)、またはパスワードが一致しない場合はエラーにする
-        if (!$user || !password_verify($credentials["password"], $user->password)) {
+        if (
+            !$user ||
+            !password_verify($credentials['password'], $user->password)
+        ) {
             throw ValidationException::withMessages([
                 'login_name' => __('auth.failed'),
             ]);
@@ -36,7 +39,7 @@ class LoginController extends Controller
         // 4. チェックを通過したらログイン処理
         Auth::login($user);
         $request->session()->regenerate();
-        
+
         // 5. 2FAチェック
         if (!empty($user->totp_secret)) {
             session(['auth.2fa_required' => true]);

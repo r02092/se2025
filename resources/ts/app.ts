@@ -3,27 +3,25 @@ document.addEventListener("DOMContentLoaded", (): void => {
 	const pathname = window.location.pathname;
 
 	// Post page
-	if (pathname.includes("/post")) {
+	if (pathname === "/post") {
 		import("./post");
 	}
 
+	// Coupon QR detail page (must check before general coupon check)
+	if (/\/coupon\/\d+\/qr/.test(pathname)) {
+		import("./coupon-QR");
+	}
+	// Coupon selected / detail page
+	else if (/\/coupon\/\d+/.test(pathname)) {
+		import("./coupon-selected");
+	}
 	// Coupon list page
-	if (pathname.includes("/coupon") && !pathname.includes("/coupon-qr")) {
+	else if (pathname === "/coupon") {
 		import("./coupon");
 	}
 
-	// Coupon QR detail page
-	if (pathname.includes("/coupon-qr")) {
-		import("./coupon-QR");
-	}
-
-	// Coupon selected / slider page
-	if (pathname.includes("/coupon-selected")) {
-		import("./coupon-selected");
-	}
-
 	// Funpage checkin with QR
-	if (pathname.includes("/funpage") || pathname.includes("/checkin")) {
+	if (pathname === "/funpage/checkin") {
 		import("./funpage-checkin");
 	}
 });

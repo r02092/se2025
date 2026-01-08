@@ -28,7 +28,9 @@ class LoginControllerTest extends TestCase
             'password' => 'password123',
         ]);
         $this->assertAuthenticated();
-        $this->assertAuthenticatedAs(User::where('login_name', 'test_user')->first());
+        $this->assertAuthenticatedAs(
+            User::where('login_name', 'test_user')->first(),
+        );
         $response->assertRedirect('/');
     }
     /* パスワードが間違っているときのテスト */

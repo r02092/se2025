@@ -103,12 +103,12 @@ class DatabaseSeeder extends Seeder
                 'provider' => 0,
                 'icon_ext' => 'png',
                 'num_plan_std' => 0,
-                'num_plan_prm' => 0, 
+                'num_plan_prm' => 0,
                 'totp_secret' => '12345678', //この項目があるので分ける
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]
-            ]);
+            ],
+        ]);
         DB::table('spots')->insert([
             [
                 'user_id' => 1,

@@ -47,6 +47,6 @@
         </button>
     </div>
 
-    <h5>アカウントをお持ちでない方は <a href="{{ route('signup') }}">こちら</a></h5>
+    <div class="h5">アカウントをお持ちでない方は <a href="{{ route('signup') }}">こちら</a></div>
 </div>
 @endsection
