@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountCreateController;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\ReviewController; // 追加: MU15
 
 // ホームページ
 Route::get('/', function () {
