@@ -39,6 +39,10 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login.post');
 
+Route::get('/2fa', function () {
+    return '2FA認証画面'; // 仮
+})->name('2fa.index');
+
 Route::get('/signup', [AccountCreateController::class, 'get'])->name('signup');
 
 // ログアウト処理
