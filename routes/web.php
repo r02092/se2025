@@ -59,6 +59,10 @@ Route::get('/api', [ApiController::class, 'get'])->name('api');
 
 // 認証が必要なルート
 Route::middleware(['auth'])->group(function () {
+    // ▼▼▼ 追加部分 (MU15: 口コミ投稿) ▼▼▼
+    Route::post('/reviews', [ReviewController::class, 'store'])->name(
+        'reviews.store',
+    );
     // プロフィール
     Route::get('/profile', function () {
         return view('profile');
