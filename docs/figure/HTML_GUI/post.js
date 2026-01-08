@@ -82,16 +82,6 @@
 						time: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
 						text: "最高だった！窓際の席でゆっくりできます ☕️",
 						image: null,
-						likes: 3,
-						liked: false,
-						comments: [
-							{
-								id: "c1",
-								author: "alice",
-								text: "写真見たい！",
-								time: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
-							},
-						],
 					},
 					{
 						id: "p_sample_2",
@@ -100,9 +90,6 @@
 						time: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
 						text: "ここの町並みがすごく綺麗でした。おすすめです。",
 						image: "post-station.jpg",
-						likes: 1,
-						liked: false,
-						comments: [],
 					},
 				]
 			: [
@@ -113,9 +100,6 @@
 						time: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
 						text: "ついに香美市に到着！あのゲームにも出てきた場所、土佐山田駅だ！",
 						image: "post-station.jpg",
-						likes: 0,
-						liked: false,
-						comments: [],
 					},
 				];
 	}
