@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -12,33 +13,37 @@ class LoginController extends Controller
     {
         return view('login'); // ログイン画面を表示
     }
+
     public function authenticate(Request $request)
     {
-        // バリデーション
+        // 1. バリデーション
         $credentials = $request->validate([
             'login_name' => ['required', 'string'],
             'password'   => ['required', 'string'],
         ]);
 
-        // 認証試行 (Auth::attempt はハッシュ化されたパスワードを自動で照合)
-        if (!Auth::attempt($credentials)) {
-            // 認証失敗
+        // 2. ユーザー検索
+        $user = User::where('login_name', $credentials['login_name'])->first();
+
+        // 3. 認証チェック
+        // ユーザーがいない(null)、またはパスワードが一致しない場合はエラーにする
+        if (!$user || !password_verify($credentials["password"], $user->password)) {
             throw ValidationException::withMessages([
-                'login_name' => __('auth.failed'), // "認証情報が記録と一致しません"
+                'login_name' => __('auth.failed'),
             ]);
         }
-        $request->session()->regenerate();
 
-        // 二要素認証チェック
-        $user = Auth::user();
+        // 4. チェックを通過したらログイン処理
+        Auth::login($user);
+        $request->session()->regenerate();
         
+        // 5. 2FAチェック
         if (!empty($user->totp_secret)) {
-            // 2FAが必要な場合、フラグを立てて2FA画面へ
             session(['auth.2fa_required' => true]);
             return redirect()->route('2fa.index');
         }
 
-        // 通常ログイン完了
+        // 6. 通常ログイン完了
         return redirect()->intended(route('home'));
     }
 
