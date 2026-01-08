@@ -10,9 +10,9 @@ const overlay = document.getElementById("qr-overlay") as HTMLElement | null;
 const closeBtn = overlay?.querySelector(".qr-close") as HTMLElement | null;
 
 if (track && handle && fill) {
-	let dragging = false;
-	let trackRect: DOMRect | null = null;
-	let handleWidth = 0;
+	const dragging = false;
+	const trackRect: DOMRect | null = null;
+	const handleWidth = 0;
 	const PADDING = 6; // CSS と一致
 	const THRESHOLD = 0.999; // 100% 判定（ほぼ 100%）
 
