@@ -27,16 +27,20 @@ class LoginControllerTest extends TestCase
             'password' => 'password123',
         ]);
         $this->assertAuthenticated();
-        $this->assertAuthenticatedAs(User::where('login_name', 'test_user')->first());
+        $this->assertAuthenticatedAs(
+            User::where('login_name', 'test_user')->first(),
+        );
         $response->assertRedirect('/');
     }
     /* パスワードが間違っているときのテスト */
     public function test_users_can_not_authenticate_with_invalid_password()
     {
-        $this->from(route('login'))->post(route('login', [
-            'login_name' => 'test_user',
-            'password' => 'wrong-password',
-        ]));
+        $this->from(route('login'))->post(
+            route('login', [
+                'login_name' => 'test_user',
+                'password' => 'wrong-password',
+            ]),
+        );
         $this->assertGuest();
     }
     /* Seederで作った「2FA設定済みユーザー」は2FA画面へリダイレクトされるか */
