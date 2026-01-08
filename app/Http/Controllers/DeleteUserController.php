@@ -28,8 +28,12 @@ class DeleteUserController extends Controller
 
         // セキュリティ上の制限: 自分自身を削除できないようにする
         if ($admin->id == $targetId) {
-            return redirect()->back()
-                ->withErrors(['error' => '自分自身のアカウントを削除することはできません。']);
+            return redirect()
+                ->back()
+                ->withErrors([
+                    'error' =>
+                        '自分自身のアカウントを削除することはできません。',
+                ]);
         }
 
         // 2. 利用者モジュールを用いて利用者削除処理を実行
@@ -40,12 +44,14 @@ class DeleteUserController extends Controller
             $user->delete();
 
             // 3. 利用者一覧画面へのリダイレクトを含む応答
-            return redirect()->route('admin.users.index')
+            return redirect()
+                ->route('admin.users.index')
                 ->with('status', 'user-deleted');
         }
 
         // エラーメッセージを含むページを応答
-        return redirect()->back()
+        return redirect()
+            ->back()
             ->withErrors(['error' => '指定された利用者の削除に失敗しました。']);
     }
 
@@ -57,7 +63,7 @@ class DeleteUserController extends Controller
         $user = User::findOrFail($id);
 
         return view('user-delete-confirm', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 }
