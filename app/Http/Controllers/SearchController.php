@@ -32,6 +32,6 @@ class SearchController extends Controller
             ->get();
 
         //ビューの表示とデータの引き渡し
-        return view('root', compact('spots'));
+        return view('home', compact('spots'));
     }
 }

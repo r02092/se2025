@@ -7,7 +7,7 @@ use App\Http\Controllers\ReviewController; // 追加: MU15
 use App\Http\Controllers\SearchController; // 追加: MC00
 
 // ホームページ(MC00:人気スポットロジックを使用)
-Route::get('/', [SearchController::class, 'index'])->name('root');
+Route::get('/', [SearchController::class, 'index'])->name('home');
 // 公開ページ（ログイン不要）
 Route::get('/post', function () {
     return view('post');
