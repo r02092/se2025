@@ -31,7 +31,7 @@ class LoginControllerTest extends TestCase
         $this->assertAuthenticatedAs(
             User::where('login_name', 'test_user')->first(),
         );
-        $response->assertRedirect('/');
+        $response->assertRedirect('root');
     }
     /* パスワードが間違っているときのテスト */
     public function test_users_can_not_authenticate_with_invalid_password()
