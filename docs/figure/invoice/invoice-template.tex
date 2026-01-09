@@ -1,0 +1,105 @@
+\documentclass[fontsize=10.5bp]{jlreq}
+\usepackage{graphicx,luatexja-fontspec,luatexja-otf,textpos,tikz}
+\setmainfont{APOTFRyuminPr6N}
+\setsansfont{APOTFGothicMB101Pr6N}
+\setmainjfont{APOTFRyuminPr6N}[YokoFeatures={JFM=jlreq}]
+\setsansjfont{APOTFGothicMB101Pr6N}[YokoFeatures={JFM=jlreq}]
+\setlength\parindent{0pt}
+\newcommand\bizudpmincho{
+	\fontspec{BIZUDPMincho}\jfontspec{BIZUDPMincho}
+}
+\newcommand\insertedtext[1]{
+	{
+		\bizudpmincho\ltjsetparameter{kanjiskip=0pt}\ltjsetparameter{xkanjiskip=0pt}
+		#1
+		\par
+	}
+}
+\renewcommand\emph[1]{\textbf{\textgt{#1}}}
+\pagestyle{empty}
+\begin{document}
+	\begin{center}
+		\akigumi{12mm}{\emph{\Huge 御請求書}}
+	\end{center}
+	\vspace{9pt}
+	\begin{textblock*}{24mm}(374pt,47pt)
+		\includegraphics{seal.pdf}
+	\end{textblock*}
+	\begin{minipage}[t]{.6\textwidth}
+		\vspace{4\baselineskip}\!\\
+		下記のとおり、御請求申し上げます。
+	\end{minipage}%
+	\begin{minipage}[t]{.4\textwidth}
+		請求書番号\\
+		発行日\\
+
+		〒782--0003\\
+		高知県香美市土佐山田町宮ノ口185\\
+		グループ２\quad Share
+	\end{minipage}
+	\vspace{17pt}
+	\begin{center}
+		\begin{tikzpicture}[draw/.append style=thick]
+			\fill[lightgray](0,1)rectangle(4,0);
+			\draw(0,1)rectangle(11,0);
+			\draw(4,1)--(4,0);
+			\node at(2,.5){\emph{\LARGE 御請求金額}};
+		\end{tikzpicture}
+		\\
+		\vspace{11pt}
+		\begin{tikzpicture}[
+			draw/.append style=thick,
+			fill/.append style=lightgray,
+			yscale=.62
+		]
+			\fill(0,19)rectangle(\textwidth-.8pt,18);
+			\fill(12,3)rectangle(\textwidth-.8pt-2cm,0);
+			\draw(0,19)rectangle(\textwidth-.8pt,3);
+			\foreach\x in{10,\textwidth-.8pt-4cm}
+				\draw(\x,19)--(\x,3);
+			\draw(\textwidth-.8pt-2cm,19)--(\textwidth-.8pt-2cm,0);
+			\node at(5,18.5){\emph{内容}};
+			\node at({(\textwidth-.8pt)/2+3cm},18.5){\emph{数量}};
+			\node at(\textwidth-.8pt-3cm,18.5){\emph{単価}};
+			\node at(\textwidth-.8pt-1cm,18.5){\emph{金額}};
+			\foreach\y in{18,...,4}
+				\draw(0,\y)--(\textwidth-.8pt,\y);
+			\draw(12,3)--(12,0)--(\textwidth-.8pt,0)--(\textwidth-.8pt,3);
+			\foreach\y/\t in{2/小計,1/消費税}{
+				\node at({(\textwidth-.8pt)/2+5cm},\y+.5){\emph{\t}};
+				\draw(12,\y)--(\textwidth-.8pt,\y);
+			}
+			\node at({(\textwidth-.8pt)/2+5cm},.5){\emph{合計}};
+		\end{tikzpicture}
+	\end{center}
+	お手数ですが、お支払いは下記銀行口座にお振込みくださいますようお願い申し上げます。
+
+	恐れ入りますが、振込手数料はお客様の御負担でお願いいたします。
+
+	\vspace{8pt}
+	\ltjsetparameter{kanjiskip=0pt}
+	\ltjsetparameter{xkanjiskip=0pt}
+	\begin{center}
+		\begin{tikzpicture}[
+			draw/.append style=thick,
+			yscale=.62
+		]
+			\fill[lightgray](0,2)rectangle(3,0);
+			\draw(0,2)rectangle(14,0);
+			\draw(3,2)--(3,0);
+			\node at(1.5,1.5){\emph{お振込先}};
+			\node[right]at(3,1.5){
+				○○銀行\quad ○○支店\quad 普通\quad XXXXXXX\quad
+				\aj半角{ク ゛ルーフ ゜}%
+				\CID{249}\hspace{-.25\zw}%
+				\CID{282}\hspace{-.5\zw}%
+				\CID{271}\hspace{-.5\zw}%
+				\CID{264}\hspace{-.5\zw}%
+				\CID{281}\hspace{-.5\zw}%
+				\CID{268}\hspace{-.5\zw}%
+			};
+			\draw(0,1)--(14,1);
+			\node at(1.5,.5){\emph{お支払い期限}};
+		\end{tikzpicture}
+	\end{center}
+\end{document}
