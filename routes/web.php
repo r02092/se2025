@@ -45,6 +45,10 @@ Route::get('/2fa', function () {
     return '2FA認証画面'; // 仮
 })->name('2fa.index');
 
+Route::get('/', function () {
+    return view('home'); // こちらも仮
+})->name('home');
+
 Route::get('/signup', function () {
     return view('signup');
 })->name('signup');
