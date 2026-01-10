@@ -27,7 +27,7 @@ class CheckinApiController extends Controller
         ]);
         if ($validator->fails()) {
             return response()->json([
-                'error' => '入力情報が不正です。'
+                'error' => '入力情報が不正です。',
                 'details' => $validator->errors(),
             ], 400);
         }
