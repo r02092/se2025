@@ -57,9 +57,9 @@ trait CouponTrait
         try {
             UserCoupon::create([
                 'coupon_id' => $coupon->id,
-                'user_id'   => $userId,
-                'key'       => random_int(1000000000, 9999999999), // 簡易的なユニークキー生成
-                'is_used'   => 0, // 未使用
+                'user_id' => $userId,
+                'key' => random_int(1000000000, 9999999999), // 簡易的なユニークキー生成
+                'is_used' => 0, // 未使用
             ]);
 
             // 5. 獲得に成功した旨を返す
@@ -68,7 +68,6 @@ trait CouponTrait
                 'message' => 'クーポンを獲得しました！',
                 'coupon_name' => $coupon->name,
             ];
-
         } catch (\Exception $e) {
             // 獲得に失敗した旨を返す
             return [
