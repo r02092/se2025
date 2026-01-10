@@ -28,7 +28,7 @@ class CheckinApiController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'error' => '入力情報が不正です。'
-                'details' => $validator->errors()
+                'details' => $validator->errors(),
             ], 400);
         }
         $stampKey = $request->input('stamp_key');
@@ -40,7 +40,7 @@ class CheckinApiController extends Controller
         if (!$spot) {
             return response()->json(['error' => '該当するスポットが見つかりません。'], 404);
         }
-        
+
         $distance = $this->calculateDistance(
             $userLat, 
             $userLng, 
@@ -52,7 +52,7 @@ class CheckinApiController extends Controller
         if ($distance > $thresholdMeters) {
             return response()->json([
                 'error' => 'スポットから離れすぎています。現地に近づいて再度おためしください。',
-                'distance' => round($distance). 'm';
+                'distance' => round($distance). 'm',
             ], 400);
         }
         return DB::transaction(function () use ($spot, $request) {
@@ -80,7 +80,7 @@ class CheckinApiController extends Controller
                     'spot_name' => $spot->name,
                     'coupon_result' => $couponResult,
                 ], 200);
-        }):
+        });
     }
 
 
