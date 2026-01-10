@@ -5,6 +5,7 @@ use App\Http\Controllers\AccountCreateController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ReviewController; // 追加: MU15
 use App\Http\Controllers\SearchController; // 追加: MC00
+use App\Http\Controllers\LoginController;
 
 // ホームページ(MC00:人気スポットロジックを使用)
 Route::get('/', [SearchController::class, 'index'])->name('home');
@@ -34,13 +35,11 @@ Route::get('/funpage/checkin', function () {
 })->name('funpage.checkin');
 
 // 認証関連
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 
-Route::post('/login', function () {
-    // ログイン処理を実装
-})->name('login.post');
+Route::post('/login', [LoginController::class, 'authenticate'])->name(
+    'login.post',
+);
 
 Route::get('/signup', function () {
     return view('signup');
@@ -50,9 +49,11 @@ Route::post('/signup', [AccountCreateController::class, 'post'])->name(
     'signup.post',
 );
 
-Route::post('/logout', function () {
-    // ログアウト処理を実装
-})->name('logout');
+Route::get('/2fa', function () {
+    return '2FA認証画面'; // 仮
+})->name('2fa.index');
+
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/api', [ApiController::class, 'get'])->name('api');
 
