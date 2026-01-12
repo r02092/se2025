@@ -83,7 +83,7 @@ class CheckinApiController extends Controller
                 'spot_id' => $spot->id,
                 'user_id' => $userId,
                 'ip_addr' => $request->ip(),
-                'port' => $request->server('REMOTE_PORT', 0),
+                'port' => (int) $request->server('REMOTE_PORT', '0'),
                 'user_agent' => $request->userAgent() ?? 'unknown',
             ]);
 
