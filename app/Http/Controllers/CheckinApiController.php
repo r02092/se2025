@@ -7,16 +7,18 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Spot;
 use App\Models\Stamp;
-use App\Models\CouponTrait;
+use App\Traits\CouponTrait;
+use App\Traits\DistanceCalculatorTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class CheckinApiController extends Controller
 {
-    use CouponTtrait;
-    use DisatanceCalciulatorTrait;
+    use CouponTrait;
+    use DistanceCalculatorTrait;
 
     public function __invoke(Request $request): JsonResponse
     {
@@ -36,7 +38,7 @@ class CheckinApiController extends Controller
         }
         $stampKey = $request->input('stamp_key');
         $userLat = (float) $request->input('lat');
-        $userLng = (float) $requeest->input('lng');
+        $userLng = (float) $request->input('lng');
 
         $spot = Spot::where('stamp_key', $stampKey)->first();
 
@@ -59,8 +61,7 @@ class CheckinApiController extends Controller
             return response()->json(
                 [
                     'error' =>
-                        'スポットから離れすぎています。現地に近づいて再度おためしください。',
-                    'distance' => round($distance) . 'm',
+                        'スポットから離れすぎています。現地に近づいて再度お試しください。',
                 ],
                 400,
             );
@@ -81,14 +82,14 @@ class CheckinApiController extends Controller
             Stamp::create([
                 'spot_id' => $spot->id,
                 'user_id' => $userId,
-                'ip_addr' => $requeest->ip(),
-                'port' => $requeest->server('REMOTE_PORT', 0),
+                'ip_addr' => $request->ip(),
+                'port' => (int) $request->server('REMOTE_PORT', '0'),
                 'user_agent' => $request->userAgent() ?? 'unknown',
             ]);
 
             $couponResult = $this->processCouponAcquisition($spot->id);
 
-            return reponse()->json(
+            return response()->json(
                 [
                     'message' => 'チェックインに成功しました。',
                     'spot_name' => $spot->name,

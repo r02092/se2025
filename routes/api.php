@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CouponApiController;
+use App\Http\Controllers\CheckinApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,6 @@ Route::middleware('auth:sanctum')->group(function () {
     // ▼▼▼ 今回追加する部分 ▼▼▼
     // MU17 クーポン利用開始API
     Route::post('/coupon/use', [CouponApiController::class, 'use']);
+
+    Route::post('/checkin', CheckinApiController::class);
 });
