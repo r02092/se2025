@@ -26,14 +26,13 @@ class CheckinApiTest extends TestCase
             'lng' => 133.906497,
         ]);
 
-        $response->assertStatus(200)
-            ->assertJson([
-                'message' => 'チェックインに成功しました。',
-                'spot_name' => 'ごめん・なはり線',
-                'coupon_result' => [
-                    'success' => true,
-                ]
-            ]);
+        $response->assertStatus(200)->assertJson([
+            'message' => 'チェックインに成功しました。',
+            'spot_name' => 'ごめん・なはり線',
+            'coupon_result' => [
+                'success' => true,
+            ],
+        ]);
 
         // スタンプが記録されたか
         $this->assertDatabaseHas('stamps', [
@@ -58,11 +57,11 @@ class CheckinApiTest extends TestCase
             'lng' => $farLng,
         ]);
 
-        $response->assertStatus(400)
-            ->assertJsonFragment([
-                'error' => 'スポットから離れすぎています。現地に近づいて再度お試しください。'
-            ]);
-        
+        $response->assertStatus(400)->assertJsonFragment([
+            'error' =>
+                'スポットから離れすぎています。現地に近づいて再度お試しください。',
+        ]);
+
         // スタンプが記録されていないこと
         $this->assertDatabaseMissing('stamps', [
             'user_id' => 6,
@@ -81,10 +80,9 @@ class CheckinApiTest extends TestCase
             'lng' => 133.906497,
         ]);
 
-        $response->assertStatus(404)
-            ->assertJson([
-                'error' => '該当するスポットが見つかりません。'
-            ]);
+        $response->assertStatus(404)->assertJson([
+            'error' => '該当するスポットが見つかりません。',
+        ]);
     }
 
     // 4.バリデーションエラー
@@ -96,10 +94,9 @@ class CheckinApiTest extends TestCase
             // 空のデータ
         ]);
 
-        $response->assertStatus(400)
-            ->assertJsonStructure([
-                'error',
-                'details' => ['stamp_key', 'lat', 'lng'] // エラー詳細に含まれるキー
-            ]);
+        $response->assertStatus(400)->assertJsonStructure([
+            'error',
+            'details' => ['stamp_key', 'lat', 'lng'], // エラー詳細に含まれるキー
+        ]);
     }
 }
