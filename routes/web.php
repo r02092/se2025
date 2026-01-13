@@ -85,9 +85,18 @@ Route::middleware(['auth'])->group(function () {
     // お楽しみ機能（操作系があればここに追加）
 
     // 事業者申込
-    Route::get('/subscription', [SubscriptionController::class, 'create'])->$_REQUESTname('subscription.form');
-    Route::post('/subscription', [SubscriptionController::class, 'store'])->name('Subscription.store');
-    Route::get('/subscription/confirm', [SubscriptionController::class, 'confirm'])->name('subscription.confirm');
+    Route::get('/subscription', [
+        SubscriptionController::class,
+        'create',
+    ])->$_REQUESTname('subscription.form');
+    Route::post('/subscription', [
+        SubscriptionController::class,
+        'store',
+    ])->name('Subscription.store');
+    Route::get('/subscription/confirm', [
+        SubscriptionController::class,
+        'confirm',
+    ])->name('subscription.confirm');
 
     // プロフィール二要素認証
     Route::get('/profile/2fa', function () {
