@@ -29,7 +29,7 @@ class SubscriptionController extends Controller
 
         $user = Auth::user();
 
-        $user->postal_code = (int)$validated['post_code'];
+        $user->postal_code = (int) $validated['post_code'];
         $user->addr_detail = $validated['address'];
 
         $user->permission = 2;
