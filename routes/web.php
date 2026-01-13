@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ReviewController; // 追加: MU15
 use App\Http\Controllers\SearchController; // 追加: MC00
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SubscriptionController;
 
 // ホームページ(MC00:人気スポットロジックを使用)
 Route::get('/', [SearchController::class, 'index'])->name('home');
@@ -84,18 +85,18 @@ Route::middleware(['auth'])->group(function () {
     // お楽しみ機能（操作系があればここに追加）
 
     // 事業者申込
-    Route::get('/subscription/form', function () {
-        return view('subscription-form');
-    })->name('subscription.form');
-
-    Route::post('/subscription', function () {
-        // 事業者申込処理
-        return redirect()->route('subscription.confirm');
-    })->name('subscription.store');
-
-    Route::get('/subscription/confirm', function () {
-        return view('subscription-confirm');
-    })->name('subscription.confirm');
+    Route::get('/subscription', [
+        SubscriptionController::class,
+        'create',
+    ])->name('subscription.form');
+    Route::post('/subscription', [
+        SubscriptionController::class,
+        'store',
+    ])->name('Subscription.store');
+    Route::get('/subscription/confirm', [
+        SubscriptionController::class,
+        'confirm',
+    ])->name('subscription.confirm');
 
     // プロフィール二要素認証
     Route::get('/profile/2fa', function () {
