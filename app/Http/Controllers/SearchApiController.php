@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use APP\Models\Spot;
+use App\Models\Spot;
 use Illuminate\Http\Request;
 
 class SearchApiController extends Controller
