@@ -12,6 +12,18 @@ class AiApiTest extends TestCase
     {
         $controller = new AiApiController();
         $this->assertEquals(
+            400,
+            $controller
+                ->post(
+                    new AiApiRequest([
+                        'chat' => 'この間にある観光スポットを推薦して',
+                        'from' => 1,
+                        'to' => 1,
+                    ]),
+                )
+                ->getStatusCode(),
+        );
+        $this->assertEquals(
             200,
             $controller
                 ->post(
@@ -30,6 +42,28 @@ class AiApiTest extends TestCase
                     new AiApiRequest([
                         'chat' => 'この周辺にある観光スポットを推薦して',
                         'from' => 2,
+                    ]),
+                )
+                ->getStatusCode(),
+        );
+        $this->assertEquals(
+            200,
+            $controller
+                ->post(
+                    new AiApiRequest([
+                        'chat' => 'この周辺にある観光スポットを推薦して',
+                        'from' => 4,
+                    ]),
+                )
+                ->getStatusCode(),
+        );
+        $this->assertEquals(
+            400,
+            $controller
+                ->post(
+                    new AiApiRequest([
+                        'chat' => 'この周辺にある観光スポットを推薦して',
+                        'from' => 99,
                     ]),
                 )
                 ->getStatusCode(),
