@@ -6,7 +6,6 @@ namespace Tests\Unit;
 
 use App\Models\Spot;
 use App\Models\User;
-use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

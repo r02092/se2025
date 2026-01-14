@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Http\Requests;
 use Illuminate\Validation\Rule;
-use Illuminate\validation\ValidationException;
 
 class InsertUserController extends Controller
 {
