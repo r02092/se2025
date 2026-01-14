@@ -25,5 +25,18 @@ class AccountCreateTest extends TestCase
                 ->getStatusCode(),
         );
         $this->assertNotNull(User::where('login_name', 'testuser')->first());
+        $this->assertEquals(
+            400,
+            (new AccountCreateController())
+                ->post(
+                    new AccountCreateRequest([
+                        'name' => 'Test User 2',
+                        'username' => 'testuser2',
+                        'password' => 'testpass',
+                        'password_confirm' => 'testpassword',
+                    ]),
+                )
+                ->getStatusCode(),
+        );
     }
 }
