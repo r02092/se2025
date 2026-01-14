@@ -14,11 +14,11 @@ document.addEventListener("DOMContentLoaded", (): void => {
 
 	// Coupon QR detail page (must check before general coupon check)
 	if (/\/coupon\/\d+\/qr/.test(pathname)) {
-		import("./coupon-QR");
+		import("./coupon_qr");
 	}
 	// Coupon selected / detail page
 	else if (/\/coupon\/\d+/.test(pathname)) {
-		import("./coupon-selected");
+		import("./coupon_selected");
 	}
 	// Coupon list page
 	else if (pathname === "/coupon") {
@@ -27,6 +27,6 @@ document.addEventListener("DOMContentLoaded", (): void => {
 
 	// Funpage checkin with QR
 	if (pathname === "/funpage/checkin") {
-		import("./funpage-checkin");
+		import("./funpage_checkin");
 	}
 });
