@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\SearchApiController;
+use App\Http\Controllers\PostMapController;
 
 // ホームページ(MC00:人気スポットロジックを使用)
 Route::get('/', [SearchController::class, 'index'])->name('home');
@@ -18,9 +19,7 @@ Route::get('/filtering', [SearchApiController::class, 'getSpotList'])->name(
 );
 
 // 公開ページ（ログイン不要）
-Route::get('/post', function () {
-    return view('post');
-})->name('post');
+Route::get('/post', [PostMapController::class, 'index'])->name('post');
 
 Route::get('/coupon', function () {
     return view('coupon');
