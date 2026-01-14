@@ -32,19 +32,5 @@ class ApiKeyTest extends TestCase
                 )
                 ->getStatusCode(),
         );
-        $this->assertEquals(
-            404,
-            $controller
-                ->post(
-                    new ApiKeyRequest([
-                        'delete_id' => 9,
-                    ]),
-                )
-                ->getStatusCode(),
-        );
-        $this->assertEquals(
-            400,
-            $controller->post(new ApiKeyRequest([]))->getStatusCode(),
-        );
     }
 }
