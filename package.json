@@ -1,6 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
   "private": true,
+  "dependencies": {
+    "maplibre-gl": "^5.16.0"
+  },
   "devDependencies": {
     "@eslint/css": "^0.14.1",
     "@eslint/js": "^9.37.0",
@@ -80,8 +83,5 @@
         "sentence-length": false
       }
     }
-  },
-  "dependencies": {
-    "maplibre-gl": "^5.16.0"
   }
 }
