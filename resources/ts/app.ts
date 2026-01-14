@@ -2,6 +2,11 @@
 document.addEventListener("DOMContentLoaded", (): void => {
 	const pathname = window.location.pathname;
 
+	// Home page
+	if (pathname === "/") {
+		import("./home");
+	}
+
 	// Post page
 	if (pathname === "/post") {
 		import("./post");

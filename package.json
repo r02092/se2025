@@ -80,5 +80,8 @@
         "sentence-length": false
       }
     }
+  },
+  "dependencies": {
+    "maplibre-gl": "^5.16.0"
   }
 }
