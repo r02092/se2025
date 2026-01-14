@@ -24,8 +24,8 @@ class AiApiRequest extends FormRequest
     {
         return [
             'chat' => 'required|string',
-            'from' => 'required|integer',
-            'to' => 'integer',
+            'from' => 'required|integer|exists:spots,id',
+            'to' => 'integer|exists:spots,id|different:from',
         ];
     }
 }

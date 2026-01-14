@@ -25,20 +25,8 @@ class AiApiController extends Controller
             'port' => $request->getPort() ?? 0,
             'user_agent' => $request->userAgent() ?? '',
         ]);
-        if ($request->input('from') === $request->input('to')) {
-            return response()->json(
-                ['error' => '出発地と目的地が同じです。'],
-                400,
-            );
-        }
         $from = Spot::find($request->input('from'));
         $to = Spot::find($request->input('to'));
-        if (!$from) {
-            return response()->json(
-                ['error' => '指定されたスポットが見つかりません。'],
-                400,
-            );
-        }
         if ($to) {
             $spots = Spot::where('id', '<>', $from->id)
                 ->where('id', '<>', $to->id)
