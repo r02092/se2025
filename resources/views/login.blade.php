@@ -2,17 +2,13 @@
 
 @section('title', 'SceneTrip - ログイン')
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/login.css') }}" />
-@endpush
-
 @section('content')
 <div class="general-box form-container">
     <h2>ログイン</h2>
     <form action="{{ route('login.post') }}" method="POST">
         @csrf
-        <label for="username">ログイン名</label>
-        <input type="text" id="username" name="username" required value="{{ old('username') }}" />
+        <label for="login_name">ログイン名</label>
+        <input type="text" id="login_name" name="login_name" required value="{{ old('username') }}" />
 
         <label for="password">パスワード</label>
         <input type="password" id="password" name="password" required />

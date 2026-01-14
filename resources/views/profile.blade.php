@@ -21,7 +21,7 @@
             <dd>{{ Auth::user()->name }}</dd>
 
             <dt>ログイン名</dt>
-            <dd>{{ Auth::user()->username }}</dd>
+            <dd>{{ Auth::user()->login_name }}</dd>
 
             <dt>パスワード</dt>
             <dd>********</dd>
@@ -43,7 +43,7 @@
 </div>
 <div class="general-box profile-subscription-container">
     <h3>  </h3>
-    <button class="profile-button-subscription" style="background-color: red;" onclick="confirmLogout()">
+    <button class="profile-button-subscription" style="background-color: red;" onclick="location.href = '{{ route('logout') }}'">
         ログアウト
     </button>
 </div>

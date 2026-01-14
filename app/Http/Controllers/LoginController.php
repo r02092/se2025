@@ -50,6 +50,12 @@ class LoginController extends Controller
         return redirect()->intended(route('home'));
     }
 
+    // ログアウト確認ページ表示
+    public function showLogoutForm()
+    {
+        return view('logout');
+    }
+
     // ログアウト処理
     public function logout(Request $request)
     {
@@ -57,6 +63,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('home');
+        return redirect()->route('home');
     }
 }

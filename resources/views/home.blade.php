@@ -25,7 +25,7 @@
     </form>
 </div>
 
-<div class="general-box ai-suggest">
+<div class="general-box ai-suggest" style="padding-bottom: 100px;">
     <h2>人気のスポット</h2>
     <div class="spot-divider" aria-hidden="true"></div>
 
