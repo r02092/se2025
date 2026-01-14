@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use APP\Models\Spot;
-use APP\Models\Keyword;
 use Illuminate\Http\Request;
 
 class SearchApiController extends Controller
