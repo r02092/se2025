@@ -1,23 +1,26 @@
 @extends('layouts.app')
 
-@section('title', '管理者機能')
+@section('title', 'SceneTrip - 管理者機能')
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/home.css') }}" />
+<link href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css" rel="stylesheet" />
+@endpush
 
 @section('content')
-<div class="main-area">
-    <h1>管理者機能</h1>
+<h1>管理者機能</h1>
 
-    <div class="general-box" style="margin: 0 5% 0">
-        <ul>
-            <li><a href="#">ユーザー一覧</a></li>
-            <li><a href="#">UGC監視・管理</a></li>
-            <li><a href="#">スポット情報編集</a></li>
-            <li><a href="#">観光データ確認</a></li>
-        </ul>
-    </div>
+<div class="general-box" style="margin: 0 5% 0">
+    <ul>
+        <li><a href="{{ route('user') }}">ユーザー一覧</a></li>
+        <li><a href="#">UGC監視・管理</a></li>
+        <li><a href="{{ route('spot.edit') }}">スポット情報編集</a></li>
+        <li><a href="{{ route('data') }}">観光データ確認</a></li>
+    </ul>
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script src="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js"></script>
 <script>
     const map = new maplibregl.Map({
@@ -31,4 +34,4 @@
     new maplibregl.Marker().setLngLat([133.685047, 33.607133]).addTo(map);
     new maplibregl.Marker().setLngLat([133.745187, 33.603579]).addTo(map);
 </script>
-@endsection
+@endpush
