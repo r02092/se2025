@@ -36,14 +36,14 @@ class ApiController extends Controller
                 'addrDetail' => $spot->addr_detail,
                 'description' => $spot->description,
                 'fromNum' => Query::whereBetween('created_at', [
-                    $request->input('from_date'),
-                    $request->input('to_date'),
+                    $request->input('from_date') ?? '1000-01-01',
+                    $request->input('to_date') ?? '9999-12-31',
                 ])
                     ->where('from_spot_id', $id)
                     ->count(),
                 'toNum' => Query::whereBetween('created_at', [
-                    $request->input('from_date'),
-                    $request->input('to_date'),
+                    $request->input('from_date') ?? '1000-01-01',
+                    $request->input('to_date') ?? '9999-12-31',
                 ])
                     ->where('to_spot_id', $id)
                     ->count(),
