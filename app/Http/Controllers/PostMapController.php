@@ -7,7 +7,7 @@ use App\Models\Photo;
 
 class PostMapController extends Controller
 {
-    function get()
+    function index()
     {
         // 仮に全部送信
         $posts = Photo::all();
