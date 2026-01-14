@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountCreateController;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\InvoiceController;
 
 // ホームページ
 Route::get('/', function () {
@@ -99,7 +100,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // 事業者専用ルート
-Route::middleware(['auth', 'business'])
+Route::middleware(['auth'])
     ->prefix('business')
     ->group(function () {
         Route::get('/', function () {
@@ -118,13 +119,13 @@ Route::middleware(['auth', 'business'])
             return view('business.api');
         })->name('business.api');
 
-        Route::get('/invoice', function () {
-            return view('business.invoice');
-        })->name('business.invoice');
+        Route::get('/invoice', [InvoiceController::class, 'get'])->name(
+            'business.invoice',
+        );
     });
 
 // 管理者専用ルート
-Route::middleware(['auth', 'admin'])
+Route::middleware(['auth'])
     ->prefix('admin')
     ->group(function () {
         Route::get('/', function () {
