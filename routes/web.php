@@ -3,12 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountCreateController;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\ReviewController; // 追加: MU15
+use App\Http\Controllers\SearchController; // 追加: MC00
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\InvoiceController;
 
-// ホームページ
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+// ホームページ(MC00:人気スポットロジックを使用)
+Route::get('/', [SearchController::class, 'index'])->name('home');
 // 公開ページ（ログイン不要）
 Route::get('/post', function () {
     return view('post');
@@ -35,13 +37,11 @@ Route::get('/funpage/checkin', function () {
 })->name('funpage.checkin');
 
 // 認証関連
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 
-Route::post('/login', function () {
-    // ログイン処理を実装
-})->name('login.post');
+Route::post('/login', [LoginController::class, 'authenticate'])->name(
+    'login.post',
+);
 
 Route::get('/signup', function () {
     return view('signup');
@@ -51,14 +51,20 @@ Route::post('/signup', [AccountCreateController::class, 'post'])->name(
     'signup.post',
 );
 
-Route::post('/logout', function () {
-    // ログアウト処理を実装
-})->name('logout');
+Route::get('/2fa', function () {
+    return '2FA認証画面'; // 仮
+})->name('2fa.index');
+
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/api', [ApiController::class, 'get'])->name('api');
 
 // 認証が必要なルート
 Route::middleware(['auth'])->group(function () {
+    // ▼▼▼ 追加部分 (MU15: 口コミ投稿) ▼▼▼
+    Route::post('/reviews', [ReviewController::class, 'store'])->name(
+        'reviews.store',
+    );
     // プロフィール
     Route::get('/profile', function () {
         return view('profile');
@@ -80,18 +86,18 @@ Route::middleware(['auth'])->group(function () {
     // お楽しみ機能（操作系があればここに追加）
 
     // 事業者申込
-    Route::get('/subscription/form', function () {
-        return view('subscription-form');
-    })->name('subscription.form');
-
-    Route::post('/subscription', function () {
-        // 事業者申込処理
-        return redirect()->route('subscription.confirm');
-    })->name('subscription.store');
-
-    Route::get('/subscription/confirm', function () {
-        return view('subscription-confirm');
-    })->name('subscription.confirm');
+    Route::get('/subscription', [
+        SubscriptionController::class,
+        'create',
+    ])->name('subscription.form');
+    Route::post('/subscription', [
+        SubscriptionController::class,
+        'store',
+    ])->name('Subscription.store');
+    Route::get('/subscription/confirm', [
+        SubscriptionController::class,
+        'confirm',
+    ])->name('subscription.confirm');
 
     // プロフィール二要素認証
     Route::get('/profile/2fa', function () {

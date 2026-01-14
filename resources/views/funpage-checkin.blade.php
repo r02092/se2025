@@ -56,7 +56,3 @@
     </section>
 </div>
 @endsection
-
-@section('scripts')
-<script src="{{ asset('css/funpage-checkin.js') }}"></script>
-@endsection

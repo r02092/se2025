@@ -1,17 +1,15 @@
-document.addEventListener("DOMContentLoaded", function (): void {
-	const viewSelect = document.getElementById(
-		"view-select",
-	) as HTMLSelectElement | null;
-	const activeSection = document.getElementById(
-		"active-coupons",
-	) as HTMLElement | null;
-	const availableSection = document.getElementById(
-		"available-coupons",
-	) as HTMLElement | null;
-	const live = document.getElementById("view-live") as HTMLElement | null;
+const viewSelect = document.getElementById(
+	"view-select",
+) as HTMLSelectElement | null;
+const activeSection = document.getElementById(
+	"active-coupons",
+) as HTMLElement | null;
+const availableSection = document.getElementById(
+	"available-coupons",
+) as HTMLElement | null;
+const live = document.getElementById("view-live") as HTMLElement | null;
 
-	if (!viewSelect || !activeSection || !availableSection) return;
-
+if (viewSelect && activeSection && availableSection) {
 	function applyView(): void {
 		if (!viewSelect || !activeSection || !availableSection) return;
 
@@ -62,4 +60,6 @@ document.addEventListener("DOMContentLoaded", function (): void {
 			}
 		});
 	});
-});
+}
+
+export {};

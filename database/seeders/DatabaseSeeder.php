@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,6 +25,10 @@ class DatabaseSeeder extends Seeder
                 'password' => password_hash('password', PASSWORD_ARGON2ID),
                 'permission' => 0,
                 'name' => 'Share',
+                'provider' => 0,
+                'icon_ext' => 'png',
+                'num_plan_std' => 0,
+                'num_plan_prm' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -32,6 +37,10 @@ class DatabaseSeeder extends Seeder
                 'password' => password_hash('password', PASSWORD_ARGON2ID),
                 'permission' => 1,
                 'name' => 'はりまや',
+                'provider' => 0,
+                'icon_ext' => 'png',
+                'num_plan_std' => 0,
+                'num_plan_prm' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -40,6 +49,10 @@ class DatabaseSeeder extends Seeder
                 'password' => password_hash('password', PASSWORD_ARGON2ID),
                 'permission' => 2,
                 'name' => '中華そば 碧空',
+                'provider' => 0,
+                'icon_ext' => 'png',
+                'num_plan_std' => 0,
+                'num_plan_prm' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -48,6 +61,10 @@ class DatabaseSeeder extends Seeder
                 'password' => password_hash('password', PASSWORD_ARGON2ID),
                 'permission' => 1,
                 'name' => 'ツル☆ハシ',
+                'provider' => 0,
+                'icon_ext' => 'png',
+                'num_plan_std' => 0,
+                'num_plan_prm' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -56,6 +73,38 @@ class DatabaseSeeder extends Seeder
                 'password' => password_hash('password', PASSWORD_ARGON2ID),
                 'permission' => 1,
                 'name' => '柳 勇樹',
+                'provider' => 0,
+                'icon_ext' => 'png',
+                'num_plan_std' => 0,
+                'num_plan_prm' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'login_name' => 'test_user',
+                'password' => password_hash('password123', PASSWORD_ARGON2ID),
+                'permission' => 1,
+                'name' => 'テスト太郎',
+                'provider' => 0,
+                'icon_ext' => 'png',
+                'num_plan_std' => 0,
+                'num_plan_prm' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
+        // 二要素認証テスト用
+        DB::table('users')->insert([
+            [
+                'login_name' => '2fa_user',
+                'password' => password_hash('password123', PASSWORD_ARGON2ID),
+                'permission' => 1,
+                'name' => '二要素 次郎',
+                'provider' => 0,
+                'icon_ext' => 'png',
+                'num_plan_std' => 0,
+                'num_plan_prm' => 0,
+                'totp_secret' => '12345678', //この項目があるので分ける
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
