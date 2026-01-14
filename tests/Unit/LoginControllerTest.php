@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 #use Illuminate\Support\Facades\Hash;
-#use Lalavel\Socialite\Facades\Socialite;
+#use Laravel\Socialite\Facades\Socialite;
 #use Mockery;
 
 class LoginControllerTest extends TestCase
