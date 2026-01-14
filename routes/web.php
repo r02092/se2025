@@ -55,7 +55,12 @@ Route::get('/2fa', function () {
     return '2FA認証画面'; // 仮
 })->name('2fa.index');
 
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'showLogoutForm'])->name(
+    'logout',
+);
+Route::post('/logout', [LoginController::class, 'logout'])->name(
+    'logout.confirm',
+);
 
 Route::get('/api', [ApiController::class, 'get'])->name('api');
 

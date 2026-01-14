@@ -76,4 +76,6 @@
         </form>
     </div>
 </div>
+
+<!-- アカウント削除項目 -->
 @endsection

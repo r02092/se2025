@@ -10,10 +10,10 @@
 <div class="general-box profile-container">
     <h2>プロフィール</h2>
     <div class="profile-avatar-group">
+		<span>現在のアバター画像</span>
         <img src="{{ asset('images/' . (Auth::user()->profile_image ?? 'Profile_pic.JPG')) }}"
              alt="ユーザーのアバター画像"
              class="profile-avatar" />
-        <span>現在のアバター画像</span>
     </div>
     <div class="profile-box">
         <dl class="profile">
@@ -21,7 +21,7 @@
             <dd>{{ Auth::user()->name }}</dd>
 
             <dt>ログイン名</dt>
-            <dd>{{ Auth::user()->username }}</dd>
+            <dd>{{ Auth::user()->login_name }}</dd>
 
             <dt>パスワード</dt>
             <dd>********</dd>
@@ -39,6 +39,12 @@
     <h3>事業者申込</h3>
     <button class="profile-button-subscription" onclick="location.href = '{{ route('subscription.form') }}'">
         登録
+    </button>
+</div>
+<div class="general-box profile-subscription-container">
+    <h3>  </h3>
+    <button class="profile-button-subscription" style="background-color: red;" onclick="location.href = '{{ route('logout') }}'">
+        ログアウト
     </button>
 </div>
 @endsection

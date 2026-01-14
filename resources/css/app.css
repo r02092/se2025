@@ -6,7 +6,9 @@
 body {
 	padding: 0;
 	padding-top: var(--header-height);
-	padding-bottom: var(--bottom-bar-height); /*  ← ボトムバー分の余白 多分不要 */
+	padding-bottom: calc(
+		var(--bottom-bar-height) * 2
+	); /*  ← ボトムバー分の余白 多分不要 */
 	background: #eee;
 	width: 100vw;
 	display: flex;
@@ -183,6 +185,10 @@ h1 {
 .bottom-label {
 	font-size: 11px;
 	white-space: nowrap;
+}
+
+.h5 {
+	padding: 15px;
 }
 
 /* merged ai-suggest: funpage.css + home.css + search.css (final margin/padding from search) */
