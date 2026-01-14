@@ -7,6 +7,7 @@ use App\Http\Controllers\ReviewController; // 追加: MU15
 use App\Http\Controllers\SearchController; // 追加: MC00
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\InvoiceController;
 
 // ホームページ(MC00:人気スポットロジックを使用)
 Route::get('/', [SearchController::class, 'index'])->name('home');
@@ -110,7 +111,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // 事業者専用ルート
-Route::middleware(['auth', 'business'])
+Route::middleware(['auth'])
     ->prefix('business')
     ->group(function () {
         Route::get('/', function () {
@@ -129,13 +130,13 @@ Route::middleware(['auth', 'business'])
             return view('business.api');
         })->name('business.api');
 
-        Route::get('/invoice', function () {
-            return view('business.invoice');
-        })->name('business.invoice');
+        Route::get('/invoice', [InvoiceController::class, 'get'])->name(
+            'business.invoice',
+        );
     });
 
 // 管理者専用ルート
-Route::middleware(['auth', 'admin'])
+Route::middleware(['auth'])
     ->prefix('admin')
     ->group(function () {
         Route::get('/', function () {
