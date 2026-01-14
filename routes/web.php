@@ -8,9 +8,15 @@ use App\Http\Controllers\SearchController; // 追加: MC00
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\SearchApiController;
 
 // ホームページ(MC00:人気スポットロジックを使用)
 Route::get('/', [SearchController::class, 'index'])->name('home');
+
+Route::get('/filtering', [SearchApiController::class, 'getSpotList'])->name(
+    'home.filtered',
+);
+
 // 公開ページ（ログイン不要）
 Route::get('/post', function () {
     return view('post');

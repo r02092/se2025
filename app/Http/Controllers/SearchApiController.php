@@ -18,15 +18,15 @@ class SearchApiController extends Controller
         $spots = Spot::all();
 
         // カテゴリが指定されている場合、カテゴリに基づいてフィルタリング
-        if ($type) {
-            $spots = $spots->filter(function ($spot) {
+        if (isset($type)) {
+            $spots = $spots->filter(function ($spot) use ($type) {
                 return $spot->type === $type;
             });
         }
 
         //キーワードが指定されている場合、キーワードに基づいてフィルタリング
-        if ($keyword) {
-            $spots = $spots->filter(function ($spot) {
+        if (isset($keyword)) {
+            $spots = $spots->filter(function ($spot) use ($keyword) {
                 return $spot->keywords->contains('keyword', $keyword);
             });
         }
