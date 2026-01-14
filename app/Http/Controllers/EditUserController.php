@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Validation\Rule;
 
 /**
  * MA05: 利用者編集画面構成モジュール
