@@ -42,26 +42,32 @@ class SearchController extends Controller
      */
     public function search(Request $request, SearchApiController $api)
     {
-        // 1. フォームの入力値を取得
-        $destination = $request->input('destination'); // 画面の入力欄は "destination"
+        // 1. 入力値の取得
+        $destination = $request->input('destination');
         $departure = $request->input('departure');
 
-        // 2. APIコントローラー用のリクエストを作成
-        // SearchApiController は "keyword" という名前で入力を待っているので、名前を合わせます
+        // ▼▼▼ 修正: 出発地の存在チェックを復活 ▼▼▼
+        $departureNotFound = false; // 初期値は「見つかった（エラーなし）」
+
+        // 出発地が入力されている場合だけチェックする
+        if ($departure) {
+            // 名前で検索して、1件もなければエラーフラグを立てる
+            $exists = Spot::where('name', 'like', "%{$departure}%")->exists();
+            if (!$exists) {
+                $departureNotFound = true;
+            }
+        }
+        // ▲▲▲ 修正ここまで ▲▲▲
+
+        // 2. APIコントローラーを使って「目的地」を検索
         $apiRequest = Request::create('/api/filtering', 'GET', [
-            'keyword' => $destination, // destination を keyword として渡す
-            // 'type' => ... 必要ならここに追加
+            'keyword' => $destination,
         ]);
 
-        // 3. APIコントローラーのメソッドをそのまま呼び出す
-        // 書き換えられない SearchApiController::getSpotList() を実行します
         $response = $api->getSpotList($apiRequest);
+        $spotsData = $response->getData(); // 検索結果の取得
 
-        // 4. 返ってきた JSON データを取り出す
-        $spotsData = $response->getData(); // JSONをPHPのオブジェクト配列に変換
-
-        // 5. ランキング集計のために履歴を保存
-        // (API側には保存機能がないため、ここで保存します)
+        // 3. 履歴保存 (ランキング用)
         if (count($spotsData) > 0) {
             foreach ($spotsData as $spot) {
                 DB::table('queries')->insert([
@@ -73,13 +79,12 @@ class SearchController extends Controller
             }
         }
 
-        // 6. 画面 (ビュー) にデータを渡す
-        // APIからのデータは配列になっているので、ビュー側で使いやすいように調整して渡します
+        // 4. ビューへ渡す
         return view('search.index', [
             'departure' => $departure,
             'destination' => $destination,
-            'spots' => $spotsData, // APIが見つけたスポット一覧
-            'departureNotFound' => false, // 簡易化のため一旦false
+            'spots' => $spotsData,
+            'departureNotFound' => $departureNotFound, // ★計算した結果を渡す
         ]);
     }
 }
