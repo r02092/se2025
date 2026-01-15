@@ -60,7 +60,3 @@
 	</article>
 </template>
 @endsection
-
-@push('scripts')
-<script src="{{ asset('js/post.js') }}"></script>
-@endpush
