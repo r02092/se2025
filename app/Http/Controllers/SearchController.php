@@ -86,7 +86,7 @@ class SearchController extends Controller
         // (resources/views/search/index.blade.php を表示します)
         return view(
             'search.index',
-            compact('departure', 'destination', 'spots'),
+            compact('departure', 'destination', 'spots', 'departureNotFound'),
         );
     }
 }
