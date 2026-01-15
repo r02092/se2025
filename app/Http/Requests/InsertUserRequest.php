@@ -10,7 +10,7 @@ class InsertUserRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return Auth::user()->permission === 0;
+        return true;
     }
 
     public function rules(): array
