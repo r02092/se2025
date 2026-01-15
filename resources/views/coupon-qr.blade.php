@@ -4,65 +4,65 @@
 
 @section('content')
 <main class="main-area qr-page" role="main">
-    <div class="coupon-titlebar">
-        <h1>クーポン</h1>
-    </div>
+	<div class="coupon-titlebar">
+		<h1>クーポン</h1>
+	</div>
 
-    <!-- HERO（上部の大きな画像） -->
-    <section class="hero">
-        <img src="{{ asset('images/ryugado.jpg') }}" alt="Harimaya Bridge" class="hero-img" />
-    </section>
+	<!-- HERO（上部の大きな画像） -->
+	<section class="hero">
+		<img src="{{ asset('images/ryugado.jpg') }}" alt="Harimaya Bridge" class="hero-img" />
+	</section>
 
-    <!-- クーポン詳細（背景に直接描画するスタイル） -->
-    <article class="coupon-detail">
-        <h1 class="coupon-detail-title">{{ $coupon->title ?? '龍河洞入場割引' }}</h1>
-        <p class="coupon-detail-desc">
-            {{ $coupon->description ?? '入場料100円引き。スタッフに画面を見せてください。' }}
-        </p>
-        <div class="coupon-detail-meta">
-            <span class="coupon-tag">{{ $coupon->category ?? '観光' }}</span>
-            <span class="coupon-exp">〜{{ $coupon->expiry_date ?? '2025/06/30' }}</span>
-        </div>
-        <!-- 必要に応じて追記する本文行など -->
-        <p class="coupon-more">
-            このクーポンはウェブ限定の割引です。提示はスタッフに画面を見せて確認してください。
-        </p>
-    </article>
+	<!-- クーポン詳細（背景に直接描画するスタイル） -->
+	<article class="coupon-detail">
+		<h1 class="coupon-detail-title">{{ $coupon->title ?? '龍河洞入場割引' }}</h1>
+		<p class="coupon-detail-desc">
+			{{ $coupon->description ?? '入場料100円引き。スタッフに画面を見せてください。' }}
+		</p>
+		<div class="coupon-detail-meta">
+			<span class="coupon-tag">{{ $coupon->category ?? '観光' }}</span>
+			<span class="coupon-exp">〜{{ $coupon->expiry_date ?? '2025/06/30' }}</span>
+		</div>
+		<!-- 必要に応じて追記する本文行など -->
+		<p class="coupon-more">
+			このクーポンはウェブ限定の割引です。提示はスタッフに画面を見せて確認してください。
+		</p>
+	</article>
 
-    <!-- 下部固定の大きなスライダー（枠いっぱい、内部に背景と文言） -->
-    <div class="coupon-use-slider" aria-hidden="false">
-        <div class="slider-track" aria-hidden="true">
-            <div class="slider-label" aria-hidden="true">クーポン 利用中</div>
-        </div>
-    </div>
+	<!-- 下部固定の大きなスライダー（枠いっぱい、内部に背景と文言） -->
+	<div class="coupon-use-slider" aria-hidden="false">
+		<div class="slider-track" aria-hidden="true">
+			<div class="slider-label" aria-hidden="true">クーポン 利用中</div>
+		</div>
+	</div>
 </main>
 
 <!-- オーバーレイ（ポップアップ用） -->
 <div id="qr-overlay" class="qr-overlay" aria-hidden="true">
-    <div
-        class="qr-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="qr-modal-title"
-    >
-        <button class="qr-modal-close" aria-label="閉じる">&times;</button>
-        <h2 id="qr-modal-title" class="qr-modal-title">{{ $coupon->title ?? '龍河洞 入場割引' }}</h2>
-        <p class="qr-modal-sub">
-            こちらの二次元コードをスタッフにご提示ください
-        </p>
-        <div class="qr-modal-image">
-            <img
-                src="{{ asset('images/coupon-code.gif') }}"
-                alt="クーポンQRコード"
-                style="image-rendering: pixelated"
-            />
-        </div>
-        <p class="qr-modal-hint">
-            この画面をスタッフに見せて割引を受けてください。
-        </p>
-        <div class="qr-modal-actions">
-            <a class="qr-modal-close-btn" href="{{ route('coupon.show', $coupon->id ?? 1) }}">閉じる</a>
-        </div>
-    </div>
+	<div
+		class="qr-modal"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="qr-modal-title"
+	>
+		<button class="qr-modal-close" aria-label="閉じる">&times;</button>
+		<h2 id="qr-modal-title" class="qr-modal-title">{{ $coupon->title ?? '龍河洞 入場割引' }}</h2>
+		<p class="qr-modal-sub">
+			こちらの二次元コードをスタッフにご提示ください
+		</p>
+		<div class="qr-modal-image">
+			<img
+				src="{{ asset('images/coupon-code.gif') }}"
+				alt="クーポンQRコード"
+				style="image-rendering: pixelated"
+			/>
+		</div>
+		<p class="qr-modal-hint">
+			この画面をスタッフに見せて割引を受けてください。
+		</p>
+		<div class="qr-modal-actions">
+			<a class="qr-modal-close-btn" href="{{ route('coupon.show', $coupon->id ?? 1) }}">閉じる</a>
+		</div>
+	</div>
 </div>
 @endsection
