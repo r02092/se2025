@@ -16,17 +16,18 @@ class InsertUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login_name' => ['required', 'string', 'max:255', 'unique:users,login_name'],
-            'password'   => ['required', 'string', 'min:8', 'confirmed'], // confirmed: password_confirmation と一致を確認
-            'name'       => ['required', 'string', 'max:255'],
-            'permission' => [
+            'login_name' => [
                 'required',
-                'integer',
-                Rule::in([0, 1, 2]), 
+                'string',
+                'max:255',
+                'unique:users,login_name',
             ],
+            'password' => ['required', 'string', 'min:8', 'confirmed'], // confirmed: password_confirmation と一致を確認
+            'name' => ['required', 'string', 'max:255'],
+            'permission' => ['required', 'integer', Rule::in([0, 1, 2])],
             // 住所情報は任意
             'postal_code' => ['nullable', 'integer', 'digits:7'],
-            'addr_city'   => ['nullable', 'integer'],
+            'addr_city' => ['nullable', 'integer'],
             'addr_detail' => ['nullable', 'string', 'max:255'],
         ];
     }
