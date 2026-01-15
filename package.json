@@ -40,7 +40,10 @@
     "bracketSpacing": false,
     "overrides": [
       {
-        "files": "*.php",
+        "files": [
+          "*.php",
+          "artisan"
+        ],
         "options": {
           "singleQuote": true
         }
