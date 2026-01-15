@@ -150,7 +150,7 @@ Route::middleware(['auth'])
         })->name('admin');
 
         Route::get('/users', [UserListController::class, 'index'])->name(
-            'admin.users'
+            'admin.users',
         );
 
         Route::get('/ugc', function () {
