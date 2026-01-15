@@ -16,11 +16,7 @@ class InsertUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login_name' => [
-                'required',
-                'integer',
-                'in:0,1,2', 
-            ],
+            'login_name' => ['required', 'integer', 'in:0,1,2'],
             'password' => ['required', 'string', 'min:8', 'confirmed'], // confirmed: password_confirmation と一致を確認
             'name' => ['required', 'string', 'max:255'],
             'permission' => ['required', 'integer', Rule::in([0, 1, 2])],
