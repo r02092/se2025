@@ -9,14 +9,14 @@
     {{-- 検索条件の表示 --}}
     <div class="bg-white shadow rounded-lg p-6 mb-6" style="background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1);">
         <p style="margin-bottom:10px;">
-            <span style="font-weight:bold; color:#555;">出発地:</span> {{ $departure ?: '現在地' }}
+            <span style="font-weight:bold; color:#555;">出発地:</span> {{ $departure ?: '指定なし' }}
         </p>
         <p style="margin-bottom:0;">
             <span style="font-weight:bold; color:#555;">目的地:</span> <span style="font-size:1.2rem; font-weight:bold;">{{ $destination }}</span>
         </p>
     </div>
 
-	{{-- ★追加: 出発地が見つからなかった場合のエラー表示 --}}
+    {{-- 出発地が見つからなかった場合のエラー表示 --}}
     @if(isset($departureNotFound) && $departureNotFound)
         <div style="padding:15px; background:#fff3cd; color:#856404; border-radius:8px; margin-bottom:20px; border:1px solid #ffeeba;">
             <strong>注意:</strong> 出発地「{{ $departure }}」に一致するスポットが見つかりませんでした。<br>
@@ -31,16 +31,17 @@
         <ul style="list-style:none; padding:0;">
             @foreach($spots as $spot)
                 <li style="background:#fff; padding:15px; margin-bottom:15px; border-radius:8px; border:1px solid #eee; display:flex; gap:15px;">
-                    {{-- 画像 --}}
+                    {{-- 画像表示 --}}
                     <img src="{{ asset($spot->image_path ?? 'images/no_image.jpg') }}"
                          alt="{{ $spot->name }}"
                          style="width:100px; height:100px; object-fit:cover; border-radius:8px; background:#eee;"
                          onerror="this.src='https://placehold.jp/150x150.png?text=No+Image'">
 
-                    {{-- 詳細 --}}
                     <div>
                         <h4 style="font-weight:bold; font-size:1.1rem; color:#16a34a;">{{ $spot->name }}</h4>
-                        <p style="font-size:0.9rem; color:#666; margin:5px 0;">{{ $spot->description ?? '詳細情報はありません。' }}</p>
+                        <p style="font-size:0.9rem; color:#666; margin:5px 0;">{{ $spot->description ?? '詳細なし' }}</p>
+
+                        {{-- ルート案内へのリンク例（機能はまだですがボタンだけ置いておけます） --}}
                         <a href="#" style="color:#16a34a; text-decoration:underline; font-size:0.9rem;">ルート案内を開始する</a>
                     </div>
                 </li>
