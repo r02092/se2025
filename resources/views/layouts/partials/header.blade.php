@@ -2,13 +2,13 @@
     <div class="title">
         <img src="{{ asset('images/logo_white.svg') }}" width="90" alt="SceneTrip" />
     </div>
-    <div class="hamburger">
+    <!-- <div class="hamburger">
         <div class="hamburger-bars">
             <div class="bar"></div>
             <div class="bar"></div>
             <div class="bar"></div>
         </div>
-    </div>
+    </div> -->
     <div class="header-login">
         @auth
             <a href="{{ route('profile') }}" class="header-profile" title="プロフィールを表示">
