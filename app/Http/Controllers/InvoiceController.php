@@ -44,7 +44,8 @@ class InvoiceController extends Controller
         $pdf->Cell(156, 6, date('Y年n月j日'), 0, 2, 'R');
         $pdf->SetFontSize(16);
         $pdf->SetXY(90, 96);
-        $pdf->Write(10, '¥ 5,500');
+        $total = ($user->num_plan_std * 3 + $user->num_plan_prm * 5) * 1000;
+        $pdf->Write(10, '¥ ' . number_format($total * 1.1));
         $pdf->SetFontSize(10.5);
         $pdf->SetXY(27, 116.4);
         if ($user->num_plan_prm) {
@@ -73,7 +74,6 @@ class InvoiceController extends Controller
                 'R',
             );
         }
-        $total = ($user->num_plan_std * 3 + $user->num_plan_prm * 5) * 1000;
         $pdf->SetXY(27, 209.4);
         $pdf->Cell(155, 6.2, '¥ ' . number_format($total), 0, 2, 'R');
         $pdf->Cell(155, 6.2, '¥ ' . number_format($total / 10), 0, 2, 'R');

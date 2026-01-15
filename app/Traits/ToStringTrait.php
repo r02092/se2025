@@ -1985,7 +1985,7 @@ trait ToStringTrait
             5 => '公共施設',
             6 => '公共交通機関',
             255 => 'その他',
-        ][$type] ?? '不明';
+        ][$type];
     }
     public function postalCodeToString($postalCode)
     {
@@ -1995,12 +1995,13 @@ trait ToStringTrait
                 '-',
                 3,
                 0,
-            ) ??
-            '不明';
+            );
     }
     public function cityToString($city)
     {
-        return $this->prefs[intdiv($city, 1000)] . $this->cities[$city] ??
-            '不明';
+        if ($city) {
+            return $this->prefs[intdiv($city, 1000)] . $this->cities[$city];
+        }
+        return '不明';
     }
 }
