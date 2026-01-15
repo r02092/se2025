@@ -10,13 +10,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-use Illuminate\Http\Request;
-
 class SubscriptionController extends Controller
 {
     public function create(): View
     {
-        return view('subscription-from');
+        return view('subscription-form');
     }
 
     public function store(Request $request): RedirectResponse
