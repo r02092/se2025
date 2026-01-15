@@ -5,8 +5,6 @@
 	<title>@yield('title', 'SceneTrip')</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	@vite(['resources/css/app.css', 'resources/ts/app.ts'])
-	@yield('styles') <!-- MapLibre用に必要 -->
-	@stack('styles') <!-- MapLibre用に必要 -->
 </head>
 <body>
 	<div class="container">
