@@ -22,7 +22,7 @@ body {
 	margin: 0;
 	box-sizing: border-box;
 	border-radius: 0;
-	height: 100vh;
+	height: auto;
 }
 .general-box {
 	background: #fff;
