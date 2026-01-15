@@ -12,11 +12,11 @@ class InsertUserController extends Controller
     {
         return view('admin.users.create');
     }
-    public function store(Request $requst)
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'login_name' => ['required', 'string', 'max:255', 'unique:users'],
-            'password' => ['requrired', 'string', 'min:8'],
+            'password' => ['required', 'string', 'min:8'],
             'name' => ['required', 'string', 'max:255'],
             'permission' => [
                 'required',
@@ -27,8 +27,8 @@ class InsertUserController extends Controller
                     User::PERMISSION_BUSINESS,
                 ]),
             ],
-            'postal_code' => ['nullable', 'intager'],
-            'address' => ['nullable', 'intager'],
+            'postal_code' => ['nullable', 'integer'],
+            'address' => ['nullable', 'integer'],
             'addr_detail' => ['nullable', 'string'],
         ]);
         User::create([
