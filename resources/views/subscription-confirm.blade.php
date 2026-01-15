@@ -2,10 +2,6 @@
 
 @section('title', '事業者申込確定')
 
-@section('styles')
-<link rel="stylesheet" href="{{ asset('css/subscription-confirm.css') }}">
-@endsection
-
 @section('content')
 <div class="main-area">
     <div class="general-box subscription-confirm-container">

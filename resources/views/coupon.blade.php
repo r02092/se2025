@@ -2,10 +2,6 @@
 
 @section('title', 'SceneTrip - クーポン')
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/coupon.css') }}" />
-@endpush
-
 @section('content')
 <h1>クーポン</h1>
 

@@ -2,10 +2,6 @@
 
 @section('title', 'クーポン')
 
-@section('styles')
-<link rel="stylesheet" href="{{ asset('css/coupon-selected.css') }}">
-@endsection
-
 @section('content')
 <div class="main-area">
     <div class="coupon-titlebar">

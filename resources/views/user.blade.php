@@ -2,10 +2,6 @@
 
 @section('title', 'SceneTrip - ユーザー一覧')
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/coupon.css') }}" />
-@endpush
-
 @section('content')
 <h1>ユーザー一覧</h1>
 <section class="coupon-list">

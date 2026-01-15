@@ -2,10 +2,6 @@
 
 @section('title', 'SceneTrip - APIキー')
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/coupon.css') }}" />
-@endpush
-
 @section('content')
 <h1>APIキー</h1>
 <div class="general-box form-container" style="margin: 0 auto 20px">

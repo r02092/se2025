@@ -2,11 +2,6 @@
 
 @section('title', 'SceneTrip - フォト')
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/post.css') }}" />
-<link href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css" rel="stylesheet" />
-@endpush
-
 @section('content')
 <!-- グラデーション トップ -->
 <div class="gradient-top"></div>

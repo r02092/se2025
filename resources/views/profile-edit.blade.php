@@ -2,11 +2,6 @@
 
 @section('title', 'プロフィール編集')
 
-@section('styles')
-<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
-<link rel="stylesheet" href="{{ asset('css/profile-edit.css') }}">
-@endsection
-
 @section('content')
 <div class="main-area">
     <div class="general-box profile-edit-container">

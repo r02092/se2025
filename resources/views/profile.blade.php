@@ -2,10 +2,6 @@
 
 @section('title', 'SceneTrip - プロフィール')
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/profile.css') }}" />
-@endpush
-
 @section('content')
 <div class="general-box profile-container">
     <h2>プロフィール</h2>

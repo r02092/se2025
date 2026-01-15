@@ -2,11 +2,6 @@
 
 @section('title', 'SceneTrip - ユーザー詳細')
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/coupon.css') }}" />
-<link rel="stylesheet" href="{{ asset('css/post.css') }}" />
-@endpush
-
 @section('content')
 <div class="post-titlebar">
     <h1>ユーザー詳細</h1>

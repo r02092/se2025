@@ -2,10 +2,6 @@
 
 @section('title', 'SceneTrip - 投稿')
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/post.css') }}" />
-@endpush
-
 @section('content')
 <div class="post-titlebar">
     <h1>UGC監視・管理</h1>

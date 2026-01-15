@@ -2,11 +2,6 @@
 
 @section('title', 'SceneTrip - スポット編集')
 
-@push('styles')
-<link href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css" rel="stylesheet" />
-<link rel="stylesheet" href="{{ asset('css/coupon.css') }}" />
-@endpush
-
 @section('content')
 <h1>スポット編集</h1>
 <section class="coupon-list">

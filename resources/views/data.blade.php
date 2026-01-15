@@ -2,11 +2,6 @@
 
 @section('title', 'SceneTrip - 観光データ')
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/home.css') }}" />
-<link href="https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css" rel="stylesheet" />
-@endpush
-
 @section('content')
 <h1>観光データ</h1>
 

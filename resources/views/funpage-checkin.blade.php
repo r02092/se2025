@@ -2,11 +2,6 @@
 
 @section('title', 'お楽しみ機能')
 
-@section('styles')
-<link rel="stylesheet" href="{{ asset('css/funpage.css') }}">
-<link rel="stylesheet" href="{{ asset('css/funpage-checkin.css') }}">
-@endsection
-
 @section('content')
 <div class="main-area">
     <h1>お楽しみ機能</h1>

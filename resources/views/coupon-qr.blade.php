@@ -2,10 +2,6 @@
 
 @section('title', 'クーポンQR')
 
-@section('styles')
-<link rel="stylesheet" href="{{ asset('css/coupon-QR.css') }}">
-@endsection
-
 @section('content')
 <main class="main-area qr-page" role="main">
     <div class="coupon-titlebar">

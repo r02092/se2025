@@ -2,10 +2,6 @@
 
 @section('title', '事業者申込フォーム')
 
-@section('styles')
-<link rel="stylesheet" href="{{ asset('css/subscription-form.css') }}">
-@endsection
-
 @section('content')
 <div class="main-area">
     <div class="general-box subscription-form-container">
