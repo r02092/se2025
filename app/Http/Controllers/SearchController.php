@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Spot;
-use use Illuminate\Http\Request; // 追加: リクエスト取得用
+use Illuminate\Http\Request; // 追加: リクエスト取得用
 
 class SearchController extends Controller
 {
@@ -42,7 +42,7 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         // 1. 入力値の取得
-        $departure = $request->input('departure');     // 出発地
+        $departure = $request->input('departure'); // 出発地
         $destination = $request->input('destination'); // 目的地（検索ワード）
 
         // バリデーション
@@ -68,6 +68,9 @@ class SearchController extends Controller
 
         // 4. 検索結果ビューを表示
         // (resources/views/search/index.blade.php を表示します)
-        return view('search.index', compact('departure', 'destination', 'spots'));
+        return view(
+            'search.index',
+            compact('departure', 'destination', 'spots'),
+        );
     }
 }
