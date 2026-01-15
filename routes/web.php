@@ -171,6 +171,5 @@ Route::middleware(['auth'])
     });
 
 // 検索
-Route::get('/search', function () {
-    return view('search');
-})->name('search');
+// SearchControllerのsearchメソッドを使って検索を実行し、履歴を保存します
+Route::get('/search', [SearchController::class, 'search'])->name('search');
