@@ -16,6 +16,14 @@
         </p>
     </div>
 
+	{{-- ★追加: 出発地が見つからなかった場合のエラー表示 --}}
+    @if(isset($departureNotFound) && $departureNotFound)
+        <div style="padding:15px; background:#fff3cd; color:#856404; border-radius:8px; margin-bottom:20px; border:1px solid #ffeeba;">
+            <strong>注意:</strong> 出発地「{{ $departure }}」に一致するスポットが見つかりませんでした。<br>
+            <span style="font-size:0.9rem;">※ 正しい名称を入力するか、現在地を利用してください。</span>
+        </div>
+    @endif
+
     {{-- 検索結果リスト --}}
     @if(isset($spots) && count($spots) > 0)
         <h3 style="font-size:1.1rem; font-weight:bold; margin-bottom:10px;">見つかったスポット</h3>
