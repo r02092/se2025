@@ -22,7 +22,7 @@ class InsertUserRequest extends FormRequest
             'permission' => [
                 'required',
                 'integer',
-                Rule::in([0, 1, 2]), 
+                'in:0,1,2', 
             ],
             // 住所情報は任意
             'postal_code' => ['nullable', 'integer', 'digits:7'],
