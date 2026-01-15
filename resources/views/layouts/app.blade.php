@@ -9,14 +9,9 @@
 <body>
 	<div class="container">
 		@include('layouts.partials.header')
-
 		@yield('content')
-
 		@include('layouts.partials.bottom-bar')
-
-
 	</div>
-
 	@yield('scripts')
 	@stack('scripts')
 </body>
