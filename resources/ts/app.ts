@@ -7,11 +7,6 @@ document.addEventListener("DOMContentLoaded", (): void => {
 		import("./home");
 	}
 
-	// Post page
-	if (pathname === "/post") {
-		import("./post");
-	}
-
 	// Coupon QR detail page (must check before general coupon check)
 	if (/\/coupon\/\d+\/qr/.test(pathname)) {
 		import("./coupon_qr");
