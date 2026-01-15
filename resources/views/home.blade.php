@@ -29,24 +29,35 @@
     <div class="spot-divider" aria-hidden="true"></div>
 
     <ul class="spot-list" aria-label="人気のスポット一覧">
-        <li class="spot-item">
-            <img class="spot-thumb" src="{{ asset('images/Harimaya_Bridge.jpg') }}" alt="はりまや橋" />
-            <div class="spot-content">
-                <h3 class="spot-title">はりまや橋</h3>
-            </div>
-        </li>
-        <li class="spot-item">
-            <img class="spot-thumb" src="{{ asset('images/post-station.jpg') }}" alt="土佐山田駅" />
-            <div class="spot-content">
-                <h3 class="spot-title">土佐山田駅</h3>
-            </div>
-        </li>
-        <li class="spot-item">
-            <img class="spot-thumb" src="{{ asset('images/ryugado.jpg') }}" alt="龍河洞" />
-            <div class="spot-content">
-                <h3 class="spot-title">龍河洞</h3>
-            </div>
-        </li>
+
+        {{-- コントローラーから $spots データが渡ってきているかチェック --}}
+        @if(isset($spots) && count($spots) > 0)
+            @foreach($spots as $spot)
+                <li class="spot-item">
+                    {{-- 画像パスがあればそれを、なければデフォルト画像（例:はりまや橋）を表示 --}}
+                    <img class="spot-thumb"
+                         src="{{ asset($spot->image_path ?? 'images/Harimaya_Bridge.jpg') }}"
+                         alt="{{ $spot->name }}"
+                         {{-- 画像読み込み失敗時のフォールバック --}}
+                         onerror="this.src='{{ asset('images/Harimaya_Bridge.jpg') }}'" />
+
+                    <div class="spot-content">
+                        <h3 class="spot-title">{{ $spot->name }}</h3>
+                        {{-- 検索回数を表示したい場合はコメントアウトを外してください --}}
+                        {{-- <p style="font-size:0.8rem; color:#16a34a;">検索数: {{ $spot->search_count }}回</p> --}}
+                    </div>
+                </li>
+            @endforeach
+        @else
+            {{-- データがまだ1件もない場合の表示 --}}
+            <li class="spot-item">
+                <div class="spot-content">
+                    <h3 class="spot-title">データ集計中...</h3>
+                    <p>いろいろな場所を検索してみてください。</p>
+                </div>
+            </li>
+        @endif
+
     </ul>
 </div>
 
