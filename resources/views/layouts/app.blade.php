@@ -12,7 +12,5 @@
 		@yield('content')
 		@include('layouts.partials.bottom-bar')
 	</div>
-	@yield('scripts')
-	@stack('scripts')
 </body>
 </html>
