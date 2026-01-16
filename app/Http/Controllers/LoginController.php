@@ -52,7 +52,7 @@ class LoginController extends Controller
         return redirect()->intended(route('home'));
     }
 
-    // Google 認証ページへリダイレクト 
+    // Google 認証ページへリダイレクト
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
@@ -63,7 +63,11 @@ class LoginController extends Controller
         try {
             $socialUser = Socialite::driver('google')->user();
         } catch (\Exception $e) {
-            return redirect()->route('login')->withErrors(['login_name' => 'Googleログインに失敗しました。']);
+            return redirect()
+                ->route('login')
+                ->withErrors([
+                    'login_name' => 'Googleログインに失敗しました。',
+                ]);
         }
 
         $user = User::where('email', $soclialUser->getEmail())
@@ -82,10 +86,7 @@ class LoginController extends Controller
                 'email' => $socialUser->getEmail(),
                 'login_name' => $socialUser->getEmail(),
                 'google_id' => $socialUser->getId(),
-                'password' => password_hash(
-                    Str::radom(16),
-                    PASSWORD_ARGON2ID,
-                ),
+                'password' => password_hash(Str::radom(16), PASSWORD_ARGON2ID),
                 'provider' => 1,
             ]);
             Auth::login($user);
