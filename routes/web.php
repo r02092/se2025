@@ -50,6 +50,15 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name(
     'login.post',
 );
 
+Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name(
+    'login.google',
+);
+
+Route::get('auth/google/callback', [
+    LoginController::class,
+    'handleGoogleCallback',
+]);
+
 Route::get('/signup', function () {
     return view('signup');
 })->name('signup');
