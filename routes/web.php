@@ -11,6 +11,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\SearchApiController;
 use App\Http\Controllers\PostMapController;
 use App\Http\Controllers\UserListController;
+use App\Http\Controllers\AdminUgcController;
 
 // ホームページ(MC00:人気スポットロジックを使用)
 Route::get('/', [SearchController::class, 'index'])->name('home');
@@ -159,9 +160,12 @@ Route::middleware(['auth'])
             'admin.users',
         );
 
-        Route::get('/ugc', function () {
-            return view('admin.ugc');
-        })->name('admin.ugc');
+        Route::get('/ugc/{page}', [AdminUgcController::class, 'get'])->name(
+            'admin.ugc',
+        );
+        Route::post('/ugc/delete', [AdminUgcController::class, 'post'])->name(
+            'admin.ugc.del',
+        );
 
         Route::get('/spots', function () {
             return view('admin.spots');
@@ -177,6 +181,5 @@ Route::middleware(['auth'])
     });
 
 // 検索
-Route::get('/search', function () {
-    return view('search');
-})->name('search');
+// SearchControllerのsearchメソッドを使って検索を実行し、履歴を保存します
+Route::get('/search', [SearchController::class, 'search'])->name('search');

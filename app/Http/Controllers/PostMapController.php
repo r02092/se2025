@@ -10,6 +10,6 @@ class PostMapController extends Controller
     {
         // 仮に全部送信
         $posts = Photo::all();
-        return view('post', ['posts' => $posts]);
+        return view('photo', ['posts' => $posts]);
     }
 }
