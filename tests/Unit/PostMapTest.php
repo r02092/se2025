@@ -13,7 +13,7 @@ class PostMapTest extends TestCase
         // ステータスコードが正常か
         $response->assertStatus(200);
         // 正しいBladeファイルを使っているか
-        $response->assertViewIs('post');
+        $response->assertViewIs('photo');
         // Viewにpostsという変数が渡されているか
         $response->assertViewHas('posts');
     }

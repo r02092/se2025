@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", (): void => {
 
 	// Post page
 	if (pathname === "/post") {
-		import("./post");
+		import("./photo");
 	}
 
 	// Coupon QR detail page (must check before general coupon check)

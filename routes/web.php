@@ -55,6 +55,15 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name(
     'login.post',
 );
 
+Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name(
+    'login.google',
+);
+
+Route::get('auth/google/callback', [
+    LoginController::class,
+    'handleGoogleCallback',
+]);
+
 Route::get('/signup', function () {
     return view('signup');
 })->name('signup');
@@ -159,9 +168,12 @@ Route::middleware(['auth'])
             'admin.users',
         );
 
-        Route::get('/ugc', function () {
-            return view('admin.ugc');
-        })->name('admin.ugc');
+        Route::get('/ugc/{page}', [AdminUgcController::class, 'get'])->name(
+            'admin.ugc',
+        );
+        Route::post('/ugc/delete', [AdminUgcController::class, 'post'])->name(
+            'admin.ugc.del',
+        );
 
         Route::get('/spots', function () {
             return view('admin.spots');
@@ -177,6 +189,5 @@ Route::middleware(['auth'])
     });
 
 // 検索
-Route::get('/search', function () {
-    return view('search');
-})->name('search');
+// SearchControllerのsearchメソッドを使って検索を実行し、履歴を保存します
+Route::get('/search', [SearchController::class, 'search'])->name('search');

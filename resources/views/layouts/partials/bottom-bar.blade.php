@@ -1,7 +1,7 @@
 <div class="bottom-bar">
-    <nav class="bottom-menu">
-        <a href="{{ route('home') }}" class="bottom-btn">
-            <svg
+	<nav class="bottom-menu">
+		<a href="{{ route('home') }}" class="bottom-btn">
+			<svg
 				class="bottom-icon"
 				viewBox="0 0 132.29166 132.29167"
 				aria-hidden="true"
@@ -22,11 +22,11 @@
 					/>
 				</g>
 			</svg>
-            <span class="bottom-label">ホーム</span>
-        </a>
+			<span class="bottom-label">ホーム</span>
+		</a>
 
-        <a href="{{ route('post') }}" class="bottom-btn">
-            <svg class="bottom-icon" viewBox="0 0 512 512" aria-hidden="true">
+		<a href="{{ route('post') }}" class="bottom-btn">
+			<svg class="bottom-icon" viewBox="0 0 512 512" aria-hidden="true">
 				<g>
 					<path
 						fill="#000"
@@ -42,11 +42,11 @@
 					/>
 				</g>
 			</svg>
-            <span class="bottom-label">投稿</span>
-        </a>
+			<span class="bottom-label">投稿</span>
+		</a>
 
-        <a href="{{ route('coupon') }}" class="bottom-btn">
-            <svg class="bottom-icon" viewBox="0 0 512 512" aria-hidden="true">
+		<a href="{{ route('coupon') }}" class="bottom-btn">
+			<svg class="bottom-icon" viewBox="0 0 512 512" aria-hidden="true">
 				<g
 					transform="matrix(0.83914572,0,0,0.83914572,82.357385,138.68221)"
 				>
@@ -71,11 +71,11 @@
 					/>
 				</g>
 			</svg>
-            <span class="bottom-label">クーポン</span>
-        </a>
+			<span class="bottom-label">クーポン</span>
+		</a>
 
-        <a href="{{ route('funpage') }}" class="bottom-btn">
-            <svg class="bottom-icon" viewBox="0 0 13.229166 13.229167">
+		<a href="{{ route('funpage') }}" class="bottom-btn">
+			<svg class="bottom-icon" viewBox="0 0 13.229166 13.229167">
 				<g transform="translate(-1.6666667e-7,0.58949768)">
 					<path
 						style="fill: #000000"
@@ -91,7 +91,7 @@
 					/>
 				</g>
 			</svg>
-            <span class="bottom-label">お楽しみ機能</span>
-        </a>
-    </nav>
+			<span class="bottom-label">お楽しみ機能</span>
+		</a>
+	</nav>
 </div>
