@@ -12,6 +12,7 @@ use App\Http\Controllers\SearchApiController;
 use App\Http\Controllers\PostMapController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\AdminUgcController;
+use App\Http\Controllers\TermsController;
 
 // ホームページ(MC00:人気スポットロジックを使用)
 Route::get('/', [SearchController::class, 'index'])->name('home');
@@ -42,6 +43,8 @@ Route::get('/funpage', function () {
 Route::get('/funpage/checkin', function () {
     return view('funpage-checkin');
 })->name('funpage.checkin');
+
+Route::get('/terms', [TermsController::class, 'index'])->name('terms');
 
 // 認証関連
 Route::get('/login', [LoginController::class, 'index'])->name('login');

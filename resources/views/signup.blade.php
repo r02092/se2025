@@ -6,7 +6,7 @@
 <div class="main-area">
 	<div class="general-box form-container">
 		<h2>アカウント作成</h2>
-		<form method="POST">
+		<form method="POST" action="{{ route('signup.post') }}">
 			@csrf
 			<label for="name">表示名<span class="form-detail">（1文字以上255文字以下の文字列）</span></label>
 			<input type="text" id="name" name="name" required />
@@ -24,6 +24,16 @@
 				name="password_confirm"
 				required
 			/>
+
+			<div class="terms-check" style="margin: 20px 0;">
+				<label style="display: flex; align-items: center; cursor: pointer;">
+					<input type="checkbox" name="agree_terms" required style="width: auto; margin-right: 10px;">
+					<span>
+						<a href="{{ route('terms') }}" target="_blank" style="text-decoration: underline; color: #007bff;">利用規約</a>
+						に同意して登録する
+					</span>
+				</label>
+			</div>
 
 			<button type="submit">アカウント作成</button>
 		</form>
