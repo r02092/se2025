@@ -44,9 +44,7 @@ Route::get('/funpage/checkin', function () {
     return view('funpage-checkin');
 })->name('funpage.checkin');
 
-Route::get('/terms', [TermsController::class, 'index'])->name(
-    'terms'
-);
+Route::get('/terms', [TermsController::class, 'index'])->name('terms');
 
 // 認証関連
 Route::get('/login', [LoginController::class, 'index'])->name('login');
