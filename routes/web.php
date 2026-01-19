@@ -118,7 +118,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/subscription', [
         SubscriptionController::class,
         'store',
-    ])->name('Subscription.store');
+    ])->name('subscription.store');
     Route::get('/subscription/confirm', [
         SubscriptionController::class,
         'confirm',
