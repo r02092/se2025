@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", (): void => {
 	}
 
 	// Post page
-	if (pathname === "/post") {
+	if (pathname === "/photo") {
 		import("./photo");
 	}
 
