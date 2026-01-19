@@ -18,7 +18,6 @@
 				<label for="departure" style="font-weight:bold;">出発地</label>
 				{{-- ★追加: ユーザーへのヒントメッセージ --}}
 				<span style="font-size: 0.8rem; color: #666; margin-left: 5px;">
-					(※現在地の場合は空欄)
 				</span>
 
 				<input type="text" id="departure" name="departure" placeholder="例: 高知駅"
@@ -26,8 +25,8 @@
 			</div>
 
 			<div style="margin-bottom: 15px;">
-				<label for="destination" style="font-weight:bold;">到着地</label>
-				<input type="text" id="destination" name="destination" placeholder="例: 桂浜"
+				<label for="destination" style="font-weight:bold;">目的地</label>
+				<input type="text" id="destination" name="destination" placeholder="作品名・地名はここに入力してください"
 					   style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px; margin-top:5px;" required />
 			</div>
 
