@@ -847,11 +847,12 @@ h1 {
 }
 .comment-send {
 	padding: 8px 10px;
-	background: #14b888;
+	background: #f22727;
 	color: #fff;
 	border: 0;
 	border-radius: 8px;
 	cursor: pointer;
+	margin-top: 16px;
 }
 
 /* ==== profile.css ==== */

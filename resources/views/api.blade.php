@@ -21,7 +21,7 @@
 			<form method="POST">
 				@csrf
 				<input type="hidden" name="delete_id" value="{{ $apiKey->id }}">
-				<button type="submit" class="comment-send" style="background: #f22727; margin-top: 16px"
+				<button type="submit" class="comment-send"
 						onclick="return confirm('このAPIキーを削除しますか?')">
 					削除
 				</button>

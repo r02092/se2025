@@ -44,8 +44,7 @@
 			@csrf
 			<input type="hidden" name="type" value="{{ $post['type'] }}">
 			<input type="hidden" name="id" value="{{ $post['data']->id }}">
-			<button type="submit" class="comment-send" style="background: #f22727; margin-top: 16px"
-					onclick="return confirm('この投稿を削除しますか?')">
+			<button type="submit" class="comment-send" onclick="return confirm('この投稿を削除しますか?')">
 				削除
 			</button>
 		</form>
