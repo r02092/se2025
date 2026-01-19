@@ -1687,3 +1687,21 @@ h1 {
 	font-family: monospace;
 	font-size: 70%;
 }
+
+/* admin.blade.php */
+.settings-button {
+	width: auto;
+	padding: 10px 10px;
+	background-color: #1456b8;
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	font-size: 17px;
+	cursor: pointer;
+	font-weight: bold;
+	margin-bottom: 20px;
+	transition: background-color 0.2s;
+}
+.settings-button:hover {
+	background-color: #104a86;
+}
