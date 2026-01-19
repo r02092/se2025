@@ -167,20 +167,24 @@ Route::middleware(['auth'])
             return view('admin');
         })->name('admin');
 
-        Route::get('/user', [UserListController::class, 'index'])->name('user');
-
-        Route::get('/post', [AdminUgcController::class, 'get'])->name('post');
-        Route::post('/post/delete', [AdminUgcController::class, 'post'])->name(
-            'post.delete',
+        Route::get('/users', [UserListController::class, 'index'])->name(
+            'admin.users',
         );
 
-        Route::get('/spot.edit', function () {
-            return view('spot-edit');
-        })->name('spot.edit');
+        Route::get('/ugc/{page}', [AdminUgcController::class, 'get'])->name(
+            'admin.ugc',
+        );
+        Route::post('/ugc/delete', [AdminUgcController::class, 'post'])->name(
+            'admin.ugc.del',
+        );
+
+        Route::get('/spots', function () {
+            return view('admin.spots');
+        })->name('admin.spots');
 
         Route::get('/data', function () {
-            return view('data');
-        })->name('data');
+            return view('admin.data');
+        })->name('admin.data');
 
         Route::get('/user/{id}', function ($id) {
             return view('admin.user-detail');
