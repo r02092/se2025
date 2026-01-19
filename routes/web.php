@@ -14,6 +14,9 @@ use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\AdminUgcController;
+use App\Http\Controllers\TermsController;
+use App\Http\Controllers\TwoFactorController;
+use App\Http\Controllers\ProfileTwoFactorController;
 
 // ホームページ(MC00:人気スポットロジックを使用)
 Route::get('/', [SearchController::class, 'index'])->name('home');
@@ -71,9 +74,8 @@ Route::post('/signup', [AccountCreateController::class, 'post'])->name(
     'signup.post',
 );
 
-Route::get('/2fa', function () {
-    return '2FA認証画面'; // 仮
-})->name('2fa.index');
+Route::get('/2fa', [TwoFactorController::class, 'index'])->name(
+    '2fa.index');
 
 Route::get('/logout', [LoginController::class, 'showLogoutForm'])->name(
     'logout',
@@ -125,9 +127,21 @@ Route::middleware(['auth'])->group(function () {
     ])->name('subscription.confirm');
 
     // プロフィール二要素認証
-    Route::get('/profile/2fa', function () {
-        return view('profile-2fa');
-    })->name('profile.2fa');
+    Route::get('/profile/2fa', [
+        ProfileTwoFactorController::class,
+        'index',
+    ])->name('profile.2fa');
+
+    Route::post('/profile/2fa', [
+        ProfileTwoFactorController::class,
+        'store',
+    ])->name('profile.2fa.store');
+
+    Route::delete('/profile/2fa', [
+        ProfileTwoFactorController::class,
+        'destroy',
+    ])->name('profile.2fa.destroy');
+
 });
 
 // 事業者専用ルート
