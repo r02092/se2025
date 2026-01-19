@@ -6,7 +6,7 @@
 <div class="main-area">
 	<div class="general-box subscription-form-container">
 		<h2>事業者申込フォーム</h2>
-		<form method="POST" action="{{ route('subscription.store') }}">
+		<form>
 			@csrf
 
 			<label for="post-code">郵便番号(ハイフン無し)</label>
@@ -22,8 +22,12 @@
 				<option value="premium" {{ old('plan') == 'premium' ? 'selected' : '' }}>プレミアムプラン</option>
 			</select>
 
-			<button type="submit">
+			<button type="submit" onclick="location.href='{{ route('subscription.confirm') }}'">
 				申し込む
+			</button>
+
+			<button type="button" class="btn btn-secondary" style="background-color: #6c757d; color: white; margin:10px; padding: 10px 24px; border: none; border-radius: 4px; cursor: pointer;" onclick="location.href='{{ route('profile') }}'">
+				キャンセル
 			</button>
 		</form>
 	</div>
