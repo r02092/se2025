@@ -31,6 +31,6 @@ class TwoFactorController extends Controller
 
         return back()->withErrors([
             'one_time_password' => '認証コードが正しくありません。',
-        ])
+        ]);
     }
 }
