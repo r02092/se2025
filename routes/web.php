@@ -7,15 +7,16 @@ use App\Http\Controllers\PostMapController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AccountCreateController;
+use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ReviewController; // 追加: MU15
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\ProfileTwoFactorController;
+use App\Http\Controllers\AddrApiController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\AdminUgcController;
-use App\Http\Controllers\TwoFactorController;
-use App\Http\Controllers\ProfileTwoFactorController;
 
 // ホームページ(MC00:人気スポットロジックを使用)
 Route::get('/', [SearchController::class, 'index'])->name('home');
@@ -141,6 +142,8 @@ Route::middleware(['auth'])->group(function () {
         ProfileTwoFactorController::class,
         'destroy',
     ])->name('profile.2fa.destroy');
+
+    Route::get('/addr/{pc}', [AddrApiController::class, 'get'])->name('addr');
 });
 
 // 事業者専用ルート

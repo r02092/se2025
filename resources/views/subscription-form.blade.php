@@ -10,6 +10,9 @@
 			@csrf
 			<label for="post_code">郵便番号<span class="form-detail">（ハイフンなし）</span></label>
 			<input type="text" id="post_code" name="post_code" required value="{{ old('post_code') }}" />
+			<button type="button" id="pc2addrbtn" class="btn btn-secondary">
+				郵便番号から住所を自動入力
+			</button>
 
 			<label for="pref_select">都道府県</label>
 			<select name="pref" id="pref_select" required>
@@ -44,7 +47,7 @@
 				申し込む
 			</button>
 
-			<button type="button" class="btn btn-secondary" style="background-color: #6c757d; color: white; margin:10px; padding: 10px 24px; border: none; border-radius: 4px; cursor: pointer;" onclick="location.href='{{ route('profile') }}'">
+			<button type="button" class="btn btn-secondary" onclick="location.href='{{ route('profile') }}'">
 				キャンセル
 			</button>
 		</form>

@@ -428,6 +428,15 @@ h1 {
 	border-radius: 6px;
 	cursor: pointer;
 }
+.btn-secondary {
+	background-color: #6c757d;
+	color: #fff;
+	margin: 10px;
+	padding: 10px 24px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
 .badge-done {
 	background: #e8f7ef;
 	color: #14b888;
