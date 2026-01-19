@@ -7,6 +7,11 @@ document.addEventListener("DOMContentLoaded", (): void => {
 		import("./home");
 	}
 
+	// Subscription page
+	if (pathname === "/subscription") {
+		import("./subscription");
+	}
+
 	// Post page
 	if (pathname === "/post") {
 		import("./photo");
