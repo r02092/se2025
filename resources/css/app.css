@@ -33,6 +33,15 @@ h1 {
 	text-align: center;
 }
 
+.column-menu {
+	align-items: center;
+	width: 90%;
+	margin: 80px auto;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
 /* Header Bar */
 .header-bar {
 	background: #27f2b6;
@@ -1690,9 +1699,9 @@ h1 {
 
 /* admin.blade.php */
 .settings-button {
-	width: auto;
+	width: 80vw;
 	padding: 10px 10px;
-	background-color: #1456b8;
+	background-color: #168dc4;
 	color: #fff;
 	border: none;
 	border-radius: 6px;
@@ -1703,5 +1712,5 @@ h1 {
 	transition: background-color 0.2s;
 }
 .settings-button:hover {
-	background-color: #104a86;
+	background-color: #13699b;
 }

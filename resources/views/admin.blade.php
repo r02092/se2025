@@ -9,24 +9,26 @@
 @section('content')
 <h1>管理者機能</h1>
 
-<div class="general-box form-container">
+<div class="general-box column-menu">
     <h2>管理メニュー</h2>
     <div class="spot-divider" aria-hidden="true"></div>
 
-	<button class="settings-button" onclick="location.href = '{{ route('user') }}'">
-		ユーザー一覧
-	</button>
+	<!-- <div class="column-menu"> -->
+		<button class="settings-button" onclick="location.href = '{{ route('user') }}'">
+			ユーザー一覧
+		</button>
 
-	<button class="settings-button" onclick="location.href = '{{ route('post') }}'">
-		UGC監視・管理
-	</button>
+		<button class="settings-button" onclick="location.href = '{{ route('post') }}'">
+			UGC監視・管理
+		</button>
 
-	<button class="settings-button" onclick="location.href = '{{ route('spot.edit') }}'">
-		スポット情報編集
-	</button>
+		<button class="settings-button" onclick="location.href = '{{ route('spot.edit') }}'">
+			スポット情報編集
+		</button>
 
-	<button class="settings-button" onclick="location.href = '{{ route('data') }}'">
-		観光データ確認
-	</button>
+		<button class="settings-button" onclick="location.href = '{{ route('data') }}'">
+			観光データ確認
+		</button>
+	</div>
 </div>
 @endsection
