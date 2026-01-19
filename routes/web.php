@@ -10,6 +10,7 @@ use App\Http\Controllers\AccountCreateController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ReviewController; // 追加: MU15
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\AdminUgcController;
@@ -145,9 +146,13 @@ Route::middleware(['auth'])
             return view('business.data');
         })->name('business.data');
 
-        Route::get('/api-keys', function () {
-            return view('business.api');
-        })->name('business.api');
+        Route::get('/api-keys', [ApiKeyController::class, 'get'])->name(
+            'business.api',
+        );
+
+        Route::post('/api-keys', [ApiKeyController::class, 'post'])->name(
+            'business.api.post',
+        );
 
         Route::get('/invoice', [InvoiceController::class, 'get'])->name(
             'business.invoice',

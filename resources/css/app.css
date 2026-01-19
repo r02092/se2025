@@ -1677,3 +1677,14 @@ h1 {
 	font-size: 0.83em;
 	font-weight: bold;
 }
+
+.apikey {
+	color: gray;
+	font-size: 90%;
+}
+
+.apikey > input {
+	width: 60%;
+	font-family: monospace;
+	font-size: 70%;
+}
