@@ -223,7 +223,10 @@ h1 {
 }
 .form-container input[type="text"],
 .form-container input[type="email"],
-.form-container input[type="password"] {
+.form-container input[type="password"],
+.profile-edit-container input[type="text"],
+.profile-edit-container input[type="password"],
+.subscription-form-container input[type="text"] {
 	width: 90%;
 	padding: 10px;
 	margin-bottom: 16px;
@@ -1528,16 +1531,6 @@ h1 {
 .profile-edit-avatar-group label:hover {
 	background-color: #ddd;
 }
-.profile-edit-container input[type="text"],
-.profile-edit-container input[type="password"] {
-	width: 90%;
-	padding: 10px;
-	margin-bottom: 16px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	font-size: 16px;
-	background-color: #fafafa;
-}
 .profile-edit-container button {
 	width: 100%;
 	padding: 10px 0;
@@ -1632,15 +1625,6 @@ h1 {
 }
 .subscription-form-container select {
 	width: 80%;
-	padding: 10px;
-	margin-bottom: 16px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	font-size: 16px;
-	background-color: #fafafa;
-}
-.subscription-form-container input[type="text"] {
-	width: 90%;
 	padding: 10px;
 	margin-bottom: 16px;
 	border: 1px solid #ccc;
