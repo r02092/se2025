@@ -14,7 +14,6 @@ use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\AdminUgcController;
-use App\Http\Controllers\TermsController;
 use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\ProfileTwoFactorController;
 
