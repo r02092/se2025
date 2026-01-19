@@ -70,8 +70,8 @@ class LoginController extends Controller
                 ]);
         }
 
-        $user = User::where('email', $soclialUser->getEmail())
-            ->orWhere('google_ud', $socialUser->getId())
+        $user = User::where('email', $socialUser->getEmail())
+            ->orWhere('google_id', $socialUser->getId())
             ->first();
 
         if ($user) {
@@ -81,7 +81,7 @@ class LoginController extends Controller
             }
             Auth::login($user);
         } else {
-            $user = USer::create([
+            $user = User::create([
                 'name' => $socialUser->getName(),
                 'email' => $socialUser->getEmail(),
                 'login_name' => $socialUser->getEmail(),
