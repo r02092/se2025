@@ -6,7 +6,7 @@
 body {
 	padding: 0;
 	padding-top: var(--header-height);
-	padding-bottom: var(--bottom-bar-height);	); /*  ← ボトムバー分の余白 多分不要 */
+	padding-bottom: var(--bottom-bar-height); /*  ← ボトムバー分の余白 多分不要 */
 	background: #eee;
 	width: 100vw;
 	display: flex;
