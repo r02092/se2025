@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Spot;
 use Illuminate\Http\Request; // 追加: リクエスト取得用
+use App\Http\Controllers\SearchApiController; // ★APIコントローラーを読み込む
 
 class SearchController extends Controller
 {
@@ -36,57 +37,54 @@ class SearchController extends Controller
     }
 
     /**
-     * ★追加: 検索実行用メソッド
-     * 検索ボタンが押されたときに動く処理です
+     * ★検索実行メソッド
+     * SearchApiController を呼び出して検索し、結果を表示します
      */
-    public function search(Request $request)
+    public function search(Request $request, SearchApiController $api)
     {
         // 1. 入力値の取得
-        $departure = $request->input('departure'); // 出発地
-        $destination = $request->input('destination'); // 目的地（検索ワード）
+        $destination = $request->input('destination');
+        $departure = $request->input('departure');
 
-        // バリデーション
-        $request->validate([
-            'destination' => 'required', // 目的地は必須
-        ]);
+        // ▼▼▼ 修正: 出発地の存在チェックを復活 ▼▼▼
+        $departureNotFound = false; // 初期値は「見つかった（エラーなし）」
 
-        // 2. スポット検索 (名前であいまい検索)
-        $spots = Spot::where('name', 'like', "%{$destination}%")->get();
-        // 出発地も検索して、見つかるかチェックする
-        $departureNotFound = false; // 初期値は「エラーなし」
-
+        // 出発地が入力されている場合だけチェックする
         if ($departure) {
-            // 出発地が入力されている場合のみ検索
-            $departureSpots = Spot::where(
-                'name',
-                'like',
-                "%{$departure}%",
-            )->get();
-
-            // 1件も見つからなければフラグを立てる
-            if ($departureSpots->count() === 0) {
+            // 名前で検索して、1件もなければエラーフラグを立てる
+            $exists = Spot::where('name', 'like', "%{$departure}%")->exists();
+            if (!$exists) {
                 $departureNotFound = true;
             }
         }
+        // ▲▲▲ 修正ここまで ▲▲▲
 
-        // 3. 【重要】ランキングのために検索履歴を保存
-        // スポットが見つかった場合、そのIDを queries テーブルに記録します。
-        // これにより、トップページのランキング(indexメソッド)に反映されるようになります。
-        if ($spots->count() > 0) {
-            foreach ($spots as $spot) {
+        // 2. APIコントローラーを使って「目的地」を検索
+        $apiRequest = Request::create('/api/filtering', 'GET', [
+            'keyword' => $destination,
+        ]);
+
+        $response = $api->getSpotList($apiRequest);
+        $spotsData = $response->getData(); // 検索結果の取得
+
+        // 3. 履歴保存 (ランキング用)
+        if (count($spotsData) > 0) {
+            foreach ($spotsData as $spot) {
                 DB::table('queries')->insert([
                     'to_spot_id' => $spot->id,
+                    'query' => $destination,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
             }
         }
 
-        // 4. 検索結果ビューを表示
-        // (resources/views/search/index.blade.php を表示します)
-        return view(
-            'search.index',
-            compact('departure', 'destination', 'spots', 'departureNotFound'),
-        );
+        // 4. ビューへ渡す
+        return view('search.index', [
+            'departure' => $departure,
+            'destination' => $destination,
+            'spots' => $spotsData,
+            'departureNotFound' => $departureNotFound, // ★計算した結果を渡す
+        ]);
     }
 }

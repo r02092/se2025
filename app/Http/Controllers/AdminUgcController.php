@@ -12,13 +12,15 @@ class AdminUgcController extends Controller
     const DISPLAY_NUM = 20;
     public function get($page)
     {
-        $ugcs = array_map(
+        $posts = array_map(
             function ($item) {
-                $id = $item['id'];
-                return ($item['type'] !== 'photo'
-                    ? Review::find($id)
-                    : Photo::find($id)
-                )->toArray();
+                return [
+                    'type' => $item['type'],
+                    'data' =>
+                        $item['type'] !== 'photo'
+                            ? Review::with('user')->find($item['id'])
+                            : Photo::with('user')->find($item['id']),
+                ];
             },
             Review::select(DB::raw('"review" as type'), 'id', 'updated_at')
                 ->union(
@@ -34,7 +36,7 @@ class AdminUgcController extends Controller
                 ->get()
                 ->toArray(),
         );
-        return response(''); // 仮
+        return view('post', compact('posts'));
     }
     public function post(AdminUgcRequest $request)
     {

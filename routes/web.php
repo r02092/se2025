@@ -11,6 +11,8 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\SearchApiController;
 use App\Http\Controllers\PostMapController;
 use App\Http\Controllers\UserListController;
+use App\Http\Controllers\AdminUgcController;
+use App\Http\Controllers\TermsController;
 
 // ホームページ(MC00:人気スポットロジックを使用)
 Route::get('/', [SearchController::class, 'index'])->name('home');
@@ -42,12 +44,23 @@ Route::get('/funpage/checkin', function () {
     return view('funpage-checkin');
 })->name('funpage.checkin');
 
+Route::get('/terms', [TermsController::class, 'index'])->name('terms');
+
 // 認証関連
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 Route::post('/login', [LoginController::class, 'authenticate'])->name(
     'login.post',
 );
+
+Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name(
+    'login.google',
+);
+
+Route::get('auth/google/callback', [
+    LoginController::class,
+    'handleGoogleCallback',
+]);
 
 Route::get('/signup', function () {
     return view('signup');
@@ -153,9 +166,12 @@ Route::middleware(['auth'])
             'admin.users',
         );
 
-        Route::get('/ugc', function () {
-            return view('admin.ugc');
-        })->name('admin.ugc');
+        Route::get('/ugc/{page}', [AdminUgcController::class, 'get'])->name(
+            'admin.ugc',
+        );
+        Route::post('/ugc/delete', [AdminUgcController::class, 'post'])->name(
+            'admin.ugc.del',
+        );
 
         Route::get('/spots', function () {
             return view('admin.spots');
