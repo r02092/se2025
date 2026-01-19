@@ -10,20 +10,20 @@
     <div class="spot-divider" aria-hidden="true"></div>
 
 	<!-- <div class="column-menu"> -->
-		<button class="settings-button" onclick="location.href = '{{ route('spot.edit') }}'">
+		<button class="settings-button" onclick="location.href = '{{ route('business.spots') }}'">
 			スポット情報編集
 		</button>
 
-		<button class="settings-button" onclick="location.href = '{{ route('data') }}'">
+		<button class="settings-button" onclick="location.href = '{{ route('business.data') }}'">
 			観光データ確認
 		</button>
 
 		<!-- 以下 遷移先空白 -->
-		<button class="settings-button" onclick="location.href = '#'">
+		<button class="settings-button" onclick="location.href = '{{ route('business.api') }}'">
 			APIキー管理
 		</button>
 
-		<button class="settings-button" onclick="location.href = '#'">
+		<button class="settings-button" onclick="location.href = '{{ route('business.invoice') }}'">
 			請求書[PDF]
 		</button>
 	</div>
