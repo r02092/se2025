@@ -2,15 +2,33 @@
 
 @section('title', 'SceneTrip - 管理者機能')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/home.css') }}" />
+@endpush
+
 @section('content')
 <h1>管理者機能</h1>
 
-<div class="general-box" style="margin: 0 5% 0">
-	<ul>
-		<li><a href="{{ route('user') }}">ユーザー一覧</a></li>
-		<li><a href="#">UGC監視・管理</a></li>
-		<li><a href="{{ route('spot.edit') }}">スポット情報編集</a></li>
-		<li><a href="{{ route('data') }}">観光データ確認</a></li>
-	</ul>
+<div class="general-box column-menu">
+    <h2>管理メニュー</h2>
+    <div class="spot-divider" aria-hidden="true"></div>
+
+	<!-- <div class="column-menu"> -->
+		<button class="settings-button" onclick="location.href = '{{ route('admin.users') }}'">
+			ユーザー一覧
+		</button>
+
+		<button class="settings-button" onclick="location.href = '{{ route('admin.ugc', ['page' => 1]) }}'">
+			UGC監視・管理
+		</button>
+
+		<button class="settings-button" onclick="location.href = '{{ route('admin.spots') }}'">
+			スポット情報編集
+		</button>
+
+		<button class="settings-button" onclick="location.href = '{{ route('admin.data') }}'">
+			観光データ確認
+		</button>
+	</div>
 </div>
 @endsection
