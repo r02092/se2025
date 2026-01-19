@@ -31,7 +31,7 @@
 				@endforeach
 			</select>
 
-			<label for="address">住所</label>
+			<label for="address">住所<span class="form-detail">（市区町村名より後のみ）</span></label>
 			<input type="text" id="address" name="address" required value="{{ old('address') }}" />
 
 			<label for="num_plan_std">スタンダードプランの契約数</label>
