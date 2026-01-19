@@ -1,18 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SearchController; // 追加: MC00
+use App\Http\Controllers\SearchApiController;
+use App\Http\Controllers\PostMapController;
+use App\Http\Controllers\TermsController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AccountCreateController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ReviewController; // 追加: MU15
-use App\Http\Controllers\SearchController; // 追加: MC00
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\SearchApiController;
-use App\Http\Controllers\PostMapController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\AdminUgcController;
-use App\Http\Controllers\TermsController;
 
 // ホームページ(MC00:人気スポットロジックを使用)
 Route::get('/', [SearchController::class, 'index'])->name('home');
