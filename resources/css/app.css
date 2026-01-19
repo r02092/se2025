@@ -226,7 +226,8 @@ h1 {
 .form-container input[type="password"],
 .profile-edit-container input[type="text"],
 .profile-edit-container input[type="password"],
-.subscription-form-container input[type="text"] {
+.subscription-form-container input[type="text"],
+.subscription-form-container input[type="number"] {
 	width: 90%;
 	padding: 10px;
 	margin-bottom: 16px;
