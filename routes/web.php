@@ -12,6 +12,7 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ReviewController; // 追加: MU15
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ProfileTwoFactorController;
+use App\Http\Controllers\AddrApiController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UserListController;
@@ -141,6 +142,8 @@ Route::middleware(['auth'])->group(function () {
         ProfileTwoFactorController::class,
         'destroy',
     ])->name('profile.2fa.destroy');
+
+    Route::get('/addr/{pc}', [AddrApiController::class, 'get'])->name('addr');
 });
 
 // 事業者専用ルート
