@@ -73,8 +73,7 @@ Route::post('/signup', [AccountCreateController::class, 'post'])->name(
     'signup.post',
 );
 
-Route::get('/2fa', [TwoFactorController::class, 'index'])->name(
-    '2fa.index');
+Route::get('/2fa', [TwoFactorController::class, 'index'])->name('2fa.index');
 
 Route::get('/logout', [LoginController::class, 'showLogoutForm'])->name(
     'logout',
@@ -140,7 +139,6 @@ Route::middleware(['auth'])->group(function () {
         ProfileTwoFactorController::class,
         'destroy',
     ])->name('profile.2fa.destroy');
-
 });
 
 // 事業者専用ルート

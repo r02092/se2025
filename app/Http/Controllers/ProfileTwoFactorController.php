@@ -29,13 +29,13 @@ class ProfileTwoFactorController extends Controller
         }
 
         $google2fa = new Google2FA();
-        
+
         $secretKey = $google2fa->generateSecretKey();
 
         $qrImage = $google2fa->getQRCodeInline(
             config('app.name', 'SceneTrip'),
             $user->login_name,
-            $secretKey
+            $secretKey,
         );
 
         return view('profile-2fa', [
@@ -45,7 +45,6 @@ class ProfileTwoFactorController extends Controller
         ]);
     }
 
-    
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -64,11 +63,14 @@ class ProfileTwoFactorController extends Controller
             $user->totp_secret = $secret;
             $user->save();
 
-            return redirect()->route('profile.2fa')
+            return redirect()
+                ->route('profile.2fa')
                 ->with('success', '二要素認証を有効にしました。');
         }
 
-        return back()->withErrors(['one_time_password' => '認証コードが正しくありません。']);
+        return back()->withErrors([
+            'one_time_password' => '認証コードが正しくありません。',
+        ]);
     }
 
     /**
@@ -80,7 +82,8 @@ class ProfileTwoFactorController extends Controller
         $user->totp_secret = null; // 秘密鍵を削除
         $user->save();
 
-        return redirect()->route('profile.2fa')
+        return redirect()
+            ->route('profile.2fa')
             ->with('success', '二要素認証を解除しました。');
     }
 }
