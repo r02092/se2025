@@ -33,7 +33,7 @@ class AddrApiController extends Controller
                 file_put_contents(
                     $path,
                     file_get_contents(
-                        'https://www.post.japanpost.jp/zipcode/dl/' . $url,
+                        'https://www.post.japanpost.jp/zipcode/dl/' . $vals[0],
                     ),
                 );
             }
