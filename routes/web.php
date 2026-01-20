@@ -76,7 +76,13 @@ Route::post('/signup', [AccountCreateController::class, 'post'])->name(
     'signup.post',
 );
 
-Route::get('/2fa', [TwoFactorController::class, 'index'])->name('2fa.index');
+Route::get('2fa', [TwoFactorController::class, 'index'])->name(
+    '2fa.index'
+);
+
+Route::post('2fa', [TwoFactorController::class, 'verify'])->name(
+    '2fa.verify'
+);
 
 Route::get('/logout', [LoginController::class, 'showLogoutForm'])->name(
     'logout',

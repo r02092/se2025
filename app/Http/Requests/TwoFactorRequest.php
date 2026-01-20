@@ -14,6 +14,13 @@ class TwoFactorRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'one_time_password' => ['required', 'digits:6'],
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
             'one_time_password' => '認証コード',
         ];
     }
