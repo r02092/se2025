@@ -15,6 +15,6 @@ class DetailController extends Controller
             $request->id,
         );
 
-        return view('spot-detail', ['spot' => $spot]);
+        return view('detail', ['spot' => $spot]);
     }
 }
