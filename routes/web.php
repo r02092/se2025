@@ -29,7 +29,7 @@ Route::get('/filtering', [SearchApiController::class, 'getSpotList'])->name(
 // 公開ページ（ログイン不要）
 Route::get('/post', [PostMapController::class, 'index'])->name('post');
 
-Route::get('/detail', [DetailController::class, 'get'])->name('detail');
+Route::get('/detail', [DetailController::class, 'index'])->name('detail');
 
 Route::get('/photo', [PostMapController::class, 'index'])->name('photo');
 

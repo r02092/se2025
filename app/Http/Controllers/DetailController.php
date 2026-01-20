@@ -7,7 +7,7 @@ use App\Models\Spot;
 
 class DetailController extends Controller
 {
-    public function get(Request $request)
+    public function index(Request $request)
     {
         // idに従ってスポットを取得、ない場合はe404
         // 同時にkeyword、review、userのリレーションをあらかじめロードする
