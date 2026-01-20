@@ -21,26 +21,26 @@ class TwoFactorLoginTest extends TestCase
         ]);
 
         // 2. 2FA入力画面へリダイレクトされることを確認
-        $response->assertRedirect(); 
-        
+        $response->assertRedirect();
+
         // セッションに「2FA認証待ち」フラグが立っているか確認
-        $response->assertSessionHas('auth.2fa_required'); 
+        $response->assertSessionHas('auth.2fa_required');
     }
 
     public function test_正しいコードを入力すれば認証を通過できる()
     {
         // 2fa_user を取得
         $user = User::where('login_name', '2fa_user')->first();
-        
+
         $google2fa = new Google2FA();
         $validSecret = $google2fa->generateSecretKey();
 
         $user->totp_secret = $validSecret;
         $user->save();
-        
+
         // ログイン状態にする（ただし2FAは未突破の状態をシミュレート）
         $this->actingAs($user);
-        
+
         $google2fa = new Google2FA();
         $currentCode = $google2fa->getCurrentOtp($validSecret);
 
@@ -51,7 +51,7 @@ class TwoFactorLoginTest extends TestCase
 
         // 通過してホームへリダイレクト
         $response->assertRedirect(route('home'));
-        
+
         // セッションから2FAフラグが消えている（あるいは認証済みフラグがある）こと
         $response->assertSessionMissing('auth.2fa');
     }
