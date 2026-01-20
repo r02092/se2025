@@ -13,7 +13,7 @@ class DetailControllerTest extends TestCase
         // ステータスコードが正常か
         $response->assertStatus(200);
         // 正しいBladeファイルを使っているか
-        $response->assertViewIs('spot-detail');
+        $response->assertViewIs('detail');
         // Viewにpostsという変数が渡されているか
         $response->assertViewHas('spot');
     }
