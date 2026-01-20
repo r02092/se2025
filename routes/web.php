@@ -18,6 +18,7 @@ use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\AdminUgcController;
+use App\Http\Controllers\InsertUserController;
 
 // ホームページ(MC00:人気スポットロジックを使用)
 Route::get('/', [SearchController::class, 'index'])->name('home');
@@ -189,7 +190,7 @@ Route::middleware(['auth'])
         })->name('admin');
 
         Route::get('/users', [UserListController::class, 'index'])->name(
-            'admin.users',
+            'admin.users.list',
         );
 
         Route::get('/ugc/{page}', [AdminUgcController::class, 'get'])->name(
@@ -210,6 +211,10 @@ Route::middleware(['auth'])
         Route::get('/user/{id}', function ($id) {
             return view('admin.user-detail');
         })->name('user.detail');
+
+        Route::resource('users', InsertUserController::class)
+            ->only(['create', 'store'])
+            ->names('admin.users');
     });
 
 // 検索
