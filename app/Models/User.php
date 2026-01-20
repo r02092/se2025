@@ -9,6 +9,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
+    const PERMISSION_ADMIN = 0;
+    const PERMISSION_USER = 1;
+    const PERMISSION_BUSINESS = 2;
+    const PROVIDER_SCENETRIP = 1;
+
     protected $casts = [
         'id' => 'int',
         'provider' => 'int',

@@ -3,17 +3,23 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Support\Http\Requests;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class InsertUserController extends Controller
 {
     public function create()
     {
+        if (auth()->user()->permission !== User::PERMISSION_ADMIN) {
+            abort(403);
+        }
         return view('admin.users.create');
     }
     public function store(Request $request)
     {
+        if (auth()->user()->permission !== User::PERMISSION_ADMIN) {
+            abort(403);
+        }
         $validated = $request->validate([
             'login_name' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
@@ -45,7 +51,7 @@ class InsertUserController extends Controller
             'addr_detail' => $validated['addr_detail'] ?? null,
         ]);
         return redirect()
-            ->route('admin.users.index')
+            ->route('admin.users.list')
             ->with('success', '利用者を登録しました。');
     }
 }
