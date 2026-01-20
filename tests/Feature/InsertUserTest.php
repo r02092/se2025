@@ -15,9 +15,8 @@ class InsertUserTest extends TestCase
     {
         $user = User::where('login_name', 'test_user')->first();
         $response = $this->actingAs($user)->get(route('admin.users.create'));
-        $response ->assertForbidden();
+        $response->assertForbidden();
     }
-
 
     public function test_管理者は利用者追加画面を表示できる()
     {
@@ -37,7 +36,10 @@ class InsertUserTest extends TestCase
             'permission' => 1,
         ];
 
-        $response = $this->actingAs($admin)->post(route('admin.users.store'), $postData);
+        $response = $this->actingAs($admin)->post(
+            route('admin.users.store'),
+            $postData,
+        );
         $response->assertRedirect(route('admin.users.list'));
         $response->assertSessionHas('success');
 
