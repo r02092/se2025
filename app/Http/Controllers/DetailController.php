@@ -9,10 +9,10 @@ class DetailController extends Controller
 {
     public function get(Request $request)
     {
-        // idに従ってスポットを取得
+        // idに従ってスポットを取得、ない場合はe404
         // 同時にkeyword、review、userのリレーションをあらかじめロードする
-        $spot = Spot::with(['keywords', 'reviews.user.name'])->find(
-            $request->input('id'),
+        $spot = Spot::with(['keywords', 'reviews.user:name'])->findOrFail(
+            $request->id,
         );
 
         return view('spot-detail', ['spot' => $spot]);
