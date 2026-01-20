@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TwoFactorController;
+use App\Http\Requests\TwoFactorRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -22,10 +22,10 @@ class TwoFactorController extends Controller
         $code = $request->input('one_time_password');
 
         $google2fa = app('pragmarx.google2fa');
-        $valid = $google2fa->verifyKKey($user->totp_secret, $code, 1);
+        $valid = $google2fa->verifyKey($user->totp_secret, $code, 1);
 
         if ($valid) {
-            $request->session()->forget('2fa_required');
+            $request->session()->forget('auth.2fa_required');
             return redirect()->route('home');
         }
 
