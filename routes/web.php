@@ -19,7 +19,6 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\AdminUgcController;
 use App\Http\Controllers\InsertUserController;
-use App\Http\Controllers\SpotController;
 
 // ホームページ(MC00:人気スポットロジックを使用)
 Route::get('/', [SearchController::class, 'index'])->name('home');
@@ -27,8 +26,6 @@ Route::get('/', [SearchController::class, 'index'])->name('home');
 Route::get('/filtering', [SearchApiController::class, 'getSpotList'])->name(
     'home.filtered',
 );
-
-Route::get('/spot/{id}', [SpotController::class, 'show'])->name('spot.detail');
 
 // 公開ページ（ログイン不要）
 Route::get('/post', [PostMapController::class, 'index'])->name('post');
