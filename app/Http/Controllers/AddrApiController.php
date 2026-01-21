@@ -8,6 +8,9 @@ class AddrApiController extends Controller
 {
     public function get($pc)
     {
+        if (!preg_match('/^\d{7}$/', $pc)) {
+            return response()->json(['city' => 0, 'addr' => '']);
+        }
         foreach (
             [
                 [
@@ -141,5 +144,9 @@ class AddrApiController extends Controller
                 ]);
             }
         }
+        return response()->json([
+            'city' => 0,
+            'addr' => '',
+        ]);
     }
 }
