@@ -38,8 +38,6 @@
                            style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:16px;" required />
                 </div>
 
-                {{-- 出発地入力欄は削除しました --}}
-
                 <button type="submit" class="btn-green" style="width:100%; padding:12px; border:none; cursor:pointer; background-color: #16a34a; color: white; font-weight: bold; border-radius: 4px;">
                     検索する
                 </button>
@@ -49,33 +47,28 @@
             </p>
         </div>
 
-        {{-- 3. AI検索フォーム (初期は非表示) --}}
-        <div id="form-area-ai" style="display: none;">
-            <form action="{{ route('ai.plan') }}" method="GET">
-                <div style="background-color: #eff6ff; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 0.9rem; color: #1e40af;">
-                    <strong>🤖 AIプランナー:</strong> 出発地から目的地までの「おすすめ寄り道スポット」を提案します。
-                </div>
+        {{-- 3. AI検索エリア (準備中表示) --}}
+        <div id="form-area-ai" style="display: none; text-align: center; padding: 20px 0;">
 
-                <div style="margin-bottom: 15px;">
-                    <label for="departure_name" style="font-weight:bold; display:block; margin-bottom:5px;">出発地 <span style="color:#e11d48; font-size:0.8rem;">(必須)</span></label>
-                    <input type="text" id="departure_name" name="departure_name" placeholder="例: 高知駅" required
-                           style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
-                </div>
+            <div style="font-size: 3rem; margin-bottom: 10px;">🚧</div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="destination_name" style="font-weight:bold; display:block; margin-bottom:5px;">目的地 <span style="color:#e11d48; font-size:0.8rem;">(必須)</span></label>
-                    <input type="text" id="destination_name" name="destination_name" placeholder="例: 桂浜" required
-                           style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
-                </div>
+            <h3 style="font-weight: bold; color: #333; margin-bottom: 10px;">AI機能は準備中です</h3>
 
-                <button type="submit" style="width:100%; padding:12px; border:none; cursor:pointer; background: linear-gradient(to right, #2563eb, #7c3aed); color: white; font-weight: bold; border-radius: 4px;">
-                    AIにおすすめを聞く
-                </button>
-            </form>
+            <p style="color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
+                出発地と目的地を入力するだけで、<br>
+                AIがおすすめの「寄り道プラン」を提案する機能を開発中です。<br>
+                公開まで今しばらくお待ちください。
+            </p>
+
+            <button type="button" disabled
+                style="width:100%; padding:12px; border:none; background-color: #e5e7eb; color: #9ca3af; font-weight: bold; border-radius: 4px; cursor: not-allowed;">
+                Coming Soon...
+            </button>
         </div>
 
     </div>
 </div>
+
 <div class="general-box ai-suggest" style="padding-bottom: auto;">
 	<h2>人気のスポット</h2>
 	<div class="spot-divider" aria-hidden="true"></div>
@@ -113,22 +106,18 @@
 	</ul>
 </div>
 
-{{-- ▼▼▼ タブ切り替え用のスクリプト (ファイルの最後の方に追加してください) ▼▼▼ --}}
+{{-- ▼▼▼ タブ切り替え用のスクリプト ▼▼▼ --}}
 <script>
     function switchSearchTab(tabName) {
-        // ボタン要素
         const btnKeyword = document.getElementById('tab-btn-keyword');
         const btnAi = document.getElementById('tab-btn-ai');
-        // フォームエリア要素
         const areaKeyword = document.getElementById('form-area-keyword');
         const areaAi = document.getElementById('form-area-ai');
 
         if (tabName === 'keyword') {
-            // キーワード検索を表示
             areaKeyword.style.display = 'block';
             areaAi.style.display = 'none';
 
-            // タブのスタイル更新
             btnKeyword.style.background = '#fff';
             btnKeyword.style.color = '#16a34a';
             btnKeyword.style.borderBottomColor = '#16a34a';
@@ -137,13 +126,11 @@
             btnAi.style.color = '#6b7280';
             btnAi.style.borderBottomColor = 'transparent';
         } else {
-            // AI検索を表示
             areaKeyword.style.display = 'none';
             areaAi.style.display = 'block';
 
-            // タブのスタイル更新
             btnAi.style.background = '#fff';
-            btnAi.style.color = '#2563eb'; // AIっぽい青色
+            btnAi.style.color = '#2563eb';
             btnAi.style.borderBottomColor = '#2563eb';
 
             btnKeyword.style.background = '#f3f4f6';
