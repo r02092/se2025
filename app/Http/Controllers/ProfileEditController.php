@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * MC09: プロフィール編集画面構成モジュール
@@ -34,11 +35,19 @@ class ProfileEditController extends Controller
             'name' => 'required|string|max:255',
             'login_name' =>
                 'required|string|max:255|unique:users,login_name,' . $user->id,
+                'new-password' => 'nullable|string|min:8|same:confirm-password',
         ]);
 
         // 3. プロフィール更新処理を実行
         $user->name = $request->input('name');
         $user->login_name = $request->input('login_name');
+
+// 入力欄（new-password）が空でない場合のみ処理する
+        if ($request->filled('new-password')) {
+            // パスワードをハッシュ化して保存
+            $user->password = Hash::make($request->input('new-password'));
+        }
+
         $user->save();
 
         // 4. 更新完了画面（または編集画面）へ遷移
