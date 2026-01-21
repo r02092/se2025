@@ -14,7 +14,7 @@ use App\Http\Controllers\ReviewController; // 追加: MU15
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ProfileTwoFactorController;
 
-use App\Http\Controllers\profileEditController;
+use App\Http\Controllers\ProfileEditController;
 
 use App\Http\Controllers\AddrApiController;
 use App\Http\Controllers\ApiKeyController;
