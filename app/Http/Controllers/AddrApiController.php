@@ -144,5 +144,9 @@ class AddrApiController extends Controller
                 ]);
             }
         }
+        return response()->json([
+            'city' => 0,
+            'addr' => '',
+        ]);
     }
 }
