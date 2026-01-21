@@ -49,6 +49,7 @@ class ApiTest extends TestCase
                     'Bearer R9AnJFbw34/CWEQhwBVzDC4BGiAfM6IigWoU5pKm9L7y3zh6mzKEB32KjcyhPdq.d6hNo6+Iykh0EOVHQ/Wyp',
             ],
         )->assertStatus(302);
+        $this->get(route('api'))->assertStatus(401);
         $this->get(route('api'), [
             'Authorization' => 'Bearer invalid_api_key',
         ])->assertStatus(401);
