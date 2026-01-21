@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ApiKeyRequestTest extends TestCase
 {
-    public function test_発行リクエスト(): void
+    public function test_キー発行リクエスト(): void
     {
         $request = new ApiKeyRequest();
         $this->assertEquals(
