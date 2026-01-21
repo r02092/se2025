@@ -89,8 +89,9 @@
         </div>
 
         <!-- 5. 口コミ一覧 -->
+		@if($spot->reviews->isNotEmpty())
         <div class="spot-detail-review-list">
-            @forelse($spot->reviews as $review)
+				@foreach($spot->reviews as $review)
                 <div class="spot-detail-review-item">
                     <div class="spot-detail-review-header">
                         <!-- ユーザー名（Reviewモデルのuserメソッド経由） -->
@@ -107,10 +108,11 @@
                         {!! nl2br(e($review->comment)) !!}
                     </div>
                 </div>
-            @empty
-                <p style="text-align: center; color: #999;">まだ口コミはありません。</p>
-            @endforelse
+				@endforeach
         </div>
+		@else
+			<p style="text-align: center; color: #555;">まだ口コミはありません。</p>
+		@endif
 
         <!-- 6. 口コミ投稿フォーム -->
         <div class="form-container general-box">
