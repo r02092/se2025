@@ -25,10 +25,10 @@ class TwoFactorController extends Controller
         if (!$userId) {
             return redirect()->route('login');
         }
-        
+
         $user = \App\Models\User::find($userId);
         if (!$user) {
-             return redirect()->route('login');
+            return redirect()->route('login');
         }
 
         $code = $request->input('one_time_password');
