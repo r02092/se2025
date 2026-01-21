@@ -35,8 +35,6 @@ Route::get('/post', [PostMapController::class, 'index'])->name('post');
 
 Route::get('/detail', [DetailController::class, 'index'])->name('detail');
 
-Route::get('/photo', [PostMapController::class, 'index'])->name('photo');
-
 Route::get('/coupon', [CouponController::class, 'get'])->name('coupon');
 
 Route::get('/coupon/{id}', function ($id) {
