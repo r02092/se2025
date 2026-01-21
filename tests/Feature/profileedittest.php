@@ -28,8 +28,10 @@ class profileedittest extends TestCase
         ];
 
         // 3. プロフィール更新URLにPOSTリクエストを送信 (MC09を呼び出し)
-        $response = $this->actingAs($user)
-                         ->post(route('profile.update'), $updatedData);
+        $response = $this->actingAs($user)->post(
+            route('profile.update'),
+            $updatedData,
+        );
 
         // 4. 検証：リダイレクトが成功しているか
         $response->assertSessionHasNoErrors();
@@ -53,15 +55,14 @@ class profileedittest extends TestCase
         $userB = User::factory()->create(['login_name' => 'user_b']);
 
         // ユーザーAとしてログインし、Bのログイン名に変更しようとする
-        $response = $this->actingAs($userA)
-                         ->post(route('profile.update'), [
-                             'name' => 'ユーザーA名前変更',
-                             'login_name' => 'user_b', // 重複
-                         ]);
+        $response = $this->actingAs($userA)->post(route('profile.update'), [
+            'name' => 'ユーザーA名前変更',
+            'login_name' => 'user_b', // 重複
+        ]);
 
         // エラーがあることを確認
         $response->assertSessionHasErrors('login_name');
-        
+
         // データベースが書き換わっていないことを確認
         $this->assertDatabaseMissing('users', [
             'id' => $userA->id,

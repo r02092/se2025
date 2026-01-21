@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
  */
 class ProfileEditController extends Controller
 {
-
     /**
      * プロフィール編集画面を表示する (GET)
      */
