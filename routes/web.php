@@ -113,19 +113,9 @@ Route::put('/profile/edit', [ProfileEditController::class, 'update'])->name('pro
 
 // 3. アイコン画像のアップロード (POST)
 Route::post('/profile/edit/icon', [ProfileEditController::class, 'uploadIcon'])->name('profile.icon.update');
-    /*
     Route::get('/profile', function () {
         return view('profile');
     })->name('profile');
-
-    Route::get('/profile/edit', function () {
-        return view('profile-edit');
-    })->name('profile.edit');
-
-    Route::put('/profile', function () {
-        // プロフィール更新処理
-    })->name('profile.update');
-    */
 
     // 投稿（削除などの操作のみ認証）
     Route::delete('/post/{id}', function ($id) {

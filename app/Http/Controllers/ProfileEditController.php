@@ -18,7 +18,7 @@ class ProfileEditController extends Controller
     {
         $user = Auth::user();
 
-        return view('profile.edit', [
+        return view('profile-edit', [
             'user' => $user,
         ]);
     }
