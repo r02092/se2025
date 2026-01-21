@@ -104,6 +104,9 @@ Route::middleware(['auth'])->group(function () {
     );
     // プロフィール
     // --- 修正後 ---
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
 // 1. プロフィール編集画面の表示 (GET)
 Route::get('/profile/edit', [ProfileEditController::class, 'edit'])->name('profile.edit');
 
@@ -113,9 +116,7 @@ Route::put('/profile/edit', [ProfileEditController::class, 'update'])->name('pro
 
 // 3. アイコン画像のアップロード (POST)
 Route::post('/profile/edit/icon', [ProfileEditController::class, 'uploadIcon'])->name('profile.icon.update');
-    Route::get('/profile', function () {
-        return view('profile');
-    })->name('profile');
+    
 
     // 投稿（削除などの操作のみ認証）
     Route::delete('/post/{id}', function ($id) {
