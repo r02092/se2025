@@ -2,10 +2,6 @@
 
 @section('title', 'SceneTrip - スポット詳細')
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/spot.css') }}" />
-@endpush
-
 @section('content')
 <div class="spot-detail-container">
 
