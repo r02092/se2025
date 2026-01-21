@@ -139,8 +139,21 @@
 
                     <div class="spot-detail-form-group">
                         <label for="comment" class="spot-detail-form-label">コメント</label>
-                        <textarea name="comment" id="comment" rows="4" class="spot-detail-form-textarea" placeholder="スポットの感想を教えてください" required></textarea>
+                        <textarea name="comment" id="comment" rows="4" class="spot-detail-form-textarea" placeholder="スポットの感想を教えてください（1～1000文字まで）" required></textarea>
                     </div>
+
+					@if($errors->any())
+						<div style="text-align: left">
+							<div>
+								投稿に失敗しました
+							</div>
+							<ul>
+								@foreach ($errors->all() as $error)
+									<li style="color: #922">{{ $error }}</li>
+								@endforeach
+							</ul>
+						</div>
+					@endif
 
                     <button type="submit" class="spot-detail-btn-submit">投稿する</button>
                 </form>
