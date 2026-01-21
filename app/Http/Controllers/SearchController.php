@@ -67,15 +67,25 @@ class SearchController extends Controller
         $response = $api->getSpotList($apiRequest);
         $spotsData = $response->getData(); // 検索結果の取得
 
+        // ▼▼▼ 追加: オブジェクトで返ってきても配列に変換してエラーを防ぐ ▼▼▼
+        if (!is_array($spotsData)) {
+            $spotsData = (array) $spotsData;
+        }
         // 3. 履歴保存 (ランキング用)
         if (count($spotsData) > 0) {
-            foreach ($spotsData as $spot) {
-                DB::table('queries')->insert([
-                    'to_spot_id' => $spot->id,
-                    'query' => $destination,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
+            if (\Illuminate\Support\Facades\Auth::check()) {
+                foreach ($spotsData as $spot) {
+                    DB::table('queries')->insert([
+                        'to_spot_id' => $spot->id,
+                        'user_id' => \Illuminate\Support\Facades\Auth::id(),
+                        'ip_addr' => $request->ip(),
+                        'port' => $request->server('REMOTE_PORT') ?? 0,
+                        'query' => $destination,
+                        'user_agent' => $request->userAgent(),
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
             }
         }
 
