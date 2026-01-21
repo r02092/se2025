@@ -23,15 +23,7 @@ class ReviewController extends Controller
             'spot_id' => 'required|integer|exists:spots,id', // スポットが存在するか
             'rate' => 'required|integer|min:1|max:5', // 評価は1〜5
             'comment' => 'required|string|max:1000', // コメントは必須
-            'image' => 'nullable|image|max:10240', // 画像は任意、最大10MB
         ]);
-
-        // 2. 画像の保存処理
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            // storage/app/public/reviews フォルダに保存
-            $imagePath = $request->file('image')->store('public/reviews');
-        }
 
         // 3. データベースへの保存
         try {
@@ -61,11 +53,6 @@ class ReviewController extends Controller
             return back()->with('success', '口コミを投稿しました！');
         } catch (\Exception $e) {
             DB::rollBack();
-
-            // エラー時は保存した画像を削除しておく
-            if ($imagePath) {
-                Storage::delete($imagePath);
-            }
 
             return back()
                 ->withErrors([
