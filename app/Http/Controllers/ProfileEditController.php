@@ -36,6 +36,7 @@ class ProfileEditController extends Controller
             'login_name' =>
                 'required|string|max:255|unique:users,login_name,' . $user->id,
             'new-password' => 'nullable|string|min:8|same:confirm-password',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 画像のバリデーション
         ]);
 
         // 3. プロフィール更新処理を実行
@@ -50,6 +51,21 @@ class ProfileEditController extends Controller
             }
             // パスワードをハッシュ化して保存
             $user->password = Hash::make($request->input('new-password'));
+        }
+
+        // 4. ★ 画像（アイコン）の保存処理を追加 ★
+        if ($request->hasFile('icon')) {
+            $file = $request->file('icon');
+            if ($file->isValid()) {
+                $extension = $file->getClientOriginalExtension();
+                // 設計書のルールに基づき、ファイル名を「ユーザーID.拡張子」にする
+                $fileName = $user->id . '.' . $extension;
+                // storage/app/public/icons に保存
+                $file->storeAs('public/icons', $fileName);
+
+                // DBに拡張子を記録（設計書の icon_ext カラム）
+                $user->icon_ext = $extension;
+            }
         }
 
         $user->save();
