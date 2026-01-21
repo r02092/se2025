@@ -23,8 +23,10 @@ class TwoFactorLoginTest extends TestCase
         // 2. 2FA入力画面へリダイレクトされることを確認
         $response->assertRedirect();
 
-        // セッションに「2FA認証待ち」フラグが立っているか確認
-        $response->assertSessionHas('auth.2fa_required');
+        // セッションに「2FA認証用ユーザーID」が入っているか確認
+        $response->assertSessionHas('login.2fa_user_id');
+        // まだ認証されていないこと
+        $this->assertGuest();
     }
 
     public function test_正しいコードを入力すれば認証を通過できる()
@@ -38,21 +40,19 @@ class TwoFactorLoginTest extends TestCase
         $user->totp_secret = $validSecret;
         $user->save();
 
-        // ログイン状態にする（ただし2FAは未突破の状態をシミュレート）
-        $this->actingAs($user);
-
-        $google2fa = new Google2FA();
-        $currentCode = $google2fa->getCurrentOtp($validSecret);
-
-        // 2FAコード送信
-        $response = $this->post(route('2fa.verify'), [
-            'one_time_password' => $currentCode,
-        ]);
+        // ログイン試行してセッションを作る（actingAsではなく、実際のフローを経由するか、セッションをセットする）
+        // ここではセッションを直接セットして「パスワード認証通過後」の状態を作る
+        $response = $this->withSession(['login.2fa_user_id' => $user->id])
+            ->post(route('2fa.verify'), [
+                'one_time_password' => $google2fa->getCurrentOtp($validSecret),
+            ]);
 
         // 通過してホームへリダイレクト
         $response->assertRedirect(route('home'));
 
-        // セッションから2FAフラグが消えている（あるいは認証済みフラグがある）こと
-        $response->assertSessionMissing('auth.2fa');
+        // ログイン状態になっていること
+        $this->assertAuthenticatedAs($user);
+        // セッションから一時IDが消えていること
+        $response->assertSessionMissing('login.2fa_user_id');
     }
 }

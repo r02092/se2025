@@ -54,8 +54,11 @@ class LoginControllerTest extends TestCase
             'login_name' => '2fa_user',
             'password' => 'password123',
         ]);
-        $this->assertAuthenticated();
-        $this->assertTrue(session('auth.2fa_required'));
+        $this->assertGuest();
+        $this->assertEquals(
+            User::where('login_name', '2fa_user')->first()->id,
+            session('login.2fa_user_id')
+        );
         $response->assertRedirect(route('2fa.index'));
     }
 }
