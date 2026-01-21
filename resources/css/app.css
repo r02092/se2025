@@ -1725,6 +1725,7 @@ h1 {
 	overflow: hidden;
 	margin-bottom: 1rem;
 	border: 1px solid #f0f0f0;
+	padding: 12px;
 }
 
 /* 1. ヘッダー & 画像エリア */
