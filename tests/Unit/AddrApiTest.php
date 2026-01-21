@@ -10,6 +10,14 @@ class AddrApiTest extends TestCase
     public function test_住所推測(): void
     {
         $controller = new AddrApiController();
+        $this->assertEquals($controller->get('0')->original, [
+            'city' => 0,
+            'addr' => '',
+        ]);
+        $this->assertEquals($controller->get('0000000')->original, [
+            'city' => 0,
+            'addr' => '',
+        ]);
         $this->assertEquals($controller->get('0295504')->original, [
             'city' => 3366,
             'addr' => '槻沢２',
