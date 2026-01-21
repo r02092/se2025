@@ -13,8 +13,7 @@ class AdminUgcTest extends TestCase
     public function test_監視・管理(): void
     {
         $controller = new AdminUgcController();
-        $response = $this->get(route('admin.ugc', 0));
-        $response->assertStatus(200);
+        $this->get(route('admin.ugc', 0))->assertStatus(200);
         foreach (['review', 'photo'] as $type) {
             $this->assertEquals(
                 302,
