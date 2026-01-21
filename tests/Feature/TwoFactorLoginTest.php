@@ -14,6 +14,9 @@ class TwoFactorLoginTest extends TestCase
 
     public function test_設定済みのユーザーはログイン後に2FA画面へ飛ばされる()
     {
+        // 確実にログアウト状態から開始
+        \Illuminate\Support\Facades\Auth::logout();
+
         // 1. 通常のログイン処理を行う
         $response = $this->post('/login', [
             'login_name' => '2fa_user',
@@ -31,6 +34,7 @@ class TwoFactorLoginTest extends TestCase
 
     public function test_正しいコードを入力すれば認証を通過できる()
     {
+        \Illuminate\Support\Facades\Auth::logout();
         // 2fa_user を取得
         $user = User::where('login_name', '2fa_user')->first();
 
