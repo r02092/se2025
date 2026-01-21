@@ -96,7 +96,7 @@
                     <div class="spot-detail-review-header">
                         <!-- ユーザー名（Reviewモデルのuserメソッド経由） -->
                         <span class="spot-detail-review-user">{{ $review->user->name ?? '退会済みユーザー' }}</span>
-                        <span class="spot-detail-review-date">{{ $review->created_at->format('Y/m/d') }}</span>
+							<span class="spot-detail-review-date">{{ $review->updated_at->format('Y/m/d') }}</span>
                     </div>
                     <div class="review-stars">
 						<!-- 評価の星表示 -->
