@@ -11,9 +11,13 @@ class DetailController extends Controller
     {
         // idに従ってスポットを取得、ない場合はe404
         // 同時にkeyword、review、userのリレーションをあらかじめロードする
-        $spot = Spot::with(['keywords', 'reviews.user:name'])->findOrFail(
-            $request->id,
-        );
+        $spot = Spot::with([
+            'keywords',
+            'reviews' => function ($query) {
+                $query->orderBy('updated_at', 'desc');
+            },
+            'reviews.user',
+        ])->findOrFail($request->id);
 
         return view('detail', ['spot' => $spot]);
     }
