@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TwoFactorRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 use PragmaRX\Google2FA\Google2FA;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +13,7 @@ class TwoFactorController extends Controller
 {
     public function index(): View
     {
-        return view('auth.2fa');
+        return view('2fa');
     }
 
     public function verify(TwoFactorRequest $request): RedirectResponse
