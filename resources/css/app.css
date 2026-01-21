@@ -1738,7 +1738,14 @@ h1 {
 	gap: 1rem;
 }
 
-.spot-detail-category-badge {
+.spot-detail-title {
+	font-size: 1.8rem;
+	margin: 0;
+	font-weight: 700;
+	color: #2c3e50;
+}
+
+.spot-category-badge {
 	background-color: #e0f7fa;
 	color: #006064;
 	padding: 0.4rem 1rem;
@@ -1861,7 +1868,7 @@ h1 {
 	color: #999;
 }
 
-.spot-detail-review-stars {
+.review-stars {
 	color: #f1c40f;
 	margin-bottom: 0.5rem;
 }
