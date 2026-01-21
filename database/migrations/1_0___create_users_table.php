@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->unsignedInteger('postal_code')->nullable();
             $table->unsignedInteger('addr_city')->nullable();
             $table->string('addr_detail')->nullable();
-            $table->binary('totp_secret', 255, true)->nullable();
+            $table->string('totp_secret', 16, true)->nullable();
             $table->binary('totp_iv', 12, true)->nullable();
             $table->binary('totp_tag', 16, true)->nullable();
             $table->unsignedInteger('totp_last_time')->nullable();
