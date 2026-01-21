@@ -45,6 +45,9 @@ class SearchApiController extends Controller
             return [
                 'id' => $spot->id,
                 'name' => $spot->name,
+                // ▼▼▼ 追加: テストコードを通すために必要なデータ ▼▼▼
+                'user_id' => $spot->user_id,
+                'plan' => $spot->plan,
                 'description' => $spot->description,
                 'type' => $spot->type,
                 // 画像URLの生成ロジック
