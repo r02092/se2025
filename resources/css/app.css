@@ -451,14 +451,14 @@ h1 {
 .map-area {
 	background: #aad3df;
 	height: 320px;
-	width: 100vw;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
 	justify-content: flex-start;
 }
 #map {
-	width: 100vw;
+	width: 100%;
 	height: 320px;
 	min-width: 100%;
 	max-width: 100vw;
