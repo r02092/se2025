@@ -14,7 +14,7 @@ class SearchApiController extends Controller
 
         // 2. キーワード検索（名前 OR 説明文 OR タグ）
         if ($request->filled('keyword')) {
-            $keyword = $request->keyword;
+            $keyword = $request->input('keyword');
 
             // where(function(...)) で囲むことで、AND条件の中にORを含めることができます
             $query->where(function ($q) use ($keyword) {
@@ -33,7 +33,7 @@ class SearchApiController extends Controller
 
         // 3. カテゴリ（種別）での絞り込み（もしあれば）
         if ($request->filled('type')) {
-            $query->where('type', $request->type);
+            $query->where('type', $request->input('type'));
         }
 
         // 4. データの取得
@@ -41,7 +41,7 @@ class SearchApiController extends Controller
 
         // 5. JSON形式に整形して返す
         // (APIとしても、SearchControllerから呼ばれた場合も使いやすい形にする)
-        $result = $spots->map(function ($spot) {
+        $result = $spots->map(function (Spot $spot) {
             return [
                 'id' => $spot->id,
                 'name' => $spot->name,
