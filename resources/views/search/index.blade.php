@@ -20,7 +20,7 @@
 	@if(isset($departureNotFound) && $departureNotFound)
 		<div style="padding:15px; background:#fff3cd; color:#856404; border-radius:8px; margin-bottom:20px; border:1px solid #ffeeba;">
 			<strong>注意:</strong> 出発地「{{ $departure }}」に一致するスポットが見つかりませんでした。<br>
-			<span style="font-size:0.9rem;">※ 正しい名称を入力するか、現在地を利用してください。</span>
+			<span style="font-size:0.9rem;">※ 正しい名称を入力してください。</span>
 		</div>
 	@endif
 
