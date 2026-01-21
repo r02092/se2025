@@ -13,7 +13,7 @@ class TwoFactorController extends Controller
 {
     public function index(): View
     {
-        return view('auth.2fa');
+        return view('2fa');
     }
 
     public function verify(TwoFactorRequest $request): RedirectResponse
