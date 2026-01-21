@@ -20,5 +20,14 @@ class AdminUgcTest extends TestCase
         }
         $this->assertNull(Review::find(1));
         $this->assertNull(Photo::find(1));
+        $this->post(route('admin.ugc.del'), [])->assertStatus(302);
+        $this->post(route('admin.ugc.del'), [
+            'type' => 'a',
+            'id' => 1,
+        ])->assertStatus(302);
+        $this->post(route('admin.ugc.del'), [
+            'type' => 'review',
+            'id' => 'a',
+        ])->assertStatus(302);
     }
 }

@@ -26,5 +26,42 @@ class AccountCreateTest extends TestCase
             'password_confirm' => 'testpassword',
         ])->assertStatus(400);
         $this->assertNull(User::where('login_name', 'testuser2')->first());
+        $this->post(route('signup.post'), [])->assertStatus(302);
+        $this->post(route('signup.post'), [
+            'name' => '',
+            'username' => 'testuser',
+            'password' => 'testpass',
+            'password_confirm' => 'testpass',
+        ])->assertStatus(302);
+        $this->post(route('signup.post'), [
+            'name' => str_repeat('a', 999),
+            'username' => 'testuser',
+            'password' => 'testpass',
+            'password_confirm' => 'testpass',
+        ])->assertStatus(302);
+        $this->post(route('signup.post'), [
+            'name' => 'Test User',
+            'username' => '',
+            'password' => 'testpass',
+            'password_confirm' => 'testpass',
+        ])->assertStatus(302);
+        $this->post(route('signup.post'), [
+            'name' => 'Test User',
+            'username' => '!',
+            'password' => 'testpass',
+            'password_confirm' => 'testpass',
+        ])->assertStatus(302);
+        $this->post(route('signup.post'), [
+            'name' => 'Test User',
+            'username' => str_repeat('a', 999),
+            'password' => 'testpass',
+            'password_confirm' => 'testpass',
+        ])->assertStatus(302);
+        $this->post(route('signup.post'), [
+            'name' => 'Test User',
+            'username' => 'testuser',
+            'password' => 'test',
+            'password_confirm' => 'test',
+        ])->assertStatus(302);
     }
 }

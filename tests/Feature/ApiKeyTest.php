@@ -17,5 +17,9 @@ class ApiKeyTest extends TestCase
         $this->post(route('business.api'), [
             'delete_id' => 2,
         ])->assertStatus(302);
+        $this->post(route('business.api'), [])->assertStatus(302);
+        $this->post(route('business.api'), [
+            'delete_id' => 9,
+        ])->assertStatus(302);
     }
 }
