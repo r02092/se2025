@@ -30,6 +30,9 @@ Route::get('/filtering', [SearchApiController::class, 'getSpotList'])->name(
     'home.filtered',
 );
 
+// AI検索画面へのルート
+Route::get('/ai-plan', [SearchController::class, 'aiPlan'])->name('ai.plan');
+
 // 公開ページ（ログイン不要）
 Route::get('/post', [PostMapController::class, 'index'])->name('post');
 

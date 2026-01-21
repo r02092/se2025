@@ -97,4 +97,35 @@ class SearchController extends Controller
             'departureNotFound' => $departureNotFound, // ★計算した結果を渡す
         ]);
     }
+
+    /**
+     * AIプランニング画面を表示する
+     */
+    public function aiPlan(Request $request)
+    {
+        // 1. ホーム画面から送られてきた文字を取得
+        $depName = $request->input('departure_name');
+        $dstName = $request->input('destination_name');
+
+        // 2. 文字からIDを探す
+        // (use App\Models\Spot; を忘れずに)
+        $fromSpot = Spot::where('name', 'LIKE', "%{$depName}%")->first();
+        $toSpot = Spot::where('name', 'LIKE', "%{$dstName}%")->first();
+
+        // 3. 【引き継ぎ用】 画面を作らず、データの中身をそのまま表示して終了
+        // これで「ホーム画面から正しくデータが送られているか」は証明できます
+        return response()->json([
+            'status' => 'Data received successfully',
+            'input_data' => [
+                'departure_text' => $depName,
+                'destination_text' => $dstName,
+            ],
+            'found_spots' => [
+                'from_spot_data' => $fromSpot, // 見つからなければ null
+                'to_spot_data' => $toSpot, // 見つからなければ null
+            ],
+            'message' =>
+                'UI担当者へ: このJSONデータを使って結果画面を構築してください。',
+        ]);
+    }
 }

@@ -12,29 +12,62 @@
 	<div id="map"></div>
 </div>
 
-<div class="general-box form-container" style="padding-top: 15px; padding-bottom: 20px; margin: 16px 5% 16px">
-		<form action="{{ route('search') }}" method="GET">
-			<div style="margin-bottom: 10px;">
-				<label for="departure" style="font-weight:bold;">出発地</label>
-				{{-- ★追加: ユーザーへのヒントメッセージ --}}
-				<span style="font-size: 0.8rem; color: #666; margin-left: 5px;">
-				</span>
+{{-- ▼▼▼ 検索フォームエリア（ここから入れ替え） ▼▼▼ --}}
+<div class="general-box form-container" style="padding-top: 0; padding-bottom: 20px; margin: 16px 5% 16px; overflow: hidden;">
 
-				<input type="text" id="departure" name="departure" placeholder="例: 高知駅"
-					   style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px; margin-top:5px;" />
-			</div>
+    {{-- 1. タブ切り替えボタン --}}
+    <div style="display: flex; border-bottom: 1px solid #eee; background: #f9fafb;">
+        <button type="button" id="tab-btn-keyword" onclick="switchSearchTab('keyword')"
+            style="flex: 1; padding: 15px; border: none; background: #fff; border-bottom: 3px solid #16a34a; font-weight: bold; color: #16a34a; cursor: pointer; transition: all 0.2s;">
+            🔍 キーワード検索
+        </button>
+        <button type="button" id="tab-btn-ai" onclick="switchSearchTab('ai')"
+            style="flex: 1; padding: 15px; border: none; background: #f3f4f6; border-bottom: 3px solid transparent; font-weight: bold; color: #6b7280; cursor: pointer; transition: all 0.2s;">
+            🤖 AIに聞く
+        </button>
+    </div>
 
-			<div style="margin-bottom: 15px;">
-				<label for="destination" style="font-weight:bold;">目的地</label>
-				<input type="text" id="destination" name="destination" placeholder="作品名・地名はここに入力してください"
-					   style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px; margin-top:5px;" required />
-			</div>
+    <div style="padding: 20px 15px 0;">
 
-			<button type="submit" class="btn-green" style="width:100%; padding:10px; border:none; cursor:pointer;">
-				検索
-			</button>
-		</form>
-	</div>
+        {{-- 2. キーワード検索フォーム (初期表示) --}}
+        <div id="form-area-keyword">
+            <form action="{{ route('search') }}" method="GET">
+                <div style="margin-bottom: 15px;">
+                    <label for="destination" style="font-weight:bold; display:block; margin-bottom:5px;">目的地・キーワード</label>
+                    <input type="text" id="destination" name="destination" placeholder="作品名・地名・キーワードを入力"
+                           style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:16px;" required />
+                </div>
+
+                <button type="submit" class="btn-green" style="width:100%; padding:12px; border:none; cursor:pointer; background-color: #16a34a; color: white; font-weight: bold; border-radius: 4px;">
+                    検索する
+                </button>
+            </form>
+            <p style="font-size: 0.8rem; color: #666; margin-top: 10px; text-align: center;">
+                スポット名や作品名から探せます。
+            </p>
+        </div>
+
+        {{-- 3. AI検索エリア (準備中表示) --}}
+        <div id="form-area-ai" style="display: none; text-align: center; padding: 20px 0;">
+
+            <div style="font-size: 3rem; margin-bottom: 10px;">🚧</div>
+
+            <h3 style="font-weight: bold; color: #333; margin-bottom: 10px;">AI機能は準備中です</h3>
+
+            <p style="color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
+                出発地と目的地を入力するだけで、<br>
+                AIがおすすめの「寄り道プラン」を提案する機能を開発中です。<br>
+                公開まで今しばらくお待ちください。
+            </p>
+
+            <button type="button" disabled
+                style="width:100%; padding:12px; border:none; background-color: #e5e7eb; color: #9ca3af; font-weight: bold; border-radius: 4px; cursor: not-allowed;">
+                Coming Soon...
+            </button>
+        </div>
+
+    </div>
+</div>
 
 <div class="general-box ai-suggest" style="padding-bottom: auto;">
 	<h2>人気のスポット</h2>
@@ -72,6 +105,41 @@
 
 	</ul>
 </div>
+
+{{-- ▼▼▼ タブ切り替え用のスクリプト ▼▼▼ --}}
+<script>
+    function switchSearchTab(tabName) {
+        const btnKeyword = document.getElementById('tab-btn-keyword');
+        const btnAi = document.getElementById('tab-btn-ai');
+        const areaKeyword = document.getElementById('form-area-keyword');
+        const areaAi = document.getElementById('form-area-ai');
+
+        if (tabName === 'keyword') {
+            areaKeyword.style.display = 'block';
+            areaAi.style.display = 'none';
+
+            btnKeyword.style.background = '#fff';
+            btnKeyword.style.color = '#16a34a';
+            btnKeyword.style.borderBottomColor = '#16a34a';
+
+            btnAi.style.background = '#f3f4f6';
+            btnAi.style.color = '#6b7280';
+            btnAi.style.borderBottomColor = 'transparent';
+        } else {
+            areaKeyword.style.display = 'none';
+            areaAi.style.display = 'block';
+
+            btnAi.style.background = '#fff';
+            btnAi.style.color = '#2563eb';
+            btnAi.style.borderBottomColor = '#2563eb';
+
+            btnKeyword.style.background = '#f3f4f6';
+            btnKeyword.style.color = '#6b7280';
+            btnKeyword.style.borderBottomColor = 'transparent';
+        }
+    }
+</script>
+{{-- ▲▲▲ 検索フォームエリア（ここまで） ▲▲▲ --}}
 
 <div class="suggest"></div>
 @endsection
