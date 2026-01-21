@@ -9,7 +9,7 @@ use App\Http\Requests\ApiKeyRequest;
 
 class ApiKeyTest extends TestCase
 {
-    public function test_発行(): void
+    public function test_キー発行(): void
     {
         $this->actingAs(User::find(3));
         $this->get(route('business.api'))->assertStatus(200);
