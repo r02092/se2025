@@ -41,7 +41,7 @@ class SearchApiController extends Controller
 
         // 5. JSON形式に整形して返す
         // (APIとしても、SearchControllerから呼ばれた場合も使いやすい形にする)
-        $result = $spots->map(function (Spot $spot) {
+        $result = $spots->map(function (\App\Models\Spot $spot) {
             return [
                 'id' => $spot->id,
                 'name' => $spot->name,
