@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController; // 追加: MC00
 use App\Http\Controllers\SearchApiController;
 use App\Http\Controllers\PostMapController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\LoginController;
@@ -37,9 +38,7 @@ Route::get('/detail', [DetailController::class, 'index'])->name('detail');
 
 Route::get('/photo', [PostMapController::class, 'index'])->name('photo');
 
-Route::get('/coupon', function () {
-    return view('coupon');
-})->name('coupon');
+Route::get('/coupon', [CouponController::class, 'get'])->name('coupon');
 
 Route::get('/coupon/{id}', function ($id) {
     return view('coupon-selected');

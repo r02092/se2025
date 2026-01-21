@@ -5,7 +5,7 @@
 @section('content')
 <h1>ログアウト確認</h1>
 <section class="general-box achievement" aria-labelledby="achievement-title">
-	<h2 id="achievement-title">ログアウトしますか？</h2>
+	<div id="achievement-title">ログアウトしますか？</div>
 	<div style="text-align: center;">「はい」をクリックすると、ログアウトしてトップページに戻ります。<br></div>
 	<div class="general-box divider" aria-hidden="true"></div>
 
