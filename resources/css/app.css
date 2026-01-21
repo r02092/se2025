@@ -1923,3 +1923,15 @@ h1 {
 .spot-detail-btn-submit:hover {
 	background-color: #2980b9;
 }
+
+.terms-content {
+	height: 35vh;
+	overflow-y: scroll;
+	background: #f9f9f9;
+	border-radius: 8px;
+	text-align: left;
+}
+
+.terms-btn-area {
+	margin-top: 16px;
+}
