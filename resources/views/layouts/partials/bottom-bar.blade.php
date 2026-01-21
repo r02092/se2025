@@ -25,7 +25,7 @@
 			<span class="bottom-label">ホーム</span>
 		</a>
 
-		<a href="{{ route('photo') }}" class="bottom-btn">
+		<a href="{{ route('post') }}" class="bottom-btn">
 			<svg class="bottom-icon" viewBox="0 0 512 512" aria-hidden="true">
 				<g>
 					<path
