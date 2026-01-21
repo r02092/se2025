@@ -194,7 +194,10 @@ h1 {
 	white-space: nowrap;
 }
 
-.h5 {
+.h5,
+.twofa-center > h3 {
+	font-size: 0.83em;
+	font-weight: bold;
 	padding: 15px;
 }
 
@@ -690,6 +693,13 @@ h1 {
 }
 .logout-button-confirm:hover {
 	background-color: #108a66;
+}
+#achievement-title {
+	font-size: 1.5em;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
 }
 
 /* ==== post.css ==== */
@@ -1497,7 +1507,7 @@ h1 {
 	color: #900;
 	font-size: 13px;
 }
-.checkin-qr-actions {
+.kmn-mt {
 	margin-top: 12px;
 }
 .checkin-qr-close-btn {
@@ -1668,12 +1678,6 @@ h1 {
 .form-detail {
 	color: gray;
 	font-size: 70%;
-}
-
-.h5 {
-	display: block;
-	font-size: 0.83em;
-	font-weight: bold;
 }
 
 .apikey {
@@ -1915,4 +1919,25 @@ h1 {
 
 .spot-detail-btn-submit:hover {
 	background-color: #2980b9;
+}
+
+.terms-content {
+	height: 35vh;
+	overflow-y: scroll;
+	background: #f9f9f9;
+	border-radius: 8px;
+	text-align: left;
+}
+
+.twofa-center {
+	text-align: center;
+}
+
+.letter-spacing {
+	letter-spacing: 0.2em;
+	font-size: 1.5rem;
+}
+
+.twofa-fb {
+	font-size: 1.2rem;
 }

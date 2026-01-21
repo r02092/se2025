@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController; // 追加: MC00
 use App\Http\Controllers\SearchApiController;
 use App\Http\Controllers\PostMapController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\LoginController;
@@ -14,7 +15,7 @@ use App\Http\Controllers\ReviewController; // 追加: MU15
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ProfileTwoFactorController;
 
-use App\Http\Controllers\profileEditController;
+use App\Http\Controllers\ProfileEditController;
 
 use App\Http\Controllers\AddrApiController;
 use App\Http\Controllers\ApiKeyController;
@@ -37,9 +38,7 @@ Route::get('/detail', [DetailController::class, 'index'])->name('detail');
 
 Route::get('/photo', [PostMapController::class, 'index'])->name('photo');
 
-Route::get('/coupon', function () {
-    return view('coupon');
-})->name('coupon');
+Route::get('/coupon', [CouponController::class, 'get'])->name('coupon');
 
 Route::get('/coupon/{id}', function ($id) {
     return view('coupon-selected');
@@ -104,18 +103,25 @@ Route::middleware(['auth'])->group(function () {
     );
     // プロフィール
     // --- 修正後 ---
-// 1. プロフィール編集画面の表示 (GET)
-Route::get('/profile/edit', [ProfileEditController::class, 'edit'])->name('profile.edit');
-
-// 2. プロフィール情報の更新 (PUTまたはPOST) 
-// ※HTMLフォームから送る場合は method_field('PUT') を使うため PUT にしています
-Route::put('/profile/edit', [ProfileEditController::class, 'update'])->name('profile.update');
-
-// 3. アイコン画像のアップロード (POST)
-Route::post('/profile/edit/icon', [ProfileEditController::class, 'uploadIcon'])->name('profile.icon.update');
     Route::get('/profile', function () {
         return view('profile');
     })->name('profile');
+    // 1. プロフィール編集画面の表示 (GET)
+    Route::get('/profile/edit', [ProfileEditController::class, 'edit'])->name(
+        'profile.edit',
+    );
+
+    // 2. プロフィール情報の更新 (PUTまたはPOST)
+    // ※HTMLフォームから送る場合は method_field('PUT') を使うため PUT にしています
+    Route::put('/profile/edit', [ProfileEditController::class, 'update'])->name(
+        'profile.update',
+    );
+
+    // 3. アイコン画像のアップロード (POST)
+    Route::post('/profile/edit/icon', [
+        ProfileEditController::class,
+        'uploadIcon',
+    ])->name('profile.icon.update');
 
     // 投稿（削除などの操作のみ認証）
     Route::delete('/post/{id}', function ($id) {
