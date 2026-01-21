@@ -39,36 +39,23 @@
 </div>
 
 <section class="coupon-list" aria-label="クーポン一覧">
-	@if(isset($activeCoupons) && $activeCoupons->count() > 0)
-	<section id="active-coupons" aria-label="現在利用中のクーポン">
-		<h2>現在利用中のクーポン</h2>
-		@foreach($activeCoupons as $coupon)
-		<article class="general-box coupon-card" data-category="{{ $coupon->category }}">
+	@foreach ($couponsList as $coupons)
+	@if(isset($coupons[2]))
+	<section id="{{ $coupons[1] }}" aria-label="{{ $coupons[0] }}クーポン">
+		<h2>{{ $coupons[0] }}クーポン</h2>
+		@foreach($coupons[2] as $coupon)
+		<article class="general-box coupon-card" data-category="{{ $coupon[0]->type }}">
 			<div class="coupon-info">
-				<h3 class="coupon-name">{{ $coupon->name }}</h3>
-				<p class="coupon-desc">{{ $coupon->description }}</p>
-				<p class="coupon-exp">有効期限: {{ $coupon->expires_at->format('Y年m月d日') }}</p>
+				<h3 class="coupon-name">{{ $coupon[0]->name }}</h3>
+				<p class="coupon-exp">スポット: {{ $coupon[0]->spot->name }}</p>
+				<p class="coupon-exp">種別: {{ $coupon[1] }}</p>
+				<p class="coupon-exp">有効期限: {{ isset($coupon[0]->expires_at) ? $coupon[0]->expires_at->format('Y年m月d日') : 'なし' }}</p>
 			</div>
-			<a href="{{ route('coupon.show', $coupon->id) }}" class="coupon-btn">詳細を見る</a>
+			<a href="{{ route('coupon.show', $coupon[0]->id) }}" class="coupon-btn">{{ $coupons[0] == '現在利用中の' ? '詳細を見る' : '取得する' }}</a>
 		</article>
 		@endforeach
 	</section>
 	@endif
-
-	@if(isset($availableCoupons) && $availableCoupons->count() > 0)
-	<section id="available-coupons" aria-label="利用可能なクーポン">
-		<h2>利用可能なクーポン</h2>
-		@foreach($availableCoupons as $coupon)
-		<article class="general-box coupon-card" data-category="{{ $coupon->category }}">
-			<div class="coupon-info">
-				<h3 class="coupon-name">{{ $coupon->name }}</h3>
-				<p class="coupon-desc">{{ $coupon->description }}</p>
-				<p class="coupon-exp">有効期限: {{ $coupon->expires_at->format('Y年m月d日') }}</p>
-			</div>
-			<a href="{{ route('coupon.show', $coupon->id) }}" class="coupon-btn">取得する</a>
-		</article>
-		@endforeach
-	</section>
-	@endif
+	@endforeach
 </section>
 @endsection
