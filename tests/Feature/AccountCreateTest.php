@@ -10,6 +10,7 @@ class AccountCreateTest extends TestCase
 {
     public function test_アカウント作成(): void
     {
+        $this->get(route('signup'))->assertStatus(200);
         Auth::logout();
         $this->post(route('signup.post'), [
             'name' => 'Test User',
