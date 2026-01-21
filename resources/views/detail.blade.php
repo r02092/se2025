@@ -46,6 +46,13 @@
 				<div class="map-area">
 					<div id="map"></div>
 				</div>
+				<div>
+					<a href="https://www.google.com/maps/search/?api=1&query={{ $spot->lat }},{{ $spot->lng }}"
+					target="_blank"
+					rel="noopener noreferrer">
+						Googleマップで見る
+					</a>
+				</div>
             </section>
 
             <!-- スポットの説明 -->
