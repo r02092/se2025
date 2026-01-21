@@ -14,8 +14,17 @@
 
             <!-- カテゴリ数値(type)を文字列に変換表示 -->
             @php
-                $types = [0 => '観光', 1 => '体験アクティビティ', 2 => 'お土産', 3 => '飲食', 4 => '宿泊', 5 => '公共施設', 6 => '公共交通機関', 7 => 'その他'];
-                $typeLabel = $types[$spot->type] ?? 'その他';
+                $types = [
+					0 => '観光',
+					1 => '体験アクティビティ',
+					2 => 'お土産',
+					3 => '飲食',
+					4 => '宿泊',
+					5 => '公共施設',
+					6 => '公共交通機関',
+					7 => 'その他'
+				];
+                $typeLabel = $types[$spot->type];
             @endphp
             <span class="spot-detail-category-badge">{{ $typeLabel }}</span>
         </header>
