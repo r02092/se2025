@@ -4,20 +4,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController; // 追加: MC00
 use App\Http\Controllers\SearchApiController;
 use App\Http\Controllers\PostMapController;
-use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DetailController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AccountCreateController;
 use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ReviewController; // 追加: MU15
+use App\Http\Controllers\ProfileEditController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ProfileTwoFactorController;
-
-use App\Http\Controllers\ProfileEditController;
-
 use App\Http\Controllers\AddrApiController;
+use App\Http\Controllers\AiApiController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UserListController;
@@ -35,8 +34,6 @@ Route::get('/filtering', [SearchApiController::class, 'getSpotList'])->name(
 Route::get('/post', [PostMapController::class, 'index'])->name('post');
 
 Route::get('/detail', [DetailController::class, 'index'])->name('detail');
-
-Route::get('/photo', [PostMapController::class, 'index'])->name('photo');
 
 Route::get('/coupon', [CouponController::class, 'get'])->name('coupon');
 
@@ -161,6 +158,8 @@ Route::middleware(['auth'])->group(function () {
     ])->name('profile.2fa.destroy');
 
     Route::get('/addr/{pc}', [AddrApiController::class, 'get'])->name('addr');
+
+    Route::post('/ai', [AiApiController::class, 'post'])->name('ai');
 });
 
 // 事業者専用ルート
