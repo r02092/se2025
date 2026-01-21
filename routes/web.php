@@ -4,19 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController; // 追加: MC00
 use App\Http\Controllers\SearchApiController;
 use App\Http\Controllers\PostMapController;
-use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DetailController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AccountCreateController;
 use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ReviewController; // 追加: MU15
+use App\Http\Controllers\ProfileEditController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ProfileTwoFactorController;
-
-use App\Http\Controllers\ProfileEditController;
-
 use App\Http\Controllers\AddrApiController;
 use App\Http\Controllers\AiApiController;
 use App\Http\Controllers\ApiKeyController;
