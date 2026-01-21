@@ -1816,25 +1816,23 @@ h1 {
 
 /* 3. レビューエリア */
 .spot-detail-review-section {
-	padding: 2rem;
 	background-color: #fafafa; /* 背景色を少し変えて区別 */
 }
 
 .spot-detail-rating-summary {
-	display: flex;
-	align-items: center;
-	gap: 1rem;
-	margin-bottom: 2rem;
+	/* display: flex; */
+	text-align: center;
+	margin: 2rem;
 }
 
 .spot-detail-average-rate {
-	font-size: 2.5rem;
+	font-size: 4vw;
 	font-weight: bold;
 	color: #f1c40f;
 }
 
 .spot-detail-average-label {
-	font-size: 0.9rem;
+	font-size: 0.8rem;
 	color: #777;
 }
 

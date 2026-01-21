@@ -81,11 +81,11 @@
                 $starCount = round($avgRate);
             @endphp
             <span class="spot-detail-average-rate">
-                <span style="color: #ccc;">平均評価 <div class="review-stars">★</div></span>{{ number_format($avgRate, 1) }}
+                <span style="color: #aaa;">平均評価 <span class="review-stars">★</span>{{ number_format($avgRate, 1) }}
             </span>
-            <span class="spot-detail-average-label">
+            <div class="spot-detail-average-label">
                 ({{ $spot->reviews->count() }}件のレビュー)
-            </span>
+			</div>
         </div>
 
         <!-- 5. 口コミ一覧 -->
