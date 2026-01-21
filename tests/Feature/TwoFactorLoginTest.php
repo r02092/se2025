@@ -46,10 +46,11 @@ class TwoFactorLoginTest extends TestCase
 
         // ログイン試行してセッションを作る（actingAsではなく、実際のフローを経由するか、セッションをセットする）
         // ここではセッションを直接セットして「パスワード認証通過後」の状態を作る
-        $response = $this->withSession(['login.2fa_user_id' => $user->id])
-            ->post(route('2fa.verify'), [
-                'one_time_password' => $google2fa->getCurrentOtp($validSecret),
-            ]);
+        $response = $this->withSession([
+            'login.2fa_user_id' => $user->id,
+        ])->post(route('2fa.verify'), [
+            'one_time_password' => $google2fa->getCurrentOtp($validSecret),
+        ]);
 
         // 通過してホームへリダイレクト
         $response->assertRedirect(route('home'));

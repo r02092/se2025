@@ -57,7 +57,7 @@ class LoginControllerTest extends TestCase
         $this->assertGuest();
         $this->assertEquals(
             User::where('login_name', '2fa_user')->first()->id,
-            session('login.2fa_user_id')
+            session('login.2fa_user_id'),
         );
         $response->assertRedirect(route('2fa.index'));
     }
