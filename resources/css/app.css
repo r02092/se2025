@@ -691,6 +691,13 @@ h1 {
 .logout-button-confirm:hover {
 	background-color: #108a66;
 }
+#achievement-title {
+	font-size: 1.5em;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+}
 
 /* ==== post.css ==== */
 .post-titlebar {
