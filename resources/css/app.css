@@ -1875,6 +1875,8 @@ h1 {
 .spot-detail-review-comment {
 	line-height: 1.6;
 	color: #555;
+	word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .spot-detail-review-form-wrapper {
