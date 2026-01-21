@@ -18,6 +18,7 @@ use App\Http\Controllers\ProfileTwoFactorController;
 use App\Http\Controllers\ProfileEditController;
 
 use App\Http\Controllers\AddrApiController;
+use App\Http\Controllers\AiApiController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UserListController;
@@ -161,6 +162,8 @@ Route::middleware(['auth'])->group(function () {
     ])->name('profile.2fa.destroy');
 
     Route::get('/addr/{pc}', [AddrApiController::class, 'get'])->name('addr');
+
+    Route::post('/ai', [AiApiController::class, 'post'])->name('ai');
 });
 
 // 事業者専用ルート
