@@ -38,17 +38,16 @@ class LoginController extends Controller
             ]);
         }
 
-        // 4. チェックを通過したらログイン処理
-        Auth::login($user);
-        $request->session()->regenerate();
-
+        // 4. チェックを通過
         // 5. 2FAチェック
         if (!empty($user->totp_secret)) {
-            session(['auth.2fa_required' => true]);
+            session(['login.2fa_user_id' => $user->id]);
             return redirect()->route('2fa.index');
         }
 
         // 6. 通常ログイン完了
+        Auth::login($user);
+        $request->session()->regenerate();
         return redirect()->intended(route('home'));
     }
 
@@ -97,10 +96,12 @@ class LoginController extends Controller
     private function handlePostLogin($user)
     {
         if (!empty($user->totp_secret)) {
-            session(['auth.2fa_required' => true]);
+            session(['login.2fa_user_id' => $user->id]);
             return redirect()->route('2fa.index');
         }
 
+        Auth::login($user);
+        session()->regenerate();
         return redirect()->route('home');
     }
 
