@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Traits\DupLoginNameCheckTrait; // MC06: ログイン名重複チェック
 
 /**
  * MC09: プロフィール編集画面構成モジュール
  */
 class ProfileEditController extends Controller
 {
-    use DupLoginNameCheckTrait;
 
     /**
      * プロフィール編集画面を表示する (GET)
@@ -20,7 +18,7 @@ class ProfileEditController extends Controller
     {
         $user = Auth::user();
 
-        return view('profile-edit', [
+        return view('profile.edit', [
             'user' => $user,
         ]);
     }
@@ -39,22 +37,6 @@ class ProfileEditController extends Controller
                 'required|string|max:255|unique:users,login_name,' . $user->id,
         ]);
 
-        // 2. ログイン名重複チェック (Trait MC06 の呼び出し)
-        // ※バリデーションのuniqueでもチェック可能ですが、設計書のフローに従います
-        if (
-            $this->isDuplicateLoginName(
-                $request->input('login_name'),
-                $user->id,
-            )
-        ) {
-            return redirect()
-                ->back()
-                ->withErrors([
-                    'login_name' => 'このログイン名は既に使用されています。',
-                ])
-                ->withInput();
-        }
-
         // 3. プロフィール更新処理を実行
         $user->name = $request->input('name');
         $user->login_name = $request->input('login_name');
@@ -63,7 +45,7 @@ class ProfileEditController extends Controller
         // 4. 更新完了画面（または編集画面）へ遷移
         return redirect()
             ->route('profile.edit')
-            ->with('status', 'profile-updated');
+            ->with('status', 'profile.updated');
     }
 
     /**
@@ -92,7 +74,7 @@ class ProfileEditController extends Controller
 
             return redirect()
                 ->route('profile.edit')
-                ->with('status', 'icon-updated');
+                ->with('status', 'icon.updated');
         }
 
         return redirect()

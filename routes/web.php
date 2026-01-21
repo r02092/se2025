@@ -13,6 +13,9 @@ use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ReviewController; // 追加: MU15
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ProfileTwoFactorController;
+
+use App\Http\Controllers\profileEditController;
+
 use App\Http\Controllers\AddrApiController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
@@ -100,6 +103,17 @@ Route::middleware(['auth'])->group(function () {
         'reviews.store',
     );
     // プロフィール
+    // --- 修正後 ---
+// 1. プロフィール編集画面の表示 (GET)
+Route::get('/profile/edit', [ProfileEditController::class, 'edit'])->name('profile.edit');
+
+// 2. プロフィール情報の更新 (PUTまたはPOST) 
+// ※HTMLフォームから送る場合は method_field('PUT') を使うため PUT にしています
+Route::put('/profile/edit', [ProfileEditController::class, 'update'])->name('profile.update');
+
+// 3. アイコン画像のアップロード (POST)
+Route::post('/profile/edit/icon', [ProfileEditController::class, 'uploadIcon'])->name('profile.icon.update');
+    /*
     Route::get('/profile', function () {
         return view('profile');
     })->name('profile');
@@ -111,6 +125,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile', function () {
         // プロフィール更新処理
     })->name('profile.update');
+    */
 
     // 投稿（削除などの操作のみ認証）
     Route::delete('/post/{id}', function ($id) {

@@ -25,13 +25,13 @@
 				<label for="avatar-img">画像をアップロード</label>
 			</div>
 
-			<label for="name">表示名</label>
+			<label for="username">表示名</label>
 			<input
 				type="text"
-				id="name"
-				name="name"
+				id="username"
+				name="username"
 				required
-				value="{{ old('name', Auth::user()->name) }}"
+				value="{{ old('username', Auth::user()->name) }}"
 			/>
 
 			<label for="current-password">現在のパスワード</label>
