@@ -118,7 +118,7 @@
 			</div>
 
 			{{-- ボタンエリア --}}
-			<div class="terms-btn-area">
+			<div class="kmn-mt">
 				{{-- 戻るボタン（前のページへ） --}}
 				<button type="button" class="btn btn-secondary" onclick="window.close()">
 					閉じる

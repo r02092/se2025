@@ -194,7 +194,10 @@ h1 {
 	white-space: nowrap;
 }
 
-.h5 {
+.h5,
+.twofa-center > h3 {
+	font-size: 0.83em;
+	font-weight: bold;
 	padding: 15px;
 }
 
@@ -1504,7 +1507,7 @@ h1 {
 	color: #900;
 	font-size: 13px;
 }
-.checkin-qr-actions {
+.kmn-mt {
 	margin-top: 12px;
 }
 .checkin-qr-close-btn {
@@ -1675,12 +1678,6 @@ h1 {
 .form-detail {
 	color: gray;
 	font-size: 70%;
-}
-
-.h5 {
-	display: block;
-	font-size: 0.83em;
-	font-weight: bold;
 }
 
 .apikey {
@@ -1932,6 +1929,15 @@ h1 {
 	text-align: left;
 }
 
-.terms-btn-area {
-	margin-top: 16px;
+.twofa-center {
+	text-align: center;
+}
+
+.letter-spacing {
+	letter-spacing: 0.2em;
+	font-size: 1.5rem;
+}
+
+.twofa-fb {
+	font-size: 1.2rem;
 }
