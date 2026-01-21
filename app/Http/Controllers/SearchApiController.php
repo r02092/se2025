@@ -2,34 +2,63 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Spot;
 use Illuminate\Http\Request;
+use App\Models\Spot;
 
 class SearchApiController extends Controller
 {
     public function getSpotList(Request $request)
     {
-        // クライアントからのキーワードとカテゴリの入力を取得
-        // inputの引数は仮
-        $keyword = $request->input('keyword');
-        $type = $request->input('type');
+        // 1. クエリの準備（keywordsとreviewsを一緒に読み込む）
+        $query = Spot::with(['keywords', 'reviews']);
 
-        $spots = Spot::all();
+        // 2. キーワード検索（名前 OR 説明文 OR タグ）
+        if ($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
 
-        // カテゴリが指定されている場合、カテゴリに基づいてフィルタリング
-        if (isset($type)) {
-            $spots = $spots->filter(function ($spot) use ($type) {
-                return $spot->type === $type;
+            // where(function(...)) で囲むことで、AND条件の中にORを含めることができます
+            $query->where(function ($q) use ($keyword) {
+                // 名前 (name) に含まれているか
+                $q->where('name', 'LIKE', "%{$keyword}%")
+                    // または、説明文 (description) に含まれているか
+                    ->orWhere('description', 'LIKE', "%{$keyword}%")
+                    // または、紐づくキーワード (keywordsテーブル) に含まれているか
+                    ->orWhereHas('keywords', function ($subQuery) use (
+                        $keyword,
+                    ) {
+                        $subQuery->where('keyword', 'LIKE', "%{$keyword}%");
+                    });
             });
         }
 
-        //キーワードが指定されている場合、キーワードに基づいてフィルタリング
-        if (isset($keyword)) {
-            $spots = $spots->filter(function ($spot) use ($keyword) {
-                return $spot->keywords->contains('keyword', $keyword);
-            });
+        // 3. カテゴリ（種別）での絞り込み（もしあれば）
+        if ($request->filled('type')) {
+            $query->where('type', $request->input('type'));
         }
 
-        return response()->json($spots);
+        // 4. データの取得
+        $spots = $query->get();
+
+        // 5. JSON形式に整形して返す
+        // (APIとしても、SearchControllerから呼ばれた場合も使いやすい形にする)
+        $result = $spots->map(function (\App\Models\Spot $spot) {
+            return [
+                'id' => $spot->id,
+                'name' => $spot->name,
+                // ▼▼▼ 追加: テストコードを通すために必要なデータ ▼▼▼
+                'user_id' => $spot->user_id,
+                'plan' => $spot->plan,
+                'description' => $spot->description,
+                'type' => $spot->type,
+                // 画像URLの生成ロジック
+                'image_url' => asset(
+                    'images/' . $spot->name . '.' . ($spot->img_ext ?? 'jpg'),
+                ),
+                'keywords' => $spot->keywords->pluck('keyword')->toArray(),
+            ];
+        });
+
+        // JSONレスポンスとして返す
+        return response()->json($result);
     }
 }
