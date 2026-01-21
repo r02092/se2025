@@ -70,7 +70,7 @@ class LoginController extends Controller
                 ]);
         }
 
-        $user = User::where('email', $socialUser->getEmail())
+        $user = User::where('login_name', $socialUser->getEmail())
             ->orWhere('google_id', $socialUser->getId())
             ->first();
 
@@ -83,10 +83,9 @@ class LoginController extends Controller
         } else {
             $user = User::create([
                 'name' => $socialUser->getName(),
-                'email' => $socialUser->getEmail(),
                 'login_name' => $socialUser->getEmail(),
                 'google_id' => $socialUser->getId(),
-                'password' => password_hash(Str::radom(16), PASSWORD_ARGON2ID),
+                'password' => password_hash(Str::random(16), PASSWORD_ARGON2ID),
                 'provider' => 1,
             ]);
             Auth::login($user);
