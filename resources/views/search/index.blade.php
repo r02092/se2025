@@ -44,13 +44,10 @@
 
                         {{-- ▼▼▼ 修正: 詳細画面へのリンク ▼▼▼ --}}
                         <div style="margin-top: 8px;">
-                            <a href="{{ route('spot.detail', $spot->id) }}" style="color:#16a34a; text-decoration:underline; font-weight:bold; margin-right: 15px;">
-                                詳細を見る
-                            </a>
-                            {{-- ルート案内（機能未実装ならリンクは # のまま） --}}
-                            <a href="#" style="color:#666; text-decoration:underline; font-size:0.9rem;">
-                                ルート案内を開始する
-                            </a>
+							<a href="{{ route('spot.detail', $spot->id) }}" ...>詳細を見る</a>
+							<a href="{{ route('detail', ['id' => $spot->id]) }}" style="color:#16a34a; text-decoration:underline; font-weight:bold; margin-right: 15px;">
+								詳細を見る
+							</a>
                         </div>
                     </div>
                 </li>
