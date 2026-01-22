@@ -29,7 +29,7 @@ class AiApiTest extends TestCase
                 ->post(
                     new AiApiRequest([
                         'chat' => 'この周辺にある観光スポットを推薦して',
-                        'from' => 2,
+                        'from' => 5,
                     ]),
                 )
                 ->getStatusCode(),
