@@ -28,8 +28,8 @@ class SearchController extends Controller
             // 検索数が多い順に並べ替え
             ->orderByDesc('search_count')
 
-            // 上位6件を取得
-            ->take(6)
+            // 上位5件を取得
+            ->take(5)
             ->get();
 
         //ビューの表示とデータの引き渡し

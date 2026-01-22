@@ -69,42 +69,61 @@
     </div>
 </div>
 
+{{-- ▼▼▼ 人気スポットエリア（ここから入れ替え） ▼▼▼ --}}
 <div class="general-box ai-suggest" style="padding-bottom: auto;">
-	<h2>人気のスポット</h2>
-	<div class="spot-divider" aria-hidden="true"></div>
 
-	<ul class="spot-list" aria-label="人気のスポット一覧">
+    {{-- 1. 見出しを「TOP5」に変更 --}}
+    <h2 style="display: flex; align-items: center; gap: 10px;">
+        <span style="color: #eab308;">🏆</span> 人気のスポット TOP5
+    </h2>
+    <div class="spot-divider" aria-hidden="true"></div>
 
-		{{-- コントローラーから $spots データが渡ってきているかチェック --}}
-		@if(isset($spots) && count($spots) > 0)
-			@foreach($spots as $spot)
-				<li class="spot-item">
-					{{-- 画像パスがあればそれを、なければデフォルト画像（例:はりまや橋）を表示 --}}
-					<img class="spot-thumb"
-						 src="{{ asset($spot->image_path ?? 'images/Harimaya_Bridge.jpg') }}"
-						 alt="{{ $spot->name }}"
-						 {{-- 画像読み込み失敗時のフォールバック --}}
-						 onerror="this.src='{{ asset('images/Harimaya_Bridge.jpg') }}'" />
+    <ul class="spot-list" aria-label="人気のスポット一覧">
 
-					<div class="spot-content">
-						<h3 class="spot-title">{{ $spot->name }}</h3>
-						{{-- 検索回数を表示したい場合はコメントアウトを外してください --}}
-						{{-- <p style="font-size:0.8rem; color:#16a34a;">検索数: {{ $spot->search_count }}回</p> --}}
-					</div>
-				</li>
-			@endforeach
-		@else
-			{{-- データがまだ1件もない場合の表示 --}}
-			<li class="spot-item">
-				<div class="spot-content">
-					<h3 class="spot-title">データ集計中...</h3>
-					<p>いろいろな場所を検索してみてください。</p>
-				</div>
-			</li>
-		@endif
+        @if(isset($spots) && count($spots) > 0)
+            @foreach($spots as $index => $spot)
+                <li class="spot-item" style="position: relative; transition: transform 0.2s;">
 
-	</ul>
+                    {{-- 2. 全体をリンク(aタグ)で囲んで詳細画面へ飛べるようにする --}}
+                    <a href="{{ route('detail', ['id' => $spot->id]) }}"
+                       style="display: block; text-decoration: none; color: inherit; height: 100%;">
+
+                        {{-- 順位バッジ（1位〜3位だけ色を変える演出） --}}
+                        <div style="position: absolute; top: 0; left: 0; background: {{ $index < 3 ? '#eab308' : '#9ca3af' }}; color: white; font-weight: bold; padding: 4px 10px; border-radius: 4px 0 4px 0; z-index: 10;">
+                            {{ $index + 1 }}
+                        </div>
+
+                        {{-- 画像 --}}
+                        <img class="spot-thumb"
+                             src="{{ asset($spot->image_path ?? 'images/Harimaya_Bridge.jpg') }}"
+                             alt="{{ $spot->name }}"
+                             onerror="this.src='{{ asset('images/Harimaya_Bridge.jpg') }}'"
+                             style="transition: opacity 0.2s;"
+                             onmouseover="this.style.opacity='0.8'"
+                             onmouseout="this.style.opacity='1.0'" />
+
+                        <div class="spot-content">
+                            <h3 class="spot-title">{{ $spot->name }}</h3>
+                            <p style="font-size: 0.8rem; color: #16a34a; text-align: right; margin-top: 5px;">
+                                詳細を見る ➜
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            @endforeach
+        @else
+            {{-- データがない場合 --}}
+            <li class="spot-item">
+                <div class="spot-content">
+                    <h3 class="spot-title">集計中...</h3>
+                    <p>検索データが集まるとランキングが表示されます。</p>
+                </div>
+            </li>
+        @endif
+
+    </ul>
 </div>
+{{-- ▲▲▲ 人気スポットエリア（ここまで） ▲▲▲ --}}
 
 {{-- ▼▼▼ タブ切り替え用のスクリプト ▼▼▼ --}}
 <script>
