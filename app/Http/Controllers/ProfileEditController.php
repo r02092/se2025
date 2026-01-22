@@ -118,13 +118,11 @@ class ProfileEditController extends Controller
         if ($request->hasFile('icon')) {
             $file = $request->file('icon');
             if ($file->isValid()) {
-                if ($file->isValid()) {
-                    // 古い画像があれば削除
-                    if ($user->icon_ext) {
-                        Storage::delete(
-                            'public/icons/' . $user->id . '.' . $user->icon_ext,
-                        );
-                    }
+                // 古い画像があれば削除
+                if ($user->icon_ext) {
+                    Storage::delete(
+                        'public/icons/' . $user->id . '.' . $user->icon_ext,
+                    );
                 }
                 $extension = $file->getClientOriginalExtension();
                 // ファイル名を「ユーザーID.拡張子」にする
