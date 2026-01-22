@@ -22,6 +22,7 @@ class ReviewController extends Controller
                 'comment' => 'required|string|max:1000', // コメントは必須
             ],
             [
+                'comment.required' => 'コメントを入力してください',
                 'comment.max' => 'コメントは1～1000文字で入力してください',
             ],
         );
