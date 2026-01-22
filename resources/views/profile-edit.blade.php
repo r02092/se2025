@@ -21,11 +21,12 @@
         {{-- 1. 修正：画像送信のために enctype="multipart/form-data" を追加 --}}
         <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
+            {{-- @method('PUT') は削除（POST送信のため） --}}
 
             <div class="profile-edit-avatar-group">
                 <img
-                    src="{{ Auth::user()->icon_ext ? asset('storage/icons/' . Auth::user()->id . '.' . Auth::user()->icon_ext) : asset('images/Profile_pic.JPG') }}"
+                    id="profile-preview"
+                    src="{{ Auth::user()->icon_ext ? asset('storage/icons/' . Auth::user()->id . '.' . Auth::user()->icon_ext . '?' . time()) : asset('images/Profile_pic.JPG') }}"
                     alt="ユーザーの現在のアバター画像"
                     class="profile-avatar"
                 />
@@ -97,3 +98,30 @@
     </div>
 </div>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.getElementById('avatar-img');
+        const previewImage = document.getElementById('profile-preview');
+
+        if (fileInput && previewImage) {
+            fileInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    // Check file size (2MB limit) to provide immediate feedback
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert('画像のサイズが大きすぎます(2MB以下の画像を使用してください)。');
+                        fileInput.value = ''; // Reset input
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+</script>

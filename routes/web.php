@@ -111,9 +111,9 @@ Route::middleware(['auth'])->group(function () {
         'profile.edit',
     );
 
-    // 2. プロフィール情報の更新 (PUTまたはPOST)
-    // ※HTMLフォームから送る場合は method_field('PUT') を使うため PUT にしています
-    Route::put('/profile/edit', [ProfileEditController::class, 'update'])->name(
+    // 2. プロフィール情報の更新 (POST)
+    // ※画像アップロードを含むためPOSTに変更
+    Route::post('/profile/edit', [ProfileEditController::class, 'update'])->name(
         'profile.update',
     );
 
