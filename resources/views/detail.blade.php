@@ -8,28 +8,13 @@
     <!-- スポット基本情報カード -->
     <article class="spot-detail-card">
 
-        <!-- 1. タイトルとカテゴリ -->
+        <!-- タイトルとカテゴリ -->
         <header class="spot-detail-header">
             <h1 class="spot-detail-title">{{ $spot->name }}</h1>
-
-            <!-- カテゴリ数値(type)を文字列に変換表示 -->
-            @php
-                $types = [
-					0 => '観光',
-					1 => '体験アクティビティ',
-					2 => 'お土産',
-					3 => '飲食',
-					4 => '宿泊',
-					5 => '公共施設',
-					6 => '公共交通機関',
-					7 => 'その他'
-				];
-                $typeLabel = $types[$spot->type];
-            @endphp
-            <span class="spot-category-badge">{{ $typeLabel }}</span>
+            <span class="spot-category-badge">{{ $typeStr }}</span>
         </header>
 
-        <!-- 2. スポット画像 -->
+        <!-- スポット画像 -->
         <div class="spot-detail-image-wrapper">
             <!-- 画像パスの生成例: public/storage/spots/1.jpg -->
             <!-- 画像がない場合の代替画像も設定しておくと安全です -->
@@ -40,19 +25,39 @@
         </div>
 
         <div>
-            <!-- 3. スポットの説明 -->
+			<section>
+                <h2 class="spot-detail-section-title">住所</h2>
+				<div class="spot-detail-text">
+					<div>
+						{{ $postal_code }}
+					</div>
+					<div>
+						{{ $addrStr }}
+					</div>
+				</div>
+			</section>
+            <!-- スポットの場所 -->
+            <section>
+                <h2 class="spot-detail-section-title">場所</h2>
+				<div class="map-area">
+					<div id="map"></div>
+				</div>
+				<div>
+					<a href="https://www.google.com/maps/search/?api=1&query={{ $spot->lat }},{{ $spot->lng }}"
+					target="_blank"
+					rel="noopener noreferrer">
+						Googleマップで見る
+					</a>
+				</div>
+            </section>
+
+            <!-- スポットの説明 -->
             <section class="spot-detail-description-section">
-                <h2 class="spot-detail-section-title">スポット詳細</h2>
-                <div class="spot-detail-description">
+                <h2 class="spot-detail-section-title">説明</h2>
+                <div class="spot-detail-text">
                     <!-- 改行コードを<br>に変換して表示 -->
                     {!! nl2br(e($spot->description)) !!}
                 </div>
-
-                <!-- 緯度経度情報の表示（Google Mapsリンクなどにするのも良し） -->
-                <!-- <div style="font-size: 0.85rem; color: #888; margin-top: 1rem;">
-                    <i class="fas fa-map-marker-alt"></i>
-                    位置情報: Lat {{ $spot->lat }} / Lng {{ $spot->lng }}
-                </div> -->
             </section>
 
             <!-- 関連キーワード -->
@@ -73,7 +78,7 @@
     <section class="spot-detail-card spot-detail-review-section">
         <h2 class="spot-detail-section-title">口コミ・評判</h2>
 
-        <!-- 4. 評価の平均点表示 -->
+        <!-- 評価の平均点表示 -->
         <div class="spot-detail-rating-summary">
             @php
                 // 平均評価の計算（Reviewがない場合は0）
@@ -88,7 +93,7 @@
 			</div>
         </div>
 
-        <!-- 5. 口コミ一覧 -->
+        <!-- 口コミ一覧 -->
 		@if($spot->reviews->isNotEmpty())
         <div class="spot-detail-review-list">
 				@foreach($spot->reviews as $review)
@@ -114,7 +119,7 @@
 			<p style="text-align: center; color: #555;">まだ口コミはありません。</p>
 		@endif
 
-        <!-- 6. 口コミ投稿フォーム -->
+        <!-- 口コミ投稿フォーム -->
         <div class="form-container general-box">
             <h3 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.1rem;">口コミを投稿する</h3>
 
@@ -167,4 +172,30 @@
     </section>
 
 </div>
+
+<!-- マップ作成とピン指し -->
+<link rel='stylesheet' href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' />
+<script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
+
+<script>
+    // BladeからJavaScript変数へ緯度・経度を渡す
+    const lat = @json($spot->lat);
+    const lng = @json($spot->lng);
+    const spotName = @json($spot->name);
+
+    // マップの初期化
+    const map = new maplibregl.Map({
+        container: 'map',
+        style: 'https://tile.openstreetmap.jp/styles/osm-bright-ja/style.json', // 無料のデモスタイル
+        center: [lng, lat],
+        zoom: 15
+    });
+
+	map.addControl(new maplibregl.NavigationControl(), "top-right");
+    // ピン（マーカー）を立てる
+    const marker = new maplibregl.Marker()
+        .setLngLat([lng, lat])
+        .addTo(map);
+</script>
+
 @endsection
