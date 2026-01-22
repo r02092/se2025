@@ -119,7 +119,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => $this->encodeLat(33.583968),
                 'postal_code' => 7820024,
                 'addr_city' => 39212,
-                'addr_detail' => '土佐山田町神通寺346-2',
+                'addr_detail' => '土佐山田町神通寺３４６－２',
                 'description' =>
                     '人気絵本「パンどろぼう」のモチーフになったとされる、土佐山田のパン屋。',
                 'img_ext' => 'jpg',
@@ -137,7 +137,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => $this->encodeLat(33.504458),
                 'postal_code' => 7820010,
                 'addr_city' => 39203,
-                'addr_detail' => '東浜294',
+                'addr_detail' => '東浜２９４',
                 'description' =>
                     '南国市後免町と安芸郡奈半利町を結ぶ、2002年に開業した第三セクター路線。JR四国の路線と接続している。',
                 'img_ext' => 'jpg',
@@ -155,7 +155,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => $this->encodeLat(33.559524),
                 'postal_code' => 7800833,
                 'addr_city' => 39201,
-                'addr_detail' => '南はりまや町1丁目',
+                'addr_detail' => '南はりまや町１丁目',
                 'description' =>
                     '南国市・高知市・吾川郡いの町を結ぶ路面電車。高知県唯一の電車でもある。',
                 'img_ext' => 'jpg',
@@ -173,7 +173,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => $this->encodeLat(33.559944),
                 'postal_code' => 7800822,
                 'addr_city' => 39201,
-                'addr_detail' => 'はりまや町1丁目',
+                'addr_detail' => 'はりまや町１丁目',
                 'description' =>
                     '高知市の中心部にある橋。日本三大がっかり名所の一つとして知られる。',
                 'img_ext' => 'jpg',
@@ -191,7 +191,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => $this->encodeLat(33.764472),
                 'postal_code' => 7890312,
                 'addr_city' => 39344,
-                'addr_detail' => '高須226',
+                'addr_detail' => '高須２２６',
                 'description' =>
                     'デカ盛りの聖地として知られる食堂。メディアに取り上げられることも多く、全国的に有名。',
                 'img_ext' => 'jpg',
@@ -209,7 +209,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => $this->encodeLat(33.560116),
                 'postal_code' => 7800841,
                 'addr_city' => 39201,
-                'addr_detail' => '帯屋町2丁目3-1',
+                'addr_detail' => '帯屋町２丁目３－１',
                 'description' =>
                     '飲食店や土産物店が軒を連ねる市場。観光スポットとしても、地元民の飲みの場としても人気。',
                 'img_ext' => 'jpg',
