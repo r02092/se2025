@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CouponApiController;
 use App\Http\Controllers\CheckinApiController;
+use App\Http\Controllers\AiApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/checkin', CheckinApiController::class);
 });
+// ▼▼▼ 追加: AI検索用API (認証の外に置くか、中に置くかは要件次第ですが、今回は外に置きます) ▼▼▼
+Route::post('/ai', [AiApiController::class, 'post']);
