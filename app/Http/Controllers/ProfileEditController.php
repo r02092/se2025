@@ -46,8 +46,18 @@ class ProfileEditController extends Controller
         // 入力欄（new-password）が空でない場合のみ処理する
         if ($request->filled('new-password')) {
             // 現在のパスワードが合っているかチェック
-            if (!Hash::check($request->input('current-password'), $user->password)) {
-                return redirect()->back()->withErrors(['current-password' => '現在のパスワードが正しくありません。']);
+            if (
+                !Hash::check(
+                    $request->input('current-password'),
+                    $user->password,
+                )
+            ) {
+                return redirect()
+                    ->back()
+                    ->withErrors([
+                        'current-password' =>
+                            '現在のパスワードが正しくありません。',
+                    ]);
             }
             // パスワードをハッシュ化して保存
             $user->password = Hash::make($request->input('new-password'));
