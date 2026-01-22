@@ -1781,11 +1781,11 @@ h1 {
 	padding-left: 10px;
 }
 
-.spot-detail-description {
+.spot-detail-text {
 	line-height: 1.8;
 	margin-bottom: 2rem;
 	color: #444;
-	padding-left: 20px;
+	padding: 12px;
 }
 
 .spot-detail-keywords {

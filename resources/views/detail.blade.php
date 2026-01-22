@@ -11,22 +11,7 @@
         <!-- タイトルとカテゴリ -->
         <header class="spot-detail-header">
             <h1 class="spot-detail-title">{{ $spot->name }}</h1>
-
-            <!-- カテゴリ数値(type)を文字列に変換表示 -->
-            @php
-                $types = [
-					0 => '観光',
-					1 => '体験アクティビティ',
-					2 => 'お土産',
-					3 => '飲食',
-					4 => '宿泊',
-					5 => '公共施設',
-					6 => '公共交通機関',
-					7 => 'その他'
-				];
-                $typeLabel = $types[$spot->type];
-            @endphp
-            <span class="spot-category-badge">{{ $typeLabel }}</span>
+            <span class="spot-category-badge">{{ $typeStr }}</span>
         </header>
 
         <!-- スポット画像 -->
@@ -40,8 +25,19 @@
         </div>
 
         <div>
+			<section>
+                <h2 class="spot-detail-section-title">住所</h2>
+				<div class="spot-detail-text">
+					<div>
+						{{ $postal_code }}
+					</div>
+					<div>
+						{{ $addrStr }}
+					</div>
+				</div>
+			</section>
             <!-- スポットの場所 -->
-            <section class="spot-detail-description-section">
+            <section>
                 <h2 class="spot-detail-section-title">場所</h2>
 				<div class="map-area">
 					<div id="map"></div>
@@ -58,7 +54,7 @@
             <!-- スポットの説明 -->
             <section class="spot-detail-description-section">
                 <h2 class="spot-detail-section-title">説明</h2>
-                <div class="spot-detail-description">
+                <div class="spot-detail-text">
                     <!-- 改行コードを<br>に変換して表示 -->
                     {!! nl2br(e($spot->description)) !!}
                 </div>
