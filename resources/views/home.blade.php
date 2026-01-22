@@ -47,64 +47,108 @@
             </p>
         </div>
 
-        {{-- 3. AI検索エリア (準備中表示) --}}
-        <div id="form-area-ai" style="display: none; text-align: center; padding: 20px 0;">
+        {{-- 3. AI検索フォーム --}}
+        <div id="form-area-ai" style="display: none;">
 
-            <div style="font-size: 3rem; margin-bottom: 10px;">🚧</div>
+            {{-- ▼▼▼ ログイン済みの場合：フォームを表示 ▼▼▼ --}}
+            @auth
+                <form action="{{ route('ai.plan') }}" method="GET">
+                    <div style="background-color: #eff6ff; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 0.9rem; color: #1e40af;">
+                        <strong>🤖 AIプランナー:</strong> 出発地から目的地までの「おすすめ寄り道スポット」を提案します。
+                    </div>
 
-            <h3 style="font-weight: bold; color: #333; margin-bottom: 10px;">AI機能は準備中です</h3>
+                    <div style="margin-bottom: 15px;">
+                        <label for="departure_name" style="font-weight:bold; display:block; margin-bottom:5px;">出発地 <span style="color:#e11d48; font-size:0.8rem;">(必須)</span></label>
+                        <input type="text" id="departure_name" name="departure_name" placeholder="例: 高知駅" required
+                               style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
+                    </div>
 
-            <p style="color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
-                出発地と目的地を入力するだけで、<br>
-                AIがおすすめの「寄り道プラン」を提案する機能を開発中です。<br>
-                公開まで今しばらくお待ちください。
-            </p>
+                    <div style="margin-bottom: 15px;">
+                        <label for="destination_name" style="font-weight:bold; display:block; margin-bottom:5px;">目的地 <span style="color:#e11d48; font-size:0.8rem;">(必須)</span></label>
+                        <input type="text" id="destination_name" name="destination_name" placeholder="例: 桂浜" required
+                               style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
+                    </div>
 
-            <button type="button" disabled
-                style="width:100%; padding:12px; border:none; background-color: #e5e7eb; color: #9ca3af; font-weight: bold; border-radius: 4px; cursor: not-allowed;">
-                Coming Soon...
-            </button>
+                    <button type="submit" style="width:100%; padding:12px; border:none; cursor:pointer; background: linear-gradient(to right, #2563eb, #7c3aed); color: white; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                        AIにおすすめを聞く
+                    </button>
+                </form>
+            @endauth
+
+            {{-- ▼▼▼ 未ログインの場合：ログイン誘導を表示 ▼▼▼ --}}
+            @guest
+                <div style="text-align: center; padding: 30px 10px; background-color: #f9fafb; border-radius: 8px; border: 1px dashed #ccc;">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">🔒</div>
+                    <h3 style="font-weight: bold; color: #333; margin-bottom: 10px;">ログインが必要です</h3>
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
+                        AIプランニング機能を利用するには、<br>ログインまたは会員登録を行ってください。
+                    </p>
+                    <a href="{{ route('login') }}" style="display: inline-block; background-color: #16a34a; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold;">
+                        ログイン画面へ
+                    </a>
+                </div>
+            @endguest
+
         </div>
 
     </div>
 </div>
 
+{{-- ▼▼▼ 人気スポットエリア（ここから入れ替え） ▼▼▼ --}}
 <div class="general-box ai-suggest" style="padding-bottom: auto;">
-	<h2>人気のスポット</h2>
-	<div class="spot-divider" aria-hidden="true"></div>
 
-	<ul class="spot-list" aria-label="人気のスポット一覧">
+    {{-- 1. 見出しを「TOP5」に変更 --}}
+    <h2 style="display: flex; align-items: center; gap: 10px;">
+        <span style="color: #eab308;">🏆</span> 人気のスポット TOP5
+    </h2>
+    <div class="spot-divider" aria-hidden="true"></div>
 
-		{{-- コントローラーから $spots データが渡ってきているかチェック --}}
-		@if(isset($spots) && count($spots) > 0)
-			@foreach($spots as $spot)
-				<li class="spot-item">
-					{{-- 画像パスがあればそれを、なければデフォルト画像（例:はりまや橋）を表示 --}}
-					<img class="spot-thumb"
-						 src="{{ asset($spot->image_path ?? 'images/Harimaya_Bridge.jpg') }}"
-						 alt="{{ $spot->name }}"
-						 {{-- 画像読み込み失敗時のフォールバック --}}
-						 onerror="this.src='{{ asset('images/Harimaya_Bridge.jpg') }}'" />
+    <ul class="spot-list" aria-label="人気のスポット一覧">
 
-					<div class="spot-content">
-						<h3 class="spot-title">{{ $spot->name }}</h3>
-						{{-- 検索回数を表示したい場合はコメントアウトを外してください --}}
-						{{-- <p style="font-size:0.8rem; color:#16a34a;">検索数: {{ $spot->search_count }}回</p> --}}
-					</div>
-				</li>
-			@endforeach
-		@else
-			{{-- データがまだ1件もない場合の表示 --}}
-			<li class="spot-item">
-				<div class="spot-content">
-					<h3 class="spot-title">データ集計中...</h3>
-					<p>いろいろな場所を検索してみてください。</p>
-				</div>
-			</li>
-		@endif
+        @if(isset($spots) && count($spots) > 0)
+            @foreach($spots as $index => $spot)
+                <li class="spot-item" style="position: relative; transition: transform 0.2s;">
 
-	</ul>
+                    {{-- 2. 全体をリンク(aタグ)で囲んで詳細画面へ飛べるようにする --}}
+                    <a href="{{ route('detail', ['id' => $spot->id]) }}"
+                       style="display: block; text-decoration: none; color: inherit; height: 100%;">
+
+                        {{-- 順位バッジ（1位〜3位だけ色を変える演出） --}}
+                        <div style="position: absolute; top: 0; left: 0; background: {{ $index < 3 ? '#eab308' : '#9ca3af' }}; color: white; font-weight: bold; padding: 4px 10px; border-radius: 4px 0 4px 0; z-index: 10;">
+                            {{ $index + 1 }}
+                        </div>
+
+                        {{-- 画像 --}}
+                        <img class="spot-thumb"
+                             src="{{ asset($spot->image_path ?? 'images/Harimaya_Bridge.jpg') }}"
+                             alt="{{ $spot->name }}"
+                             onerror="this.src='{{ asset('images/Harimaya_Bridge.jpg') }}'"
+                             style="transition: opacity 0.2s;"
+                             onmouseover="this.style.opacity='0.8'"
+                             onmouseout="this.style.opacity='1.0'" />
+
+                        <div class="spot-content">
+                            <h3 class="spot-title">{{ $spot->name }}</h3>
+                            <p style="font-size: 0.8rem; color: #16a34a; text-align: right; margin-top: 5px;">
+                                詳細を見る ➜
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            @endforeach
+        @else
+            {{-- データがない場合 --}}
+            <li class="spot-item">
+                <div class="spot-content">
+                    <h3 class="spot-title">集計中...</h3>
+                    <p>検索データが集まるとランキングが表示されます。</p>
+                </div>
+            </li>
+        @endif
+
+    </ul>
 </div>
+{{-- ▲▲▲ 人気スポットエリア（ここまで） ▲▲▲ --}}
 
 {{-- ▼▼▼ タブ切り替え用のスクリプト ▼▼▼ --}}
 <script>
