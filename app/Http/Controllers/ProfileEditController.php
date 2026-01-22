@@ -71,7 +71,9 @@ class ProfileEditController extends Controller
                 if ($file->isValid()) {
                     // 古い画像があれば削除（任意ですが、サーバーがきれいになります）
                     if ($user->icon_ext) {
-                        Storage::delete('public/icons/' . $user->id . '.' . $user->icon_ext);
+                        Storage::delete(
+                            'public/icons/' . $user->id . '.' . $user->icon_ext,
+                        );
                     }
                 }
                 $extension = $file->getClientOriginalExtension();
