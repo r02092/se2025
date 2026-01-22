@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage; // 追加
 
 /**
  * MC09: プロフィール編集画面構成モジュール
@@ -67,6 +68,12 @@ class ProfileEditController extends Controller
         if ($request->hasFile('icon')) {
             $file = $request->file('icon');
             if ($file->isValid()) {
+                if ($file->isValid()) {
+                    // 古い画像があれば削除（任意ですが、サーバーがきれいになります）
+                    if ($user->icon_ext) {
+                        Storage::delete('public/icons/' . $user->id . '.' . $user->icon_ext);
+                    }
+                }
                 $extension = $file->getClientOriginalExtension();
                 // 設計書のルールに基づき、ファイル名を「ユーザーID.拡張子」にする
                 $fileName = $user->id . '.' . $extension;
