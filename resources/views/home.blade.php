@@ -49,27 +49,46 @@
 
         {{-- 3. AI検索フォーム --}}
         <div id="form-area-ai" style="display: none;">
-            <form action="{{ route('ai.plan') }}" method="GET">
-                <div style="background-color: #eff6ff; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 0.9rem; color: #1e40af;">
-                    <strong>🤖 AIプランナー:</strong> 出発地から目的地までの「おすすめ寄り道スポット」を提案します。
-                </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="departure_name" style="font-weight:bold; display:block; margin-bottom:5px;">出発地 <span style="color:#e11d48; font-size:0.8rem;">(必須)</span></label>
-                    <input type="text" id="departure_name" name="departure_name" placeholder="例: 高知駅" required
-                           style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
-                </div>
+            {{-- ▼▼▼ ログイン済みの場合：フォームを表示 ▼▼▼ --}}
+            @auth
+                <form action="{{ route('ai.plan') }}" method="GET">
+                    <div style="background-color: #eff6ff; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 0.9rem; color: #1e40af;">
+                        <strong>🤖 AIプランナー:</strong> 出発地から目的地までの「おすすめ寄り道スポット」を提案します。
+                    </div>
 
-                <div style="margin-bottom: 15px;">
-                    <label for="destination_name" style="font-weight:bold; display:block; margin-bottom:5px;">目的地 <span style="color:#e11d48; font-size:0.8rem;">(必須)</span></label>
-                    <input type="text" id="destination_name" name="destination_name" placeholder="例: 桂浜" required
-                           style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
-                </div>
+                    <div style="margin-bottom: 15px;">
+                        <label for="departure_name" style="font-weight:bold; display:block; margin-bottom:5px;">出発地 <span style="color:#e11d48; font-size:0.8rem;">(必須)</span></label>
+                        <input type="text" id="departure_name" name="departure_name" placeholder="例: 高知駅" required
+                               style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
+                    </div>
 
-                <button type="submit" style="width:100%; padding:12px; border:none; cursor:pointer; background: linear-gradient(to right, #2563eb, #7c3aed); color: white; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                    AIにおすすめを聞く
-                </button>
-            </form>
+                    <div style="margin-bottom: 15px;">
+                        <label for="destination_name" style="font-weight:bold; display:block; margin-bottom:5px;">目的地 <span style="color:#e11d48; font-size:0.8rem;">(必須)</span></label>
+                        <input type="text" id="destination_name" name="destination_name" placeholder="例: 桂浜" required
+                               style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
+                    </div>
+
+                    <button type="submit" style="width:100%; padding:12px; border:none; cursor:pointer; background: linear-gradient(to right, #2563eb, #7c3aed); color: white; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                        AIにおすすめを聞く
+                    </button>
+                </form>
+            @endauth
+
+            {{-- ▼▼▼ 未ログインの場合：ログイン誘導を表示 ▼▼▼ --}}
+            @guest
+                <div style="text-align: center; padding: 30px 10px; background-color: #f9fafb; border-radius: 8px; border: 1px dashed #ccc;">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">🔒</div>
+                    <h3 style="font-weight: bold; color: #333; margin-bottom: 10px;">ログインが必要です</h3>
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
+                        AIプランニング機能を利用するには、<br>ログインまたは会員登録を行ってください。
+                    </p>
+                    <a href="{{ route('login') }}" style="display: inline-block; background-color: #16a34a; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold;">
+                        ログイン画面へ
+                    </a>
+                </div>
+            @endguest
+
         </div>
 
     </div>
