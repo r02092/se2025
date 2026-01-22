@@ -31,18 +31,69 @@ class ProfileEditController extends Controller
     {
         $user = Auth::user();
 
-        // 1. 入力値のバリデーション (MC05等のフロントエンド検知と同期)
+        // POSTサイズ超過チェック (POSTデータが空で、かつContent-Lengthがある場合)
+        if (empty($request->all()) && $request->server('CONTENT_LENGTH') > 0) {
+            return redirect()
+                ->back()
+                ->withErrors([
+                    'icon' =>
+                        'アップロードされたファイルのサイズが大きすぎます。設定を確認してください(post_max_size)。',
+                ]);
+        }
+
+        // 1. 入力値のバリデーション
         $request->validate([
             'name' => 'required|string|max:255',
             'login_name' =>
                 'required|string|max:255|unique:users,login_name,' . $user->id,
             'new-password' => 'nullable|string|min:8|same:confirm-password',
-            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 画像のバリデーション
+            // iconのバリデーションは個別に行う
         ]);
 
         // 3. プロフィール更新処理を実行
         $user->name = $request->input('name');
         $user->login_name = $request->input('login_name');
+
+        // アイコン画像のアップロード処理
+        // hasFile() はファイルが有効でない場合(サイズオーバー等)に false を返すことがあるため、
+        // file() を直接取得してエラーを確認する
+        $file = $request->file('icon');
+
+        if ($file) {
+            // アップロードエラーのチェック
+            if (!$file->isValid()) {
+                $errorMsg = $file->getErrorMessage();
+                // PHP設定(upload_max_filesize)によるサイズオーバーの特定
+                if ($file->getError() == UPLOAD_ERR_INI_SIZE) {
+                    $errorMsg =
+                        '画像のサイズが大きすぎます(2MB以下の画像を使用してください)。';
+                }
+
+                return redirect()
+                    ->back()
+                    ->withErrors([
+                        'icon' => 'アップロードエラー: ' . $errorMsg,
+                    ]);
+            }
+
+            // バリデーション (MIMEタイプなど)
+            $validator = \Illuminate\Support\Facades\Validator::make(
+                ['icon' => $file],
+                ['icon' => 'image|mimes:jpeg,png,jpg,gif|max:2048'], // 2MB制限
+            );
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator);
+            }
+
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $user->id . '.' . $extension;
+
+            // publicディスクのiconsディレクトリに保存
+            $file->storeAs('icons', $fileName, 'public');
+
+            $user->icon_ext = $extension;
+        }
 
         // 入力欄（new-password）が空でない場合のみ処理する
         if ($request->filled('new-password')) {
@@ -61,23 +112,24 @@ class ProfileEditController extends Controller
                     ]);
             }
             // パスワードをハッシュ化して保存
-            $user->password = Hash::make($request->input('new-password'));
+            $user->password = password_hash(
+                $request->input('new_password'),
+                PASSWORD_ARGON2ID,
+            );
         }
 
-        // 4. ★ 画像（アイコン）の保存処理を追加 ★
+        // 4. 画像（アイコン）の保存処理
         if ($request->hasFile('icon')) {
             $file = $request->file('icon');
             if ($file->isValid()) {
-                if ($file->isValid()) {
-                    // 古い画像があれば削除（任意ですが、サーバーがきれいになります）
-                    if ($user->icon_ext) {
-                        Storage::delete(
-                            'public/icons/' . $user->id . '.' . $user->icon_ext,
-                        );
-                    }
+                // 古い画像があれば削除
+                if ($user->icon_ext) {
+                    Storage::delete(
+                        'public/icons/' . $user->id . '.' . $user->icon_ext,
+                    );
                 }
                 $extension = $file->getClientOriginalExtension();
-                // 設計書のルールに基づき、ファイル名を「ユーザーID.拡張子」にする
+                // ファイル名を「ユーザーID.拡張子」にする
                 $fileName = $user->id . '.' . $extension;
                 // storage/app/public/icons に保存
                 $file->storeAs('public/icons', $fileName);
@@ -93,39 +145,5 @@ class ProfileEditController extends Controller
         return redirect()
             ->route('profile.edit')
             ->with('status', 'profile.updated');
-    }
-
-    /**
-     * アイコン画像のアップロード処理 (POST)
-     */
-    public function uploadIcon(Request $request)
-    {
-        $user = Auth::user();
-
-        // 画像のバリデーション
-        $request->validate([
-            'icon' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        if ($request->file('icon')->isValid()) {
-            $file = $request->file('icon');
-            $extension = $file->getClientOriginalExtension();
-
-            // 保存先は storage/app/public/icons 等を想定
-            $fileName = $user->id . '.' . $extension;
-            $file->storeAs('public/icons', $fileName);
-
-            // DB更新: icon_ext カラム
-            $user->icon_ext = $extension;
-            $user->save();
-
-            return redirect()
-                ->route('profile.edit')
-                ->with('status', 'icon.updated');
-        }
-
-        return redirect()
-            ->back()
-            ->withErrors(['icon' => '画像のアップロードに失敗しました。']);
     }
 }
