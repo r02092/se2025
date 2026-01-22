@@ -4,14 +4,12 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Http\Controllers\SubscriptionController;
 
 class SubscriptionTest extends TestCase
 {
     public function test_事業者申込(): void
     {
         $this->actingAs(User::find(2));
-        $controller = new SubscriptionController();
         $response = $this->get(route('subscription.form'));
         $response->assertStatus(200);
         $response = $this->post(route('subscription.store'), [
