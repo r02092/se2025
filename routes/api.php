@@ -29,5 +29,3 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/checkin', CheckinApiController::class);
 });
-// ▼▼▼ 追加: AI検索用API (認証の外に置くか、中に置くかは要件次第ですが、今回は外に置きます) ▼▼▼
-Route::post('/ai', [AiApiController::class, 'post']);

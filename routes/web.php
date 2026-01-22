@@ -30,11 +30,6 @@ Route::get('/filtering', [SearchApiController::class, 'getSpotList'])->name(
     'home.filtered',
 );
 
-// AI検索画面へのルート
-Route::get('/ai-plan', [SearchController::class, 'aiPlan'])
-    ->middleware('auth')
-    ->name('ai.plan');
-
 // 公開ページ（ログイン不要）
 Route::get('/post', [PostMapController::class, 'index'])->name('post');
 
@@ -130,6 +125,17 @@ Route::middleware(['auth'])->group(function () {
         // 投稿削除処理
     })->name('post.delete');
 
+    // AIプランニング画面
+    Route::get('/ai-plan', [SearchController::class, 'aiPlan'])->name(
+        'ai.plan',
+    );
+
+    // ▼▼▼ 追加: AI検索処理 (Webルートに移動) ▼▼▼
+    // JavaScriptから叩くためのルートです
+    Route::post('/ai-search', [AiApiController::class, 'post'])->name(
+        'ai.search',
+    );
+
     // お楽しみ機能（操作系があればここに追加）
 
     // 事業者申込
@@ -163,8 +169,6 @@ Route::middleware(['auth'])->group(function () {
     ])->name('profile.2fa.destroy');
 
     Route::get('/addr/{pc}', [AddrApiController::class, 'get'])->name('addr');
-
-    Route::post('/ai', [AiApiController::class, 'post'])->name('ai');
 });
 
 // 事業者専用ルート

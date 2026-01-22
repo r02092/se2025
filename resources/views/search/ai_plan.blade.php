@@ -94,7 +94,7 @@
 
                 try {
                     // APIリクエスト実行
-                    const response = await fetch('/api/ai', {
+                    const response = await fetch('/ai-search', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
