@@ -21,7 +21,7 @@
 			<input
 				type="password"
 				id="password_confirm"
-				name="password_confirm"
+				name="password_confirmation"
 				required
 			/>
 

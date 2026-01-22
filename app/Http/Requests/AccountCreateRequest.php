@@ -26,8 +26,8 @@ class AccountCreateRequest extends FormRequest
             'name' => 'required|string|between:1,255',
             'username' =>
                 'required|regex:/^\w{1,255}$/|unique:users,login_name',
-            'password' => 'required|string|between:8,999',
-            'password_confirm' => 'required|string|between:8,999',
+            'password' => 'required|string|between:8,999|confirmed',
+            //'password_confirm' => 'required|string|between:8,999',
         ];
     }
 }
