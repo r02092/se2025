@@ -113,9 +113,10 @@ Route::middleware(['auth'])->group(function () {
 
     // 2. プロフィール情報の更新 (POST)
     // ※画像アップロードを含むためPOSTに変更
-    Route::post('/profile/edit', [ProfileEditController::class, 'update'])->name(
-        'profile.update',
-    );
+    Route::post('/profile/edit', [
+        ProfileEditController::class,
+        'update',
+    ])->name('profile.update');
 
     // 3. アイコン画像のアップロード (POST)
     Route::post('/profile/edit/icon', [

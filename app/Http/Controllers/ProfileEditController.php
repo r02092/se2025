@@ -35,7 +35,10 @@ class ProfileEditController extends Controller
         if (empty($request->all()) && $request->server('CONTENT_LENGTH') > 0) {
             return redirect()
                 ->back()
-                ->withErrors(['icon' => 'アップロードされたファイルのサイズが大きすぎます。設定を確認してください(post_max_size)。']);
+                ->withErrors([
+                    'icon' =>
+                        'アップロードされたファイルのサイズが大きすぎます。設定を確認してください(post_max_size)。',
+                ]);
         }
 
         // 1. 入力値のバリデーション
@@ -62,30 +65,31 @@ class ProfileEditController extends Controller
                 $errorMsg = $file->getErrorMessage();
                 // PHP設定(upload_max_filesize)によるサイズオーバーの特定
                 if ($file->getError() == UPLOAD_ERR_INI_SIZE) {
-                    $errorMsg = '画像のサイズが大きすぎます(2MB以下の画像を使用してください)。';
+                    $errorMsg =
+                        '画像のサイズが大きすぎます(2MB以下の画像を使用してください)。';
                 }
-                
+
                 return redirect()
                     ->back()
-                    ->withErrors(['icon' => 'アップロードエラー: ' . $errorMsg]);
+                    ->withErrors([
+                        'icon' => 'アップロードエラー: ' . $errorMsg,
+                    ]);
             }
 
             // バリデーション (MIMEタイプなど)
             $validator = \Illuminate\Support\Facades\Validator::make(
                 ['icon' => $file],
-                ['icon' => 'image|mimes:jpeg,png,jpg,gif|max:2048'] // 2MB制限
+                ['icon' => 'image|mimes:jpeg,png,jpg,gif|max:2048'], // 2MB制限
             );
 
             if ($validator->fails()) {
-                return redirect()
-                    ->back()
-                    ->withErrors($validator);
+                return redirect()->back()->withErrors($validator);
             }
 
             $extension = $file->getClientOriginalExtension();
             $fileName = $user->id . '.' . $extension;
 
-            // publicディスクのiconsディレクトリに保存 
+            // publicディスクのiconsディレクトリに保存
             $file->storeAs('icons', $fileName, 'public');
 
             $user->icon_ext = $extension;
