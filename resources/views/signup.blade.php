@@ -27,10 +27,10 @@
                 <div style="color: red;">{{ $message }}</div>
             @enderror
 
-            <label for="password_confirm">パスワード（確認用）</label>
+            <label for="password_confirmation">パスワード（確認用）</label>
             <input
                 type="password"
-                id="password_confirm"
+                id="password_confirmation"
                 name="password_confirmation"
                 required
             />
