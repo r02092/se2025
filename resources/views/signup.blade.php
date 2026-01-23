@@ -28,8 +28,6 @@
 
 			<label for="password">パスワード<span class="form-detail">（8文字以上999文字以下の文字列）</span></label>
 			<input type="password" id="password" name="password" required />
-			<label for="password">パスワード<span class="form-detail">（8文字以上999文字以下の文字列）</span></label>
-			<input type="password" id="password" name="password" required />
 			@error('password')
 				<div style="color: red;">{{ $message }}</div>
 			@enderror
