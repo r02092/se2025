@@ -35,6 +35,12 @@
                     <input type="text" id="destination" name="destination" placeholder="作品名・地名・キーワードを入力"
                            style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:16px;" required />
                 </div>
+                {{-- キーワード検索にも任意で出発地を追加 --}}
+                <div style="margin-bottom: 15px;">
+                    <label for="departure" style="font-weight:bold; display:block; margin-bottom:5px;">出発地 <span style="font-weight:normal; color:#888; font-size:0.8rem;">(任意)</span></label>
+                    <input type="text" id="departure" name="departure" placeholder="例: 高知駅"
+                           style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:16px;" />
+                </div>
 
                 <button type="submit" class="btn-green" style="width:100%; padding:12px; border:none; cursor:pointer; background-color: #16a34a; color: white; font-weight: bold; border-radius: 4px;">
                     検索する
@@ -55,7 +61,6 @@
                         <strong>🤖 AIプランナー:</strong> 出発地か目的地を入力すると、最適な寄り道スポットを提案します。
                     </div>
 
-                    {{-- 修正: どちらか必須、required属性を削除 --}}
                     <div style="margin-bottom: 15px;">
                         <label for="ai_departure" style="font-weight:bold; display:block; margin-bottom:5px;">出発地 <span style="color:#e11d48; font-size:0.8rem;">(どちらか必須)</span></label>
                         <input type="text" id="ai_departure" name="departure" placeholder="例: 高知駅"
@@ -122,11 +127,11 @@
                             {{ $index + 1 }}
                         </div>
 
-                        {{-- 画像 (修正: onerror=nullを追加して無限ループ防止) --}}
+                        {{-- 画像 (▼▼▼ 修正: onerrorで代替画像を指定 ▼▼▼) --}}
                         <img class="spot-thumb"
                              src="{{ asset('images/' . $spot->name . '.' . ($spot->img_ext ?? 'jpg')) }}"
                              alt="{{ $spot->name }}"
-                             onerror="this.onerror=null; this.src='{{ asset('images/Harimaya_Bridge.jpg') }}'"
+                             onerror="this.src='{{ asset('images/no-image.png') }}'"
                              style="transition: opacity 0.2s;"
                              onmouseover="this.style.opacity='0.8'"
                              onmouseout="this.style.opacity='1.0'" />
