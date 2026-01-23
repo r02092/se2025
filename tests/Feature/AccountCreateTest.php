@@ -13,6 +13,7 @@ class AccountCreateTest extends TestCase
 
     public function test_アカウント作成(): void
     {
+        Auth::logout();
         // 1回目の作成
         $this->post(route('signup.post'), [
             'name' => 'Test User',
