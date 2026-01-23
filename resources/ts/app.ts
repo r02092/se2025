@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", (): void => {
 
 	// Profile Edit Page
 	if (pathname === "/profile/edit") {
-		import("./profile_icon_handler").then((module) => {
+		import("./profile_icon_handler").then(module => {
 			module.initProfileIconHandler();
 		});
 	}
