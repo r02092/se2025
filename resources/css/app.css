@@ -201,6 +201,20 @@ h1 {
 	padding: 15px;
 }
 
+.close-btn {
+	display: block; /* inline-block から block に変更 */
+	background: #666;
+	color: #fff;
+	padding: 8px 14px;
+	border-radius: 8px;
+	text-decoration: none;
+	font-weight: 700;
+	margin: 16px auto;
+	width: fit-content;
+	text-align: center;
+	cursor: pointer;
+}
+
 /* merged ai-suggest: funpage.css + home.css + search.css (final margin/padding from search) */
 .ai-suggest {
 	width: 80%;
@@ -425,7 +439,7 @@ h1 {
 	background: #14b888;
 }
 .btn-secondary {
-	background: #6c757d;
+	background: #666;
 }
 .btn-logout {
 	background: #f22727;
@@ -1099,57 +1113,55 @@ h1 {
 	color: #555;
 	line-height: 1.5;
 }
-.coupon-use-slider {
+.coupon-use-button-area {
 	position: fixed;
 	left: 50%;
-	bottom: 92px;
+	bottom: 120px;
 	transform: translateX(-50%);
 	width: 90%;
 	max-width: 940px;
 	height: 64px;
 	padding: 6px;
 	z-index: 700;
-	pointer-events: auto;
 }
-.slider-track {
+.coupon-use-button {
 	position: relative;
 	width: 100%;
 	height: 100%;
 	border-radius: 999px;
-	background: #0b6b4d;
+	background: #14b888;
 	box-shadow: 0 8px 20px rgba(6, 24, 16, 0.06);
 	overflow: hidden;
-	border: 3px solid rgba(11, 107, 77, 0.12);
+	border: 3px solid rgba(20, 184, 136, 0.12);
 	display: flex;
 	align-items: center;
-}
-.slider-fill {
-	position: absolute;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	width: 0%;
-	background: rgba(11, 107, 77, 0.18);
-	border-radius: 999px;
-	transition: width 0.12s linear;
-}
-.slider-handle:active {
-	cursor: grabbing;
-	transform: translateY(-50%) scale(0.98);
-}
-.slider-label {
-	position: absolute;
-	left: 0;
-	right: 0;
+	justify-content: center;
 	text-align: center;
 	font-weight: 800;
-	color: #d1ffe5;
+	color: #ffffff;
+	font-size: 24px;
+	cursor: pointer;
+}
+.coupon-use-button-active {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	border-radius: 999px;
+	background: #d1ffe5;
+	color: #14b888;
+	box-shadow: 0 8px 20px rgba(6, 24, 16, 0.06);
+	overflow: hidden;
+	border: 3px solid rgba(20, 184, 136, 0.12);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	font-weight: 800;
 	font-size: 16px;
-	pointer-events: none;
 }
-.slider-handle:focus {
-	outline: 3px solid rgba(20, 184, 136, 0.16);
-}
+
+/* color: #d1ffe5; */
+
 .qr-overlay {
 	position: fixed;
 	inset: 0;
@@ -1284,54 +1296,6 @@ h1 {
 	border-radius: 8px;
 	text-decoration: none;
 	font-weight: 700;
-}
-
-/* ==== coupon-selected.css ==== */
-.slider-track {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	border-radius: 999px;
-	background: #d1ffe5;
-	box-shadow: 0 8px 20px rgba(6, 24, 16, 0.06);
-	overflow: hidden;
-	border: 3px solid rgba(11, 107, 77, 0.12);
-	display: flex;
-	align-items: center;
-}
-.slider-fill {
-	position: absolute;
-	left: 0;
-	top: 0;
-	bottom: 0;
-	width: 0%;
-	background: rgba(11, 107, 77, 0.18);
-	border-radius: 999px;
-	transition: width 0.12s linear;
-}
-.slider-handle {
-	position: absolute;
-	left: 6px;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 80px;
-	height: 56px;
-	background: #14b888;
-	border-radius: 999px;
-	box-shadow: 0 6px 14px rgba(6, 24, 16, 0.18);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-weight: 900;
-	color: #ffffff;
-	font-size: 20px;
-	user-select: none;
-	touch-action: none;
-	z-index: 10;
-	cursor: grab;
-	transition:
-		left 0.08s linear,
-		transform 0.08s linear;
 }
 
 /* ==== funpage.css ==== */

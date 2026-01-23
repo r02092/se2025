@@ -44,7 +44,10 @@
 	<section id="{{ $coupons[1] }}" aria-label="{{ $coupons[0] }}クーポン">
 		<h2>{{ $coupons[0] }}クーポン</h2>
 		@foreach($coupons[2] as $coupon)
-		<article class="general-box coupon-card" data-category="{{ $coupon[0]->type }}">
+		<article class="general-box coupon-card"
+				 data-category="{{ $coupon[0]->type }}"
+				 onclick="location.href='{{ route('coupon.show', $coupon[0]->id) }}'"
+		>
 			<img class="coupon-thumb" src="ryugado.jpg" alt="龍河洞の写真" />
 			<div class="coupon-info">
 				<h2 class="coupon-title">{{ $coupon[0]->name }}</h2>
@@ -57,7 +60,7 @@
 			</div>
 			<div class="coupon-action" role="note" aria-label="詳細の案内">
 				<span class="detail-note">
-					<a href="{{ route('coupon.show', $coupon[0]->id) }}" class="detail-note">{{ $coupons[0] == '現在利用中の' ? '詳細を見る' : '利用する' }}</a>
+					<div class="detail-note">{{ $coupons[0] == '現在利用中の' ? '詳細を見る' : '利用する' }}</div>
 				</span>
 			</div>
 		</article>
