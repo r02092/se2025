@@ -58,7 +58,7 @@
             @auth
                 <form action="{{ route('ai.plan') }}" method="GET">
                     <div style="background-color: #eff6ff; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 0.9rem; color: #1e40af;">
-                        <strong>🤖 AIプランナー:</strong> 出発地か目的地を入力すると、最適な寄り道スポットを提案します。
+                        <strong>🤖 AIプランナー:</strong> <br>出発地か目的地を入力すると、最適な寄り道スポットを提案します。
                     </div>
 
                     <div style="margin-bottom: 15px;">
