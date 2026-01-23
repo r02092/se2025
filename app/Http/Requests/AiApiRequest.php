@@ -23,9 +23,13 @@ class AiApiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'chat' => 'required|string',
-            'from' => 'required|integer|exists:spots,id',
-            'to' => 'integer|exists:spots,id|different:from',
+            // 安全のため文字数制限を追加 (推奨)
+            'chat' => 'required|string|max:1000',
+            // ▼ 変更: "to" が空っぽの時だけ、"from" を必須にする
+            'from' => 'nullable|integer|exists:spots,id|required_without:to',
+            // ▼ 変更: "from" が空っぽの時だけ、"to" を必須にする
+            'to' =>
+                'nullable|integer|exists:spots,id|required_without:from|different:from',
         ];
     }
 }

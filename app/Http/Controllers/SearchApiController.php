@@ -39,6 +39,30 @@ class SearchApiController extends Controller
         // 4. データの取得
         $spots = $query->get();
 
+        // ▼▼▼ 追加: 取得後に優先順位で並び替えるロジック ▼▼▼
+        if ($request->filled('keyword')) {
+            $spots = $spots
+                ->sortByDesc(function ($spot) use ($keyword) {
+                    // 1. 名前が完全一致なら最強 (100点)
+                    if ($spot->name === $keyword) {
+                        return 100;
+                    }
+                    // 2. 名前にキーワードが含まれていれば (50点)
+                    if (str_contains($spot->name, $keyword)) {
+                        return 50;
+                    }
+                    // 3. キーワードタグに含まれていれば (30点)
+                    foreach ($spot->keywords as $k) {
+                        if (str_contains($k->keyword, $keyword)) {
+                            return 30;
+                        }
+                    }
+                    // 4. それ以外（説明文だけヒットなど）は (10点)
+                    return 10;
+                })
+                ->values(); // キーを連番に振り直す
+        }
+
         // 5. JSON形式に整形して返す
         // (APIとしても、SearchControllerから呼ばれた場合も使いやすい形にする)
         $result = $spots->map(function (\App\Models\Spot $spot) {

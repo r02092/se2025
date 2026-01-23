@@ -6,13 +6,11 @@
 @endpush
 
 @section('content')
-<!-- グラデーション トップ -->
-
 <div class="map-area">
-	<div id="map"></div>
+    <div id="map"></div>
 </div>
 
-{{-- ▼▼▼ 検索フォームエリア（ここから入れ替え） ▼▼▼ --}}
+{{-- ▼▼▼ 検索フォームエリア ▼▼▼ --}}
 <div class="general-box form-container" style="padding-top: 0; padding-bottom: 20px; margin: 16px 5% 16px; overflow: hidden;">
 
     {{-- 1. タブ切り替えボタン --}}
@@ -54,18 +52,18 @@
             @auth
                 <form action="{{ route('ai.plan') }}" method="GET">
                     <div style="background-color: #eff6ff; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 0.9rem; color: #1e40af;">
-                        <strong>🤖 AIプランナー:</strong> 出発地から目的地までの「おすすめ寄り道スポット」を提案します。
+                        <strong>🤖 AIプランナー:</strong> <br>出発地か目的地を入力すると、最適な寄り道スポットを提案します。
                     </div>
 
                     <div style="margin-bottom: 15px;">
-                        <label for="departure_name" style="font-weight:bold; display:block; margin-bottom:5px;">出発地 <span style="color:#e11d48; font-size:0.8rem;">(必須)</span></label>
-                        <input type="text" id="departure_name" name="departure_name" placeholder="例: 高知駅" required
+                        <label for="ai_departure" style="font-weight:bold; display:block; margin-bottom:5px;">出発地 <span style="color:#e11d48; font-size:0.8rem;">(どちらか必須)</span></label>
+                        <input type="text" id="ai_departure" name="departure" placeholder="例: 高知駅"
                                style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
                     </div>
 
                     <div style="margin-bottom: 15px;">
-                        <label for="destination_name" style="font-weight:bold; display:block; margin-bottom:5px;">目的地 <span style="color:#e11d48; font-size:0.8rem;">(必須)</span></label>
-                        <input type="text" id="destination_name" name="destination_name" placeholder="例: 桂浜" required
+                        <label for="ai_destination" style="font-weight:bold; display:block; margin-bottom:5px;">目的地 <span style="color:#e11d48; font-size:0.8rem;">(どちらか必須)</span></label>
+                        <input type="text" id="ai_destination" name="destination" placeholder="例: 桂浜"
                                style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
                     </div>
 
@@ -94,7 +92,7 @@
     </div>
 </div>
 
-{{-- ▼▼▼ 人気スポットエリア（ここから入れ替え） ▼▼▼ --}}
+{{-- ▼▼▼ 人気スポットエリア ▼▼▼ --}}
 <div class="general-box ai-suggest" style="padding-bottom: auto;">
 
     {{-- 1. 見出しを「TOP5」に変更 --}}
@@ -103,26 +101,31 @@
     </h2>
     <div class="spot-divider" aria-hidden="true"></div>
 
+    {{-- コントローラー変数の揺らぎ吸収 --}}
+    @php
+        $displaySpots = $rankingSpots ?? ($spots ?? []);
+    @endphp
+
     <ul class="spot-list" aria-label="人気のスポット一覧">
 
-        @if(isset($spots) && count($spots) > 0)
-            @foreach($spots as $index => $spot)
+        @if(count($displaySpots) > 0)
+            @foreach($displaySpots as $index => $spot)
                 <li class="spot-item" style="position: relative; transition: transform 0.2s;">
 
                     {{-- 2. 全体をリンク(aタグ)で囲んで詳細画面へ飛べるようにする --}}
                     <a href="{{ route('detail', ['id' => $spot->id]) }}"
                        style="display: block; text-decoration: none; color: inherit; height: 100%;">
 
-                        {{-- 順位バッジ（1位〜3位だけ色を変える演出） --}}
+                        {{-- 順位バッジ --}}
                         <div style="position: absolute; top: 0; left: 0; background: {{ $index < 3 ? '#eab308' : '#9ca3af' }}; color: white; font-weight: bold; padding: 4px 10px; border-radius: 4px 0 4px 0; z-index: 10;">
                             {{ $index + 1 }}
                         </div>
 
-                        {{-- 画像 --}}
+                        {{-- 画像 (▼▼▼ 修正: onerrorで代替画像を指定 ▼▼▼) --}}
                         <img class="spot-thumb"
-                             src="{{ asset($spot->image_path ?? 'images/Harimaya_Bridge.jpg') }}"
+                             src="{{ asset('images/' . $spot->name . '.' . ($spot->img_ext ?? 'jpg')) }}"
                              alt="{{ $spot->name }}"
-                             onerror="this.src='{{ asset('images/Harimaya_Bridge.jpg') }}'"
+                             onerror="this.src='{{ asset('images/no-image.png') }}'"
                              style="transition: opacity 0.2s;"
                              onmouseover="this.style.opacity='0.8'"
                              onmouseout="this.style.opacity='1.0'" />

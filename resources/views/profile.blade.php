@@ -29,6 +29,16 @@
 	<button class="profile-button-edit" onclick="location.href = '{{ route('profile.edit') }}'">
 		プロフィールを編集
 	</button>
+
+	@if (Auth::user()->permission == \App\Models\User::PERMISSION_BUSINESS)
+		<button class="profile-button-business" onclick="location.href = '{{ route('business') }}'">
+			事業者画面へ
+		</button>
+	@elseif (Auth::user()->permission == \App\Models\User::PERMISSION_ADMIN)
+		<button class="profile-button-admin" onclick="location.href = '{{ route('admin') }}'">
+			管理画面へ
+		</button>
+	@endif
 </div>
 
 <div class="general-box profile-subscription-container">

@@ -16,6 +16,7 @@ class AiApiController extends Controller
 
     public function post(AiApiRequest $request)
     {
+        // 1. ログ保存
         Query::create([
             'user_id' => auth()->id(),
             'query' => $request->input('chat'),
@@ -25,60 +26,88 @@ class AiApiController extends Controller
             'port' => $request->getPort() ?? 0,
             'user_agent' => $request->userAgent() ?? '',
         ]);
-        $from = Spot::find($request->input('from'));
-        $to = Spot::find($request->input('to'));
-        if ($to) {
-            $spots = Spot::where('id', '<>', $from->id)
-                ->where('id', '<>', $to->id)
-                ->where(
-                    'lng',
-                    '>=',
-                    $this->encodeLng(min($from->lng, $to->lng)),
-                )
-                ->where(
-                    'lng',
-                    '<=',
-                    $this->encodeLng(max($from->lng, $to->lng)),
-                )
-                ->where(
-                    'lat',
-                    '>=',
-                    $this->encodeLat(min($from->lat, $to->lat)),
-                )
-                ->where(
-                    'lat',
-                    '<=',
-                    $this->encodeLat(max($from->lat, $to->lat)),
-                )
-                ->get();
-        } else {
-            $spots = Spot::where('id', '<>', $from->id)
-                ->where('lng', '>=', $this->encodeLng($from->lng - 0.1))
-                ->where('lng', '<=', $this->encodeLng($from->lng + 0.1))
-                ->where('lat', '>=', $this->encodeLat($from->lat - 0.1))
-                ->where('lat', '<=', $this->encodeLat($from->lat + 0.1))
-                ->get();
+
+        // 2. スポット情報の取得 (存在しない場合は null になる)
+        $from = $request->input('from')
+            ? Spot::find($request->input('from'))
+            : null;
+        $to = $request->input('to') ? Spot::find($request->input('to')) : null;
+
+        // 3. 候補スポットの検索
+        $query = Spot::query();
+
+        // 自分自身を候補から除外
+        if ($from) {
+            $query->where('id', '<>', $from->id);
         }
+        if ($to) {
+            $query->where('id', '<>', $to->id);
+        }
+
+        if ($from && $to) {
+            // パターンA: 【出発地と目的地がある場合】
+            // 2点間の長方形範囲内を探す
+            $minLng = min($from->lng, $to->lng);
+            $maxLng = max($from->lng, $to->lng);
+            $minLat = min($from->lat, $to->lat);
+            $maxLat = max($from->lat, $to->lat);
+
+            $query
+                ->where('lng', '>=', $this->encodeLng($minLng))
+                ->where('lng', '<=', $this->encodeLng($maxLng))
+                ->where('lat', '>=', $this->encodeLat($minLat))
+                ->where('lat', '<=', $this->encodeLat($maxLat));
+        } elseif ($from || $to) {
+            // パターンB: 【どちらか片方だけの場合】
+            // その地点の周辺（半径 約10km程度）を探す
+
+            // 基準となるスポットを特定（fromがあればfrom、なければto）
+            $center = $from ?: $to;
+
+            // 緯度経度 +/- 0.1度 の範囲で検索
+            $query
+                ->where('lng', '>=', $this->encodeLng($center->lng - 0.1))
+                ->where('lng', '<=', $this->encodeLng($center->lng + 0.1))
+                ->where('lat', '>=', $this->encodeLat($center->lat - 0.1))
+                ->where('lat', '<=', $this->encodeLat($center->lat + 0.1));
+        } else {
+            // パターンC: 【両方ない場合】 (バリデーションで弾かれるはずだが念のため)
+            return response()->json(
+                ['error' => '検索基準となるスポットが指定されていません。'],
+                400,
+            );
+        }
+
+        $spots = $query->get();
+
         if ($spots->count() < 1) {
             return response()->json(
                 ['error' => '候補となるスポットが見つかりませんでした。'],
                 400,
             );
         }
+
+        // 4. AIへのプロンプト作成
         $prompt = 'あなたは優秀な観光プランナーです。';
         $prompt .= 'これから示すスポットの情報を基に、';
         $prompt .= "ユーザーの質問に対して、正確な情報を提供してください。\n";
         $prompt .= 'スポットの情報の「キーワード」は、';
         $prompt .= "そのスポットが登場する作品などを表しています。\n\n";
-        $prompt .= 'ユーザーが入力した' . ($to ? '出発地' : 'スポット');
-        $prompt .= "は以下に示すスポットです:\n";
-        $prompt .= $this->spotToMarkdown($from);
-        $prompt .= "\n";
+
+        // 出発地の情報 (あれば追加)
+        if ($from) {
+            $prompt .= "ユーザーが入力した出発地は以下に示すスポットです:\n";
+            $prompt .= $this->spotToMarkdown($from);
+            $prompt .= "\n";
+        }
+
+        // 目的地の情報 (あれば追加)
         if ($to) {
             $prompt .= "ユーザーが入力した目的地は以下に示すスポットです:\n";
             $prompt .= $this->spotToMarkdown($to);
             $prompt .= "\n";
         }
+
         $prompt .= 'ユーザーにスポットを推薦する場合は、';
         $prompt .= "以下の中から選んでください:\n";
         foreach ($spots as $spot) {
@@ -96,6 +125,8 @@ class AiApiController extends Controller
         $prompt .= '`[スポットの名前](spots/スポットのID)`の形式で';
         $prompt .= 'リンクを張ってください。';
         $prompt .= '文中では「キーワード」という言葉を避けてください。';
+
+        // 5. APIコール (変更なし)
         preg_match(
             '/^([,\d]+\d)\n(.+)$/s',
             json_decode(
@@ -133,6 +164,7 @@ class AiApiController extends Controller
             )->choices[0]->message->content,
             $matches,
         );
+
         if (isset($matches[1])) {
             $recommendedSpots = [];
             foreach (explode(',', $matches[1]) as $id) {
@@ -160,6 +192,7 @@ class AiApiController extends Controller
             'explanation' => $matches[2] ?? '',
         ]);
     }
+
     private function spotToMarkdown(Spot $spot)
     {
         $md = "- **{$spot->name}**\n";
