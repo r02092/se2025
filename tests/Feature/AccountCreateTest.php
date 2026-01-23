@@ -32,7 +32,7 @@ class AccountCreateTest extends TestCase
             'password' => 'testpass2',
             'password_confirmation' => 'testpass2', // 修正：項目名変更
         ])->assertRedirect('/');
-        
+
         $this->assertNotNull(User::where('login_name', 'testuser2')->first());
     }
 }
