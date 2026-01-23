@@ -1402,8 +1402,44 @@ h1 {
 	margin: -1px;
 	overflow: hidden;
 	clip: rect(0, 0, 0, 0);
-	white-space: nowrap;
 	border: 0;
+}
+
+/* ==== Role Based Buttons (mirrors profile-button-edit) ==== */
+.profile-button-business {
+	width: auto;
+	padding: 10px 10px;
+	background-color: #4caf50; /* Green */
+	color: #fff;
+	border: none;
+	border-radius: 6px; /* Matches Edit button */
+	font-size: 17px; /* Matches Edit button */
+	cursor: pointer;
+	font-weight: bold; /* Matches Edit button */
+	margin-bottom: 20px; /* Matches Edit button */
+	margin-left: 10px; /* Spacing from Edit button */
+	transition: background-color 0.2s;
+}
+.profile-button-business:hover {
+	background-color: #45a049;
+}
+
+.profile-button-admin {
+	width: auto;
+	padding: 10px 10px;
+	background-color: #2196f3; /* Blue */
+	color: #fff;
+	border: none;
+	border-radius: 6px; /* Matches Edit button */
+	font-size: 17px; /* Matches Edit button */
+	cursor: pointer;
+	font-weight: bold; /* Matches Edit button */
+	margin-bottom: 20px; /* Matches Edit button */
+	margin-left: 10px; /* Spacing from Edit button */
+	transition: background-color 0.2s;
+}
+.profile-button-admin:hover {
+	background-color: #0b7dda;
 }
 
 .checkin-qr-modal {
