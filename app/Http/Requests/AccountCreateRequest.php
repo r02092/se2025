@@ -23,11 +23,13 @@ class AccountCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|between:1,255',
-            'username' =>
-                'required|regex:/^\w{1,255}$/|unique:users,login_name',
-            'password' => 'required|string|between:8,999',
-            'password_confirm' => 'required|string|between:8,999',
+            'name' => ['required', 'string', 'between:1,255'],
+            'username' => [
+                'required',
+                'regex:/^\w{1,255}$/',
+                'unique:users,login_name',
+            ],
+            'password' => ['required', 'string', 'between:8,999', 'confirmed'],
         ];
     }
 }

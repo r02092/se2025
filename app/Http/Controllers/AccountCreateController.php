@@ -10,11 +10,6 @@ class AccountCreateController extends Controller
 {
     public function post(AccountCreateRequest $request)
     {
-        if (
-            $request->input('password') !== $request->input('password_confirm')
-        ) {
-            return response('', 400); // 仮
-        }
         $user = new User();
         $user->name = $request->input('name');
         $user->login_name = $request->input('username');
