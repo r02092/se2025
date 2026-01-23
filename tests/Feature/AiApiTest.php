@@ -15,7 +15,7 @@ class AiApiTest extends TestCase
         ])->assertStatus(200);
         $this->post(route('ai'), [
             'chat' => 'この周辺にある観光スポットを推薦して',
-            'from' => 5,
+            'from' => 47,
         ])->assertStatus(400);
         $this->post(route('ai'), [
             'chat' => 'この周辺にある観光スポットを推薦して',
