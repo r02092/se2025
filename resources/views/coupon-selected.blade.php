@@ -29,40 +29,22 @@
 		</p>
 	</article>
 
-	<!-- 下部固定の大きなスライダー（枠いっぱい、内部に背景と文言） -->
-	<div class="coupon-use-slider" aria-hidden="false">
-		<div class="slider-track" aria-hidden="true">
-			<div class="slider-fill" aria-hidden="true"></div>
-			<div
-				class="slider-handle"
-				role="button"
-				tabindex="0"
-				aria-label="スライドしてクーポン利用"
-				href="{{ route('coupon.qr', $coupon->id ?? 1) }}"
-			>
-				＞＞＞
-			</div>
-			<div class="slider-label" aria-hidden="true">
-				スライドでクーポン利用
-			</div>
+	<!-- 下部固定のボタン -->
+	<div class="coupon-use-button-area">
+		<div
+			class="coupon-use-button"
+			type="button"
+			onclick="location.href = '{{ route('coupon.qr', $coupon->id ?? 1) }}'"
+			aria-label="クーポン利用"
+		>
+			クーポンを利用する
+		</div>
+		<div class="close-btn" onclick="location.href = '{{ route('coupon') }}'">
+			一覧に戻る
+		</div>
 		</div>
 	</div>
 
 	<!-- QR オーバーレイ -->
-	<div id="qr-overlay" class="qr-overlay" aria-hidden="true">
-		<div
-			class="qr-panel"
-			role="dialog"
-			aria-modal="true"
-			aria-label="クーポンQR"
-		>
-			<button class="qr-close" aria-label="閉じる">&times;</button>
-			<h2>クーポンを提示してください</h2>
-			<div class="qr-image-wrap">
-				<img src="{{ asset('images/coupon-code.gif') }}" alt="クーポンQRコード" />
-			</div>
-			<p class="qr-hint">スタッフにこの画面を見せてください</p>
-		</div>
-	</div>
 </div>
 @endsection

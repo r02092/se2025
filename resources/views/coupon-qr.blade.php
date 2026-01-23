@@ -30,9 +30,9 @@
 	</article>
 
 	<!-- 下部固定の大きなスライダー（枠いっぱい、内部に背景と文言） -->
-	<div class="coupon-use-slider" aria-hidden="false">
-		<div class="slider-track" aria-hidden="true">
-			<div class="slider-label" aria-hidden="true">クーポン 利用中</div>
+	<div class="coupon-use-button-area">
+		<div class="coupon-use-button-active" aria-label="クーポン 利用中">
+			クーポン 利用中
 		</div>
 	</div>
 </main>
@@ -45,7 +45,6 @@
 		aria-modal="true"
 		aria-labelledby="qr-modal-title"
 	>
-		<button class="qr-modal-close" aria-label="閉じる">&times;</button>
 		<h2 id="qr-modal-title" class="qr-modal-title">{{ $coupon->title ?? '龍河洞 入場割引' }}</h2>
 		<p class="qr-modal-sub">
 			こちらの二次元コードをスタッフにご提示ください
@@ -61,7 +60,7 @@
 			この画面をスタッフに見せて割引を受けてください。
 		</p>
 		<div class="qr-modal-actions">
-			<a class="qr-modal-close-btn" href="{{ route('coupon.show', $coupon->id ?? 1) }}">閉じる</a>
+			<a class="qr-modal-close-btn" href="{{ route('coupon', $coupon->id ?? 1) }}">閉じる</a>
 		</div>
 	</div>
 </div>

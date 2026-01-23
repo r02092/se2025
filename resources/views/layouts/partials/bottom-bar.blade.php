@@ -45,7 +45,11 @@
 			<span class="bottom-label">投稿</span>
 		</a>
 
-		<a href="{{ route('coupon') }}" class="bottom-btn">
+		@auth
+			<a href="{{ route('coupon') }}" class="bottom-btn">
+		@else
+			<a href="{{ route('login') }}" class="bottom-btn">
+		@endauth
 			<svg class="bottom-icon" viewBox="0 0 512 512" aria-hidden="true">
 				<g
 					transform="matrix(0.83914572,0,0,0.83914572,82.357385,138.68221)"
@@ -74,7 +78,11 @@
 			<span class="bottom-label">クーポン</span>
 		</a>
 
-		<a href="{{ route('funpage') }}" class="bottom-btn">
+		@auth
+			<a href="{{ route('funpage') }}" class="bottom-btn">
+		@else
+			<a href="{{ route('login') }}" class="bottom-btn">
+		@endauth
 			<svg class="bottom-icon" viewBox="0 0 13.229166 13.229167">
 				<g transform="translate(-1.6666667e-7,0.58949768)">
 					<path
