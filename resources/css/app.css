@@ -1409,15 +1409,15 @@ h1 {
 .profile-button-business {
 	width: auto;
 	padding: 10px 10px;
-	background-color: #4CAF50; /* Green */
+	background-color: #4caf50; /* Green */
 	color: #fff;
 	border: none;
 	border-radius: 6px; /* Matches Edit button */
-	font-size: 17px;    /* Matches Edit button */
+	font-size: 17px; /* Matches Edit button */
 	cursor: pointer;
-	font-weight: bold;  /* Matches Edit button */
-	margin-bottom: 20px;/* Matches Edit button */
-	margin-left: 10px;  /* Spacing from Edit button */
+	font-weight: bold; /* Matches Edit button */
+	margin-bottom: 20px; /* Matches Edit button */
+	margin-left: 10px; /* Spacing from Edit button */
 	transition: background-color 0.2s;
 }
 .profile-button-business:hover {
@@ -1427,15 +1427,15 @@ h1 {
 .profile-button-admin {
 	width: auto;
 	padding: 10px 10px;
-	background-color: #2196F3; /* Blue */
+	background-color: #2196f3; /* Blue */
 	color: #fff;
 	border: none;
 	border-radius: 6px; /* Matches Edit button */
-	font-size: 17px;    /* Matches Edit button */
+	font-size: 17px; /* Matches Edit button */
 	cursor: pointer;
-	font-weight: bold;  /* Matches Edit button */
-	margin-bottom: 20px;/* Matches Edit button */
-	margin-left: 10px;  /* Spacing from Edit button */
+	font-weight: bold; /* Matches Edit button */
+	margin-bottom: 20px; /* Matches Edit button */
+	margin-left: 10px; /* Spacing from Edit button */
 	transition: background-color 0.2s;
 }
 .profile-button-admin:hover {
