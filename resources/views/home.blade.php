@@ -35,12 +35,6 @@
                     <input type="text" id="destination" name="destination" placeholder="作品名・地名・キーワードを入力"
                            style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:16px;" required />
                 </div>
-                {{-- キーワード検索にも任意で出発地を追加 --}}
-                <div style="margin-bottom: 15px;">
-                    <label for="departure" style="font-weight:bold; display:block; margin-bottom:5px;">出発地 <span style="font-weight:normal; color:#888; font-size:0.8rem;">(任意)</span></label>
-                    <input type="text" id="departure" name="departure" placeholder="例: 高知駅"
-                           style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:16px;" />
-                </div>
 
                 <button type="submit" class="btn-green" style="width:100%; padding:12px; border:none; cursor:pointer; background-color: #16a34a; color: white; font-weight: bold; border-radius: 4px;">
                     検索する
