@@ -1,113 +1,72 @@
-// より堅牢な自動オーバーレイ表示スクリプト
-// - DOM読み込み後に overlay を検索（複数の候補を試す）
-// - 見つかれば自動で showOverlay() を呼ぶ（120ms 遅延）
-// - 閉じるはボタン・背景クリック・Escで可能
-// - デバッグ用の console.log 出力あり（動作確認後は消してOK）
+import QrScanner from 'qr-scanner'; // QrScannerライブラリをインポート
 
-console.log("funpage-checkin-qr.ts: loaded");
+console.log("funpage_checkin.ts: loaded");
 
-// overlay を探す（id / class の候補を順に試す）
-const overlayCandidates: string[] = [
-	"checkin-qr-overlay",
-	"checkin-qr-overlay", // 同じが重複しても安全
-	"qr-overlay",
-	"checkin-overlay",
-];
+// 要素を探す（候補リスト）
+const overlayCandidates = ["checkin-qr-overlay", "qr-overlay", "checkin-overlay"];
 let overlay: HTMLElement | null = null;
+
 for (const id of overlayCandidates) {
-	const elById = document.getElementById(id);
-	if (elById) {
-		overlay = elById;
-		break;
-	}
+    const el = document.getElementById(id);
+    if (el) { overlay = el; break; }
 }
-// class 名でも探す
-if (!overlay)
-	overlay =
-		(document.querySelector(".checkin-qr-overlay") as HTMLElement) ||
-		(document.querySelector(".qr-overlay") as HTMLElement);
 
 if (!overlay) {
-	console.error(
-		"funpage-checkin-qr.js: overlay element not found.  Ensure the HTML contains an element with id/class like 'checkin-qr-overlay' or 'checkin-qr-overlay'.",
-	);
+    console.error("オーバーレイ要素が見つかりません。");
 } else {
-	// 開閉ボタンやリンク
-	const openTarget: HTMLElement | null =
-		document.getElementById("checkinBox") ||
-		(document.querySelector(".checkin-box") as HTMLElement);
-	const closeBtn: HTMLElement | null =
-		overlay.querySelector(".checkin-qr-close") ||
-		overlay.querySelector(".qr-modal-close") ||
-		overlay.querySelector(".qr-close");
-	const actionCloseBtn: HTMLElement | null =
-		overlay.querySelector(".checkin-qr-close-btn") ||
-		overlay.querySelector(".qr-modal-close-btn") ||
-		null;
+    const video = document.getElementById('qr-video') as HTMLVideoElement;
+    const statusMessage = document.getElementById('scanner-status');
 
-	// show / hide 実装
-	function preventScroll(): void {
-		document.documentElement.style.overflow = "hidden";
-		document.body.style.overflow = "hidden";
-	}
+    // --- QRスキャナーの初期化 ---
+    const qrScanner = new QrScanner(
+        video,
+        async (result) => {
+            qrScanner.stop(); // 読み取ったら一旦カメラ停止
+            if (statusMessage) statusMessage.textContent = 'チェックイン中...';
+            await handleCheckin(result.data); // サーバーへ送信
+        },
+        { returnDetailedScanResult: true, highlightScanRegion: true }
+    );
 
-	function allowScroll(): void {
-		document.documentElement.style.overflow = "";
-		document.body.style.overflow = "";
-	}
+    function showOverlay(): void {
+        if (!overlay) return;
+        overlay.classList.add("show");
+        overlay.style.opacity = "1"; // 見えるようにする
+        
+        // オーバーレイが表示されたらカメラを起動
+        qrScanner.start().then(() => {
+            if (statusMessage) statusMessage.textContent = 'QRコードを枠内に収めてください';
+        }).catch(err => {
+            if (statusMessage) statusMessage.textContent = 'カメラの起動に失敗しました。';
+        });
+    }
 
-	function showOverlay(): void {
-		if (!overlay) return;
-		overlay.classList.add("show");
-		overlay.setAttribute("aria-hidden", "false");
-		preventScroll();
-		// フォーカス移動（アクセシビリティ）
-		setTimeout((): void => {
-			if (!overlay) return;
-			const btn = overlay.querySelector(
-				".checkin-qr-close, .qr-modal-close, .qr-close",
-			) as HTMLElement | null;
-			if (btn) btn.focus();
-		}, 50);
-		console.log("funpage-checkin-qr.js: overlay shown");
-	}
+    async function handleCheckin(stampKey: string) {
+        // 現在地を取得
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+            const response = await fetch('/api/checkin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement).content
+                },
+                body: JSON.stringify({
+                    stamp_key: stampKey,
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude
+                })
+            });
+            const data = await response.json();
+            alert(data.message || data.error);
+            window.location.href = '/funpage'; // 実績画面に戻る
+        }, (err) => {
+            alert("位置情報の取得を許可してください。");
+            qrScanner.start();
+        });
+    }
 
-	function hideOverlay(): void {
-		if (!overlay) return;
-		overlay.classList.remove("show");
-		overlay.setAttribute("aria-hidden", "true");
-		allowScroll();
-		// フォーカス戻し
-		if (openTarget) openTarget.focus();
-		console.log("funpage-checkin-qr.js: overlay hidden");
-	}
-
-	// 自動表示（少し遅延）
-	setTimeout((): void => {
-		try {
-			showOverlay();
-		} catch (err) {
-			console.error("funpage-checkin-qr.js: error showing overlay", err);
-		}
-	}, 120);
-
-	// 閉じるボタン
-	if (closeBtn) closeBtn.addEventListener("click", hideOverlay);
-	if (actionCloseBtn) actionCloseBtn.addEventListener("click", hideOverlay);
-
-	// 背景クリックで閉じる
-	overlay.addEventListener("click", function (e: MouseEvent): void {
-		if (e.target === overlay) {
-			hideOverlay();
-		}
-	});
-
-	// ESC で閉じる
-	document.addEventListener("keydown", function (e: KeyboardEvent): void {
-		if (e.key === "Escape" && overlay && overlay.classList.contains("show")) {
-			hideOverlay();
-		}
-	});
+    // 自動表示
+    setTimeout(showOverlay, 120);
 }
 
 export {};
