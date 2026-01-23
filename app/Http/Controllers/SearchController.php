@@ -4,35 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Spot;
-use Illuminate\Http\Request; // 追加: リクエスト取得用
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SearchApiController; // ★APIコントローラーを読み込む
 
 class SearchController extends Controller
 {
     public function index()
     {
-        // 修正後: 人気順表示
-        // 1. 先に queries テーブルだけで GROUP BY して、ランキング表（サブクエリ）を作る
-        //    (この中では必要な列しか選ばないのでエラーにならない)
+        // 人気順表示 (変更なし)
         $rankingQuery = DB::table('queries')
             ->select('to_spot_id', DB::raw('count(*) as search_count'))
+            ->whereNotNull('to_spot_id')
             ->groupBy('to_spot_id');
 
-        // 2. 作ったランキング表を spots テーブルと結合する
         $spots = Spot::query()
-            // joinSub を使うと、サブクエリの結果をテーブルのように扱って結合できます
             ->joinSub($rankingQuery, 'ranking', function ($join) {
                 $join->on('spots.id', '=', 'ranking.to_spot_id');
             })
-
-            // 検索数が多い順に並べ替え
             ->orderByDesc('search_count')
-
-            // 上位5件を取得
             ->take(5)
             ->get();
 
-        //ビューの表示とデータの引き渡し
         return view('home', compact('spots'));
     }
 
@@ -46,47 +39,46 @@ class SearchController extends Controller
         $destination = $request->input('destination');
         $departure = $request->input('departure');
 
-        // ▼▼▼ 修正: 出発地の存在チェックを復活 ▼▼▼
-        $departureNotFound = false; // 初期値は「見つかった（エラーなし）」
-
-        // 出発地が入力されている場合だけチェックする
+        // 出発地の存在チェック
+        $departureNotFound = false;
         if ($departure) {
-            // 名前で検索して、1件もなければエラーフラグを立てる
             $exists = Spot::where('name', 'like', "%{$departure}%")->exists();
             if (!$exists) {
                 $departureNotFound = true;
             }
         }
-        // ▲▲▲ 修正ここまで ▲▲▲
 
-        // 2. APIコントローラーを使って「目的地」を検索
+        // 2. ★APIコントローラーを使って「目的地」を検索
+        // 内部リクエストを作成してAPIに渡す
         $apiRequest = Request::create('/api/filtering', 'GET', [
             'keyword' => $destination,
         ]);
 
+        // API実行 (優先順位付きの結果が返ってくる)
         $response = $api->getSpotList($apiRequest);
-        $spotsData = $response->getData(); // 検索結果の取得
+        $spotsData = $response->getData(); // オブジェクト配列として取得
 
-        // ▼▼▼ 追加: オブジェクトで返ってきても配列に変換してエラーを防ぐ ▼▼▼
+        // 配列変換（念のため）
         if (!is_array($spotsData)) {
             $spotsData = (array) $spotsData;
         }
-        // 3. 履歴保存 (ランキング用)
-        if (count($spotsData) > 0) {
-            if (\Illuminate\Support\Facades\Auth::check()) {
-                foreach ($spotsData as $spot) {
-                    DB::table('queries')->insert([
-                        'to_spot_id' => $spot->id,
-                        'user_id' => \Illuminate\Support\Facades\Auth::id(),
-                        'ip_addr' => $request->ip(),
-                        'port' => $request->server('REMOTE_PORT') ?? 0,
-                        'query' => $destination,
-                        'user_agent' => $request->userAgent(),
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ]);
-                }
-            }
+
+        // 3. 履歴保存
+        // 検索結果の1件目（最も優先度が高いスポット）を履歴として保存
+        if (count($spotsData) > 0 && Auth::check()) {
+            // getData()で返ってくるのはstdClassの配列なので ->id でアクセス
+            $topSpot = $spotsData[0];
+
+            DB::table('queries')->insert([
+                'user_id' => Auth::id(),
+                'query' => $destination,
+                'to_spot_id' => $topSpot->id, // ヒットした最上位のスポットID
+                'ip_addr' => $request->ip(),
+                'port' => $request->server('REMOTE_PORT') ?? 0,
+                'user_agent' => $request->userAgent(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
 
         // 4. ビューへ渡す
@@ -94,85 +86,57 @@ class SearchController extends Controller
             'departure' => $departure,
             'destination' => $destination,
             'spots' => $spotsData,
-            'departureNotFound' => $departureNotFound, // ★計算した結果を渡す
+            'departureNotFound' => $departureNotFound,
         ]);
     }
 
     /**
      * AIプランニング画面を表示する
      */
-    /**
-     * AIプランニング画面を表示する
-     */
-    public function aiPlan(Request $request)
+    public function aiPlan(Request $request, SearchApiController $api)
     {
-        // 1. 入力値を取得（新旧両方のパラメータ名に対応）
-        // 'departure' がなければ 'departure_name' を探す
+        // 1. 入力値を取得
         $depName =
             $request->input('departure') ?? $request->input('departure_name');
         $dstName =
             $request->input('destination') ??
             $request->input('destination_name');
 
-        // 2. キーワードから最適なスポットIDを探すロジック
-        $findSpotByKeyword = function ($text) {
-            // 空文字なら検索しない
+        // 2. APIを使って最適なスポットを1件特定するヘルパー関数
+        // (SearchController内で独自に検索せず、APIのロジックを再利用する)
+        $findSpotViaApi = function ($text) use ($api) {
             if (empty($text)) {
                 return null;
             }
 
-            // 全角スペースを半角に変換して分割
-            $converted = mb_convert_kana($text, 's');
-            $keywords = preg_split(
-                '/[\s]+/',
-                $converted,
-                -1,
-                PREG_SPLIT_NO_EMPTY,
-            );
+            // APIリクエスト作成
+            $req = Request::create('/api/filtering', 'GET', [
+                'keyword' => $text,
+            ]);
+            // API実行
+            $res = $api->getSpotList($req);
+            $data = $res->getData();
 
-            if (empty($keywords)) {
-                return null;
+            // 結果があれば先頭（最もスコアが高いスポット）を返す
+            if (count($data) > 0) {
+                // stdClassをSpotモデルに変換（またはIDだけ取得してFind）しても良いが、
+                // ビュー側でプロパティとして使うならstdClassのままでもOK。
+                // ここでは後続処理の安全性のためIDからモデルを取得し直す
+                return Spot::find($data[0]->id);
             }
-
-            // クエリ構築
-            $query = Spot::query();
-
-            // AND検索：入力されたすべての単語が含まれるものを探す
-            foreach ($keywords as $word) {
-                $query->where(function ($q) use ($word) {
-                    $q->where('name', 'LIKE', "%{$word}%")
-                        ->orWhere('description', 'LIKE', "%{$word}%")
-                        ->orWhereHas('keywords', function ($subQuery) use (
-                            $word,
-                        ) {
-                            $subQuery->where('keyword', 'LIKE', "%{$word}%");
-                        });
-                });
-            }
-
-            // 1件取得
-            return $query->first();
+            return null;
         };
 
         // 3. スポットを特定
-        $fromSpot = $findSpotByKeyword($depName);
-        $toSpot = $findSpotByKeyword($dstName);
-
-        // ★デバッグ用：もしスポットが見つからない場合、名前だけで再検索してみる（保険）
-        if (!$fromSpot && $depName) {
-            $fromSpot = Spot::where('name', 'LIKE', "%{$depName}%")->first();
-        }
-        if (!$toSpot && $dstName) {
-            $toSpot = Spot::where('name', 'LIKE', "%{$dstName}%")->first();
-        }
+        $fromSpot = $findSpotViaApi($depName);
+        $toSpot = $findSpotViaApi($dstName);
 
         // 4. ビューを表示
-        // AI検索画面（search/ai_plan.blade.php）にデータを渡す
         return view('search.ai_plan', [
-            'depName' => $depName, // 検索に使った言葉
-            'dstName' => $dstName, // 検索に使った言葉
-            'fromSpot' => $fromSpot, // 見つかったスポット（無ければnull）
-            'toSpot' => $toSpot, // 見つかったスポット（無ければnull）
+            'depName' => $depName,
+            'dstName' => $dstName,
+            'fromSpot' => $fromSpot,
+            'toSpot' => $toSpot,
         ]);
     }
 }
