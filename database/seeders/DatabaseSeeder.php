@@ -907,7 +907,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => $this->encodeLat(33.567648),
                 'postal_code' => 7811325,
                 'addr_city' => 39403,
-                'addr_detail' => '高知県高岡郡越知町浅尾',
+                'addr_detail' => '浅尾',
                 'description' => '',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
