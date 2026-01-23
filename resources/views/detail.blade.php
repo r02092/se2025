@@ -25,6 +25,17 @@
         </div>
 
         <div>
+            <!-- スポットの説明 -->
+            <section class="spot-detail-description-section">
+                <h2 class="spot-detail-section-title">説明</h2>
+                <div class="spot-detail-text">
+                    <!-- 改行コードを<br>に変換して表示 -->
+                    {!! nl2br(e($spot->description)) !!}
+                </div>
+            </section>
+
+            <!-- スポットの場所 -->
+
 			<section>
                 <h2 class="spot-detail-section-title">住所</h2>
 				<div class="spot-detail-text">
@@ -49,15 +60,6 @@
 						Googleマップで見る
 					</a>
 				</div>
-            </section>
-
-            <!-- スポットの説明 -->
-            <section class="spot-detail-description-section">
-                <h2 class="spot-detail-section-title">説明</h2>
-                <div class="spot-detail-text">
-                    <!-- 改行コードを<br>に変換して表示 -->
-                    {!! nl2br(e($spot->description)) !!}
-                </div>
             </section>
 
             <!-- 関連キーワード -->
