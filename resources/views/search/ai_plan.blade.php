@@ -11,21 +11,30 @@
             AIトラベルプランナー
         </h1>
         <div style="display: flex; justify-content: center; align-items: center; gap: 10px; color: #666;">
-            <span style="font-weight: bold; font-size: 1.2rem;">{{ $depName }}</span>
-            <span>➜</span>
-            <span style="font-weight: bold; font-size: 1.2rem;">{{ $dstName }}</span>
+            @if($depName)
+                <span style="font-weight: bold; font-size: 1.2rem;">{{ $depName }}</span>
+            @endif
+
+            @if($depName && $dstName)
+                <span>➜</span>
+            @elseif($depName)
+                <span style="font-size: 0.9rem;">(周辺)</span>
+            @else
+                <span style="font-size: 0.9rem;">(周辺)</span>
+            @endif
+
+            @if($dstName)
+                <span style="font-weight: bold; font-size: 1.2rem;">{{ $dstName }}</span>
+            @endif
         </div>
     </div>
 
-    {{-- ▼▼▼ エラーハンドリング: スポットが見つからなかった場合 ▼▼▼ --}}
-    @if(!$fromSpot || !$toSpot)
+    {{-- ▼▼▼ 修正: エラー判定を「両方とも空の場合」に変更 ▼▼▼ --}}
+    @if(!$fromSpot && !$toSpot)
         <div style="background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; padding: 20px; border-radius: 8px;">
             <p style="font-weight: bold; margin-bottom: 10px;">⚠️ スポットが見つかりませんでした</p>
             <p>入力された名前のスポットがデータベースに見つかりませんでした。</p>
-            <ul style="margin-top: 10px; margin-left: 20px; list-style: disc;">
-                @if(!$fromSpot) <li>出発地: 「{{ $depName }}」が見つかりません</li> @endif
-                @if(!$toSpot)   <li>目的地: 「{{ $dstName }}」が見つかりません</li> @endif
-            </ul>
+            <p style="font-size:0.9rem; margin-top:5px;">※出発地か目的地のどちらか一方は必ず正しく入力してください。</p>
             <div style="margin-top: 20px; text-align: center;">
                 <a href="/" style="color: #b91c1c; text-decoration: underline;">ホームに戻る</a>
             </div>
@@ -35,17 +44,22 @@
     @else
         <div id="ai-container" style="background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; min-height: 300px;">
 
-            {{-- 1. ローディング画面 (最初はこれが表示される) --}}
+            {{-- 1. ローディング画面 --}}
             <div id="ai-loading" style="padding: 80px 20px; text-align: center;">
                 <div class="spinner" style="margin: 0 auto 20px;"></div>
-                <h3 style="font-size: 1.2rem; font-weight: bold; color: #333; margin-bottom: 10px;">AIがルートを分析中...</h3>
+                <h3 style="font-size: 1.2rem; font-weight: bold; color: #333; margin-bottom: 10px;">AIが分析中...</h3>
                 <p style="color: #666; font-size: 0.9rem;">
-                    {{ $depName }} から {{ $dstName }} までの<br>おすすめスポットを探しています。<br>
+                    @if($fromSpot && $toSpot)
+                        ルート沿いの寄り道スポットを探しています
+                    @else
+                        周辺のおすすめスポットを探しています
+                    @endif
+                    <br>
                     <span style="font-size: 0.8rem; color: #999;">(これには数秒〜数十秒かかる場合があります)</span>
                 </p>
             </div>
 
-            {{-- 2. 結果表示エリア (API完了後に表示) --}}
+            {{-- 2. 結果表示エリア --}}
             <div id="ai-result" style="display: none;">
                 <div style="background: linear-gradient(to right, #2563eb, #7c3aed); color: white; padding: 15px 20px;">
                     <h2 style="font-size: 1rem; font-weight: bold; margin: 0;">🤖 AIからの提案</h2>
@@ -54,14 +68,14 @@
                 <div style="padding: 30px;">
                     {{-- 解説テキスト --}}
                     <div id="ai-text" style="line-height: 1.8; color: #333; margin-bottom: 30px; font-size: 1rem;">
-                        </div>
+                    </div>
 
                     {{-- スポットリスト --}}
                     <h3 style="font-size: 1rem; font-weight: bold; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
                         提案されたスポット
                     </h3>
                     <div id="ai-spots-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
-                        </div>
+                    </div>
                 </div>
 
                 <div style="background: #f9fafb; padding: 15px; text-align: center; border-top: 1px solid #eee;">
@@ -80,9 +94,10 @@
         {{-- API通信用スクリプト --}}
         <script>
             document.addEventListener('DOMContentLoaded', async () => {
-                const fromId = @json($fromSpot->id);
-                const toId   = @json($toSpot->id);
-                // CSRFトークン取得
+                // PHPからデータを取得（存在しない場合はnullになるように修正）
+                const fromId = @json($fromSpot ? $fromSpot->id : null);
+                const toId   = @json($toSpot ? $toSpot->id : null);
+
                 const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
                 const csrfToken = csrfTokenMeta ? csrfTokenMeta.content : '';
 
@@ -92,8 +107,30 @@
                 const textField = document.getElementById('ai-text');
                 const spotsList = document.getElementById('ai-spots-list');
 
+                // ▼▼▼ 指示文（プロンプト）の動的生成 ▼▼▼
+                let promptText = "";
+                if (fromId && toId) {
+                    // 両方ある場合（ルート検索）
+                    promptText = `
+                        出発地から目的地へのルート上で、おすすめの観光スポットや食事処を提案してください。
+                        リストの中から最適なものを選び、なぜそこが良いのか理由を含めてプランを提案してください。
+                    `;
+                } else {
+                    // 片方だけの場合（周辺検索）
+                    promptText = `
+                        指定された地点の周辺にある、おすすめの観光スポットや食事処を提案してください。
+                        リストの中から最適なものを選び、その場所の魅力を伝えてください。
+                    `;
+                }
+
+                // 共通の制約を追加
+                promptText += `
+                    【システム強制ルール】
+                    1. 回答の「1行目」は、選んだスポットの **IDのみ** をカンマ区切りで出力してください（例: 1,5）。
+                    2. 2行目以降に、推薦する理由を魅力的に書いてください。
+                `;
+
                 try {
-                    // APIリクエスト実行
                     const response = await fetch('/ai-search', {
                         method: 'POST',
                         headers: {
@@ -101,17 +138,9 @@
                             'X-CSRF-TOKEN': csrfToken
                         },
                         body: JSON.stringify({
-                            chat: `
-							以下の「候補スポットリスト」の中から、このルートに最適なスポットを選んで推薦してください。
-
-【システム強制ルール】
-1. 回答の「1行目」は、選んだスポットの **IDのみ** をカンマ区切りで出力してください（例: 1,5）。
-2. ID:3 (とさでん交通) や ID:4 (はりまや橋) は、今回のルート候補に含まれていません。**絶対に回答しないでください。**
-3. リストの中に ID:1 (chimney) や ID:5 (ひばり食堂) があれば、必ずそれらを選んでください。
-4. 2行目以降に、推薦する理由を魅力的に書いてください。
-							`,
+                            chat: promptText,
                             from: fromId,
-                            to: toId
+                            to:   toId
                         })
                     });
 
@@ -127,23 +156,11 @@
 
                     // テキスト表示 (Markdown簡易変換)
                     let rawText = data.explanation || '解説文が取得できませんでした。';
-
-                    // Markdown風の記法をHTMLに変換します
                     let formattedText = rawText
-                        // 1. 太字 **文字** → <b>文字</b>
                         .replace(/\*\*(.*?)\*\*/g, '<b style="color:#2563eb;">$1</b>')
-
-                        // 2. リンク [店名](spots/123) → <a href="/detail?id=123">店名</a>
-                        // バックエンドが `spots/ID` という形式で返してくるので、それをキャッチします
                         .replace(/\[(.*?)\]\(spots\/(\d+)\)/g, '<a href="/detail?id=$2" target="_blank" style="color:#2563eb; text-decoration:underline; font-weight:bold;">$1</a>')
-
-                        // 3. 一般的なリンク表記 [文字](URL) のバックアップ対応
-                        .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" style="color:#2563eb; text-decoration:underline;">$1</a>')
-
-                        // 4. 改行 \n → <br>
                         .replace(/\n/g, '<br>');
 
-                    // HTMLとして流し込む
                     textField.innerHTML = formattedText;
 
                     // スポットカード生成
@@ -180,7 +197,6 @@
             });
         </script>
     @endif
-
 </div>
 
 <style>
