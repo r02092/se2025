@@ -101,24 +101,78 @@ class SearchController extends Controller
     /**
      * AIプランニング画面を表示する
      */
+    /**
+     * AIプランニング画面を表示する
+     */
     public function aiPlan(Request $request)
     {
-        // 1. 入力値を取得
-        $depName = $request->input('departure_name');
-        $dstName = $request->input('destination_name');
+        // 1. 入力値を取得（新旧両方のパラメータ名に対応）
+        // 'departure' がなければ 'departure_name' を探す
+        $depName =
+            $request->input('departure') ?? $request->input('departure_name');
+        $dstName =
+            $request->input('destination') ??
+            $request->input('destination_name');
 
-        // 2. 名前からスポットIDを探す
-        // 部分一致(LIKE)で検索し、最初に見つかったものを採用
-        $fromSpot = Spot::where('name', 'LIKE', "%{$depName}%")->first();
-        $toSpot = Spot::where('name', 'LIKE', "%{$dstName}%")->first();
+        // 2. キーワードから最適なスポットIDを探すロジック
+        $findSpotByKeyword = function ($text) {
+            // 空文字なら検索しない
+            if (empty($text)) {
+                return null;
+            }
 
-        // 3. ビューを表示
-        // ビュー側でAPIを叩くために、IDなどの情報を渡す
+            // 全角スペースを半角に変換して分割
+            $converted = mb_convert_kana($text, 's');
+            $keywords = preg_split(
+                '/[\s]+/',
+                $converted,
+                -1,
+                PREG_SPLIT_NO_EMPTY,
+            );
+
+            if (empty($keywords)) {
+                return null;
+            }
+
+            // クエリ構築
+            $query = Spot::query();
+
+            // AND検索：入力されたすべての単語が含まれるものを探す
+            foreach ($keywords as $word) {
+                $query->where(function ($q) use ($word) {
+                    $q->where('name', 'LIKE', "%{$word}%")
+                        ->orWhere('description', 'LIKE', "%{$word}%")
+                        ->orWhereHas('keywords', function ($subQuery) use (
+                            $word,
+                        ) {
+                            $subQuery->where('keyword', 'LIKE', "%{$word}%");
+                        });
+                });
+            }
+
+            // 1件取得
+            return $query->first();
+        };
+
+        // 3. スポットを特定
+        $fromSpot = $findSpotByKeyword($depName);
+        $toSpot = $findSpotByKeyword($dstName);
+
+        // ★デバッグ用：もしスポットが見つからない場合、名前だけで再検索してみる（保険）
+        if (!$fromSpot && $depName) {
+            $fromSpot = Spot::where('name', 'LIKE', "%{$depName}%")->first();
+        }
+        if (!$toSpot && $dstName) {
+            $toSpot = Spot::where('name', 'LIKE', "%{$dstName}%")->first();
+        }
+
+        // 4. ビューを表示
+        // AI検索画面（search/ai_plan.blade.php）にデータを渡す
         return view('search.ai_plan', [
-            'depName' => $depName,
-            'dstName' => $dstName,
-            'fromSpot' => $fromSpot,
-            'toSpot' => $toSpot,
+            'depName' => $depName, // 検索に使った言葉
+            'dstName' => $dstName, // 検索に使った言葉
+            'fromSpot' => $fromSpot, // 見つかったスポット（無ければnull）
+            'toSpot' => $toSpot, // 見つかったスポット（無ければnull）
         ]);
     }
 }
