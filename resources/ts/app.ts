@@ -34,4 +34,11 @@ document.addEventListener("DOMContentLoaded", (): void => {
 	if (pathname === "/funpage/checkin") {
 		import("./funpage_checkin");
 	}
+
+	// Profile Edit Page
+	if (pathname === "/profile/edit") {
+		import("./profile_icon_handler").then((module) => {
+			module.initProfileIconHandler();
+		});
+	}
 });
