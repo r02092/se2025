@@ -16,7 +16,7 @@
 		</h1>
 		<div style="display: flex; justify-content: center; align-items: center; gap: 10px; color: #666;">
 			@if($depName)
-				<span style="font-weight: bold; font-size: 1.2rem;">{{ $depName }}</span>
+				<span id="ai-from" class="ai-header-spot">{{ $depName }}</span>
 			@endif
 
 			@if($depName && $dstName)
@@ -26,7 +26,7 @@
 			@endif
 
 			@if($dstName)
-				<span style="font-weight: bold; font-size: 1.2rem;">{{ $dstName }}</span>
+				<span id="ai-to" class="ai-header-spot">{{ $dstName }}</span>
 			@endif
 		</div>
 	</div>
@@ -67,17 +67,21 @@
 					<h2 style="font-size: 1rem; font-weight: bold; margin: 0;">🤖 AIからの提案</h2>
 				</div>
 
-				<div style="padding: 30px;">
+				<div class="ai-result-main">
 					{{-- 解説テキスト --}}
 					<div id="ai-text" style="line-height: 1.8; color: #333; margin-bottom: 30px; font-size: 1rem;">
 					</div>
 
 					{{-- スポットリスト --}}
-					<h3 style="font-size: 1rem; font-weight: bold; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
+					<h3>
 						提案されたスポット
 					</h3>
 					<div id="ai-spots-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
 					</div>
+					<h3>
+						スポットを通るルートの例
+					</h3>
+					<iframe></iframe>
 				</div>
 
 				<div style="background: #f9fafb; padding: 15px; text-align: center; border-top: 1px solid #eee;">

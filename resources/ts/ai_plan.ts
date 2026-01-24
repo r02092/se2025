@@ -51,7 +51,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 			}),
 		});
 
-		const data = await response.json();
+		const data: {
+			recommended_spots: [
+				{
+					id: number;
+					name: string;
+					type: number;
+					lng: number;
+					lat: number;
+					postal_code: number;
+					addr_city: number;
+					addr_detail: string;
+					description: string;
+					img_ext: string;
+				},
+			];
+			explanation: string;
+			error: string;
+		} = await response.json();
 
 		if (!response.ok) {
 			throw new Error(data.error || "通信エラーが発生しました");
@@ -76,34 +93,44 @@ document.addEventListener("DOMContentLoaded", async () => {
 		// スポットカード生成
 		spotsList.innerHTML = "";
 		if (data.recommended_spots && data.recommended_spots.length > 0) {
-			data.recommended_spots.forEach(
-				(spot: {
-					id: number;
-					name: string;
-					type: number;
-					postal_code: number;
-					addr_city: number;
-					addr_detail: string;
-					img_ext: string;
-				}) => {
-					const html = `
-								<a href="/detail?id=${spot.id}" style="display:block; border:1px solid #e5e7eb; border-radius:8px; overflow:hidden; text-decoration:none; color:inherit; transition:box-shadow 0.2s; background: #fff;">
-									<div style="height:150px; background:#f3f4f6;">
-										<img src="/images/${spot.name}.${spot.img_ext || "jpg"}"
-											 onerror="this.src='/images/Harimaya_Bridge.jpg'"
-											 style="width:100%; height:100%; object-fit:cover;">
-									</div>
-									<div style="padding:15px;">
-										<h4 style="font-weight:bold; margin:0 0 5px; color:#333;">${spot.name}</h4>
-										<p style="font-size:0.8rem; color:#666; margin:0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
-											${spot.description || "説明文がありません"}
-										</p>
-									</div>
-								</a>
-							`;
-					spotsList.innerHTML += html;
-				},
-			);
+			data.recommended_spots.forEach(spot => {
+				const html = `<a href="/detail?id=${spot.id}">
+	<div>
+		<img src="/images/${spot.name}.${spot.img_ext || "jpg"}"
+			onerror="this.src='/images/Harimaya_Bridge.jpg'">
+	</div>
+	<div>
+		<h4>${spot.name}</h4>
+		<p>
+			${spot.description || "説明文がありません"}
+		</p>
+	</div>
+</a>`;
+				spotsList.innerHTML += html;
+			});
+			const len6 = data.recommended_spots.length * 6;
+			document.getElementsByTagName("iframe")[0].src =
+				"https://www.google.com/maps/embed?pb=!1m" +
+				(len6 + 28) +
+				"!!!!!!!!!!!!!!4m" +
+				(len6 + 13) +
+				"!" +
+				[
+					document.getElementById("ai-from")?.textContent,
+					...data.recommended_spots.map(i => i.name),
+					document.getElementById("ai-to")?.textContent,
+				]
+					.map(
+						i =>
+							"!4m5!!2z" +
+							btoa(String.fromCharCode(...new TextEncoder().encode(i)))
+								.replace(/\+/g, "-")
+								.replace(/\//g, "_")
+								.replace(/=+$/g, "") +
+							"!!!",
+					)
+					.join("") +
+				"!";
 		} else {
 			spotsList.innerHTML =
 				'<p style="color:#666; grid-column: 1/-1;">スポットデータはありませんでした。</p>';
