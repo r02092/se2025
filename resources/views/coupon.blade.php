@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - クーポン')
+@section('title', 'クーポン')
 
 @push('scripts')
 @vite(['resources/ts/coupon.ts'])

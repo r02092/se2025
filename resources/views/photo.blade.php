@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - 投稿')
+@section('title', '投稿')
 
 @push('scripts')
 @vite(['resources/ts/photo.ts'])

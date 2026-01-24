@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - スポット編集')
+@section('title', 'スポット編集')
 
 @section('content')
 <h1>スポット編集</h1>

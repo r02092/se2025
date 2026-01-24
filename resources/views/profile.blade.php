@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - プロフィール')
+@section('title', 'プロフィール')
 
 @section('content')
 <div class="general-box profile-container">

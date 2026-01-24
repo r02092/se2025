@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - ユーザー一覧')
+@section('title', 'ユーザー一覧')
 
 @section('content')
 <h1>ユーザー一覧</h1>

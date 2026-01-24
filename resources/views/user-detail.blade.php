@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - ユーザー詳細')
+@section('title', 'ユーザー詳細')
 
 @section('content')
 <div class="post-titlebar">
