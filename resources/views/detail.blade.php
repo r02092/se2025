@@ -55,7 +55,7 @@
 			<section>
 				<h2 class="spot-detail-section-title">場所</h2>
 				<div class="map-area">
-					<div id="map" data-lng="{{ Js::from($spot->lng) }}" data-lat="{{ Js::from($spot->lat) }}"></div>
+					<div id="map" data-lng="{{ $spot->lng }}" data-lat="{{ $spot->lat }}"></div>
 				</div>
 				<div>
 					<a href="https://www.google.com/maps/search/?api=1&query={{ $spot->lat }},{{ $spot->lng }}"
