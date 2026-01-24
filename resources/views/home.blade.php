@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="map-area">
-	<div id="map"></div>
+	<div id="map" data-spots="{{ json_encode($allSpots) }}"></div>
 </div>
 
 {{-- ▼▼▼ 検索フォームエリア ▼▼▼ --}}
