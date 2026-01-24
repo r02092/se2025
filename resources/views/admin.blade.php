@@ -14,7 +14,7 @@
     <div class="spot-divider" aria-hidden="true"></div>
 
 	<!-- <div class="column-menu"> -->
-		<button class="settings-button" onclick="location.href = '{{ route('admin.users') }}'">
+		<button class="settings-button" onclick="location.href = '{{ route('admin.users.list') }}'">
 			ユーザー一覧
 		</button>
 
