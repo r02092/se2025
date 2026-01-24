@@ -2,7 +2,8 @@
 
 @section('title', 'SceneTrip - 投稿')
 
-@push('styles')
+@push('scripts')
+@vite(['resources/ts/photo.ts'])
 @endpush
 
 @section('content')

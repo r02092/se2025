@@ -13,10 +13,10 @@ export default defineConfig(({mode}) => {
 			laravel({
 				input: [
 					"resources/css/app.css",
-					"resources/ts/app.ts",
-					// 個別TS modules - app.ts経由で動的import
 					"resources/ts/home.ts",
 					"resources/ts/subscription.ts",
+					"resources/ts/detail.ts",
+					"resources/ts/ai_plan.ts",
 					"resources/ts/photo.ts",
 					"resources/ts/coupon.ts",
 					"resources/ts/coupon_qr.ts",

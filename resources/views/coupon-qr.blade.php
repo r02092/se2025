@@ -2,6 +2,10 @@
 
 @section('title', 'クーポンQR')
 
+@push('scripts')
+@vite(['resources/ts/coupon_qr.ts'])
+@endpush
+
 @section('content')
 <main class="main-area qr-page" role="main">
 	<div class="coupon-titlebar">

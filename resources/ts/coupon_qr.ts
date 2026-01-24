@@ -67,5 +67,3 @@ if (overlay) {
 		}
 	});
 }
-
-export {};
