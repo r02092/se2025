@@ -44,7 +44,7 @@
 
 	{{-- ▼▼▼ 正常系: AI処理エリア ▼▼▼ --}}
 	@else
-		<div id="ai-container" data-from="{{ Js::from($fromSpot ? $fromSpot->id : null) }}" data-to="{{ Js::from($toSpot ? $toSpot->id : null) }}">
+		<div id="ai-container" data-from="{{ $fromSpot ? $fromSpot->id : null }}" data-to="{{ $toSpot ? $toSpot->id : null }}">
 
 			{{-- 1. ローディング画面 --}}
 			<div id="ai-loading">
