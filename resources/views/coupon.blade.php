@@ -54,7 +54,7 @@
 		>
 			<img class="coupon-thumb" src="ryugado.jpg" alt="龍河洞の写真" />
 			<div class="coupon-info">
-				<h2 class="coupon-title">{{ $coupon[0]->name }}</h2>
+				<h3 class="coupon-title">{{ $coupon[0]->name }}</h3>
 				<!-- <p class="coupon-desc">
 					入場料100円引き。スタッフに画面を見せてください。
 				</p> -->

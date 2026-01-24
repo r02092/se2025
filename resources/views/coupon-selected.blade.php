@@ -19,7 +19,7 @@
 
 	<!-- クーポン詳細（背景に直接描画するスタイル） -->
 	<article class="coupon-detail">
-		<h1 class="coupon-detail-title">{{ $coupon->title ?? '龍河洞入場割引' }}</h1>
+		<h2 class="coupon-detail-title">{{ $coupon->title ?? '龍河洞入場割引' }}</h2>
 		<p class="coupon-detail-desc">
 			{{ $coupon->description ?? '入場料100円引き。スタッフに画面を見せてください。' }}
 		</p>
