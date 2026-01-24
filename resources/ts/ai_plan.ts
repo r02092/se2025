@@ -57,9 +57,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 					id: number;
 					name: string;
 					type: number;
+					lng: number;
+					lat: number;
 					postal_code: number;
 					addr_city: number;
 					addr_detail: string;
+					description: string;
 					img_ext: string;
 				},
 			];

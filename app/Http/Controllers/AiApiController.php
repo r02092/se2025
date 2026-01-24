@@ -8,11 +8,13 @@ use App\Models\Spot;
 use App\Models\Keyword;
 use App\Traits\TransformCoordTrait;
 use App\Traits\ToStringTrait;
+use App\Traits\DistanceCalculatorTrait;
 
 class AiApiController extends Controller
 {
     use TransformCoordTrait;
     use ToStringTrait;
+    use DistanceCalculatorTrait;
 
     public function post(AiApiRequest $request)
     {
@@ -172,14 +174,35 @@ class AiApiController extends Controller
                     'id',
                     'name',
                     'type',
+                    'lng',
+                    'lat',
                     'postal_code',
                     'addr_city',
                     'addr_detail',
+                    'description',
                     'img_ext',
                 ]);
                 if ($spot) {
                     $recommendedSpots[] = $spot;
+                    $dist = $this->calculateDistance(
+                        $from->lat,
+                        $from->lng,
+                        $spot->lat,
+                        $spot->lng,
+                    );
+                    $dists[] = [
+                        $spot,
+                        $dist /
+                        ($dist +
+                            $this->calculateDistance(
+                                $to->lat,
+                                $to->lng,
+                                $spot->lat,
+                                $spot->lng,
+                            )),
+                    ];
                 }
+                array_multisort($dists, $recommendedSpots);
             }
         } else {
             return response()->json([
