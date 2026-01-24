@@ -17,6 +17,7 @@ export default defineConfig(({mode}) => {
 					// 個別TS modules - app.ts経由で動的import
 					"resources/ts/home.ts",
 					"resources/ts/subscription.ts",
+					"resources/ts/detail.ts",
 					"resources/ts/photo.ts",
 					"resources/ts/coupon.ts",
 					"resources/ts/coupon_qr.ts",

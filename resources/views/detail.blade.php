@@ -2,6 +2,10 @@
 
 @section('title', 'SceneTrip - スポット詳細')
 
+@push('scripts')
+@vite(['resources/ts/detail.ts'])
+@endpush
+
 @section('content')
 <div class="spot-detail-container">
 
@@ -51,7 +55,7 @@
 			<section>
 				<h2 class="spot-detail-section-title">場所</h2>
 				<div class="map-area">
-					<div id="map"></div>
+					<div id="map" data-lng="{{ Js::from($spot->lng) }}" data-lat="{{ Js::from($spot->lat) }}"></div>
 				</div>
 				<div>
 					<a href="https://www.google.com/maps/search/?api=1&query={{ $spot->lat }},{{ $spot->lng }}"
@@ -174,30 +178,5 @@
 	</section>
 
 </div>
-
-<!-- マップ作成とピン指し -->
-<link rel='stylesheet' href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' />
-<script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
-
-<script>
-	// BladeからJavaScript変数へ緯度・経度を渡す
-	const lat = @json($spot->lat);
-	const lng = @json($spot->lng);
-	const spotName = @json($spot->name);
-
-	// マップの初期化
-	const map = new maplibregl.Map({
-		container: 'map',
-		style: 'https://tile.openstreetmap.jp/styles/osm-bright-ja/style.json', // 無料のデモスタイル
-		center: [lng, lat],
-		zoom: 15
-	});
-
-	map.addControl(new maplibregl.NavigationControl(), "top-right");
-	// ピン（マーカー）を立てる
-	const marker = new maplibregl.Marker()
-		.setLngLat([lng, lat])
-		.addTo(map);
-</script>
 
 @endsection
