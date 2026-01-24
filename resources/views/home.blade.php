@@ -2,7 +2,8 @@
 
 @section('title', 'SceneTrip - ホーム')
 
-@push('styles')
+@push('scripts')
+@vite(['resources/ts/home.ts'])
 @endpush
 
 @section('content')

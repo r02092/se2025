@@ -109,5 +109,3 @@ if (!overlay) {
 		}
 	});
 }
-
-export {};

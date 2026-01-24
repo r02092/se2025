@@ -118,5 +118,3 @@ if (track && handle && fill) {
 	// 初期化
 	resetHandle(false);
 }
-
-export {};

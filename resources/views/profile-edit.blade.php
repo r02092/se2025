@@ -2,11 +2,15 @@
 
 @section('title', 'プロフィール編集')
 
+@push('scripts')
+@vite(['resources/ts/profile_icon_handler.ts'])
+@endpush
+
 @section('content')
 <div class="main-area">
     <div class="general-box profile-edit-container">
         <h2>プロフィール編集</h2>
-        
+
         {{-- エラー表示用（デバッグに役立ちます） --}}
         @if ($errors->any())
             <div class="error-msg">
@@ -45,7 +49,7 @@
             <input
                 type="text"
                 id="username"
-                name="name" 
+                name="name"
                 required
                 value="{{ old('name', Auth::user()->name) }}"
             />

@@ -61,5 +61,3 @@ if (viewSelect && activeSection && availableSection) {
 		});
 	});
 }
-
-export {};

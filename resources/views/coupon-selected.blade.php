@@ -2,6 +2,10 @@
 
 @section('title', 'クーポン')
 
+@push('scripts')
+@vite(['resources/ts/coupon_selected.ts'])
+@endpush
+
 @section('content')
 <div class="main-area">
 	<div class="coupon-titlebar">

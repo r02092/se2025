@@ -35,4 +35,3 @@ function cityFilter(selectElem: HTMLSelectElement) {
 		}
 	}
 }
-export {};

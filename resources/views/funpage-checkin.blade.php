@@ -2,6 +2,10 @@
 
 @section('title', 'チェックイン')
 
+@push('scripts')
+@vite(['resources/ts/funpage_checkin.ts'])
+@endpush
+
 @section('content')
 <div class="main-area">
 	<h1>チェックイン</h1>

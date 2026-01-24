@@ -2,6 +2,10 @@
 
 @section('title', '事業者申込フォーム')
 
+@push('scripts')
+@vite(['resources/ts/subscription.ts'])
+@endpush
+
 @section('content')
 <div class="main-area">
 	<div class="general-box subscription-form-container">

@@ -2,6 +2,10 @@
 
 @section('title', 'SceneTrip - クーポン')
 
+@push('scripts')
+@vite(['resources/ts/coupon.ts'])
+@endpush
+
 @section('content')
 <h1>クーポン</h1>
 
