@@ -9,7 +9,7 @@
 @section('content')
 <div class="main-area">
 	<div class="general-box subscription-form-container">
-		<h2>事業者申込フォーム</h2>
+		<h1 class="h2">事業者申込フォーム</h1>
 		<form method="POST">
 			@csrf
 			<label for="post_code">郵便番号<span class="form-detail">（ハイフンなし）</span></label>

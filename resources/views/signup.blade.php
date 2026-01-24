@@ -5,7 +5,7 @@
 @section('content')
 <div class="main-area">
 	<div class="general-box form-container">
-		<h2>アカウント作成</h2>
+		<h1 class="h2">アカウント作成</h1>
 		<form method="POST" action="{{ route('signup.post') }}" class="signup-form">
 			@csrf
 

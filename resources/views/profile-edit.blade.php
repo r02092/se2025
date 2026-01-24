@@ -9,7 +9,7 @@
 @section('content')
 <div class="main-area">
 	<div class="general-box profile-edit-container">
-		<h2>プロフィール編集</h2>
+		<h1 class="h2">プロフィール編集</h1>
 
 		{{-- エラー表示用（デバッグに役立ちます） --}}
 		@if ($errors->any())
