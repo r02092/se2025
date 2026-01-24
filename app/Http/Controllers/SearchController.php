@@ -25,8 +25,9 @@ class SearchController extends Controller
             ->orderByDesc('search_count')
             ->take(5)
             ->get();
+        $allSpots = Spot::get(['id', 'name', 'lng', 'lat']);
 
-        return view('home', compact('spots'));
+        return view('home', compact('spots', 'allSpots'));
     }
 
     /**
