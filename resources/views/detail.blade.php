@@ -61,14 +61,14 @@
 					<a href="https://www.google.com/maps/search/?api=1&query={{ $spot->lat }},{{ $spot->lng }}"
 					target="_blank"
 					rel="noopener noreferrer">
-						Googleマップで見る
+						Google マップで見る
 					</a>
 				</div>
 			</section>
 
 			<!-- 関連キーワード -->
 			@if($spot->keywords->isNotEmpty())
-				<div class="spot-detail-keywords-section" style="margin-top: 2rem;">
+				<div class="spot-detail-keywords-section">
 					<h2 class="spot-detail-section-title">関連キーワード</h2>
 					<div class="spot-detail-keywords">
 						@foreach($spot->keywords as $keyword)
@@ -92,7 +92,7 @@
 				$starCount = round($avgRate);
 			@endphp
 			<span class="spot-detail-average-rate">
-				<span style="color: #aaa;">平均評価 <span class="review-stars">★</span>{{ number_format($avgRate, 1) }}
+				<span style="color: #aaa;">平均評価 <span class="review-stars">★</span>{{ number_format($avgRate, 1) }}</span>
 			</span>
 			<div class="spot-detail-average-label">
 				({{ $spot->reviews->count() }}件のレビュー)
@@ -112,7 +112,7 @@
 					<div class="review-stars">
 						<!-- 評価の星表示 -->
 						@for($i = 1; $i <= 5; $i++)
-							@if($i <= $review->rate) ★ @else <span style="color: #ddd;">★</span> @endif
+							@if($i <= $review->rate) ★ @else <span>★</span> @endif
 						@endfor
 					</div>
 					<div class="spot-detail-review-comment">
@@ -150,7 +150,7 @@
 
 					<div class="spot-detail-form-group">
 						<label for="comment" class="spot-detail-form-label">コメント</label>
-						<textarea name="comment" id="comment" rows="4" class="spot-detail-form-textarea" placeholder="スポットの感想を教えてください（1～1000文字まで）" required></textarea>
+						<textarea name="comment" id="comment" rows="4" class="spot-detail-form-textarea" placeholder="スポットの感想を教えてください（1〜1000文字まで）" required></textarea>
 					</div>
 
 					@if($errors->any())
@@ -158,9 +158,9 @@
 							<div>
 								投稿に失敗しました
 							</div>
-							<ul>
+							<ul class="spot-detail-errors">
 								@foreach ($errors->all() as $error)
-									<li style="color: #922">{{ $error }}</li>
+									<li>{{ $error }}</li>
 								@endforeach
 							</ul>
 						</div>

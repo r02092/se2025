@@ -21,10 +21,8 @@
 
 			@if($depName && $dstName)
 				<span>➜</span>
-			@elseif($depName)
-				<span style="font-size: 0.9rem;">(周辺)</span>
 			@else
-				<span style="font-size: 0.9rem;">(周辺)</span>
+				<span style="font-size: 0.9rem;">（周辺）</span>
 			@endif
 
 			@if($dstName)
@@ -46,11 +44,11 @@
 
 	{{-- ▼▼▼ 正常系: AI処理エリア ▼▼▼ --}}
 	@else
-		<div id="ai-container" data-from="{{ Js::from($fromSpot ? $fromSpot->id : null) }}" data-to="{{ Js::from($toSpot ? $toSpot->id : null) }}" style="background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; min-height: 300px;">
+		<div id="ai-container" data-from="{{ Js::from($fromSpot ? $fromSpot->id : null) }}" data-to="{{ Js::from($toSpot ? $toSpot->id : null) }}">
 
 			{{-- 1. ローディング画面 --}}
-			<div id="ai-loading" style="padding: 80px 20px; text-align: center;">
-				<div class="spinner" style="margin: 0 auto 20px;"></div>
+			<div id="ai-loading">
+				<div class="spinner"></div>
 				<h3 style="font-size: 1.2rem; font-weight: bold; color: #333; margin-bottom: 10px;">AIが分析中...</h3>
 				<p style="color: #666; font-size: 0.9rem;">
 					@if($fromSpot && $toSpot)
@@ -59,7 +57,7 @@
 						周辺のおすすめスポットを探しています
 					@endif
 					<br>
-					<span style="font-size: 0.8rem; color: #999;">(これには数秒〜数十秒かかる場合があります)</span>
+					<span style="font-size: 0.8rem; color: #999;">（これには数秒〜数十秒かかる場合があります）</span>
 				</p>
 			</div>
 
@@ -97,17 +95,4 @@
 	@endif
 </div>
 
-<style>
-.spinner {
-	width: 50px;
-	height: 50px;
-	border: 5px solid #e5e7eb;
-	border-top-color: #2563eb;
-	border-radius: 50%;
-	animation: spin 1s linear infinite;
-}
-@keyframes spin {
-	to { transform: rotate(360deg); }
-}
-</style>
 @endsection

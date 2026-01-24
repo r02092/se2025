@@ -5,7 +5,7 @@
 @section('content')
 <div class="main-area">
 	<div class="general-box form-container">
-		<h2>二要素認証設定</h2>
+		<h1 class="h2">二要素認証設定</h1>
 				<div>
 					@if (session('success'))
 						<div>

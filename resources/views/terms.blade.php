@@ -5,7 +5,7 @@
 @section('content')
 <div class="main-area">
 	<div class="general-box form-container">
-		<h2>利用規約</h2>
+		<h1 class="h2">利用規約</h1>
 		<div>
 			<p>
 				本サービスをご利用いただく前に、以下の利用規約を必ずお読みください。

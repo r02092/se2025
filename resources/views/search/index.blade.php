@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="general-box" style="padding: 20px; margin: 20px 5%;">
-	<h2 style="font-size:1.5rem; font-weight:bold; color:#16a34a; margin-bottom:20px;">検索結果</h2>
+	<h1 style="font-size:1.5rem; color:#16a34a; margin-bottom:20px;">検索結果</h1>
 
 	{{-- ▼▼▼ 修正: 検索条件（キーワードのみ表示） ▼▼▼ --}}
 	<div class="bg-white shadow rounded-lg p-6 mb-6" style="background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1);">

@@ -9,7 +9,7 @@
 @section('content')
 <div class="main-area">
 	<div class="general-box profile-edit-container">
-		<h2>プロフィール編集</h2>
+		<h1 class="h2">プロフィール編集</h1>
 
 		{{-- エラー表示用（デバッグに役立ちます） --}}
 		@if ($errors->any())
@@ -78,7 +78,7 @@
 				name="new-password"
 			/>
 
-			<label for="confirm-password">新しいパスワード(確認用)</label>
+			<label for="confirm-password">新しいパスワード（確認用）</label>
 			<input
 				type="password"
 				id="confirm-password"

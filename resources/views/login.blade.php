@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="general-box form-container">
-	<h2>ログイン</h2>
+	<h1 class="h2">ログイン</h1>
 	<form action="{{ route('login.post') }}" method="POST">
 		@csrf
 		<label for="login_name">ログイン名</label>

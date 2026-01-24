@@ -14,37 +14,17 @@ new maplibregl.Marker().setLngLat([133.745187, 33.603579]).addTo(map);
 
 for (const i of document.querySelectorAll("[id^='tab-btn-']")) {
 	i.addEventListener("click", e => {
-		const btnKeyword = document.getElementById(
-			"tab-btn-keyword",
-		) as HTMLButtonElement;
-		const btnAi = document.getElementById("tab-btn-ai") as HTMLButtonElement;
-		const areaKeyword = document.getElementById(
-			"form-area-keyword",
-		) as HTMLDivElement;
-		const areaAi = document.getElementById("form-area-ai") as HTMLDivElement;
-
-		if ((e.currentTarget as HTMLButtonElement).id === "tab-btn-keyword") {
-			areaKeyword.style.display = "block";
-			areaAi.style.display = "none";
-
-			btnKeyword.style.background = "#fff";
-			btnKeyword.style.color = "#16a34a";
-			btnKeyword.style.borderBottomColor = "#16a34a";
-
-			btnAi.style.background = "#f3f4f6";
-			btnAi.style.color = "#6b7280";
-			btnAi.style.borderBottomColor = "transparent";
-		} else {
-			areaKeyword.style.display = "none";
-			areaAi.style.display = "block";
-
-			btnAi.style.background = "#fff";
-			btnAi.style.color = "#2563eb";
-			btnAi.style.borderBottomColor = "#2563eb";
-
-			btnKeyword.style.background = "#f3f4f6";
-			btnKeyword.style.color = "#6b7280";
-			btnKeyword.style.borderBottomColor = "transparent";
+		for (const i of document.querySelectorAll("[id^='tab-btn-']")) {
+			const tab = (i as HTMLButtonElement).id.substring(8);
+			const hide = e.currentTarget !== i;
+			(
+				document.getElementById("form-area-" + tab) as HTMLDivElement
+			).style.display = hide ? "none" : "block";
+			const iStyle = (i as HTMLButtonElement).style;
+			iStyle.background = hide ? "" : "#fff";
+			const color = hide ? "" : tab !== "ai" ? "#16a34a" : "#2563eb";
+			iStyle.color = color;
+			iStyle.borderBottomColor = color;
 		}
 	});
 }

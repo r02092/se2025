@@ -5,7 +5,7 @@
 @section('content')
 <div class="main-area">
 	<div class="general-box form-container">
-		<h2>二要素認証</h2>
+		<h1 class="h2">二要素認証</h1>
 		<div>
 			<p>
 				認証アプリ（Google Authenticator等）に表示されている6桁のコードを入力してください。

@@ -17,7 +17,7 @@
 	@foreach($apiKeys ?? [] as $apiKey)
 	<article class="general-box coupon-card" tabindex="0" role="article">
 		<div class="coupon-info">
-			<h2 class="coupon-title">{{ $apiKey->name }}</h2>
+			<h3 class="coupon-title">{{ $apiKey->name }}</h3>
 			<form method="POST">
 				@csrf
 				<input type="hidden" name="delete_id" value="{{ $apiKey->id }}">
