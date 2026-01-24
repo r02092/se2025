@@ -169,6 +169,7 @@ class AiApiController extends Controller
 
         if (isset($matches[1])) {
             $recommendedSpots = [];
+            $dists = [];
             foreach (explode(',', $matches[1]) as $id) {
                 $spot = Spot::find((int) $id, [
                     'id',
