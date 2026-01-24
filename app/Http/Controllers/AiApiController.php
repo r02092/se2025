@@ -184,25 +184,29 @@ class AiApiController extends Controller
                 ]);
                 if ($spot) {
                     $recommendedSpots[] = $spot;
-                    $dist = $this->calculateDistance(
-                        $from->lat,
-                        $from->lng,
-                        $spot->lat,
-                        $spot->lng,
-                    );
-                    $dists[] = [
-                        $spot,
-                        $dist /
-                        ($dist +
-                            $this->calculateDistance(
-                                $to->lat,
-                                $to->lng,
-                                $spot->lat,
-                                $spot->lng,
-                            )),
-                    ];
+                    if ($from && $to) {
+                        $dist = $this->calculateDistance(
+                            $from->lat,
+                            $from->lng,
+                            $spot->lat,
+                            $spot->lng,
+                        );
+                        $dists[] = [
+                            $spot,
+                            $dist /
+                            ($dist +
+                                $this->calculateDistance(
+                                    $to->lat,
+                                    $to->lng,
+                                    $spot->lat,
+                                    $spot->lng,
+                                )),
+                        ];
+                    }
                 }
-                array_multisort($dists, $recommendedSpots);
+                if ($from && $to) {
+                    array_multisort($dists, $recommendedSpots);
+                }
             }
         } else {
             return response()->json([
