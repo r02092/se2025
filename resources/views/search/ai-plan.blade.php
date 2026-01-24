@@ -16,7 +16,7 @@
 		</h1>
 		<div style="display: flex; justify-content: center; align-items: center; gap: 10px; color: #666;">
 			@if($depName)
-				<span id="ai-from" style="font-weight: bold; font-size: 1.2rem;">{{ $depName }}</span>
+				<span id="ai-from" class="ai-header-spot">{{ $depName }}</span>
 			@endif
 
 			@if($depName && $dstName)
@@ -26,7 +26,7 @@
 			@endif
 
 			@if($dstName)
-				<span id="ai-to" style="font-weight: bold; font-size: 1.2rem;">{{ $dstName }}</span>
+				<span id="ai-to" class="ai-header-spot">{{ $dstName }}</span>
 			@endif
 		</div>
 	</div>

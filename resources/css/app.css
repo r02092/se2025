@@ -2035,6 +2035,11 @@ h1 {
 	margin: 20px 0;
 }
 
+.ai-header-spot {
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+
 #ai-container {
 	background: #fff;
 	border: 1px solid #e5e7eb;
