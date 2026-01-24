@@ -18,6 +18,7 @@ export default defineConfig(({mode}) => {
 					"resources/ts/home.ts",
 					"resources/ts/subscription.ts",
 					"resources/ts/detail.ts",
+					"resources/ts/ai_plan.ts",
 					"resources/ts/photo.ts",
 					"resources/ts/coupon.ts",
 					"resources/ts/coupon_qr.ts",
