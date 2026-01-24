@@ -67,13 +67,13 @@
 					<h2 style="font-size: 1rem; font-weight: bold; margin: 0;">🤖 AIからの提案</h2>
 				</div>
 
-				<div style="padding: 30px;">
+				<div class="ai-result-main">
 					{{-- 解説テキスト --}}
 					<div id="ai-text" style="line-height: 1.8; color: #333; margin-bottom: 30px; font-size: 1rem;">
 					</div>
 
 					{{-- スポットリスト --}}
-					<h3 style="font-size: 1rem; font-weight: bold; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
+					<h3>
 						提案されたスポット
 					</h3>
 					<div id="ai-spots-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">

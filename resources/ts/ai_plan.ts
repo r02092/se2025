@@ -86,21 +86,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 					addr_detail: string;
 					img_ext: string;
 				}) => {
-					const html = `
-								<a href="/detail?id=${spot.id}" style="display:block; border:1px solid #e5e7eb; border-radius:8px; overflow:hidden; text-decoration:none; color:inherit; transition:box-shadow 0.2s; background: #fff;">
-									<div style="height:150px; background:#f3f4f6;">
-										<img src="/images/${spot.name}.${spot.img_ext || "jpg"}"
-											 onerror="this.src='/images/Harimaya_Bridge.jpg'"
-											 style="width:100%; height:100%; object-fit:cover;">
-									</div>
-									<div style="padding:15px;">
-										<h4 style="font-weight:bold; margin:0 0 5px; color:#333;">${spot.name}</h4>
-										<p style="font-size:0.8rem; color:#666; margin:0; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
-											${spot.description || "説明文がありません"}
-										</p>
-									</div>
-								</a>
-							`;
+					const html = `<a href="/detail?id=${spot.id}">
+	<div>
+		<img src="/images/${spot.name}.${spot.img_ext || "jpg"}"
+			onerror="this.src='/images/Harimaya_Bridge.jpg'">
+	</div>
+	<div>
+		<h4>${spot.name}</h4>
+		<p>
+			${spot.description || "説明文がありません"}
+		</p>
+	</div>
+</a>`;
 					spotsList.innerHTML += html;
 				},
 			);
