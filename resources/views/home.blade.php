@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - ホーム')
+@section('title', 'ホーム')
 
 @push('scripts')
 @vite(['resources/ts/home.ts'])

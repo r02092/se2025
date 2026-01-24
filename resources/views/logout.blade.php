@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - ログアウト確認')
+@section('title', 'ログアウト確認')
 
 @section('content')
 <h1>ログアウト確認</h1>

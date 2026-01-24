@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', '検索結果 - SceneTrip')
+@section('title', '検索結果')
 
 @section('content')
 <div class="general-box" style="padding: 20px; margin: 20px 5%;">

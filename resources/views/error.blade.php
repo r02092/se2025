@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - ログイン')
+@section('title', 'ログイン')
 
 @section('content')
 <div class="h5" style="text-align: center;">

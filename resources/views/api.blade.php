@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - APIキー')
+@section('title', 'APIキー')
 
 @section('content')
 <h1>APIキー</h1>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - スポット詳細')
+@section('title', 'スポット詳細')
 
 @push('scripts')
 @vite(['resources/ts/detail.ts'])
