@@ -16,7 +16,7 @@
 		</h1>
 		<div style="display: flex; justify-content: center; align-items: center; gap: 10px; color: #666;">
 			@if($depName)
-				<span style="font-weight: bold; font-size: 1.2rem;">{{ $depName }}</span>
+				<span id="ai-from" style="font-weight: bold; font-size: 1.2rem;">{{ $depName }}</span>
 			@endif
 
 			@if($depName && $dstName)
@@ -26,7 +26,7 @@
 			@endif
 
 			@if($dstName)
-				<span style="font-weight: bold; font-size: 1.2rem;">{{ $dstName }}</span>
+				<span id="ai-to" style="font-weight: bold; font-size: 1.2rem;">{{ $dstName }}</span>
 			@endif
 		</div>
 	</div>
@@ -78,6 +78,10 @@
 					</h3>
 					<div id="ai-spots-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
 					</div>
+					<h3>
+						スポットを通るルートの例
+					</h3>
+					<iframe></iframe>
 				</div>
 
 				<div style="background: #f9fafb; padding: 15px; text-align: center; border-top: 1px solid #eee;">
