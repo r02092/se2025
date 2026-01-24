@@ -15,13 +15,12 @@
 <div class="general-box form-container" style="padding-top: 0; padding-bottom: 20px; margin: 16px 5% 16px; overflow: hidden;">
 
 	{{-- 1. タブ切り替えボタン --}}
-	<div style="display: flex; border-bottom: 1px solid #eee; background: #f9fafb;">
+	<div class="home-btns">
 		<button type="button" id="tab-btn-keyword"
-			style="flex: 1; padding: 15px; border: none; background: #fff; border-bottom: 3px solid #16a34a; font-weight: bold; color: #16a34a; cursor: pointer; transition: all 0.2s;">
+			style="background: #fff; border-bottom-color: #16a34a; color: #16a34a;">
 			🔍 キーワード検索
 		</button>
-		<button type="button" id="tab-btn-ai"
-			style="flex: 1; padding: 15px; border: none; background: #f3f4f6; border-bottom: 3px solid transparent; font-weight: bold; color: #6b7280; cursor: pointer; transition: all 0.2s;">
+		<button type="button" id="tab-btn-ai">
 			🤖 AIに聞く
 		</button>
 	</div>
@@ -37,7 +36,7 @@
 						   style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:16px;" required />
 				</div>
 
-				<button type="submit" class="btn-green" style="width:100%; padding:12px; border:none; cursor:pointer; background-color: #16a34a; color: white; font-weight: bold; border-radius: 4px;">
+				<button type="submit" class="btn-green">
 					検索する
 				</button>
 			</form>
@@ -56,16 +55,14 @@
 						<strong>🤖 AIプランナー:</strong> <br>出発地か目的地を入力すると、最適な寄り道スポットを提案します。
 					</div>
 
-					<div style="margin-bottom: 15px;">
-						<label for="ai_departure" style="font-weight:bold; display:block; margin-bottom:5px;">出発地 <span style="color:#e11d48; font-size:0.8rem;">(どちらか必須)</span></label>
-						<input type="text" id="ai_departure" name="departure" placeholder="例: 高知駅"
-							   style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
+					<div>
+						<label for="ai_departure">出発地 <span>(どちらか必須)</span></label>
+						<input type="text" id="ai_departure" name="departure" placeholder="例: 高知駅" />
 					</div>
 
-					<div style="margin-bottom: 15px;">
-						<label for="ai_destination" style="font-weight:bold; display:block; margin-bottom:5px;">目的地 <span style="color:#e11d48; font-size:0.8rem;">(どちらか必須)</span></label>
-						<input type="text" id="ai_destination" name="destination" placeholder="例: 桂浜"
-							   style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
+					<div>
+						<label for="ai_destination">目的地 <span>(どちらか必須)</span></label>
+						<input type="text" id="ai_destination" name="destination" placeholder="例: 桂浜" />
 					</div>
 
 					<button type="submit" style="width:100%; padding:12px; border:none; cursor:pointer; background: linear-gradient(to right, #2563eb, #7c3aed); color: white; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
@@ -107,18 +104,17 @@
 		$displaySpots = $rankingSpots ?? ($spots ?? []);
 	@endphp
 
-	<ul class="spot-list" aria-label="人気のスポット一覧">
+	<ul class="spot-list home-spot" aria-label="人気のスポット一覧">
 
 		@if(count($displaySpots) > 0)
 			@foreach($displaySpots as $index => $spot)
-				<li class="spot-item" style="position: relative; transition: transform 0.2s;">
+				<li class="spot-item">
 
 					{{-- 2. 全体をリンク(aタグ)で囲んで詳細画面へ飛べるようにする --}}
-					<a href="{{ route('detail', ['id' => $spot->id]) }}"
-					   style="display: block; text-decoration: none; color: inherit; height: 100%;">
+					<a href="{{ route('detail', ['id' => $spot->id]) }}">
 
 						{{-- 順位バッジ --}}
-						<div style="position: absolute; top: 0; left: 0; background: {{ $index < 3 ? '#eab308' : '#9ca3af' }}; color: white; font-weight: bold; padding: 4px 10px; border-radius: 4px 0 4px 0; z-index: 10;">
+						<div style="background: {{ $index < 3 ? '#eab308' : '#9ca3af' }};">
 							{{ $index + 1 }}
 						</div>
 
@@ -127,13 +123,12 @@
 							 src="{{ asset('images/' . $spot->name . '.' . ($spot->img_ext ?? 'jpg')) }}"
 							 alt="{{ $spot->name }}"
 							 onerror="this.src='{{ asset('images/no-image.png') }}'"
-							 style="transition: opacity 0.2s;"
 							 onmouseover="this.style.opacity='0.8'"
 							 onmouseout="this.style.opacity='1.0'" />
 
 						<div class="spot-content">
 							<h3 class="spot-title">{{ $spot->name }}</h3>
-							<p style="font-size: 0.8rem; color: #16a34a; text-align: right; margin-top: 5px;">
+							<p>
 								詳細を見る ➜
 							</p>
 						</div>

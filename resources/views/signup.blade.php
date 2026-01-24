@@ -6,25 +6,25 @@
 <div class="main-area">
 	<div class="general-box form-container">
 		<h2>アカウント作成</h2>
-		<form method="POST" action="{{ route('signup.post') }}">
+		<form method="POST" action="{{ route('signup.post') }}" class="signup-form">
 			@csrf
 
 			<label for="name">表示名<span class="form-detail">（1文字以上255文字以下の文字列）</span></label>
 			<input type="text" id="name" name="name" required />
 			@error('name')
-				<div style="color: red;">{{ $message }}</div>
+				<div>{{ $message }}</div>
 			@enderror
 
 			<label for="username">ログイン名<span class="form-detail">（半角英数字およびアンダーバーから構成される1文字以上255文字以下の文字列）</span></label>
 			<input type="text" id="username" name="username" required />
 			@error('username')
-				<div style="color: red;">{{ $message }}</div>
+				<div>{{ $message }}</div>
 			@enderror
 
 			<label for="password">パスワード<span class="form-detail">（8文字以上999文字以下の文字列）</span></label>
 			<input type="password" id="password" name="password" required />
 			@error('password')
-				<div style="color: red;">{{ $message }}</div>
+				<div>{{ $message }}</div>
 			@enderror
 
 			<label for="password_confirmation">パスワード（確認用）</label>
@@ -35,7 +35,7 @@
 				required
 			/>
 
-			<div class="terms-check" style="margin: 20px 0;">
+			<div class="terms-check">
 				<label style="display: flex; align-items: center; cursor: pointer;">
 					<input type="checkbox" name="agree_terms" required style="width: auto; margin-right: 10px;">
 					<span>

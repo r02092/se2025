@@ -449,6 +449,7 @@ h1 {
 	padding: 10px;
 }
 .btn-ghost {
+	width: 100%;
 	background: transparent;
 	color: #0b6b4d;
 	border: 1px solid #e0e0e0;
@@ -1933,4 +1934,132 @@ h1 {
 
 .twofa-fb {
 	font-size: 1.2rem;
+}
+
+.spot-detail-keywords-section {
+	margin-top: 2rem;
+}
+
+.review-stars > span {
+	color: #ddd;
+}
+
+.spot-detail-errors > li {
+	color: #922;
+}
+
+.home-btns {
+	display: flex;
+	border-bottom: 1px solid #eee;
+	background: #f9fafb;
+	> button {
+		flex: 1;
+		padding: 15px;
+		border: none;
+		background: #f3f4f6;
+		border-bottom: 3px solid transparent;
+		font-weight: bold;
+		color: #6b7280;
+		cursor: pointer;
+		transition: all 0.2s;
+	}
+}
+
+.btn-green {
+	width: 100%;
+	padding: 12px;
+	border: none;
+	cursor: pointer;
+	background-color: #16a34a;
+	color: white;
+	font-weight: bold;
+	border-radius: 4px;
+}
+
+#form-area-ai > form > div {
+	margin-bottom: 15px;
+	> label {
+		font-weight: bold;
+		display: block;
+		margin-bottom: 5px;
+		> span {
+			color: #e11d48;
+			font-size: 0.8rem;
+		}
+	}
+	> input {
+		width: 100%;
+		padding: 10px;
+		border: 1px solid #93c5fd;
+		border-radius: 4px;
+		background-color: #f0f9ff;
+		font-size: 16px;
+	}
+}
+
+.home-spot > li {
+	position: relative;
+	transition: transform 0.2s;
+	> a {
+		display: block;
+		text-decoration: none;
+		color: inherit;
+		height: 100%;
+		> div:first-child {
+			position: absolute;
+			top: 0;
+			left: 0;
+			color: white;
+			font-weight: bold;
+			padding: 4px 10px;
+			border-radius: 4px 0 4px 0;
+			z-index: 10;
+		}
+		> img {
+			transition: opacity 0.2s;
+		}
+		> div > p {
+			font-size: 0.8rem;
+			color: #16a34a;
+			text-align: right;
+			margin-top: 5px;
+		}
+	}
+}
+
+.signup-form > div:not(.terms-check) {
+	color: red;
+}
+
+.terms-check {
+	margin: 20px 0;
+}
+
+#ai-container {
+	background: #fff;
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+	overflow: hidden;
+	min-height: 300px;
+}
+
+#ai-loading {
+	padding: 80px 20px;
+	text-align: center;
+}
+
+.spinner {
+	margin: 0 auto 20px;
+	width: 50px;
+	height: 50px;
+	border: 5px solid #e5e7eb;
+	border-top-color: #2563eb;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
 }
