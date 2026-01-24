@@ -10,8 +10,8 @@
 <h1>管理者機能</h1>
 
 <div class="general-box column-menu">
-    <h2>管理メニュー</h2>
-    <div class="spot-divider" aria-hidden="true"></div>
+	<h2>管理メニュー</h2>
+	<div class="spot-divider" aria-hidden="true"></div>
 
 	<!-- <div class="column-menu"> -->
 		<button class="settings-button" onclick="location.href = '{{ route('admin.users.list') }}'">
