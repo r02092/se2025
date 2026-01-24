@@ -78,7 +78,7 @@
 				name="new-password"
 			/>
 
-			<label for="confirm-password">新しいパスワード(確認用)</label>
+			<label for="confirm-password">新しいパスワード（確認用）</label>
 			<input
 				type="password"
 				id="confirm-password"

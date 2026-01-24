@@ -56,12 +56,12 @@
 					</div>
 
 					<div>
-						<label for="ai_departure">出発地 <span>(どちらか必須)</span></label>
+						<label for="ai_departure">出発地 <span>（どちらか必須）</span></label>
 						<input type="text" id="ai_departure" name="departure" placeholder="例: 高知駅" />
 					</div>
 
 					<div>
-						<label for="ai_destination">目的地 <span>(どちらか必須)</span></label>
+						<label for="ai_destination">目的地 <span>（どちらか必須）</span></label>
 						<input type="text" id="ai_destination" name="destination" placeholder="例: 桂浜" />
 					</div>
 

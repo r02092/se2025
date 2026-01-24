@@ -61,7 +61,7 @@
 					<a href="https://www.google.com/maps/search/?api=1&query={{ $spot->lat }},{{ $spot->lng }}"
 					target="_blank"
 					rel="noopener noreferrer">
-						Googleマップで見る
+						Google マップで見る
 					</a>
 				</div>
 			</section>
@@ -150,7 +150,7 @@
 
 					<div class="spot-detail-form-group">
 						<label for="comment" class="spot-detail-form-label">コメント</label>
-						<textarea name="comment" id="comment" rows="4" class="spot-detail-form-textarea" placeholder="スポットの感想を教えてください（1～1000文字まで）" required></textarea>
+						<textarea name="comment" id="comment" rows="4" class="spot-detail-form-textarea" placeholder="スポットの感想を教えてください（1〜1000文字まで）" required></textarea>
 					</div>
 
 					@if($errors->any())

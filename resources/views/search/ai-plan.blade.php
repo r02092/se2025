@@ -22,7 +22,7 @@
 			@if($depName && $dstName)
 				<span>➜</span>
 			@else
-				<span style="font-size: 0.9rem;">(周辺)</span>
+				<span style="font-size: 0.9rem;">（周辺）</span>
 			@endif
 
 			@if($dstName)
@@ -57,7 +57,7 @@
 						周辺のおすすめスポットを探しています
 					@endif
 					<br>
-					<span style="font-size: 0.8rem; color: #999;">(これには数秒〜数十秒かかる場合があります)</span>
+					<span style="font-size: 0.8rem; color: #999;">（これには数秒〜数十秒かかる場合があります）</span>
 				</p>
 			</div>
 
