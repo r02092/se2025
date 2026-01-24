@@ -16,11 +16,11 @@
 
 	{{-- 1. タブ切り替えボタン --}}
 	<div style="display: flex; border-bottom: 1px solid #eee; background: #f9fafb;">
-		<button type="button" id="tab-btn-keyword" onclick="switchSearchTab('keyword')"
+		<button type="button" id="tab-btn-keyword"
 			style="flex: 1; padding: 15px; border: none; background: #fff; border-bottom: 3px solid #16a34a; font-weight: bold; color: #16a34a; cursor: pointer; transition: all 0.2s;">
 			🔍 キーワード検索
 		</button>
-		<button type="button" id="tab-btn-ai" onclick="switchSearchTab('ai')"
+		<button type="button" id="tab-btn-ai"
 			style="flex: 1; padding: 15px; border: none; background: #f3f4f6; border-bottom: 3px solid transparent; font-weight: bold; color: #6b7280; cursor: pointer; transition: all 0.2s;">
 			🤖 AIに聞く
 		</button>
@@ -153,41 +153,6 @@
 	</ul>
 </div>
 {{-- ▲▲▲ 人気スポットエリア（ここまで） ▲▲▲ --}}
-
-{{-- ▼▼▼ タブ切り替え用のスクリプト ▼▼▼ --}}
-<script>
-	function switchSearchTab(tabName) {
-		const btnKeyword = document.getElementById('tab-btn-keyword');
-		const btnAi = document.getElementById('tab-btn-ai');
-		const areaKeyword = document.getElementById('form-area-keyword');
-		const areaAi = document.getElementById('form-area-ai');
-
-		if (tabName === 'keyword') {
-			areaKeyword.style.display = 'block';
-			areaAi.style.display = 'none';
-
-			btnKeyword.style.background = '#fff';
-			btnKeyword.style.color = '#16a34a';
-			btnKeyword.style.borderBottomColor = '#16a34a';
-
-			btnAi.style.background = '#f3f4f6';
-			btnAi.style.color = '#6b7280';
-			btnAi.style.borderBottomColor = 'transparent';
-		} else {
-			areaKeyword.style.display = 'none';
-			areaAi.style.display = 'block';
-
-			btnAi.style.background = '#fff';
-			btnAi.style.color = '#2563eb';
-			btnAi.style.borderBottomColor = '#2563eb';
-
-			btnKeyword.style.background = '#f3f4f6';
-			btnKeyword.style.color = '#6b7280';
-			btnKeyword.style.borderBottomColor = 'transparent';
-		}
-	}
-</script>
-{{-- ▲▲▲ 検索フォームエリア（ここまで） ▲▲▲ --}}
 
 <div class="suggest"></div>
 @endsection
