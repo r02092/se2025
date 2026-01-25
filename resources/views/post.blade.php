@@ -17,20 +17,20 @@
 	@foreach($posts ?? [] as $post)
 	<article class="general-box post-card">
 		<header class="post-head">
-			<img class="post-avatar" src="{{ asset('images/' . $post['data']->user->id) }}" alt="avatar" />
+			<img class="post-avatar" src="{{ asset('images/' . $post['data']->user->id) }}" alt="avatar">
 			<div class="post-meta">
 				<div class="post-author">{{ $post['data']->user->name }}</div>
 				<div class="post-time">{{ $post['data']->created_at->diffForHumans() }}</div>
 			</div>
 		</header>
 		@if($post['data']->image)
-		<img class="post-image" src="{{ asset('storage/' . $post['data']->image) }}" alt="" />
+		<img class="post-image" src="{{ asset('storage/' . $post['data']->image) }}" alt="">
 		@endif
 		<div style="color: #ddcc00; margin-top: 8px">{{ str_repeat('★', $post['data']->rate) }}</div>
 		<div class="post-body">{{ $post['data']->comment }}</div>
 		<div style="color: #aaa; font-size: 0.6em">
 			種別: {{ $post['type'] !== 'photo' ? '口コミ' : '写真' }}<br>
-			ID: {{ $post['data']->id }}<br />
+			ID: {{ $post['data']->id }}<br>
 			投稿者: <a href="{{ route('user.detail', $post['data']->user->id) }}">{{ $post['data']->user->name }}</a><br>
 			@if($post['type'] !== 'photo')
 			閲覧数: {{ $post['data']->views }}<br>

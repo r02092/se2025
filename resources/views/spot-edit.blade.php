@@ -13,7 +13,7 @@
 	>
 		<form>
 			<label>名前</label>
-			<input type="text" required value="はりまや橋" />
+			<input type="text" required value="はりまや橋">
 			<label>種別</label>
 			<div class="sort-select">
 				<select name="sort">
@@ -25,7 +25,7 @@
 			<img
 				src="{{ asset('images/Harimaya_Bridge.jpg') }}"
 				style="border-radius: 8px; width: 100%"
-			/>
+			>
 			<button class="btn-ghost">画像を変更</button>
 			<label>場所</label>
 			<div id="map" style="border-radius: 8px; height: 240px"></div>
@@ -43,7 +43,7 @@
 	>
 		<form>
 			<label>名前</label>
-			<input type="text" required value="龍河洞" />
+			<input type="text" required value="龍河洞">
 			<label>種別</label>
 			<div class="sort-select">
 				<select name="sort">
@@ -51,7 +51,7 @@
 				</select>
 			</div>
 			<label>画像</label>
-			<img src="{{ asset('images/ryugado.jpg') }}" style="border-radius: 8px; width: 100%" />
+			<img src="{{ asset('images/ryugado.jpg') }}" style="border-radius: 8px; width: 100%">
 		</form>
 	</article>
 </section>

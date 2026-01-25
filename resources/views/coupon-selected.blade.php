@@ -14,7 +14,7 @@
 
 	<!-- HERO（上部の大きな画像） -->
 	<section class="hero">
-		<img src="{{ asset('images/ryugado.jpg') }}" alt="Harimaya Bridge" class="hero-img" />
+		<img src="{{ asset('images/ryugado.jpg') }}" alt="Harimaya Bridge" class="hero-img">
 	</section>
 
 	<!-- クーポン詳細（背景に直接描画するスタイル） -->

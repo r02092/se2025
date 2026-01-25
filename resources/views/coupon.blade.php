@@ -52,7 +52,7 @@
 				 data-category="{{ $coupon[0]->type }}"
 				 onclick="location.href='{{ route('coupon.show', $coupon[0]->id) }}'"
 		>
-			<img class="coupon-thumb" src="ryugado.jpg" alt="龍河洞の写真" />
+			<img class="coupon-thumb" src="ryugado.jpg" alt="龍河洞の写真">
 			<div class="coupon-info">
 				<h3 class="coupon-title">{{ $coupon[0]->name }}</h3>
 				<!-- <p class="coupon-desc">
