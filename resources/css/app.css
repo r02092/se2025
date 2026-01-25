@@ -260,12 +260,12 @@ h1 {
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	font-size: 16px;
-	background-color: #fafafa;
+	background: #fafafa;
 }
 .form-container button[type="submit"] {
 	width: 100%;
 	padding: 10px 0;
-	background-color: #14b888;
+	background: #14b888;
 	color: #fff;
 	border: none;
 	border-radius: 6px;
@@ -505,7 +505,7 @@ h1 {
 /* merged ai-suggest: funpage.css + home.css + search.css (final margin/padding from search) */
 .spot-divider {
 	height: 1px;
-	background-color: #e0e0e0;
+	background: #e0e0e0;
 	width: 100%;
 	margin-top: 10px;
 	margin-bottom: 12px;
@@ -569,7 +569,7 @@ h1 {
 	-webkit-user-select: none;
 	-ms-user-select: none;
 	-webkit-appearance: none;
-	background-color: #fff;
+	background: #fff;
 	background-image: none;
 	border: 1px solid #747775;
 	-webkit-border-radius: 4px;
@@ -641,7 +641,7 @@ h1 {
 }
 .gsi-material-button:disabled {
 	cursor: default;
-	background-color: #ffffff61;
+	background: #ffffff61;
 	border-color: #1f1f1f1f;
 }
 .gsi-material-button:disabled .gsi-material-button-contents {
@@ -652,7 +652,7 @@ h1 {
 }
 .gsi-material-button:not(:disabled):active .gsi-material-button-state,
 .gsi-material-button:not(:disabled):focus .gsi-material-button-state {
-	background-color: #303030;
+	background: #303030;
 	opacity: 12%;
 }
 .gsi-material-button:not(:disabled):hover {
@@ -664,7 +664,7 @@ h1 {
 		0 1px 3px 1px rgba(60, 64, 67, 0.15);
 }
 .gsi-material-button:not(:disabled):hover .gsi-material-button-state {
-	background-color: #303030;
+	background: #303030;
 	opacity: 8%;
 }
 
@@ -687,7 +687,7 @@ h1 {
 .logout-button-cancel {
 	width: 100%;
 	padding: 10px 0;
-	background-color: #eee;
+	background: #eee;
 	color: #000;
 	border: none;
 	border-radius: 6px;
@@ -697,12 +697,12 @@ h1 {
 	transition: background-color 0.2s;
 }
 .logout-button-cancel:hover {
-	background-color: #ddd;
+	background: #ddd;
 }
 .logout-button-confirm {
 	width: 100%;
 	padding: 10px 0;
-	background-color: #14b888;
+	background: #14b888;
 	color: #fff;
 	border: none;
 	border-radius: 6px;
@@ -957,7 +957,7 @@ h1 {
 .profile-button-edit {
 	width: auto;
 	padding: 10px 10px;
-	background-color: #14b888;
+	background: #14b888;
 	color: #fff;
 	border: none;
 	border-radius: 6px;
@@ -970,7 +970,7 @@ h1 {
 .profile-button-subscription {
 	width: 100%;
 	padding: 10px 0;
-	background-color: #14b888;
+	background: #14b888;
 	color: #fff;
 	border: none;
 	border-radius: 8px;
@@ -1272,7 +1272,7 @@ h1 {
 /* 灰色の線（タイトルの下） */
 .general-box.divider {
 	height: 1px;
-	background-color: #e0e0e0;
+	background: #e0e0e0;
 	width: 100%;
 	margin-top: 8px;
 	margin-bottom: 12px;
@@ -1349,7 +1349,7 @@ h1 {
 .profile-button-business {
 	width: auto;
 	padding: 10px 10px;
-	background-color: #4caf50; /* Green */
+	background: #4caf50; /* Green */
 	color: #fff;
 	border: none;
 	border-radius: 6px; /* Matches Edit button */
@@ -1361,13 +1361,13 @@ h1 {
 	transition: background-color 0.2s;
 }
 .profile-button-business:hover {
-	background-color: #45a049;
+	background: #45a049;
 }
 
 .profile-button-admin {
 	width: auto;
 	padding: 10px 10px;
-	background-color: #2196f3; /* Blue */
+	background: #2196f3; /* Blue */
 	color: #fff;
 	border: none;
 	border-radius: 6px; /* Matches Edit button */
@@ -1379,7 +1379,7 @@ h1 {
 	transition: background-color 0.2s;
 }
 .profile-button-admin:hover {
-	background-color: #0b7dda;
+	background: #0b7dda;
 }
 
 .checkin-qr-modal {
@@ -1482,7 +1482,7 @@ h1 {
 	padding: 3px;
 }
 .profile-edit-avatar-group label:hover {
-	background-color: #ddd;
+	background: #ddd;
 }
 .profile-edit-container button {
 	width: 100%;
@@ -1505,15 +1505,15 @@ h1 {
 	font-weight: bold;
 }
 .profile-edit-container button[type="submit"] {
-	background-color: #14b888;
+	background: #14b888;
 	color: #fff;
 }
 .profile-edit-button-cancel {
-	background-color: #eee;
+	background: #eee;
 	color: #000;
 }
 .profile-edit-button-cancel:hover {
-	background-color: #ddd;
+	background: #ddd;
 }
 
 /* ==== subscription-confirm.css ==== */
@@ -1539,7 +1539,7 @@ h1 {
 	padding: 10px 0;
 	margin-top: 25px;
 	margin-bottom: 20px;
-	background-color: #eee;
+	background: #eee;
 	color: #000;
 	border: none;
 	border-radius: 6px;
@@ -1549,7 +1549,7 @@ h1 {
 	transition: background-color 0.2s;
 }
 .subscription-confirm-button-back:hover {
-	background-color: #ddd;
+	background: #ddd;
 }
 
 /* ==== subscription-form.css ==== */
@@ -1580,14 +1580,14 @@ h1 {
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	font-size: 16px;
-	background-color: #fafafa;
+	background: #fafafa;
 }
 .subscription-form-container button[type="submit"] {
 	width: 100%;
 	padding: 10px 0;
 	margin-top: 25px;
 	margin-bottom: 20px;
-	background-color: #14b888;
+	background: #14b888;
 	color: #fff;
 	border: none;
 	border-radius: 6px;
@@ -1616,7 +1616,7 @@ h1 {
 .settings-button {
 	width: 80vw;
 	padding: 10px 10px;
-	background-color: #168dc4;
+	background: #168dc4;
 	color: #fff;
 	border: none;
 	border-radius: 6px;
@@ -1627,7 +1627,7 @@ h1 {
 	transition: background-color 0.2s;
 }
 .settings-button:hover {
-	background-color: #13699b;
+	background: #13699b;
 }
 
 /* ベースレイアウト */
@@ -1668,7 +1668,7 @@ h1 {
 }
 
 .spot-category-badge {
-	background-color: #e0f7fa;
+	background: #e0f7fa;
 	color: #006064;
 	padding: 0.4rem 1rem;
 	border-radius: 50px;
@@ -1727,7 +1727,7 @@ h1 {
 
 #form_area_ai > form > div > div > div > div:last-child > div,
 .spot-detail-keyword-tag {
-	background-color: #f8f9fa;
+	background: #f8f9fa;
 	border: 1px solid #dee2e6;
 	padding: 0.3rem 0.8rem;
 	border-radius: 4px;
@@ -1744,7 +1744,7 @@ h1 {
 
 /* 3. レビューエリア */
 .spot-detail-review-section {
-	background-color: #fafafa; /* 背景色を少し変えて区別 */
+	background: #fafafa; /* 背景色を少し変えて区別 */
 }
 
 .spot-detail-rating-summary {
@@ -1837,7 +1837,7 @@ h1 {
 }
 
 .spot-detail-btn-submit {
-	background-color: #3498db;
+	background: #3498db;
 	color: #fff;
 	border: none;
 	padding: 0.8rem 2rem;
@@ -1849,7 +1849,7 @@ h1 {
 }
 
 .spot-detail-btn-submit:hover {
-	background-color: #2980b9;
+	background: #2980b9;
 }
 
 .terms-content {
@@ -1907,7 +1907,7 @@ h1 {
 	padding: 12px;
 	border: none;
 	cursor: pointer;
-	background-color: #16a34a;
+	background: #16a34a;
 	color: white;
 	font-weight: bold;
 	border-radius: 4px;
@@ -1919,7 +1919,7 @@ h1 {
 	padding: 10px;
 	border: 1px solid #93c5fd;
 	border-radius: 4px;
-	background-color: #f0f9ff;
+	background: #f0f9ff;
 	font-size: 16px;
 	box-sizing: border-box;
 	margin-bottom: 0;
