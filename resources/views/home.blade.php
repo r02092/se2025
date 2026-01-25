@@ -52,7 +52,7 @@
 			@auth
 				<form action="{{ route('ai.plan') }}" method="GET">
 					<div style="background-color: #eff6ff; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 0.9rem; color: #1e40af;">
-						<strong>🤖 AIプランナー:</strong> <br>出発地か目的地を入力すると、最適な寄り道スポットを提案します。
+						<strong>🤖 AIプランナー:</strong> <br>出発地と目的地を入力すると、最適な寄り道スポットを提案します。
 					</div>
 
 					<div>
@@ -65,6 +65,11 @@
 						<label for="ai_destination">目的地 <span>（どちらか必須）</span></label>
 						<input type="text" id="ai_destination" name="destination" placeholder="例: 桂浜" autocomplete="off">
 						<div id="ai_destination_suggest"></div>
+					</div>
+
+					<div>
+						<label for="ai_prompt">質問内容 <span class="form-detail">（空欄の場合、特に条件を絞らずおすすめのスポットを提案します）</span></label>
+						<input type="text" id="ai_prompt" name="prompt" placeholder="例: この間にある観光スポットを推薦して" />
 					</div>
 
 					<button type="submit" style="width:100%; padding:12px; border:none; cursor:pointer; background: linear-gradient(to right, #2563eb, #7c3aed); color: white; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">

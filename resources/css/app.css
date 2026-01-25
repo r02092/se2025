@@ -1599,7 +1599,7 @@ h1 {
 }
 .form-detail {
 	color: gray;
-	font-size: 70%;
+	font-size: 0.8rem;
 }
 
 .apikey {
@@ -1934,7 +1934,7 @@ h1 {
 		font-weight: bold;
 		display: block;
 		margin-bottom: 5px;
-		> span {
+		> span:not(.form-detail) {
 			color: #e11d48;
 			font-size: 0.8rem;
 		}
@@ -2013,12 +2013,37 @@ h1 {
 	font-size: 1.2rem;
 }
 
-#ai_container {
+.ai-container {
 	background: #fff;
 	border: 1px solid #e5e7eb;
 	border-radius: 12px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 	overflow: hidden;
+}
+
+.ai-text {
+	> div:first-child {
+		color: white;
+		padding: 15px 20px;
+		> h2 {
+			font-size: 1rem;
+			font-weight: bold;
+			margin: 0;
+		}
+	}
+	> div:nth-child(2) {
+		padding: 30px;
+		> h3 {
+			font-size: 1rem;
+			font-weight: bold;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 10px;
+			margin-bottom: 20px;
+		}
+	}
+}
+
+#ai_container {
 	min-height: 300px;
 }
 
@@ -2039,17 +2064,6 @@ h1 {
 @keyframes spin {
 	to {
 		transform: rotate(360deg);
-	}
-}
-
-.ai-result-main {
-	padding: 30px;
-	> h3 {
-		font-size: 1rem;
-		font-weight: bold;
-		border-bottom: 2px solid #eee;
-		padding-bottom: 10px;
-		margin-bottom: 20px;
 	}
 }
 

@@ -31,6 +31,16 @@
 		</div>
 	</div>
 
+	<div id="ai_user_container" class="ai-container" style="display: none; margin: 40px 0;">
+		<div class="ai-text">
+			<div style="background: #14b888;">
+				<h2>👱 あなたの質問内容</h2>
+			</div>
+			<div id="ai_prompt">
+			</div>
+		</div>
+	</div>
+
 	{{-- ▼▼▼ 修正: エラー判定を「両方とも空の場合」に変更 ▼▼▼ --}}
 	@if(!$fromSpot && !$toSpot)
 		<div style="background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; padding: 20px; border-radius: 8px;">
@@ -44,7 +54,7 @@
 
 	{{-- ▼▼▼ 正常系: AI処理エリア ▼▼▼ --}}
 	@else
-		<div id="ai_container" data-from="{{ $fromSpot ? $fromSpot->id : null }}" data-to="{{ $toSpot ? $toSpot->id : null }}">
+		<div id="ai_container" class="ai-container" data-from="{{ $fromSpot ? $fromSpot->id : null }}" data-to="{{ $toSpot ? $toSpot->id : null }}">
 
 			{{-- 1. ローディング画面 --}}
 			<div id="ai_loading">
@@ -62,12 +72,12 @@
 			</div>
 
 			{{-- 2. 結果表示エリア --}}
-			<div id="ai_result" style="display: none;">
-				<div style="background: linear-gradient(to right, #2563eb, #7c3aed); color: white; padding: 15px 20px;">
-					<h2 style="font-size: 1rem; font-weight: bold; margin: 0;">🤖 AIからの提案</h2>
+			<div id="ai_result" class="ai-text" style="display: none;">
+				<div style="background: linear-gradient(to right, #2563eb, #7c3aed);">
+					<h2>🤖 AIからの提案</h2>
 				</div>
 
-				<div class="ai-result-main">
+				<div>
 					{{-- 解説テキスト --}}
 					<div id="ai_text" style="line-height: 1.8; color: #333; margin-bottom: 30px; font-size: 1rem;">
 					</div>
