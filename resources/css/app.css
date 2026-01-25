@@ -274,8 +274,13 @@ h1 {
 	font-weight: bold;
 	transition: background-color 0.2s;
 }
-.form-container button[type="submit"]:hover {
-	background-color: #108a66;
+.form-container button[type="submit"]:hover,
+.logout-button-confirm:hover,
+.profile-button-edit:hover,
+.profile-button-subscription:hover,
+.profile-edit-container button[type="submit"]:hover,
+.subscription-form-container button[type="submit"]:hover {
+	background: #108a66;
 }
 
 /* ==== Coupon list (from coupon.css) ==== */
@@ -706,9 +711,6 @@ h1 {
 	font-weight: bold;
 	transition: background-color 0.2s;
 }
-.logout-button-confirm:hover {
-	background-color: #108a66;
-}
 #achievement_title {
 	font-size: 1.5em;
 	font-weight: 700;
@@ -965,9 +967,6 @@ h1 {
 	margin-bottom: 20px;
 	transition: background-color 0.2s;
 }
-.profile-button-edit:hover {
-	background-color: #108a66;
-}
 .profile-button-subscription {
 	width: 100%;
 	padding: 10px 0;
@@ -980,9 +979,6 @@ h1 {
 	font-weight: bold;
 	margin-bottom: 20px;
 	transition: background-color 0.2s;
-}
-.profile-button-subscription:hover {
-	background-color: #108a66;
 }
 
 /* ==== coupon-QR.css ==== */
@@ -1511,10 +1507,6 @@ h1 {
 .profile-edit-container button[type="submit"] {
 	background-color: #14b888;
 	color: #fff;
-}
-.profile-edit-container button[type="submit"]:hover,
-.subscription-form-container button[type="submit"]:hover {
-	background-color: #108a66;
 }
 .profile-edit-button-cancel {
 	background-color: #eee;
