@@ -80,7 +80,7 @@ for (const i of document.querySelectorAll("[id^='tab_btn_']")) {
 }
 
 for (const i of document.querySelectorAll(
-	"#form-area-ai > form > div > input",
+	"#form_area_ai > form > div > input",
 )) {
 	i.addEventListener("input", async e => {
 		const input = e.currentTarget as HTMLInputElement;
