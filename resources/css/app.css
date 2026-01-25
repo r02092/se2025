@@ -1981,33 +1981,28 @@ h1 {
 	border-radius: 4px 4px 0 0 !important;
 }
 
-.home-spot > li {
+.home-spot > a {
 	position: relative;
 	transition: transform 0.2s;
-	> a {
-		display: block;
-		text-decoration: none;
-		color: inherit;
-		height: 100%;
-		> div:first-child {
-			position: absolute;
-			top: 0;
-			left: 0;
-			color: white;
-			font-weight: bold;
-			padding: 4px 10px;
-			border-radius: 4px 0 4px 0;
-			z-index: 10;
-		}
-		> img {
-			transition: opacity 0.2s;
-		}
-		> div > p {
-			font-size: 0.8rem;
-			color: #16a34a;
-			text-align: right;
-			margin-top: 5px;
-		}
+	text-decoration: none;
+	> div:first-child {
+		position: absolute;
+		top: 0;
+		left: 0;
+		color: white;
+		font-weight: bold;
+		padding: 4px 10px;
+		border-radius: 4px 0 4px 0;
+		z-index: 10;
+	}
+	> img {
+		transition: opacity 0.2s;
+	}
+	> div > p {
+		font-size: 0.8rem;
+		color: #16a34a;
+		text-align: right;
+		margin-top: 5px;
 	}
 }
 
