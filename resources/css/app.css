@@ -985,64 +985,6 @@ h1 {
 	background-color: #108a66;
 }
 
-/* ==== search.css ==== */
-.spot-divider {
-	height: 1px;
-	background-color: #e0e0e0;
-	width: 100%;
-	margin-top: 10px;
-	margin-bottom: 12px;
-	border-radius: 1px;
-}
-.spot-list {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-}
-.spot-item {
-	background: #fafafa;
-	border-radius: 8px;
-	padding: 12px;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-	display: flex;
-	align-items: flex-start;
-	gap: 12px;
-	cursor: pointer;
-	transition:
-		transform 0.12s ease,
-		box-shadow 0.12s ease;
-}
-.spot-thumb {
-	width: 96px;
-	height: 72px;
-	object-fit: cover;
-	border-radius: 8px;
-	flex-shrink: 0;
-	background: #ddd;
-}
-.spot-content {
-	flex: 1 1 auto;
-	min-width: 0;
-}
-.spot-item:hover {
-	transform: translateY(-3px);
-	box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
-}
-.spot-title {
-	margin: 0;
-	font-size: 16px;
-	color: #0b6b4d;
-	font-weight: 700;
-}
-.spot-desc {
-	margin: 6px 0 0 0;
-	color: #666;
-	font-size: 14px;
-}
-
 /* ==== coupon-QR.css ==== */
 .coupon-titlebar {
 	background-image: linear-gradient(#eee 80%, transparent);
