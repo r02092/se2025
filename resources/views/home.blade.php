@@ -118,11 +118,9 @@
 							{{ $index + 1 }}
 						</div>
 
-						{{-- 画像 (▼▼▼ 修正: onerrorで代替画像を指定 ▼▼▼) --}}
 						<img class="spot-thumb"
-							 src="{{ asset('images/' . $spot->name . '.' . ($spot->img_ext ?? 'jpg')) }}"
+							 src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
 							 alt="{{ $spot->name }}"
-							 onerror="this.src='{{ asset('images/no-image.png') }}'"
 							 onmouseover="this.style.opacity='0.8'"
 							 onmouseout="this.style.opacity='1.0'" />
 
