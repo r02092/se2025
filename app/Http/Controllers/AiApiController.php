@@ -217,7 +217,7 @@ class AiApiController extends Controller
         }
         return response()->json([
             'recommended_spots' => $recommendedSpots,
-            'explanation' => $matches[2] ?? '',
+            'explanation' => preg_replace('/^\n+/', '', $matches[2]),
         ]);
     }
 
