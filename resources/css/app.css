@@ -279,7 +279,8 @@ h1 {
 .profile-button-edit:hover,
 .profile-button-subscription:hover,
 .profile-edit-container button[type="submit"]:hover,
-.subscription-form-container button[type="submit"]:hover {
+.subscription-form-container button[type="submit"]:hover,
+.spot-detail-btn:hover {
 	background: #108a66;
 }
 
@@ -1716,6 +1717,7 @@ h1 {
 	text-align: center;
 	text-decoration: none;
 	box-sizing: border-box;
+	transition: background-color 0.2s;
 }
 
 #form_area_ai > form > div > div > div > div:last-child,
