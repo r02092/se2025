@@ -59,7 +59,7 @@
 			{{-- 1. ローディング画面 --}}
 			<div id="ai_loading">
 				<div class="spinner"></div>
-				<div style="font-size: 1.2rem; font-weight: bold; color: #333; margin-bottom: 10px;">AIが分析中...</div>
+				<div style="font-size: 1.2rem; font-weight: bold; color: #333; margin-bottom: 10px;">AIが分析中……</div>
 				<p style="color: #666; font-size: 0.9rem;">
 					@if($fromSpot && $toSpot)
 						ルート沿いの寄り道スポットを探しています

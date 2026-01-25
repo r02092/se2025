@@ -140,7 +140,7 @@
 			{{-- データがない場合 --}}
 			<div class="spot-item">
 				<div class="spot-content">
-					<h3 class="spot-title">集計中...</h3>
+					<h3 class="spot-title">集計中……</h3>
 					<p>検索データが集まるとランキングが表示されます。</p>
 				</div>
 			</div>
