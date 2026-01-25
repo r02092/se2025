@@ -14,51 +14,52 @@ await new Promise(resolve => {
 });
 map.addControl(new maplibregl.NavigationControl(), "top-right");
 map.addImage("spot_icon", icon);
-const spots: maplibregl.GeoJSONSourceSpecification = {
-	type: "geojson",
-	data: {
-		type: "FeatureCollection",
-		features: JSON.parse(
-			document.getElementById("map")?.dataset.spots as string,
-		).map((i: {name: string; lng: number; lat: number}) => ({
-			type: "Feature",
-			properties: i,
-			geometry: {
-				type: "Point",
-				coordinates: [i.lng, i.lat],
-			},
-		})),
-	},
-};
-map.addSource("spots", spots);
-map.addLayer({
-	id: "spots_layer",
-	type: "symbol",
-	source: "spots",
-	layout: {
-		"icon-image": "spot_icon",
-		"icon-size": 0.1,
-	},
-});
-map.on("click", "spots_layer", e => {
-	const feature = (e.features as maplibregl.MapGeoJSONFeature[])[0];
-	const coords = (feature.geometry as GeoJSON.Point).coordinates;
-	while (Math.abs(e.lngLat.lng - coords[0]) > 180) {
-		coords[0] += e.lngLat.lng > coords[0] ? 360 : -360;
-	}
-	new maplibregl.Popup({
-		offset: 10,
-		closeButton: false,
-	})
-		.setLngLat(coords as [number, number])
-		.setHTML(
-			"<a href='detail?id=" +
-				feature.properties.id +
-				"'>" +
-				feature.properties.name +
-				"</a>",
-		)
-		.addTo(map);
+map.on("load", () => {
+	map.addSource("spots", {
+		type: "geojson",
+		data: {
+			type: "FeatureCollection",
+			features: JSON.parse(
+				document.getElementById("map")?.dataset.spots as string,
+			).map((i: {name: string; lng: number; lat: number}) => ({
+				type: "Feature",
+				properties: i,
+				geometry: {
+					type: "Point",
+					coordinates: [i.lng, i.lat],
+				},
+			})),
+		},
+	});
+	map.addLayer({
+		id: "spots_layer",
+		type: "symbol",
+		source: "spots",
+		layout: {
+			"icon-image": "spot_icon",
+			"icon-size": 0.1,
+		},
+	});
+	map.on("click", "spots_layer", e => {
+		const feature = (e.features as maplibregl.MapGeoJSONFeature[])[0];
+		const coords = (feature.geometry as GeoJSON.Point).coordinates;
+		while (Math.abs(e.lngLat.lng - coords[0]) > 180) {
+			coords[0] += e.lngLat.lng > coords[0] ? 360 : -360;
+		}
+		new maplibregl.Popup({
+			offset: 10,
+			closeButton: false,
+		})
+			.setLngLat(coords as [number, number])
+			.setHTML(
+				"<a href='detail?id=" +
+					feature.properties.id +
+					"'>" +
+					feature.properties.name +
+					"</a>",
+			)
+			.addTo(map);
+	});
 });
 
 for (const i of document.querySelectorAll("[id^='tab-btn-']")) {
