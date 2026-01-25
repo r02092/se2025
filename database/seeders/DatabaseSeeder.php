@@ -1403,6 +1403,10 @@ class DatabaseSeeder extends Seeder
                 'keyword' => '夏が来たから',
             ],
             [
+                'spot_id' => 26,
+                'keyword' => '釣りバカ日誌14 お遍路大パニック!',
+            ],
+            [
                 'spot_id' => 27,
                 'keyword' => 'ゴリパラ見聞録',
             ],
