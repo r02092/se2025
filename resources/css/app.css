@@ -2132,3 +2132,53 @@ iframe {
 	font-size: 1.17em;
 	font-weight: bold;
 }
+
+.search-res {
+	list-style: none;
+	padding: 0;
+	> li {
+		background: #fff;
+		padding: 15px;
+		margin-bottom: 15px;
+		border-radius: 8px;
+		border: 1px solid #eee;
+		display: flex;
+		gap: 15px;
+		> img {
+			width: 100px;
+			height: 100px;
+			object-fit: cover;
+			border-radius: 8px;
+			background: #eee;
+			flex-shrink: 0;
+		}
+		> div {
+			flex-grow: 1;
+			> h4 {
+				font-weight: bold;
+				font-size: 1.1rem;
+				color: #16a34a;
+				margin-top: 0;
+			}
+			> p {
+				font-size: 0.9rem;
+				color: #666;
+				margin: 5px 0;
+				line-height: 1.5;
+			}
+			> div {
+				margin-top: 10px;
+				text-align: right;
+				> a {
+					color: #16a34a;
+					text-decoration: none;
+					font-weight: bold;
+					border: 1px solid #16a34a;
+					padding: 5px 15px;
+					border-radius: 4px;
+					display: inline-block;
+				}
+			}
+		}
+	}
+}
