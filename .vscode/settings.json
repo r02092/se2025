@@ -12,10 +12,11 @@
 	"latex-workshop.linting.chktex.enabled": true,
 	"phpstan.binCommand": [
 		"podman",
+		"compose",
 		"exec",
-		"-i",
-		"se2025_app_1",
+		"app",
 		"vendor/bin/phpstan"
 	],
-	"phpstan.paths": {".": ""}
+	"phpstan.paths": {".": "/workspace"},
+	"phpstan.singleFileMode": true
 }
