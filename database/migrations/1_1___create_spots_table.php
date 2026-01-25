@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->unsignedInteger('addr_city')->nullable();
             $table->string('addr_detail')->nullable();
             $table->text('description');
-            $table->string('img_ext', 4);
+            $table->string('img_ext', 4)->nullable();
             $table->unsignedBigInteger('stamp_key')->unique();
             $table->unsignedInteger('shows')->default(0);
             $table->datetimes();

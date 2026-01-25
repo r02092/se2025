@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 			data.recommended_spots.forEach(spot => {
 				const html = `<a href="/detail?id=${spot.id}">
 	<div>
-		<img src="/images/${spot.name}.${spot.img_ext || "jpg"}"
+		<img src="/images/${spot.id}.${spot.img_ext || "jpg"}"
 			onerror="this.src='/images/Harimaya_Bridge.jpg'">
 	</div>
 	<div>

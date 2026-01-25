@@ -26,23 +26,20 @@
 	@if(isset($spots) && count($spots) > 0)
 		<h3 style="font-size:1.1rem; font-weight:bold; margin-bottom:10px;">見つかったスポット</h3>
 
-		<ul style="list-style:none; padding:0;">
+		<ul class="search-res">
 			@foreach($spots as $spot)
-				<li style="background:#fff; padding:15px; margin-bottom:15px; border-radius:8px; border:1px solid #eee; display:flex; gap:15px;">
+				<li>
 					{{-- 画像表示 --}}
-					<img src="{{ $spot->image_url ?? asset('images/no_image.jpg') }}"
-						 alt="{{ $spot->name }}"
-						 style="width:100px; height:100px; object-fit:cover; border-radius:8px; background:#eee; flex-shrink: 0;"
-						 onerror="this.src='https://placehold.jp/150x150.png?text=No+Image'">
+					<img src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
+						 alt="{{ $spot->name }}">
 
-					<div style="flex-grow: 1;">
-						<h4 style="font-weight:bold; font-size:1.1rem; color:#16a34a; margin-top:0;">{{ $spot->name }}</h4>
-						<p style="font-size:0.9rem; color:#666; margin:5px 0; line-height: 1.5;">{{ $spot->description ?? '詳細なし' }}</p>
+					<div>
+						<h4>{{ $spot->name }}</h4>
+						<p>{{ $spot->description ?? '詳細なし' }}</p>
 
 						{{-- 詳細画面へのリンク --}}
-						<div style="margin-top: 10px; text-align: right;">
-							<a href="{{ route('detail', ['id' => $spot->id]) }}"
-							   style="color:#16a34a; text-decoration:none; font-weight:bold; border: 1px solid #16a34a; padding: 5px 15px; border-radius: 4px; display: inline-block;">
+						<div>
+							<a href="{{ route('detail', ['id' => $spot->id]) }}">
 								詳細を見る
 							</a>
 						</div>
