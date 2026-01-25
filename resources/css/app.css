@@ -935,6 +935,7 @@ h1 {
 	background: rgba(255, 255, 255, 0.08);
 	border: 2px solid rgba(255, 255, 255, 0.12);
 	box-sizing: border-box;
+	object-fit: cover;
 }
 .profile-box dt {
 	display: block;
