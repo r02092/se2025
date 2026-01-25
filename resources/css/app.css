@@ -1726,14 +1726,14 @@ h1 {
 	box-sizing: border-box;
 }
 
-#form-area-ai > form > div > div > div > div:last-child,
+#form_area_ai > form > div > div > div > div:last-child,
 .spot-detail-keywords {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.5rem;
 }
 
-#form-area-ai > form > div > div > div > div:last-child > div,
+#form_area_ai > form > div > div > div > div:last-child > div,
 .spot-detail-keyword-tag {
 	background-color: #f8f9fa;
 	border: 1px solid #dee2e6;
@@ -1743,7 +1743,7 @@ h1 {
 	color: #666;
 }
 
-#form-area-ai > form > div > div > div > div:last-child > div::before,
+#form_area_ai > form > div > div > div > div:last-child > div::before,
 .spot-detail-keyword-tag::before {
 	content: "#";
 	color: #999;
