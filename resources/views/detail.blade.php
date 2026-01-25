@@ -30,8 +30,8 @@
 
 		<div>
 			<!-- スポットの説明 -->
-			<section class="spot-detail-description-section">
-				<h2 class="spot-detail-section-title">説明</h2>
+			<section>
+				<h2>説明</h2>
 				<div class="spot-detail-text">
 					<!-- 改行コードを<br>に変換して表示 -->
 					{!! nl2br(e($spot->description)) !!}
@@ -41,7 +41,7 @@
 			<!-- スポットの場所 -->
 
 			<section>
-				<h2 class="spot-detail-section-title">住所</h2>
+				<h2>住所</h2>
 				<div class="spot-detail-text">
 					<div>
 						{{ $postal_code }}
@@ -53,14 +53,15 @@
 			</section>
 			<!-- スポットの場所 -->
 			<section>
-				<h2 class="spot-detail-section-title">場所</h2>
+				<h2>場所</h2>
 				<div class="map-area">
 					<div id="map" data-lng="{{ $spot->lng }}" data-lat="{{ $spot->lat }}"></div>
 				</div>
 				<div>
 					<a href="https://www.google.com/maps/search/?api=1&query={{ $spot->lat }},{{ $spot->lng }}"
 					target="_blank"
-					rel="noopener noreferrer">
+					rel="noopener noreferrer"
+					class="btn btn-primary btn-big spot-detail-btn">
 						Google マップで見る
 					</a>
 				</div>
@@ -68,8 +69,8 @@
 
 			<!-- 関連キーワード -->
 			@if($spot->keywords->isNotEmpty())
-				<div class="spot-detail-keywords-section">
-					<h2 class="spot-detail-section-title">関連キーワード</h2>
+				<div>
+					<h2>関連キーワード</h2>
 					<div class="spot-detail-keywords">
 						@foreach($spot->keywords as $keyword)
 							<span class="spot-detail-keyword-tag">{{ $keyword->keyword }}</span>
@@ -82,7 +83,7 @@
 
 	<!-- ▼ 口コミ・評価エリア ▼ -->
 	<section class="spot-detail-card spot-detail-review-section">
-		<h2 class="spot-detail-section-title">口コミ・評判</h2>
+		<h2>口コミ・評判</h2>
 
 		<!-- 評価の平均点表示 -->
 		<div class="spot-detail-rating-summary">
@@ -138,7 +139,7 @@
 
 					<div class="spot-detail-form-group">
 						<label for="rate" class="spot-detail-form-label">評価</label>
-						<select name="rate" id="rate" class="spot-detail-form-select" required>
+						<select name="rate" id="rate" class="spot-detail-form-input" required>
 							<option value="" disabled selected>選択してください</option>
 							<option value="5">★★★★★ (5)</option>
 							<option value="4">★★★★ (4)</option>
@@ -150,7 +151,7 @@
 
 					<div class="spot-detail-form-group">
 						<label for="comment" class="spot-detail-form-label">コメント</label>
-						<textarea name="comment" id="comment" rows="4" class="spot-detail-form-textarea" placeholder="スポットの感想を教えてください（1〜1000文字まで）" required></textarea>
+						<textarea name="comment" id="comment" rows="4" class="spot-detail-form-input" placeholder="スポットの感想を教えてください（1〜1000文字まで）" required></textarea>
 					</div>
 
 					@if($errors->any())

@@ -16,7 +16,7 @@
 		</h1>
 		<div style="display: flex; justify-content: center; align-items: center; gap: 10px; color: #666;">
 			@if($depName)
-				<span id="ai-from" class="ai-header-spot">{{ $depName }}</span>
+				<span id="ai_from" class="ai-header-spot">{{ $depName }}</span>
 			@endif
 
 			@if($depName && $dstName)
@@ -26,7 +26,7 @@
 			@endif
 
 			@if($dstName)
-				<span id="ai-to" class="ai-header-spot">{{ $dstName }}</span>
+				<span id="ai_to" class="ai-header-spot">{{ $dstName }}</span>
 			@endif
 		</div>
 	</div>
@@ -44,10 +44,10 @@
 
 	{{-- ▼▼▼ 正常系: AI処理エリア ▼▼▼ --}}
 	@else
-		<div id="ai-container" data-from="{{ $fromSpot ? $fromSpot->id : null }}" data-to="{{ $toSpot ? $toSpot->id : null }}">
+		<div id="ai_container" data-from="{{ $fromSpot ? $fromSpot->id : null }}" data-to="{{ $toSpot ? $toSpot->id : null }}">
 
 			{{-- 1. ローディング画面 --}}
-			<div id="ai-loading">
+			<div id="ai_loading">
 				<div class="spinner"></div>
 				<h3 style="font-size: 1.2rem; font-weight: bold; color: #333; margin-bottom: 10px;">AIが分析中...</h3>
 				<p style="color: #666; font-size: 0.9rem;">
@@ -62,21 +62,21 @@
 			</div>
 
 			{{-- 2. 結果表示エリア --}}
-			<div id="ai-result" style="display: none;">
+			<div id="ai_result" style="display: none;">
 				<div style="background: linear-gradient(to right, #2563eb, #7c3aed); color: white; padding: 15px 20px;">
 					<h2 style="font-size: 1rem; font-weight: bold; margin: 0;">🤖 AIからの提案</h2>
 				</div>
 
 				<div class="ai-result-main">
 					{{-- 解説テキスト --}}
-					<div id="ai-text" style="line-height: 1.8; color: #333; margin-bottom: 30px; font-size: 1rem;">
+					<div id="ai_text" style="line-height: 1.8; color: #333; margin-bottom: 30px; font-size: 1rem;">
 					</div>
 
 					{{-- スポットリスト --}}
 					<h3>
 						提案されたスポット
 					</h3>
-					<div id="ai-spots-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+					<div id="ai_spots_list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
 					</div>
 					<h3>
 						スポットを通るルートの例
@@ -90,9 +90,9 @@
 			</div>
 
 			{{-- 3. エラー表示エリア --}}
-			<div id="ai-error" style="display: none; padding: 40px; text-align: center; color: #b91c1c;">
+			<div id="ai_error" style="display: none; padding: 40px; text-align: center; color: #b91c1c;">
 				<p style="font-weight: bold; font-size: 1.1rem;">エラーが発生しました</p>
-				<p id="ai-error-msg" style="margin-top: 10px;"></p>
+				<p id="ai_error_msg" style="margin-top: 10px;"></p>
 				<a href="/" style="display: inline-block; margin-top: 20px; color: #666; text-decoration: underline;">ホームに戻る</a>
 			</div>
 		</div>

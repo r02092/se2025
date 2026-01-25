@@ -62,13 +62,13 @@ map.on("load", () => {
 	});
 });
 
-for (const i of document.querySelectorAll("[id^='tab-btn-']")) {
+for (const i of document.querySelectorAll("[id^='tab_btn_']")) {
 	i.addEventListener("click", e => {
-		for (const i of document.querySelectorAll("[id^='tab-btn-']")) {
+		for (const i of document.querySelectorAll("[id^='tab_btn_']")) {
 			const tab = (i as HTMLButtonElement).id.substring(8);
 			const hide = e.currentTarget !== i;
 			(
-				document.getElementById("form-area-" + tab) as HTMLDivElement
+				document.getElementById("form_area_" + tab) as HTMLDivElement
 			).style.display = hide ? "none" : "block";
 			const iStyle = (i as HTMLButtonElement).style;
 			iStyle.background = hide ? "" : "#fff";
@@ -80,7 +80,7 @@ for (const i of document.querySelectorAll("[id^='tab-btn-']")) {
 }
 
 for (const i of document.querySelectorAll(
-	"#form-area-ai > form > div > input",
+	"#form_area_ai > form > div > input",
 )) {
 	i.addEventListener("input", async e => {
 		const input = e.currentTarget as HTMLInputElement;

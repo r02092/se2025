@@ -16,11 +16,11 @@
 
 	{{-- 1. タブ切り替えボタン --}}
 	<div class="home-btns">
-		<button type="button" id="tab-btn-keyword"
+		<button type="button" id="tab_btn_keyword"
 			style="background: #fff; border-bottom-color: #16a34a; color: #16a34a;">
 			🔍 キーワード検索
 		</button>
-		<button type="button" id="tab-btn-ai">
+		<button type="button" id="tab_btn_ai">
 			🤖 AIに聞く
 		</button>
 	</div>
@@ -28,7 +28,7 @@
 	<div style="padding: 20px 15px 0;">
 
 		{{-- 2. キーワード検索フォーム (初期表示) --}}
-		<div id="form-area-keyword">
+		<div id="form_area_keyword">
 			<form action="{{ route('search') }}" method="GET">
 				<div style="margin-bottom: 15px;">
 					<label for="destination" style="font-weight:bold; display:block; margin-bottom:5px;">目的地・キーワード</label>
@@ -46,7 +46,7 @@
 		</div>
 
 		{{-- 3. AI検索フォーム --}}
-		<div id="form-area-ai" style="display: none;">
+		<div id="form_area_ai" style="display: none;">
 
 			{{-- ▼▼▼ ログイン済みの場合：フォームを表示 ▼▼▼ --}}
 			@auth

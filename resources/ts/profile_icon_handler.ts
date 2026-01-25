@@ -1,8 +1,8 @@
 const fileInput = document.getElementById(
-	"avatar-img",
+	"avatar_img",
 ) as HTMLInputElement | null;
 const previewImage = document.getElementById(
-	"profile-preview",
+	"profile_preview",
 ) as HTMLImageElement | null;
 
 if (fileInput && previewImage) {
