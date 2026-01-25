@@ -106,46 +106,42 @@
 		$displaySpots = $rankingSpots ?? ($spots ?? []);
 	@endphp
 
-	<ul class="spot-list home-spot" aria-label="人気のスポット一覧">
+	<div class="spot-list home-spot" aria-label="人気のスポット一覧">
 
 		@if(count($displaySpots) > 0)
 			@foreach($displaySpots as $index => $spot)
-				<li class="spot-item">
+				<a class="spot-item" href="{{ route('detail', ['id' => $spot->id]) }}">
 
-					{{-- 2. 全体をリンク(aタグ)で囲んで詳細画面へ飛べるようにする --}}
-					<a href="{{ route('detail', ['id' => $spot->id]) }}">
+					{{-- 順位バッジ --}}
+					<div style="background: {{ $index < 3 ? '#eab308' : '#9ca3af' }};">
+						{{ $index + 1 }}
+					</div>
 
-						{{-- 順位バッジ --}}
-						<div style="background: {{ $index < 3 ? '#eab308' : '#9ca3af' }};">
-							{{ $index + 1 }}
-						</div>
+					<img class="spot-thumb"
+						 src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
+						 alt="{{ $spot->name }}"
+						 onmouseover="this.style.opacity='0.8'"
+						 onmouseout="this.style.opacity='1.0'" />
 
-						<img class="spot-thumb"
-							 src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
-							 alt="{{ $spot->name }}"
-							 onmouseover="this.style.opacity='0.8'"
-							 onmouseout="this.style.opacity='1.0'" />
-
-						<div class="spot-content">
-							<h3 class="spot-title">{{ $spot->name }}</h3>
-							<p>
-								詳細を見る ➜
-							</p>
-						</div>
-					</a>
-				</li>
+					<div class="spot-content">
+						<h3 class="spot-title">{{ $spot->name }}</h3>
+						<p>
+							詳細を見る ➜
+						</p>
+					</div>
+				</a>
 			@endforeach
 		@else
 			{{-- データがない場合 --}}
-			<li class="spot-item">
+			<div class="spot-item">
 				<div class="spot-content">
 					<h3 class="spot-title">集計中...</h3>
 					<p>検索データが集まるとランキングが表示されます。</p>
 				</div>
-			</li>
+			</div>
 		@endif
 
-	</ul>
+	</div>
 </div>
 {{-- ▲▲▲ 人気スポットエリア（ここまで） ▲▲▲ --}}
 

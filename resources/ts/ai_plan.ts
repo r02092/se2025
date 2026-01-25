@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 					addr_city: number;
 					addr_detail: string;
 					description: string;
-					img_ext: string;
+					img_ext: string | null;
 				},
 			];
 			explanation: string;
@@ -96,8 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 			data.recommended_spots.forEach(spot => {
 				const html = `<a href="/detail?id=${spot.id}">
 	<div>
-		<img src="/images/${spot.id}.${spot.img_ext || "jpg"}"
-			onerror="this.src='/images/Harimaya_Bridge.jpg'">
+		<img src="${spot.img_ext ? "/storage/spots/" + spot.id + "." + spot.img_ext : "images/no-image.png"}">
 	</div>
 	<div>
 		<h4>${spot.name}</h4>
