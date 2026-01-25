@@ -1784,12 +1784,14 @@ h1 {
 	box-sizing: border-box;
 }
 
+#form-area-ai > form > div > div > div > div:last-child,
 .spot-detail-keywords {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.5rem;
 }
 
+#form-area-ai > form > div > div > div > div:last-child > div,
 .spot-detail-keyword-tag {
 	background-color: #f8f9fa;
 	border: 1px solid #dee2e6;
@@ -1799,6 +1801,7 @@ h1 {
 	color: #666;
 }
 
+#form-area-ai > form > div > div > div > div:last-child > div::before,
 .spot-detail-keyword-tag::before {
 	content: "#";
 	color: #999;
@@ -1976,8 +1979,21 @@ h1 {
 	border-radius: 4px;
 }
 
+#destination,
+#form_area_ai > form > div > input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #93c5fd;
+	border-radius: 4px;
+	background-color: #f0f9ff;
+	font-size: 16px;
+	box-sizing: border-box;
+	margin-bottom: 0;
+}
+
 #form_area_ai > form > div {
 	margin-bottom: 15px;
+	position: relative;
 	> label {
 		font-weight: bold;
 		display: block;
@@ -1987,14 +2003,40 @@ h1 {
 			font-size: 0.8rem;
 		}
 	}
-	> input {
+	> div {
+		position: absolute;
+		border: 0 solid #93c5fd;
+		border-width: 0 1px;
 		width: 100%;
-		padding: 10px;
-		border: 1px solid #93c5fd;
-		border-radius: 4px;
-		background-color: #f0f9ff;
-		font-size: 16px;
+		max-height: 9rem;
+		overflow: scroll;
+		background: #fff;
+		box-sizing: border-box;
+		z-index: 11;
+		> div {
+			display: flex;
+			justify-content: space-between;
+			padding: 10px;
+			border-bottom: 1px solid #93c5fd;
+			transition: background-color 0.2s;
+			> div:first-child {
+				padding: 0.3rem 0;
+			}
+			> div:last-child {
+				justify-content: end;
+			}
+			span {
+				font-weight: bold;
+			}
+		}
+		> div:hover {
+			background: #eee;
+		}
 	}
+}
+
+.home-input-suggested {
+	border-radius: 4px 4px 0 0 !important;
 }
 
 .home-spot > li {

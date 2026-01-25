@@ -57,12 +57,14 @@
 
 					<div>
 						<label for="ai_departure">出発地 <span>（どちらか必須）</span></label>
-						<input type="text" id="ai_departure" name="departure" placeholder="例: 高知駅" />
+						<input type="text" id="ai_departure" name="departure" placeholder="例: 高知駅" autocomplete="off" />
+						<div id="ai_departure_suggest"></div>
 					</div>
 
 					<div>
 						<label for="ai_destination">目的地 <span>（どちらか必須）</span></label>
-						<input type="text" id="ai_destination" name="destination" placeholder="例: 桂浜" />
+						<input type="text" id="ai_destination" name="destination" placeholder="例: 桂浜" autocomplete="off" />
+						<div id="ai_destination_suggest"></div>
 					</div>
 
 					<button type="submit" style="width:100%; padding:12px; border:none; cursor:pointer; background: linear-gradient(to right, #2563eb, #7c3aed); color: white; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
