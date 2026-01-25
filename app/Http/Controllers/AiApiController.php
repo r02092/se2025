@@ -116,12 +116,12 @@ class AiApiController extends Controller
             $prompt .= $this->spotToMarkdown($spot);
         }
         $prompt .= "\n";
-        $prompt .= '回答の最初の行は、推薦するスポットのIDを';
+        $prompt .= '回答の**1行目**は、推薦するスポットの**IDのみ**を';
         $prompt .= 'カンマ区切りで並べたものにしてください。';
         $prompt .= '例えば`1,2,4`のようにします。';
         $prompt .= "この行は機械的に処理され、ユーザーに表示されません。\n";
-        $prompt .= '次の行からは、推薦する理由を';
-        $prompt .= 'Markdown形式かつ日本語で説明してください。';
+        $prompt .= '**2行目から**は、推薦する理由を';
+        $prompt .= 'Markdown形式かつ日本語で、魅力的に書いてください。';
         $prompt .= '文中には推薦するスポットの名前を含めてください。\n';
         $prompt .= '文中でスポットの名前を言及する際は、';
         $prompt .= '`[スポットの名前](spots/スポットのID)`の形式で';
@@ -217,7 +217,7 @@ class AiApiController extends Controller
         }
         return response()->json([
             'recommended_spots' => $recommendedSpots,
-            'explanation' => $matches[2] ?? '',
+            'explanation' => preg_replace('/^\n+/', '', $matches[2]),
         ]);
     }
 

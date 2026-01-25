@@ -15,27 +15,28 @@ document.addEventListener("DOMContentLoaded", async () => {
 	const spotsList = document.getElementById("ai_spots_list") as HTMLDivElement;
 
 	// ▼▼▼ 指示文（プロンプト）の動的生成 ▼▼▼
-	let promptText = "";
-	if (fromId && toId) {
+	let promptText = decodeURI(
+		(
+			location.search.match(
+				/^\?departure=.*&destination=.*&prompt=(.*)$/,
+			) as string[]
+		)[1],
+	);
+	if (promptText !== "") {
+		(
+			document.getElementById("ai_user_container") as HTMLDivElement
+		).style.display = "block";
+		(document.getElementById("ai_prompt") as HTMLDivElement).textContent =
+			promptText;
+	} else if (fromId && toId) {
 		// 両方ある場合（ルート検索）
-		promptText = `
-						出発地から目的地へのルート上で、おすすめの観光スポットや食事処を提案してください。
-						リストの中から最適なものを選び、なぜそこが良いのか理由を含めてプランを提案してください。
-					`;
+		promptText = `出発地から目的地へのルート上で、おすすめの観光スポットや食事処を提案してください。
+なぜそこが良いのか理由を含めてプランを提案してください。`;
 	} else {
 		// 片方だけの場合（周辺検索）
-		promptText = `
-						指定された地点の周辺にある、おすすめの観光スポットや食事処を提案してください。
-						リストの中から最適なものを選び、その場所の魅力を伝えてください。
-					`;
+		promptText = `指定された地点の周辺にある、おすすめの観光スポットや食事処を提案してください。
+その場所の魅力を教えてください。`;
 	}
-
-	// 共通の制約を追加
-	promptText += `
-					【システム強制ルール】
-					1. 回答の「1行目」は、選んだスポットの **IDのみ** をカンマ区切りで出力してください（例: 1,5）。
-					2. 2行目以降に、推薦する理由を魅力的に書いてください。
-				`;
 
 	try {
 		const response = await fetch("/ai-search", {
