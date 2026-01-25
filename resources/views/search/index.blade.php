@@ -30,10 +30,9 @@
 			@foreach($spots as $spot)
 				<li style="background:#fff; padding:15px; margin-bottom:15px; border-radius:8px; border:1px solid #eee; display:flex; gap:15px;">
 					{{-- 画像表示 --}}
-					<img src="{{ $spot->image_url ?? asset('images/no_image.jpg') }}"
+					<img src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
 						 alt="{{ $spot->name }}"
-						 style="width:100px; height:100px; object-fit:cover; border-radius:8px; background:#eee; flex-shrink: 0;"
-						 onerror="this.src='https://placehold.jp/150x150.png?text=No+Image'">
+						 style="width:100px; height:100px; object-fit:cover; border-radius:8px; background:#eee; flex-shrink: 0;">
 
 					<div style="flex-grow: 1;">
 						<h4 style="font-weight:bold; font-size:1.1rem; color:#16a34a; margin-top:0;">{{ $spot->name }}</h4>
