@@ -9,7 +9,7 @@
 		<span>現在のアバター画像</span>
 		<img src="{{ Auth::user()->icon_ext ? asset('storage/icons/' . Auth::user()->id . '.' . Auth::user()->icon_ext . '?' . time()) : asset('images/Profile_pic.JPG') }}"
 			 alt="ユーザーのアバター画像"
-			 class="profile-avatar" />
+			 class="profile-avatar">
 	</div>
 	<div class="profile-box">
 		<dl class="profile">

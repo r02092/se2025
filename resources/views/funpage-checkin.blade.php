@@ -18,7 +18,7 @@
 				設置されている二次元コードを読み取ってください。
 			</p>
 			<div class="checkin-qr-image">
-				<img src="DSC_8597_1.jpg" alt="SceneTrip QRコード" />
+				<img src="DSC_8597_1.jpg" alt="SceneTrip QRコード">
 			</div>
 			<p class="checkin-qr-hint">
 				三隅の四角がはっきり映るようにしてください。

@@ -33,7 +33,7 @@
 				<div style="margin-bottom: 15px;">
 					<label for="destination" style="font-weight:bold; display:block; margin-bottom:5px;">目的地・キーワード</label>
 					<input type="text" id="destination" name="destination" placeholder="作品名・地名・キーワードを入力"
-						   style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:16px;" required />
+						   style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:16px;" required>
 				</div>
 
 				<button type="submit" class="btn-green">
@@ -57,13 +57,13 @@
 
 					<div>
 						<label for="ai_departure">出発地 <span>（どちらか必須）</span></label>
-						<input type="text" id="ai_departure" name="departure" placeholder="例: 高知駅" autocomplete="off" />
+						<input type="text" id="ai_departure" name="departure" placeholder="例: 高知駅" autocomplete="off">
 						<div id="ai_departure_suggest"></div>
 					</div>
 
 					<div>
 						<label for="ai_destination">目的地 <span>（どちらか必須）</span></label>
-						<input type="text" id="ai_destination" name="destination" placeholder="例: 桂浜" autocomplete="off" />
+						<input type="text" id="ai_destination" name="destination" placeholder="例: 桂浜" autocomplete="off">
 						<div id="ai_destination_suggest"></div>
 					</div>
 
@@ -121,7 +121,7 @@
 						 src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
 						 alt="{{ $spot->name }}"
 						 onmouseover="this.style.opacity='0.8'"
-						 onmouseout="this.style.opacity='1.0'" />
+						 onmouseout="this.style.opacity='1.0'">
 
 					<div class="spot-content">
 						<h3 class="spot-title">{{ $spot->name }}</h3>

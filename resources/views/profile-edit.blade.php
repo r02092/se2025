@@ -32,14 +32,14 @@
 					src="{{ Auth::user()->icon_ext ? asset('storage/icons/' . Auth::user()->id . '.' . Auth::user()->icon_ext . '?' . time()) : asset('images/Profile_pic.JPG') }}"
 					alt="ユーザーの現在のアバター画像"
 					class="profile-avatar"
-				/>
+				>
 				{{-- 2. 修正：nameを 'icon' に変更（コントローラーのuploadIconと合わせる） --}}
 				<input
 					type="file"
 					accept="image/png, image/jpeg"
 					id="avatar_img"
 					name="icon"
-				/>
+				>
 				<label for="avatar_img">画像をアップロード</label>
 			</div>
 
@@ -51,7 +51,7 @@
 				name="name"
 				required
 				value="{{ old('name', Auth::user()->name) }}"
-			/>
+			>
 
 			{{-- 4. 任意：ログイン名（ID）の変更も必要なら追加 --}}
 			<label for="login_name">ログインID</label>
@@ -61,28 +61,28 @@
 				name="login_name"
 				required
 				value="{{ old('login_name', Auth::user()->login_name) }}"
-			/>
+			>
 
 			<label for="current_password">現在のパスワード</label>
 			<input
 				type="password"
 				id="current_password"
 				name="current-password"
-			/>
+			>
 
 			<label for="new_password">新しいパスワード</label>
 			<input
 				type="password"
 				id="new_password"
 				name="new-password"
-			/>
+			>
 
 			<label for="confirm_password">新しいパスワード（確認用）</label>
 			<input
 				type="password"
 				id="confirm_password"
 				name="confirm-password"
-			/>
+			>
 
 			<button type="button" onclick="location.href='{{ route('profile.2fa') }}'">二要素認証を設定</button>
 			<div class="profile-edit-button-group">

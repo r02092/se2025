@@ -9,7 +9,7 @@
 	<form method="POST">
 		@csrf
 		<label for="create_name">名前</label>
-		<input type="text" name="create_name" required />
+		<input type="text" name="create_name" required>
 		<button type="submit">発行</button>
 	</form>
 </div>

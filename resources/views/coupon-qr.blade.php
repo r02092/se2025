@@ -14,7 +14,7 @@
 
 	<!-- HERO（上部の大きな画像） -->
 	<section class="hero">
-		<img src="{{ asset('images/ryugado.jpg') }}" alt="Harimaya Bridge" class="hero-img" />
+		<img src="{{ asset('images/ryugado.jpg') }}" alt="Harimaya Bridge" class="hero-img">
 	</section>
 
 	<!-- クーポン詳細（背景に直接描画するスタイル） -->
@@ -58,7 +58,7 @@
 				src="{{ asset('images/coupon-code.gif') }}"
 				alt="クーポンQRコード"
 				style="image-rendering: pixelated"
-			/>
+			>
 		</div>
 		<p class="qr-modal-hint">
 			この画面をスタッフに見せて割引を受けてください。
