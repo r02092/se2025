@@ -17,8 +17,8 @@
 	<h2>チェックイン</h2>
 </a>
 
-<section class="general-box achievement" aria-labelledby="achievement-title">
-	<h2 id="achievement-title">実績スタンプ</h2>
+<section class="general-box achievement" aria-labelledby="achievement_title">
+	<h2 id="achievement_title">実績スタンプ</h2>
 	<div class="general-box divider" aria-hidden="true"></div>
 
 	<div class="achievement-grid" role="list">

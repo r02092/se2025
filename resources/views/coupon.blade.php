@@ -30,15 +30,15 @@
 		</div>
 
 		<div class="sort-select" style="margin-left: 12px">
-			<label for="view-select">表示</label>
-			<select id="view-select" name="view-select" aria-controls="active-coupons available-coupons" aria-label="クーポン表示切替">
+			<label for="view_select">表示</label>
+			<select id="view_select" name="view-select" aria-controls="active-coupons available-coupons" aria-label="クーポン表示切替">
 				<option value="all">すべて</option>
 				<option value="active">現在利用中のクーポン</option>
 				<option value="available">利用可能なクーポン</option>
 			</select>
 		</div>
 
-		<div id="view-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+		<div id="view_live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 	</div>
 </div>
 

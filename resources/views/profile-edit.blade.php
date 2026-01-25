@@ -29,7 +29,6 @@
 
 			<div class="profile-edit-avatar-group">
 				<img
-					id="profile-preview"
 					src="{{ Auth::user()->icon_ext ? asset('storage/icons/' . Auth::user()->id . '.' . Auth::user()->icon_ext . '?' . time()) : asset('images/Profile_pic.JPG') }}"
 					alt="ユーザーの現在のアバター画像"
 					class="profile-avatar"
@@ -38,10 +37,10 @@
 				<input
 					type="file"
 					accept="image/png, image/jpeg"
-					id="avatar-img"
+					id="avatar_img"
 					name="icon"
 				/>
-				<label for="avatar-img">画像をアップロード</label>
+				<label for="avatar_img">画像をアップロード</label>
 			</div>
 
 			<label for="username">表示名</label>
@@ -64,24 +63,24 @@
 				value="{{ old('login_name', Auth::user()->login_name) }}"
 			/>
 
-			<label for="current-password">現在のパスワード</label>
+			<label for="current_password">現在のパスワード</label>
 			<input
 				type="password"
-				id="current-password"
+				id="current_password"
 				name="current-password"
 			/>
 
-			<label for="new-password">新しいパスワード</label>
+			<label for="new_password">新しいパスワード</label>
 			<input
 				type="password"
-				id="new-password"
+				id="new_password"
 				name="new-password"
 			/>
 
-			<label for="confirm-password">新しいパスワード（確認用）</label>
+			<label for="confirm_password">新しいパスワード（確認用）</label>
 			<input
 				type="password"
-				id="confirm-password"
+				id="confirm_password"
 				name="confirm-password"
 			/>
 

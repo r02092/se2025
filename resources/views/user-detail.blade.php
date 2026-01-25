@@ -33,7 +33,7 @@
 </section>
 
 <!-- 投稿カードのテンプレート（post.js がこれをクローンします） -->
-<template id="post-template">
+<template id="post_template">
 	<article class="general-box post-card">
 		<header class="post-head">
 			<img class="post-avatar" alt="avatar" />

@@ -42,14 +42,14 @@
 </main>
 
 <!-- オーバーレイ（ポップアップ用） -->
-<div id="qr-overlay" class="qr-overlay" aria-hidden="true">
+<div id="qr_overlay" class="qr-overlay" aria-hidden="true">
 	<div
 		class="qr-modal"
 		role="dialog"
 		aria-modal="true"
 		aria-labelledby="qr-modal-title"
 	>
-		<h2 id="qr-modal-title" class="qr-modal-title">{{ $coupon->title ?? '龍河洞 入場割引' }}</h2>
+		<h2 class="qr-modal-title">{{ $coupon->title ?? '龍河洞 入場割引' }}</h2>
 		<p class="qr-modal-sub">
 			こちらの二次元コードをスタッフにご提示ください
 		</p>

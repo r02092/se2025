@@ -1,18 +1,18 @@
 document.addEventListener("DOMContentLoaded", async () => {
 	// PHPからデータを取得（存在しない場合はnullになるように修正）
-	const fromId = document.getElementById("ai-container")?.dataset.from;
-	const toId = document.getElementById("ai-container")?.dataset.to;
+	const fromId = document.getElementById("ai_container")?.dataset.from;
+	const toId = document.getElementById("ai_container")?.dataset.to;
 
 	const csrfTokenMeta = document.querySelector(
 		'meta[name="csrf-token"]',
 	) as HTMLMetaElement;
 	const csrfToken = csrfTokenMeta ? csrfTokenMeta.content : "";
 
-	const loading = document.getElementById("ai-loading") as HTMLDivElement;
-	const result = document.getElementById("ai-result") as HTMLDivElement;
-	const errorArea = document.getElementById("ai-error") as HTMLDivElement;
-	const textField = document.getElementById("ai-text") as HTMLDivElement;
-	const spotsList = document.getElementById("ai-spots-list") as HTMLDivElement;
+	const loading = document.getElementById("ai_loading") as HTMLDivElement;
+	const result = document.getElementById("ai_result") as HTMLDivElement;
+	const errorArea = document.getElementById("ai_error") as HTMLDivElement;
+	const textField = document.getElementById("ai_text") as HTMLDivElement;
+	const spotsList = document.getElementById("ai_spots_list") as HTMLDivElement;
 
 	// ▼▼▼ 指示文（プロンプト）の動的生成 ▼▼▼
 	let promptText = "";
@@ -116,9 +116,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 				(len6 + 13) +
 				"!" +
 				[
-					document.getElementById("ai-from")?.textContent,
+					document.getElementById("ai_from")?.textContent,
 					...data.recommended_spots.map(i => i.name),
-					document.getElementById("ai-to")?.textContent,
+					document.getElementById("ai_to")?.textContent,
 				]
 					.map(
 						i =>
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 		loading.style.display = "none";
 		errorArea.style.display = "block";
 		(
-			document.getElementById("ai-error-msg") as HTMLParagraphElement
+			document.getElementById("ai_error_msg") as HTMLParagraphElement
 		).innerText = (e as unknown & {message: string}).message;
 	}
 });

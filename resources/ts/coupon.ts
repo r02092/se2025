@@ -1,13 +1,13 @@
 const viewSelect = document.getElementById(
-	"view-select",
+	"view_select",
 ) as HTMLSelectElement | null;
 const activeSection = document.getElementById(
-	"active-coupons",
+	"active_coupons",
 ) as HTMLElement | null;
 const availableSection = document.getElementById(
-	"available-coupons",
+	"available_coupons",
 ) as HTMLElement | null;
-const live = document.getElementById("view-live") as HTMLElement | null;
+const live = document.getElementById("view_live") as HTMLElement | null;
 
 if (viewSelect && activeSection && availableSection) {
 	function applyView(): void {
