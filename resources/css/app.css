@@ -1760,7 +1760,7 @@ h1 {
 	transform: scale(1.02);
 }
 
-.spot-detail-section-title {
+.spot-detail-card > div:last-child > * > h2 {
 	font-size: 1.2rem;
 	margin-bottom: 1rem;
 	color: #555;
@@ -1838,48 +1838,40 @@ h1 {
 	border: 2px solid #f0f0f0;
 	border-radius: 8px;
 	background: #ffffff;
-}
-
-.spot-detail-review-item {
-	background: #fff;
-	padding: 1.5rem;
-	border-radius: 8px;
-	border: 1px solid #eee;
-}
-
-.spot-detail-review-header {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 0.8rem;
-	font-size: 0.9rem;
-}
-
-.spot-detail-review-user {
-	font-weight: bold;
-	color: #333;
-}
-
-.spot-detail-review-date {
-	color: #999;
+	> div {
+		background: #fff;
+		padding: 1.5rem;
+		border-radius: 8px;
+		border: 1px solid #eee;
+		> div:first-child {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 0.8rem;
+			font-size: 0.9rem;
+			> span:first-child {
+				font-weight: bold;
+				color: #333;
+			}
+			> span:last-child {
+				color: #999;
+			}
+		}
+		> div:nth-child(2) {
+			color: #f1c40f;
+			margin-bottom: 0.5rem;
+		}
+		> div:last-child {
+			line-height: 1.6;
+			color: #555;
+			word-wrap: break-word;
+			overflow-wrap: break-word;
+		}
+	}
 }
 
 .review-stars {
 	color: #f1c40f;
 	margin-bottom: 0.5rem;
-}
-
-.spot-detail-review-comment {
-	line-height: 1.6;
-	color: #555;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-}
-
-.spot-detail-review-form-wrapper {
-	background: #fff;
-	padding: 2rem;
-	border-radius: 8px;
-	border-top: 3px solid #3498db;
 }
 
 .spot-detail-form-group {
@@ -1893,8 +1885,7 @@ h1 {
 	color: #333;
 }
 
-.spot-detail-form-select,
-.spot-detail-form-textarea {
+.spot-detail-form-input {
 	width: 100%;
 	padding: 0.8rem;
 	border: 1px solid #ddd;
@@ -1903,8 +1894,7 @@ h1 {
 	transition: border-color 0.3s;
 }
 
-.spot-detail-form-select:focus,
-.spot-detail-form-textarea:focus {
+.spot-detail-form-input:focus {
 	outline: none;
 	border-color: #3498db;
 }
