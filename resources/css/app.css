@@ -224,17 +224,28 @@ h1 {
 	width: 100%;
 }
 
-.form-container {
+.form-container,
+.logout-container,
+.profile-edit-container,
+.subscription-confirm-container,
+.subscription-form-container {
 	width: 80%;
 	margin: 80px auto;
 	padding: 1% 5% 1% 5%;
 	text-align: center;
 }
-.form-container h2 {
+.form-container h2,
+.logout-container h2,
+.profile-container h2,
+.profile-edit-container h2,
+.subscription-confirm-container h2,
+.subscription-form-container h2 {
 	margin-bottom: 24px;
 	color: #333;
 }
-.form-container label {
+.form-container label,
+.profile-edit-container label,
+.subscription-form-container label {
 	display: block;
 	text-align: left;
 	margin-bottom: 6px;
@@ -664,16 +675,6 @@ h1 {
 }
 
 /* ==== logout.css ==== */
-.logout-container {
-	width: 80%;
-	margin: 80px auto;
-	padding: 1% 5% 1% 5%;
-	text-align: center;
-}
-.logout-container h2 {
-	margin-bottom: 24px;
-	color: #333;
-}
 .logout-grid-container {
 	display: flex;
 	gap: 20%;
@@ -691,7 +692,10 @@ h1 {
 	font-weight: bold;
 	transition: background-color 0.2s;
 }
-.logout-button-cancel:hover {
+.logout-button-cancel:hover,
+.profile-edit-avatar-group label:hover,
+.profile-edit-button-cancel:hover,
+.subscription-confirm-button-back:hover {
 	background: #ddd;
 }
 .logout-button-confirm {
@@ -910,10 +914,6 @@ h1 {
 	margin-top: 10px;
 	padding: 1% 5% 1% 5%;
 	text-align: center;
-}
-.profile-container h2 {
-	margin-bottom: 24px;
-	color: #333;
 }
 .profile-avatar-group {
 	display: flex;
@@ -1443,23 +1443,6 @@ h1 {
 }
 
 /* ==== profile-edit.css ==== */
-.profile-edit-container {
-	width: 80%;
-	margin: 80px auto;
-	padding: 1% 5% 1% 5%;
-	text-align: center;
-}
-.profile-edit-container h2 {
-	margin-bottom: 24px;
-	color: #333;
-}
-.profile-edit-container label {
-	display: block;
-	text-align: left;
-	margin-bottom: 6px;
-	color: #444;
-	font-size: 15px;
-}
 .profile-edit-avatar-group {
 	display: flex;
 	gap: 8%;
@@ -1475,9 +1458,6 @@ h1 {
 	border: 2px solid #555;
 	border-radius: 10px;
 	padding: 3px;
-}
-.profile-edit-avatar-group label:hover {
-	background: #ddd;
 }
 .profile-edit-container button {
 	width: 100%;
@@ -1507,26 +1487,14 @@ h1 {
 	background: #eee;
 	color: #000;
 }
-.profile-edit-button-cancel:hover {
-	background: #ddd;
-}
 
 /* ==== subscription-confirm.css ==== */
-.subscription-confirm-container {
-	width: 80%;
-	margin: 80px auto;
-	padding: 1% 5% 1% 5%;
-	text-align: center;
-}
-.subscription-confirm-container h2 {
-	margin-bottom: 24px;
-	color: #333;
-}
 .subscription-confirm-container h3 {
 	font-weight: normal;
 	color: #333;
 }
-.subscription-confirm-container li {
+.subscription-confirm-container li,
+.subscription-form-container li {
 	text-align: left;
 }
 .subscription-confirm-button-back {
@@ -1543,31 +1511,8 @@ h1 {
 	font-weight: bold;
 	transition: background-color 0.2s;
 }
-.subscription-confirm-button-back:hover {
-	background: #ddd;
-}
 
 /* ==== subscription-form.css ==== */
-.subscription-form-container {
-	width: 80%;
-	margin: 80px auto;
-	padding: 1% 5% 1% 5%;
-	text-align: center;
-}
-.subscription-form-container h2 {
-	margin-bottom: 24px;
-	color: #333;
-}
-.subscription-form-container li {
-	text-align: left;
-}
-.subscription-form-container label {
-	display: block;
-	text-align: left;
-	margin-bottom: 6px;
-	color: #444;
-	font-size: 15px;
-}
 .subscription-form-container select {
 	width: 80%;
 	padding: 10px;
