@@ -155,7 +155,7 @@
 					</div>
 
 					@if($errors->any())
-						<div style="text-align: left">
+						<div class="form-error">
 							<div>
 								投稿に失敗しました
 							</div>
