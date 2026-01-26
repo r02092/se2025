@@ -110,6 +110,9 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ],
         ]);
+        // ---------------------------------------------------------
+        // 2. 観光スポットデータの作成
+        // ---------------------------------------------------------
         DB::table('spots')->insert([
             [
                 'user_id' => 1,
@@ -140,7 +143,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39203,
                 'addr_detail' => '東浜２９４',
                 'description' =>
-                    '南国市後免町と安芸郡奈半利町を結ぶ、2002年に開業した第三セクター路線。JR四国の路線と接続している。',
+                    '南国市後免町と安芸郡奈半利町を結ぶ、2002年に開業した第三セクター路線。JR四国の路線と接続している。オープンデッキ車両からの眺めが人気。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -158,7 +161,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39201,
                 'addr_detail' => '南はりまや町１丁目',
                 'description' =>
-                    '南国市・高知市・吾川郡いの町を結ぶ路面電車。高知県唯一の電車でもある。',
+                    '南国市・高知市・吾川郡いの町を結ぶ路面電車。現役最古の路面電車として知られ、高知県民の重要な足となっている。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 1,
@@ -176,7 +179,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39201,
                 'addr_detail' => 'はりまや町１丁目',
                 'description' =>
-                    '高知市の中心部にある橋。日本三大がっかり名所の一つとして知られる。',
+                    '高知市の中心部にある橋。「日本三大がっかり名所」の一つとして逆に有名だが、夜のライトアップや周辺の公園は風情がある。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 1,
@@ -194,7 +197,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39344,
                 'addr_detail' => '高須２２６',
                 'description' =>
-                    'デカ盛りの聖地として知られる食堂。メディアに取り上げられることも多く、全国的に有名。',
+                    'デカ盛りの聖地として知られる大豊町の食堂。カツ丼のボリュームが凄まじく、県内外から多くのファンが訪れる。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -212,7 +215,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39201,
                 'addr_detail' => '帯屋町２丁目３－１',
                 'description' =>
-                    '飲食店や土産物店が軒を連ねる市場。観光スポットとしても、地元民の飲みの場としても人気。',
+                    '飲食店や土産物店が軒を連ねる巨大屋台村。カツオのたたきをつまみに昼から酒を飲む地元民と観光客で常に賑わっている。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -229,7 +232,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7830005,
                 'addr_city' => 39204,
                 'addr_detail' => '大そね乙１０２４',
-                'description' => '',
+                'description' =>
+                    '高知県内で展開するお弁当チェーン店。ボリューム満点のお弁当がリーズナブルに楽しめる、学生や地元民の味方。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -246,7 +250,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7800841,
                 'addr_city' => 39201,
                 'addr_detail' => '帯屋町１丁目１４−３３',
-                'description' => '',
+                'description' =>
+                    '帯屋町商店街にある老舗の喫茶店。レトロな雰囲気の中で落ち着いた時間を過ごせる。シフォンケーキなどのスイーツも人気。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -263,7 +268,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7870001,
                 'addr_city' => 39210,
                 'addr_detail' => '中村本町１丁目１１',
-                'description' => '',
+                'description' =>
+                    '土佐一条氏の祖、一条教房公を祀る神社。「土佐の小京都」と呼ばれる中村の象徴的な場所であり、市民に親しまれている。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -280,7 +286,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7870005,
                 'addr_city' => 39210,
                 'addr_detail' => '中村',
-                'description' => '',
+                'description' =>
+                    '四万十市を見下ろす為松公園内にある城跡。模擬天守があり、四万十川や中村の街並みを一望できる桜の名所でもある。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -297,7 +304,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7870014,
                 'addr_city' => 39210,
                 'addr_detail' => '駅前町７',
-                'description' => '',
+                'description' =>
+                    '土佐くろしお鉄道の主要駅。四万十川観光の玄関口であり、グッドデザイン賞を受賞したリノベーション後のモダンな駅舎も必見。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -314,7 +322,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7815106,
                 'addr_city' => 39201,
                 'addr_detail' => '介良乙',
-                'description' => '',
+                'description' =>
+                    '1972年、地元中学生が小型UFOを捕獲したとされる「介良事件」の現場。オカルトファンの間では伝説的な聖地となっている。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -331,7 +340,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7840045,
                 'addr_city' => 39203,
                 'addr_detail' => '伊尾木１１７',
-                'description' => '',
+                'description' =>
+                    '波の浸食によりできた天然の洞窟。壁面にシダ植物が群生しており、ジブリ映画のような神秘的な世界が広がっている。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -348,7 +358,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7840045,
                 'addr_city' => 39203,
                 'addr_detail' => '伊尾木',
-                'description' => '',
+                'description' =>
+                    'ごめん・なはり線の駅。伊尾木洞への最寄り駅であり、駅キャラ「伊尾木トラ」が出迎えてくれる。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -365,7 +376,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7812105,
                 'addr_city' => 39386,
                 'addr_detail' => '新町',
-                'description' => '',
+                'description' =>
+                    'JR土讃線の駅。映画「竜とそばかすの姫」の舞台モデルの一つとしても知られ、聖地巡礼に訪れるファンも多い。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -382,7 +394,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7812110,
                 'addr_city' => 39386,
                 'addr_detail' => '新町',
-                'description' => '',
+                'description' =>
+                    'とさでん交通伊野線の終点駅。レトロな路面電車が発着し、すぐ近くには紙の博物館などがある。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -399,7 +412,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7871106,
                 'addr_city' => 39210,
                 'addr_detail' => '佐田',
-                'description' => '',
+                'description' =>
+                    '四万十川最下流に位置する、最も長い沈下橋。アクセスが良く、シーズンには多くの観光客で賑わう人気のフォトスポット。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -416,7 +430,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7814401,
                 'addr_city' => 39212,
                 'addr_detail' => '物部町大栃１６４４',
-                'description' => '',
+                'description' =>
+                    '香美市物部町にある神社。秋の紅葉や、地域の伝統的なお祭りで知られる静謐なスポット。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -433,7 +448,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7871226,
                 'addr_city' => 39210,
                 'addr_detail' => '鵜ノ江',
-                'description' => '',
+                'description' =>
+                    '橋脚が３本ある珍しい沈下橋。映画「釣りバカ日誌14」のロケ地としても有名で、釣りファンにも親しまれている。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -450,7 +466,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7814404,
                 'addr_city' => 39212,
                 'addr_detail' => '物部町小浜３０７',
-                'description' => '',
+                'description' =>
+                    'PCゲーム「ものべの」の聖地としてファンに知られる神社。百合の大樹があり、神秘的な雰囲気が漂う。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -467,7 +484,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7850601,
                 'addr_city' => 39405,
                 'addr_detail' => '永野',
-                'description' => '',
+                'description' =>
+                    '日本三大カルストの一つ。白い石灰岩が点在する高原風景は「日本のスイス」とも呼ばれ、絶景ドライブやキャンプが楽しめる。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -484,7 +502,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7830054,
                 'addr_city' => 39204,
                 'addr_detail' => '比江７０３',
-                'description' => '',
+                'description' =>
+                    '平安時代の土佐国の役所跡。南国市にあり、紀貫之が国司として赴任した場所として歴史ファンに知られる。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -501,7 +520,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7820005,
                 'addr_city' => 39212,
                 'addr_detail' => '土佐山田町逆川１４２９',
-                'description' => '',
+                'description' =>
+                    '龍河洞の入り口近くにある刃物店や土産物店。伝統的な土佐打刃物などを扱っている。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -518,7 +538,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7820031,
                 'addr_city' => 39212,
                 'addr_detail' => '土佐山田町東本町１丁目５',
-                'description' => '',
+                'description' =>
+                    '香美市の玄関口となるJR土讃線の駅。アンパンマンミュージアムや龍河洞へのバスが発着する観光拠点。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -535,7 +556,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7817101,
                 'addr_city' => 39202,
                 'addr_detail' => '室戸岬町',
-                'description' => '',
+                'description' =>
+                    '紀貫之が「土佐日記」に記した室戸岬周辺の停泊地を記念した石碑。文学と歴史のロマンを感じさせるスポット。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -552,7 +574,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7870300,
                 'addr_city' => 39209,
                 'addr_detail' => '',
-                'description' => '',
+                'description' =>
+                    '四国最南端の市。足摺岬や清水サバで有名。ジョン万次郎の出身地としても知られる。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -569,7 +592,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7810074,
                 'addr_city' => 39209,
                 'addr_detail' => '弥生町',
-                'description' => '',
+                'description' =>
+                    '東経133度33分33秒、北緯33度33分33秒という「3」が12個並ぶ世界的にも珍しい地点。川の中にモニュメントがある。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -586,7 +610,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7815222,
                 'addr_city' => 39211,
                 'addr_detail' => '野市町母代寺４７６',
-                'description' => '',
+                'description' =>
+                    '四国八十八箇所霊場の第28番札所。奥の院にある「爪彫り薬師」は首から上の病にご利益があると言われている。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -603,7 +628,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7816402,
                 'addr_city' => 39302,
                 'addr_detail' => '乙',
-                'description' => '',
+                'description' =>
+                    'ごめん・なはり線の終着駅。高架駅からは太平洋が一望できる。駅舎内には物産館もあり便利。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -620,7 +646,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7840045,
                 'addr_city' => 39203,
                 'addr_detail' => '伊尾木１６９−６',
-                'description' => '',
+                'description' =>
+                    '映画「男はつらいよ」のロケ地記念として建立された地蔵。伊尾木洞の近くにあり、ファンが訪れるスポット。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -637,7 +664,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7814642,
                 'addr_city' => 39212,
                 'addr_detail' => '物部町別役',
-                'description' => '',
+                'description' =>
+                    '物部町の山奥に鎮座する神社。平家の落人伝説が残り、静寂に包まれた境内は厳かな雰囲気が漂う。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -654,7 +682,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7800841,
                 'addr_city' => 39201,
                 'addr_detail' => '帯屋町１丁目９',
-                'description' => '',
+                'description' =>
+                    '高知市最大のアーケード商店街。よさこい祭りの競演場にもなり、ショッピングやグルメの中心地。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -671,7 +700,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7830011,
                 'addr_city' => 39204,
                 'addr_detail' => '後免町',
-                'description' => '',
+                'description' =>
+                    '南国市の中心エリア。「ごめん」という地名から、謝罪の聖地（？）としてユニークな町おこしも行われている。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -688,7 +718,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7830002,
                 'addr_city' => 39204,
                 'addr_detail' => '駅前町２丁目４',
-                'description' => '',
+                'description' =>
+                    'JR土讃線と土佐くろしお鉄道が接続する交通の要衝。やなせたかし氏デザインの「ごめん えきお君」がいる。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -705,7 +736,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7800833,
                 'addr_city' => 39201,
                 'addr_detail' => '南はりまや町１丁目１７−３',
-                'description' => '',
+                'description' =>
+                    '明治創業の老舗料亭。小説・映画「鬼龍院花子の生涯」の舞台としても有名で、伝統的な土佐料理を味わえる。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -722,7 +754,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7815223,
                 'addr_city' => 39211,
                 'addr_detail' => '野市町西佐古',
-                'description' => '',
+                'description' =>
+                    '物部川にかかるコンクリート製の沈下橋。のどかな風景の中にあり、サイクリングや散歩コースとして親しまれている。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -739,7 +772,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7815621,
                 'addr_city' => 39211,
                 'addr_detail' => '夜須町手結２９８−１９',
-                'description' => '',
+                'description' =>
+                    '船の出入りのために道路が垂直に跳ね上がる可動橋。橋が立っている姿は圧巻で、CMロケ地などにも使われる。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -756,7 +790,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7820063,
                 'addr_city' => 39212,
                 'addr_detail' => '土佐山田町東川',
-                'description' => '',
+                'description' =>
+                    '山奥にある秘境駅。スイッチバック式の駅として鉄道ファンに有名で、静寂に包まれた独特の雰囲気がある。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -773,7 +808,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7800842,
                 'addr_city' => 39201,
                 'addr_detail' => '追手筋',
-                'description' => '',
+                'description' =>
+                    '毎週日曜日に高知城追手門から続く通りで開催される、日本最大級の街路市。新鮮な野菜や芋天などの食べ歩きが楽しめる。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -790,7 +826,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7816201,
                 'addr_city' => 39306,
                 'addr_detail' => '馬路',
-                'description' => '',
+                'description' =>
+                    '馬路村にある巨大な杉の木。地域の人々に信仰されてきた巨木で、自然の力強さを感じられるパワースポット。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -807,7 +844,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7890311,
                 'addr_city' => 39344,
                 'addr_detail' => '杉７９４',
-                'description' => '',
+                'description' =>
+                    '日本一の大杉として知られる国の特別天然記念物。若き日の美空ひばりが願掛けをしたことでも有名。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -824,7 +862,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7870316,
                 'addr_city' => 39209,
                 'addr_detail' => '松尾１７１−２',
-                'description' => '',
+                'description' =>
+                    '土佐清水市にある港。アコウの巨木などの自然景観が近くにあり、静かな漁港の風情を楽しめる。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -841,7 +880,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7810262,
                 'addr_city' => 39201,
                 'addr_detail' => '浦戸６',
-                'description' => '',
+                'description' =>
+                    '高知を代表する景勝地。弓状の砂浜と松林、そして太平洋を見つめる坂本龍馬像があり、月の名所としても知られる。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -858,7 +898,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7816402,
                 'addr_city' => 39302,
                 'addr_detail' => '乙２５９５',
-                'description' => '',
+                'description' =>
+                    '奈半利町にある土佐漆喰と水切り瓦が特徴的な古民家。国の登録有形文化財であり、往時の繁栄を伝えている。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -875,7 +916,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7810011,
                 'addr_city' => 39201,
                 'addr_detail' => '薊野北町１丁目１０−３',
-                'description' => '',
+                'description' =>
+                    '「日本の九龍城」とも呼ばれる、夫婦二人で建設したセルフビルドの巨大マンション。建築ファンに人気のスポット。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -892,7 +934,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7810087,
                 'addr_city' => 39201,
                 'addr_detail' => '南久保１−２',
-                'description' => '',
+                'description' =>
+                    'いけすから揚げたばかりの新鮮な魚料理が楽しめる人気店。カツオのたたきや豪快な定食が評判。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -909,7 +952,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7811325,
                 'addr_city' => 39403,
                 'addr_detail' => '浅尾',
-                'description' => '',
+                'description' =>
+                    '仁淀川にかかる沈下橋。映画「竜とそばかすの姫」の舞台モデルとなり、周囲の山々と清流のコントラストが美しい。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -926,7 +970,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7814224,
                 'addr_city' => 39212,
                 'addr_detail' => '香北町有瀬１００',
-                'description' => '',
+                'description' =>
+                    '物部川の湖畔にある温泉カフェ。絶景を眺めながら入る温泉や、こだわりの食事が楽しめる癒やしの空間。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -943,7 +988,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7814644,
                 'addr_city' => 39212,
                 'addr_detail' => '物部町別府',
-                'description' => '',
+                'description' =>
+                    '四国屈指の険しい山、石立山への登山口。紅葉の美しさで知られる別府峡谷の近くにある。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -960,7 +1006,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7816422,
                 'addr_city' => 39304,
                 'addr_detail' => '唐浜２５９４',
-                'description' => '',
+                'description' =>
+                    '四国八十八箇所霊場の第27番札所。「真っ縦（まったて）」と呼ばれる急勾配の参道がある、遍路転がしの難所。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -977,7 +1024,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7870452,
                 'addr_city' => 39209,
                 'addr_detail' => '竜串',
-                'description' => '',
+                'description' =>
+                    '砂岩が風や波に侵食されてできた奇岩が連なる景勝地。地質学的にも貴重で、異世界のような風景が広がる。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -994,7 +1042,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7818125,
                 'addr_city' => 39201,
                 'addr_detail' => '五台山３５７７',
-                'description' => '',
+                'description' =>
+                    '四国八十八箇所霊場の第31番札所。美しい庭園や五重塔があり、「土佐の文殊さん」として学業成就の信仰も厚い。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1011,7 +1060,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7860068,
                 'addr_city' => 39412,
                 'addr_detail' => '若井',
-                'description' => '',
+                'description' =>
+                    'JR予土線の分岐点となる駅。四万十川沿いを走る列車の旅の拠点となる小さな駅。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1028,7 +1078,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7810270,
                 'addr_city' => 39201,
                 'addr_detail' => '長浜６６００',
-                'description' => '',
+                'description' =>
+                    '長宗我部元親が初陣の際に戦勝祈願をしたことで知られる神社。必勝祈願のパワースポット。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1045,7 +1096,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 730023,
                 'addr_city' => 39204,
                 'addr_detail' => '廿枝６００',
-                'description' => '',
+                'description' =>
+                    '一年中メロンやスイカが楽しめる観光農園。ブーゲンビリアが咲き誇るハウス内で食べるフルーツやパンケーキが人気。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1062,7 +1114,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7870315,
                 'addr_city' => 39209,
                 'addr_detail' => '足摺岬',
-                'description' => '',
+                'description' =>
+                    '四国最南端の岬。断崖絶壁に立つ白亜の灯台と太平洋の大パノラマは圧巻。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1079,7 +1132,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7870315,
                 'addr_city' => 39209,
                 'addr_detail' => '足摺岬２１４−１',
-                'description' => '',
+                'description' =>
+                    '足摺岬にある四国八十八箇所霊場の第38番札所。広大な境内と美しい庭園を持ち、弘法大師ゆかりの地。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1096,7 +1150,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7814212,
                 'addr_city' => 39212,
                 'addr_detail' => '香北町美良布１２２４−２',
-                'description' => '',
+                'description' =>
+                    'アンパンマンの作者、やなせたかし氏の故郷にある美術館。通称アンパンマンミュージアムとして、親子連れに大人気。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1113,7 +1168,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7814401,
                 'addr_city' => 39212,
                 'addr_detail' => '物部町大栃８９８−１',
-                'description' => '',
+                'description' =>
+                    'PCゲーム「ものべの」の聖地巡礼スポットの一つとして知られる場所。物部川のほとりにある。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1130,7 +1186,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7800850,
                 'addr_city' => 39201,
                 'addr_detail' => '丸ノ内１丁目２−１',
-                'description' => '',
+                'description' =>
+                    '現存十二天守の一つ。追手門と天守閣が両方現存している珍しい城で、高知市のシンボル。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1147,7 +1204,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7830096,
                 'addr_city' => 39204,
                 'addr_detail' => '久枝乙５８',
-                'description' => '',
+                'description' =>
+                    '愛称は「高知龍馬空港」。高知の空の玄関口であり、到着ロビーでは坂本龍馬像が出迎えてくれる。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1164,7 +1222,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7800061,
                 'addr_city' => 39201,
                 'addr_detail' => '栄田町',
-                'description' => '',
+                'description' =>
+                    '「くじらドーム」と呼ばれる大屋根が特徴的な駅。駅前には幕末の三志士像が立ち並ぶ。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1181,7 +1240,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7818125,
                 'addr_city' => 39201,
                 'addr_detail' => '五台山４２００−６',
-                'description' => '',
+                'description' =>
+                    '植物学者・牧野富太郎博士を顕彰する植物園。3000種類以上の植物が彩る美しい庭園や温室は必見。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1198,7 +1258,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7800916,
                 'addr_city' => 39201,
                 'addr_detail' => '城北町１−１４',
-                'description' => '',
+                'description' =>
+                    'ジブリ作品「海がきこえる」の舞台モデルとなった高校。聖地巡礼に訪れるファンもいる。（見学はマナーを守って）',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1215,7 +1276,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7800842,
                 'addr_city' => 39201,
                 'addr_detail' => '追手筋２丁目２−１０',
-                'description' => '',
+                'description' =>
+                    '時計台のある歴史的な校舎が特徴。日曜市の通りに面しており、高知の風景の一部となっている。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1232,7 +1294,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7820005,
                 'addr_city' => 39212,
                 'addr_detail' => '土佐山田町逆川１４２４',
-                'description' => '',
+                'description' =>
+                    '日本三大鍾乳洞の一つ。長い年月をかけて形成された神秘的な鍾乳石や、弥生時代の住居跡が見られる。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
