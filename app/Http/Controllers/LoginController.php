@@ -120,7 +120,7 @@ class LoginController extends Controller
     {
         $disk = \Illuminate\Support\Facades\Storage::disk('public');
         $defaultIconPath = 'icons/default_icon.jpg';
-        
+
         // ユーザーの現在のアイコンパスを特定
         $userIconExists = false;
         if (!empty($user->icon_ext)) {
@@ -130,22 +130,35 @@ class LoginController extends Controller
 
         // DB未設定、またはファイル実体がない場合はデフォルトをコピー
         if (empty($user->icon_ext) || !$userIconExists) {
-            \Illuminate\Support\Facades\Log::info("Restoring default icon for user {$user->id} (DB ext: {$user->icon_ext}, File exists: " . ($userIconExists ? 'yes' : 'no') . ")");
+            \Illuminate\Support\Facades\Log::info(
+                "Restoring default icon for user {$user->id} (DB ext: {$user->icon_ext}, File exists: " .
+                    ($userIconExists ? 'yes' : 'no') .
+                    ')',
+            );
 
             if ($disk->exists($defaultIconPath)) {
                 try {
                     // Force copy to .jpg extension
-                    $disk->copy($defaultIconPath, 'icons/' . $user->id . '.jpg');
-                    
+                    $disk->copy(
+                        $defaultIconPath,
+                        'icons/' . $user->id . '.jpg',
+                    );
+
                     // DB update
                     $user->icon_ext = 'jpg';
                     $user->save();
-                    \Illuminate\Support\Facades\Log::info("Default icon restored for user {$user->id}");
+                    \Illuminate\Support\Facades\Log::info(
+                        "Default icon restored for user {$user->id}",
+                    );
                 } catch (\Exception $e) {
-                    \Illuminate\Support\Facades\Log::error("Failed to restore icon: " . $e->getMessage());
+                    \Illuminate\Support\Facades\Log::error(
+                        'Failed to restore icon: ' . $e->getMessage(),
+                    );
                 }
             } else {
-                \Illuminate\Support\Facades\Log::error("Default icon source missing at {$defaultIconPath}");
+                \Illuminate\Support\Facades\Log::error(
+                    "Default icon source missing at {$defaultIconPath}",
+                );
             }
         }
     }

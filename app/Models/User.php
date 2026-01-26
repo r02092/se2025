@@ -76,7 +76,11 @@ class User extends Authenticatable
         if ($this->icon_ext) {
             $path = 'icons/' . $this->id . '.' . $this->icon_ext;
             // ファイルが実際に存在するか確認
-            if (\Illuminate\Support\Facades\Storage::disk('public')->exists($path)) {
+            if (
+                \Illuminate\Support\Facades\Storage::disk('public')->exists(
+                    $path,
+                )
+            ) {
                 // キャッシュ対策として time() を付与
                 return asset('storage/' . $path . '?' . time());
             }
