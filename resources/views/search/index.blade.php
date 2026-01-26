@@ -62,7 +62,7 @@
     @if($departureNotFound)
         <div style="background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
             <strong>⚠️ 出発地が見つかりませんでした</strong><br>
-            出発地「{{ $departure }}」の位置情報が取得できませんでした。<br>
+            出発地「{{ $departure }}」の情報が取得できませんでした。<br>
             キーワード「{{ $destination }}」のみでの検索結果を表示しています。
         </div>
     @endif
