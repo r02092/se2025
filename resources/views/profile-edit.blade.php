@@ -3,7 +3,7 @@
 @section('title', 'プロフィール編集')
 
 @push('scripts')
-@vite(['resources/ts/profile_icon_handler.ts'])
+@vite(['resources/ts/profile_edit.ts'])
 @endpush
 
 @section('content')
@@ -31,6 +31,7 @@
 				<img
 					src="{{ Auth::user()->icon_ext ? asset('storage/icons/' . Auth::user()->id . '.' . Auth::user()->icon_ext . '?' . time()) : asset('images/Profile_pic.JPG') }}"
 					alt="ユーザーの現在のアバター画像"
+					id="profile_preview"
 					class="profile-avatar"
 				>
 				{{-- 2. 修正：nameを 'icon' に変更（コントローラーのuploadIconと合わせる） --}}

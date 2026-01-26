@@ -14,6 +14,7 @@ export default defineConfig(({mode}) => {
 				input: [
 					"resources/css/app.css",
 					"resources/ts/home.ts",
+					"resources/ts/profile_edit.ts",
 					"resources/ts/subscription.ts",
 					"resources/ts/detail.ts",
 					"resources/ts/ai_plan.ts",

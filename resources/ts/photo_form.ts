@@ -1,3 +1,4 @@
+import addImageHandler from "./profile_icon_handler";
 import loadImage from "blueimp-load-image";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -14,8 +15,10 @@ const marker = new maplibregl.Marker()
 map.addControl(new maplibregl.NavigationControl(), "top-right");
 map.on("click", e => inputCoord(e.lngLat.toArray()));
 
-const preview = document.getElementById("profile_preview") as HTMLImageElement;
-document.getElementById("photo")?.addEventListener("change", e => {
+const photo = document.getElementById("photo") as HTMLInputElement;
+const preview = document.getElementById("photo_preview") as HTMLImageElement;
+addImageHandler(photo, preview);
+photo.addEventListener("change", e => {
 	const file = (e.target as HTMLInputElement).files;
 	if (file) {
 		preview.setAttribute("src", URL.createObjectURL(file[0]));
