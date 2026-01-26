@@ -86,7 +86,7 @@ class User extends Authenticatable
             }
         }
 
-        // デフォルトアイコン
-        return asset('storage/icons/default_icon.jpg');
+        // デフォルトアイコン (Seederファイルへのルート)
+        return route('default_icon');
     }
 }

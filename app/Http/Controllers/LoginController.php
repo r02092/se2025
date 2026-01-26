@@ -116,10 +116,14 @@ class LoginController extends Controller
     /**
      * ユーザーのアイコンが未設定、またはファイルが存在しない場合、デフォルトアイコンを復元する
      */
+    /**
+     * ユーザーのアイコンが未設定、またはファイルが存在しない場合、デフォルトアイコンを復元する
+     */
     private function ensureUserIcon(User $user)
     {
         $disk = \Illuminate\Support\Facades\Storage::disk('public');
-        $defaultIconPath = 'icons/default_icon.jpg';
+        // コピー元のデフォルトアイコンパス (Seederファイルを使用)
+        $sourcePath = base_path('database/seeders/files/icons/1.JPG');
 
         // ユーザーの現在のアイコンパスを特定
         $userIconExists = false;
@@ -136,19 +140,19 @@ class LoginController extends Controller
                     ')',
             );
 
-            if ($disk->exists($defaultIconPath)) {
+            if (file_exists($sourcePath)) {
                 try {
-                    // Force copy to .jpg extension
-                    $disk->copy(
-                        $defaultIconPath,
+                    // Seederファイルを読み込んでStorageに保存
+                    $disk->put(
                         'icons/' . $user->id . '.jpg',
+                        file_get_contents($sourcePath),
                     );
 
                     // DB update
                     $user->icon_ext = 'jpg';
                     $user->save();
                     \Illuminate\Support\Facades\Log::info(
-                        "Default icon restored for user {$user->id}",
+                        "Default icon restored for user {$user->id} from seeder file",
                     );
                 } catch (\Exception $e) {
                     \Illuminate\Support\Facades\Log::error(
@@ -157,7 +161,7 @@ class LoginController extends Controller
                 }
             } else {
                 \Illuminate\Support\Facades\Log::error(
-                    "Default icon source missing at {$defaultIconPath}",
+                    "Default icon source missing at {$sourcePath}",
                 );
             }
         }
