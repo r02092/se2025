@@ -83,9 +83,8 @@
 
                         {{-- 1. 画像エリア (CSSクラスで制御) --}}
                         <div class="spot-image-div">
-                            <img src="{{ $spot->image_url ?? asset('images/no-image.png') }}"
+                            <img src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
                                  alt="{{ $spot->name }}"
-                                 onerror="this.src='{{ asset('images/no-image.png') }}'"
                                  class="spot-image">
                         </div>
 
