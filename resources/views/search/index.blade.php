@@ -4,7 +4,7 @@
 
 @section('content')
 
-{{-- ▼▼▼ ハイライト用のヘルパー関数（強化版） ▼▼▼ --}}
+{{-- ▼▼▼ ハイライト用のヘルパー関数 ▼▼▼ --}}
 @php
     // ハイライト処理関数
     function highlightKeywords($text, $searchQuery) {
@@ -27,36 +27,19 @@
             return e($text);
         }
 
-        // 2. 表記ゆれ（ひらがな・カタカナ）のパターンを生成
+        // 2. 表記ゆれパターンの生成
         $patterns = [];
         foreach ($rawKeywords as $word) {
-            // HTMLエスケープしてから正規表現用にエスケープ
             $eWord = e($word);
-
-            // パターンA: そのまま
             $patterns[] = preg_quote($eWord, '/');
-
-            // パターンB: 全角ひらがな -> 全角カタカナ (例: りんご -> リンゴ)
-            $kata = mb_convert_kana($word, 'C');
-            $patterns[] = preg_quote(e($kata), '/');
-
-            // パターンC: 全角カタカナ -> 全角ひらがな (例: リンゴ -> りんご)
-            $hira = mb_convert_kana($word, 'c');
-            $patterns[] = preg_quote(e($hira), '/');
-
-            // パターンD: 半角カタカナ -> 全角カタカナ
-            $zenKata = mb_convert_kana($word, 'KV');
-            $patterns[] = preg_quote(e($zenKata), '/');
+            $patterns[] = preg_quote(e(mb_convert_kana($word, 'C')), '/');
+            $patterns[] = preg_quote(e(mb_convert_kana($word, 'c')), '/');
+            $patterns[] = preg_quote(e(mb_convert_kana($word, 'KV')), '/');
         }
-
-        // 重複を除外
         $patterns = array_unique($patterns);
 
-        // 3. 正規表現を作成 (例: /(りんご|リンゴ)/iu )
+        // 3. 正規表現で一括置換
         $regex = '/(' . implode('|', $patterns) . ')/iu';
-
-        // 4. テキスト全体をエスケープしてから、一括でハイライト置換
-        // これにより、検索語句自体がひらがなでもカタカナでもヒット箇所が黄色くなります
         return preg_replace(
             $regex,
             '<strong style="background: #fef08a; color: #854d0e; padding: 0 2px; border-radius: 2px;">$1</strong>',
@@ -93,17 +76,17 @@
     <div class="search-results">
         @if(count($spots) > 0)
             @foreach($spots as $spot)
-                <div class="result-card" style="background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.2s;">
+                <div class="result-card">
 
                     {{-- カード全体をリンクにする --}}
-                    <a href="{{ route('detail', ['id' => $spot->id]) }}" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; sm:flex-direction: row;">
+                    <a href="{{ route('detail', ['id' => $spot->id]) }}" class="result-link">
 
-                        {{-- 1. 画像エリア --}}
-                        <div style="height: 200px; background: #f3f4f6; position: relative; overflow: hidden;">
+                        {{-- 1. 画像エリア (CSSクラスで制御) --}}
+                        <div class="spot-image-div">
                             <img src="{{ $spot->image_url ?? asset('images/no-image.png') }}"
                                  alt="{{ $spot->name }}"
                                  onerror="this.src='{{ asset('images/no-image.png') }}'"
-                                 style="width: 100%; height: 100%; object-fit: cover;">
+                                 class="spot-image">
                         </div>
 
                         {{-- 2. 情報エリア --}}
@@ -115,7 +98,7 @@
                             </h2>
 
                             {{-- 説明文 --}}
-                            <p style="font-size: 0.9rem; color: #666; line-height: 1.6; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                            <p style="font-size: 0.9rem; color: #666; line-height: 1.6; margin-bottom: 15px;">
                                 {!! highlightKeywords($spot->description, $destination) !!}
                             </p>
 
@@ -166,21 +149,59 @@
 </div>
 
 <style>
-    @media (min-width: 640px) {
-        .result-card a {
-            flex-direction: row !important;
-        }
-        .result-card img {
-            width: 240px !important;
-            height: 100% !important;
-        }
+    /* カードの基本スタイル */
+    .result-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: transform 0.2s;
     }
     .result-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 15px rgba(0,0,0,0.1) !important;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
     }
+    .result-link {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column; /* スマホは縦並び */
+    }
+
+    /* 画像エリアのスタイル */
+    .spot-image-div {
+        height: 200px; /* スマホ・PC共通の基準高さ */
+        background: #f3f4f6;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+    .spot-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    /* ボタンのホバー効果 */
     .result-card:hover span[style*="background-color: #16a34a"] {
         background-color: #15803d !important;
+    }
+
+    /* ▼▼▼ PCレイアウト (幅640px以上) ▼▼▼ */
+    @media (min-width: 640px) {
+        .result-link {
+            flex-direction: row; /* 横並び */
+            align-items: center; /* ★画像とテキストを垂直方向中央に配置 */
+        }
+        .spot-image-div {
+            width: 240px;
+            height: 200px; /* ★高さを固定（全部同じ大きさ） */
+            /* 必要であれば左端の角丸を調整 */
+            /* border-radius: 12px 0 0 12px; */
+        }
     }
 </style>
 
