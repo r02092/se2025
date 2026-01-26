@@ -29,7 +29,8 @@
 
 			<div class="profile-edit-avatar-group">
 				<img
-					src="{{ Auth::user()->icon_ext ? asset('storage/icons/' . Auth::user()->id . '.' . Auth::user()->icon_ext . '?' . time()) : asset('images/Profile_pic.JPG') }}"
+					id="profile_preview"
+					src="{{ Auth::user()->icon_ext ? asset('storage/icons/' . Auth::user()->id . '.' . Auth::user()->icon_ext . '?' . time()) : asset('storage/icons/default_icon.jpg') }}"
 					alt="ユーザーの現在のアバター画像"
 					class="profile-avatar"
 				>
