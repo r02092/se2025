@@ -11,7 +11,7 @@ class UserListController extends Controller
 {
     public function index(): View
     {
-        $users = \App\Models\User::paginate(10);
+        $users = \App\Models\User::all();
         return view('user', compact('users'));
     }
 }

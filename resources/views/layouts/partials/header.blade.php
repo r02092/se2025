@@ -12,7 +12,7 @@
 	<div class="header-login">
 		@auth
 			<a href="{{ route('profile') }}" class="header-profile" title="プロフィールを表示">
-				<img src="{{ Auth::user()->icon_ext ? asset('storage/icons/' . Auth::user()->id . '.' . Auth::user()->icon_ext . '?' . time()) : asset('images/Profile_pic.JPG') }}" alt="プロフィール">
+				<img src="{{ Auth::user()->icon_ext ? asset('storage/icons/' . Auth::user()->id . '.' . Auth::user()->icon_ext . '?' . time()) : asset('storage/icons/default_icon.jpg') }}" alt="プロフィール">
 			</a>
 		@else
 			<button type="button" onclick="location.href = '{{ route('login') }}'">
