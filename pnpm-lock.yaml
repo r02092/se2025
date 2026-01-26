@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@types/blueimp-load-image':
+        specifier: ^5.16.6
+        version: 5.16.6
+      blueimp-load-image:
+        specifier: ^5.16.0
+        version: 5.16.0
       maplibre-gl:
         specifier: ^5.16.0
         version: 5.16.0
@@ -826,6 +832,9 @@ packages:
   '@textlint/utils@15.5.1':
     resolution: {integrity: sha512-3iA0ogHh6hyTsd+9uVoctAH3sLw/4EUCNrypkMQthnFz32Qe875uR0C5GJdB1LudVqgj8ivvverVaAdTtGGENg==}
 
+  '@types/blueimp-load-image@5.16.6':
+    resolution: {integrity: sha512-e7s6CdDCUoBQdCe62Q6OS+DF68M8+ABxCEMh2Isjt4Fl3xuddljCHMN8mak48AMSVGGwUUtNRaZbkzgL5PEWew==}
+
   '@types/debug@4.1.12':
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
 
@@ -1025,6 +1034,9 @@ packages:
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  blueimp-load-image@5.16.0:
+    resolution: {integrity: sha512-3DUSVdOtlfNRk7moRZuTwDmA3NnG8KIJuLcq3c0J7/BIr6X3Vb/EpX3kUH1joxUhmoVF4uCpDfz7wHkz8pQajA==}
 
   body-parser@2.2.2:
     resolution: {integrity: sha512-oP5VkATKlNwcgvxi0vM0p/D3n2C3EReYVX+DNYs5TjZFn/oQt2j+4sVJtSMr18pdRr8wjTcBl6LoV+FUwzPmNA==}
@@ -3625,6 +3637,8 @@ snapshots:
 
   '@textlint/utils@15.5.1': {}
 
+  '@types/blueimp-load-image@5.16.6': {}
+
   '@types/debug@4.1.12':
     dependencies:
       '@types/ms': 2.1.0
@@ -3845,6 +3859,8 @@ snapshots:
   bail@1.0.5: {}
 
   balanced-match@1.0.2: {}
+
+  blueimp-load-image@5.16.0: {}
 
   body-parser@2.2.2:
     dependencies:
