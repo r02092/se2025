@@ -124,7 +124,7 @@ class LoginController extends Controller
         $disk = \Illuminate\Support\Facades\Storage::disk('public');
         // コピー元のデフォルトアイコンパス (Seederファイルを使用)
         $sourcePath = base_path('database/seeders/files/icons/1.JPG');
-        
+
         // ユーザーの現在のアイコンパスを特定
         $userIconExists = false;
         if (!empty($user->icon_ext)) {
@@ -143,8 +143,11 @@ class LoginController extends Controller
             if (file_exists($sourcePath)) {
                 try {
                     // Seederファイルを読み込んでStorageに保存
-                    $disk->put('icons/' . $user->id . '.jpg', file_get_contents($sourcePath));
-                    
+                    $disk->put(
+                        'icons/' . $user->id . '.jpg',
+                        file_get_contents($sourcePath),
+                    );
+
                     // DB update
                     $user->icon_ext = 'jpg';
                     $user->save();
