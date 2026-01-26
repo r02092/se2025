@@ -34,6 +34,10 @@ Route::get('/filtering', [SearchApiController::class, 'getSpotList'])->name(
 // 公開ページ（ログイン不要）
 Route::get('/post', [PostMapController::class, 'index'])->name('post');
 
+Route::get('/post/load', [PostMapController::class, 'getPosts'])->name(
+    'post.load',
+);
+
 Route::get('/post/form', function () {
     return view('photo-form');
 })->name('post.form');
