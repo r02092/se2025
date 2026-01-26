@@ -4,11 +4,11 @@
 
 @section('content')
 
-{{-- ▼▼▼ ハイライト用のヘルパー関数 ▼▼▼ --}}
+{{-- ▼▼▼ ハイライト用のヘルパー関数（強化版） ▼▼▼ --}}
 @php
     // ハイライト処理関数
     function highlightKeywords($text, $searchQuery) {
-        // データがオブジェクトや配列で渡ってきた場合の安全対策
+        // オブジェクト対策
         if (is_object($text)) {
             $text = $text->keyword ?? '';
         }
@@ -20,26 +20,48 @@
             return e($text);
         }
 
-        // 検索ワードを空白で分割
-        $keywords = preg_split('/[\s]+/', mb_convert_kana($searchQuery, 's'), -1, PREG_SPLIT_NO_EMPTY);
+        // 1. 検索ワードをスペースで分割
+        $rawKeywords = preg_split('/[\s]+/', mb_convert_kana($searchQuery, 's'), -1, PREG_SPLIT_NO_EMPTY);
 
-        if (empty($keywords)) {
+        if (empty($rawKeywords)) {
             return e($text);
         }
 
-        $safeText = e($text);
+        // 2. 表記ゆれ（ひらがな・カタカナ）のパターンを生成
+        $patterns = [];
+        foreach ($rawKeywords as $word) {
+            // HTMLエスケープしてから正規表現用にエスケープ
+            $eWord = e($word);
 
-        foreach ($keywords as $word) {
-            $word = e($word);
-            // キーワードを黄色背景で強調
-            $safeText = preg_replace(
-                '/(' . preg_quote($word, '/') . ')/iu',
-                '<strong style="background: #fef08a; color: #854d0e; padding: 0 2px; border-radius: 2px;">$1</strong>',
-                $safeText
-            );
+            // パターンA: そのまま
+            $patterns[] = preg_quote($eWord, '/');
+
+            // パターンB: 全角ひらがな -> 全角カタカナ (例: りんご -> リンゴ)
+            $kata = mb_convert_kana($word, 'C');
+            $patterns[] = preg_quote(e($kata), '/');
+
+            // パターンC: 全角カタカナ -> 全角ひらがな (例: リンゴ -> りんご)
+            $hira = mb_convert_kana($word, 'c');
+            $patterns[] = preg_quote(e($hira), '/');
+
+            // パターンD: 半角カタカナ -> 全角カタカナ
+            $zenKata = mb_convert_kana($word, 'KV');
+            $patterns[] = preg_quote(e($zenKata), '/');
         }
 
-        return $safeText;
+        // 重複を除外
+        $patterns = array_unique($patterns);
+
+        // 3. 正規表現を作成 (例: /(りんご|リンゴ)/iu )
+        $regex = '/(' . implode('|', $patterns) . ')/iu';
+
+        // 4. テキスト全体をエスケープしてから、一括でハイライト置換
+        // これにより、検索語句自体がひらがなでもカタカナでもヒット箇所が黄色くなります
+        return preg_replace(
+            $regex,
+            '<strong style="background: #fef08a; color: #854d0e; padding: 0 2px; border-radius: 2px;">$1</strong>',
+            e($text)
+        );
     }
 @endphp
 
@@ -62,7 +84,7 @@
     @if($departureNotFound)
         <div style="background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
             <strong>⚠️ 出発地が見つかりませんでした</strong><br>
-            出発地「{{ $departure }}」の情報が取得できませんでした。<br>
+            出発地「{{ $departure }}」の位置情報が取得できませんでした。<br>
             キーワード「{{ $destination }}」のみでの検索結果を表示しています。
         </div>
     @endif
@@ -76,7 +98,7 @@
                     {{-- カード全体をリンクにする --}}
                     <a href="{{ route('detail', ['id' => $spot->id]) }}" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; sm:flex-direction: row;">
 
-                        {{-- 1. 画像エリア (ID表示を削除しました) --}}
+                        {{-- 1. 画像エリア --}}
                         <div style="height: 200px; background: #f3f4f6; position: relative; overflow: hidden;">
                             <img src="{{ $spot->image_url ?? asset('images/no-image.png') }}"
                                  alt="{{ $spot->name }}"
