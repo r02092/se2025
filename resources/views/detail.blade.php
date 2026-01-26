@@ -22,10 +22,9 @@
 		<div class="spot-detail-image-wrapper">
 			<!-- 画像パスの生成例: public/storage/spots/1.jpg -->
 			<!-- 画像がない場合の代替画像も設定しておくと安全です -->
-			<img src="{{ asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) }}"
+			<img src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
 				alt="{{ $spot->name }}"
-				class="spot-detail-image"
-				onerror="this.src='{{ asset('images/no-image.png') }}'">
+				class="spot-detail-image">
 		</div>
 
 		<div>
