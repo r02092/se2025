@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserCoupon;
 use App\Models\Coupon;
+use App\Traits\ToStringTrait;
 
 class CouponController extends Controller
 {
-    use \App\Traits\ToStringTrait;
+    use ToStringTrait;
 
     public function get()
     {
