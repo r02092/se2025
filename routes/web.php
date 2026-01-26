@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController; // 追加: MC00
 use App\Http\Controllers\SearchApiController;
 use App\Http\Controllers\PostMapController;
+use App\Http\Controllers\PostFormController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\TermsController;
@@ -32,6 +33,14 @@ Route::get('/filtering', [SearchApiController::class, 'getSpotList'])->name(
 
 // 公開ページ（ログイン不要）
 Route::get('/post', [PostMapController::class, 'index'])->name('post');
+
+Route::get('/post/form', function () {
+    return view('photo-form');
+})->name('post.form');
+
+Route::post('/post/form', [PostFormController::class, 'post'])->name(
+    'post.form.post',
+);
 
 Route::get('/detail', [DetailController::class, 'index'])->name('detail');
 
