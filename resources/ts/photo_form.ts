@@ -14,7 +14,7 @@ const marker = new maplibregl.Marker()
 map.addControl(new maplibregl.NavigationControl(), "top-right");
 map.on("click", e => inputCoord(e.lngLat.toArray()));
 
-const preview = document.getElementById("photo_preview") as HTMLImageElement;
+const preview = document.getElementById("profile_preview") as HTMLImageElement;
 document.getElementById("photo")?.addEventListener("change", e => {
 	const file = (e.target as HTMLInputElement).files;
 	if (file) {

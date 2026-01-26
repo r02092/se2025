@@ -2113,7 +2113,8 @@ iframe {
 	}
 }
 
-#photo_preview {
+.photo-preview {
+	display: block;
 	max-width: 400px;
 	max-height: 400px;
 	margin: 16px auto;
