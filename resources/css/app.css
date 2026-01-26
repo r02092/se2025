@@ -1832,22 +1832,6 @@ h1 {
 	border-color: #3498db;
 }
 
-.spot-detail-btn-submit {
-	background: #3498db;
-	color: #fff;
-	border: none;
-	padding: 0.8rem 2rem;
-	font-size: 1rem;
-	border-radius: 6px;
-	cursor: pointer;
-	transition: background-color 0.3s;
-	width: 100%;
-}
-
-.spot-detail-btn-submit:hover {
-	background: #2980b9;
-}
-
 .terms-content {
 	height: 35vh;
 	overflow-y: scroll;
