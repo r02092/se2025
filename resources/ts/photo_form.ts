@@ -49,8 +49,8 @@ document.getElementById("location_btn")?.addEventListener("click", () => {
 	});
 });
 
-function inputCoord(lnglat: [number, number]) {
-	marker.setLngLat(lnglat);
+function inputCoord(lngLat: [number, number]) {
+	marker.setLngLat(lngLat);
 	(document.getElementsByName("coord")[0] as HTMLInputElement).value =
-		JSON.stringify(lnglat);
+		JSON.stringify(lngLat);
 }
