@@ -6,31 +6,45 @@
     @vite(['resources/ts/home.ts'])
 @endpush
 
-{{-- ▼▼▼ スタイル定義 (緑色を統一) ▼▼▼ --}}
+{{-- ▼▼▼ スタイル定義 ▼▼▼ --}}
 @push('styles')
 <style>
-    /* 統一する緑色: #16a34a */
-
-    /* 検索ボタン等の共通クラス */
+    /* 緑色のボタン（キーワード検索、ログイン等） */
     .btn-green {
         width: 100%;
         padding: 12px;
         border: none;
         cursor: pointer;
-        background-color: #16a34a; /* 統一した緑 */
+        background-color: #16a34a; /* 緑色 */
         color: white;
         font-weight: bold;
         border-radius: 4px;
         transition: background-color 0.3s;
     }
     .btn-green:hover {
-        background-color: #15803d; /* ホバー時は少し濃く */
+        background-color: #15803d;
     }
 
-    /* ログインボタン用 */
+    /* AI検索用の青色ボタン */
+    .btn-blue {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        cursor: pointer;
+        background-color: #2563eb; /* 青色 */
+        color: white;
+        font-weight: bold;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+    .btn-blue:hover {
+        background-color: #1d4ed8;
+    }
+
+    /* ログインボタンリンク */
     .btn-login-link {
         display: inline-block;
-        background-color: #16a34a; /* 統一した緑 */
+        background-color: #16a34a; /* 緑色 */
         color: white;
         padding: 10px 20px;
         border-radius: 4px;
@@ -45,7 +59,7 @@
     /* 「詳細を見る」のテキスト色 */
     .text-green-link {
         font-size: 0.8rem;
-        color: #16a34a; /* 統一した緑 */
+        color: #16a34a;
         text-align: right;
         margin-top: 5px;
         font-weight: bold;
@@ -63,7 +77,6 @@
 
     {{-- 1. タブ切り替えボタン --}}
     <div class="home-btns">
-        {{-- キーワード検索タブ (アクティブ時の色を #16a34a に統一) --}}
         <button type="button" id="tab_btn_keyword"
             style="background: #fff; border-bottom: 3px solid #16a34a; color: #16a34a; font-weight: bold;">
             🔍 キーワード検索
@@ -84,7 +97,7 @@
                            style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:16px;" required>
                 </div>
 
-                {{-- 検索ボタン (クラスで統一色を適用) --}}
+                {{-- キーワード検索ボタン：緑色 --}}
                 <button type="submit" class="btn-green">
                     検索する
                 </button>
@@ -121,7 +134,8 @@
                         <input type="text" id="ai_prompt" name="prompt" placeholder="例: この間にある観光スポットを推薦して" />
                     </div>
 
-                    <button type="submit" style="width:100%; padding:12px; border:none; cursor:pointer; background: linear-gradient(to right, #2563eb, #7c3aed); color: white; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                    {{-- ▼▼▼ 修正: btn-blueクラスに加え、直接スタイル指定で青色を強制 ▼▼▼ --}}
+                    <button type="submit" class="btn-blue" style="background-color: #2563eb;">
                         AIにおすすめを聞く
                     </button>
                 </form>
@@ -135,7 +149,7 @@
                     <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
                         AIプランニング機能を利用するには、<br>ログインまたは会員登録を行ってください。
                     </p>
-                    {{-- ログインボタン (クラスで統一色を適用) --}}
+                    {{-- ログインボタン：緑色 --}}
                     <a href="{{ route('login') }}" class="btn-login-link">
                         ログイン画面へ
                     </a>
@@ -150,13 +164,11 @@
 {{-- ▼▼▼ 人気スポットエリア ▼▼▼ --}}
 <div class="general-box ai-suggest" style="padding-bottom: auto;">
 
-    {{-- 1. 見出しを「TOP5」に変更 --}}
     <h2 style="display: flex; align-items: center; gap: 10px;">
         <span style="color: #eab308;">🏆</span> 人気のスポット TOP5
     </h2>
     <div class="spot-divider" aria-hidden="true"></div>
 
-    {{-- コントローラー変数の揺らぎ吸収 --}}
     @php
         $displaySpots = $rankingSpots ?? ($spots ?? []);
     @endphp
@@ -167,7 +179,6 @@
             @foreach($displaySpots as $index => $spot)
                 <a class="spot-item" href="{{ route('detail', ['id' => $spot->id]) }}">
 
-                    {{-- 順位バッジ --}}
                     <div style="background: {{ $index < 3 ? '#eab308' : '#9ca3af' }};">
                         {{ $index + 1 }}
                     </div>
@@ -180,7 +191,7 @@
 
                     <div class="spot-content">
                         <h3 class="spot-title">{{ $spot->name }}</h3>
-                        {{-- 詳細を見る (クラスで統一色を適用) --}}
+                        {{-- 詳細リンク：緑色 --}}
                         <p class="text-green-link">
                             詳細を見る ➜
                         </p>
@@ -188,7 +199,6 @@
                 </a>
             @endforeach
         @else
-            {{-- データがない場合 --}}
             <div class="spot-item">
                 <div class="spot-content">
                     <h3 class="spot-title">集計中……</h3>
