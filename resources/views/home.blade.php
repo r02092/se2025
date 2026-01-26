@@ -9,7 +9,7 @@
 {{-- ▼▼▼ スタイル定義 ▼▼▼ --}}
 @push('styles')
 <style>
-    /* 緑色のボタン（キーワード検索、ログイン等） */
+    /* 緑色のボタン（基本） */
     .btn-green {
         width: 100%;
         padding: 12px;
@@ -25,26 +25,26 @@
         background-color: #15803d;
     }
 
-    /* AI検索用の青色ボタン */
+    /* 【修正】AI検索用の青色ボタン（強制適用） */
     .btn-blue {
         width: 100%;
         padding: 12px;
         border: none;
         cursor: pointer;
-        background-color: #2563eb; /* 青色 */
+        background-color: #2563eb !important; /* 青色を強制 */
         color: white;
         font-weight: bold;
         border-radius: 4px;
         transition: background-color 0.3s;
     }
     .btn-blue:hover {
-        background-color: #1d4ed8;
+        background-color: #1d4ed8 !important;
     }
 
     /* ログインボタンリンク */
     .btn-login-link {
         display: inline-block;
-        background-color: #16a34a; /* 緑色 */
+        background-color: #16a34a;
         color: white;
         padding: 10px 20px;
         border-radius: 4px;
@@ -69,7 +69,8 @@
 
 @section('content')
 <div class="map-area">
-    <div id="map" data-spots="{{ json_encode($allSpots) }}"></div>
+    {{-- 変数エラー回避のため $allSpots が無ければ $spots を使う --}}
+    <div id="map" data-spots="{{ json_encode($allSpots ?? $spots ?? []) }}"></div>
 </div>
 
 {{-- ▼▼▼ 検索フォームエリア ▼▼▼ --}}
@@ -134,8 +135,8 @@
                         <input type="text" id="ai_prompt" name="prompt" placeholder="例: この間にある観光スポットを推薦して" />
                     </div>
 
-                    {{-- ▼▼▼ 修正: btn-blueクラスに加え、直接スタイル指定で青色を強制 ▼▼▼ --}}
-                    <button type="submit" class="btn-blue" style="background-color: #2563eb;">
+                    {{-- ▼▼▼ 修正: 青色のボタン (btn-blue) を適用 ▼▼▼ --}}
+                    <button type="submit" class="btn-blue">
                         AIにおすすめを聞く
                     </button>
                 </form>
