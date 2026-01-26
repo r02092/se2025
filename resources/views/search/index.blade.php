@@ -3,61 +3,163 @@
 @section('title', '検索結果')
 
 @section('content')
-<div class="general-box" style="padding: 20px; margin: 20px 5%;">
-	<h1 style="font-size:1.5rem; color:#16a34a; margin-bottom:20px;">検索結果</h1>
 
-	{{-- ▼▼▼ 修正: 検索条件（キーワードのみ表示） ▼▼▼ --}}
-	<div class="bg-white shadow rounded-lg p-6 mb-6" style="background:#fff; padding:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1);">
-		<p style="margin-bottom:0; display:flex; align-items:center; gap:10px;">
-			<span style="font-weight:bold; color:#555;">検索キーワード:</span>
-			<span style="font-size:1.3rem; font-weight:bold; color:#333;">
-				{{-- 出発地と目的地の両方が入力されている場合も考慮して並べて表示（片方なら片方のみ表示） --}}
-				{{ $destination }}
-				@if(!empty($departure))
-					<span style="font-size:1rem; color:#888; font-weight:normal;">( {{ $departure }} )</span>
-				@endif
-			</span>
-		</p>
-	</div>
+{{-- ▼▼▼ ハイライト用のヘルパー関数 ▼▼▼ --}}
+@php
+    // ハイライト処理関数
+    function highlightKeywords($text, $searchQuery) {
+        // データがオブジェクトや配列で渡ってきた場合の安全対策
+        if (is_object($text)) {
+            $text = $text->keyword ?? '';
+        }
+        if (is_array($text)) {
+            $text = $text['keyword'] ?? '';
+        }
 
-	{{-- 出発地エラーブロックはキーワード検索の文脈に合わないため削除しました --}}
+        if (empty($text) || empty($searchQuery)) {
+            return e($text);
+        }
 
-	{{-- 検索結果リスト --}}
-	@if(isset($spots) && count($spots) > 0)
-		<h3 style="font-size:1.1rem; font-weight:bold; margin-bottom:10px;">見つかったスポット</h3>
+        // 検索ワードを空白で分割
+        $keywords = preg_split('/[\s]+/', mb_convert_kana($searchQuery, 's'), -1, PREG_SPLIT_NO_EMPTY);
 
-		<ul class="search-res">
-			@foreach($spots as $spot)
-				<li>
-					{{-- 画像表示 --}}
-					<img src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
-						 alt="{{ $spot->name }}">
+        if (empty($keywords)) {
+            return e($text);
+        }
 
-					<div>
-						<h4>{{ $spot->name }}</h4>
-						<p>{{ $spot->description ?? '詳細なし' }}</p>
+        $safeText = e($text);
 
-						{{-- 詳細画面へのリンク --}}
-						<div>
-							<a href="{{ route('detail', ['id' => $spot->id]) }}">
-								詳細を見る
-							</a>
-						</div>
-					</div>
-				</li>
-			@endforeach
-		</ul>
-	@else
-		{{-- ▼▼▼ 修正: 見つからなかった場合の文言 ▼▼▼ --}}
-		<div style="padding:20px; background:#fff3cd; color:#856404; border-radius:8px; text-align: center;">
-			<p style="margin-bottom: 15px; font-weight: bold;">該当するスポットが見つかりませんでした。</p>
-			<p style="font-size: 0.9rem; margin-bottom: 15px;">キーワードを変えて、もう一度検索してみてください。</p>
-			<a href="/" style="color:#856404; text-decoration:underline; font-weight:bold;">ホームに戻って再検索</a>
-		</div>
-	@endif
+        foreach ($keywords as $word) {
+            $word = e($word);
+            // キーワードを黄色背景で強調
+            $safeText = preg_replace(
+                '/(' . preg_quote($word, '/') . ')/iu',
+                '<strong style="background: #fef08a; color: #854d0e; padding: 0 2px; border-radius: 2px;">$1</strong>',
+                $safeText
+            );
+        }
 
-	<div style="margin-top:20px;">
-		<a href="/" style="color:#16a34a; text-decoration:underline;">← ホームに戻る</a>
-	</div>
+        return $safeText;
+    }
+@endphp
+
+<div class="container" style="max-width: 800px; margin: 0 auto; padding: 30px 20px;">
+
+    {{-- ヘッダー --}}
+    <div style="margin-bottom: 30px;">
+        <h1 style="font-size: 1.5rem; font-weight: bold; color: #333; margin-bottom: 10px;">
+            🔍 検索結果
+        </h1>
+        <p style="color: #666;">
+            @if($departure)
+                「<strong>{{ $departure }}</strong>」周辺、かつ
+            @endif
+            「<strong>{{ $destination }}</strong>」を含むスポット
+        </p>
+    </div>
+
+    {{-- エラー表示 --}}
+    @if($departureNotFound)
+        <div style="background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            <strong>⚠️ 出発地が見つかりませんでした</strong><br>
+            出発地「{{ $departure }}」の位置情報が取得できませんでした。<br>
+            キーワード「{{ $destination }}」のみでの検索結果を表示しています。
+        </div>
+    @endif
+
+    {{-- 検索結果リスト --}}
+    <div class="search-results">
+        @if(count($spots) > 0)
+            @foreach($spots as $spot)
+                <div class="result-card" style="background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.2s;">
+
+                    {{-- カード全体をリンクにする --}}
+                    <a href="{{ route('detail', ['id' => $spot->id]) }}" style="text-decoration: none; color: inherit; display: flex; flex-direction: column; sm:flex-direction: row;">
+
+                        {{-- 1. 画像エリア (ID表示を削除しました) --}}
+                        <div style="height: 200px; background: #f3f4f6; position: relative; overflow: hidden;">
+                            <img src="{{ $spot->image_url ?? asset('images/no-image.png') }}"
+                                 alt="{{ $spot->name }}"
+                                 onerror="this.src='{{ asset('images/no-image.png') }}'"
+                                 style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+
+                        {{-- 2. 情報エリア --}}
+                        <div style="padding: 20px; flex: 1; display: flex; flex-direction: column;">
+
+                            {{-- タイトル --}}
+                            <h2 style="font-size: 1.25rem; font-weight: bold; color: #333; margin: 0 0 10px 0;">
+                                {!! highlightKeywords($spot->name, $destination) !!}
+                            </h2>
+
+                            {{-- 説明文 --}}
+                            <p style="font-size: 0.9rem; color: #666; line-height: 1.6; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                {!! highlightKeywords($spot->description, $destination) !!}
+                            </p>
+
+                            {{-- キーワードタグ --}}
+                            @if(!empty($spot->keywords))
+                                <div style="margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px;">
+                                    @foreach($spot->keywords as $keyword)
+                                        <span style="font-size: 0.8rem; background: #f3f4f6; color: #555; padding: 4px 10px; border-radius: 20px;">
+                                            # {!! highlightKeywords($keyword, $destination) !!}
+                                        </span>
+                                    @endforeach
+                                </div>
+                            @endif
+
+                            {{-- 3. アクションボタン --}}
+                            <div style="margin-top: auto;">
+                                <span style="display: inline-block; background-color: #16a34a; color: white; padding: 10px 20px; border-radius: 6px; font-weight: bold; font-size: 0.95rem; text-align: center; transition: background 0.2s;">
+                                    詳細を見る
+                                </span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+            @endforeach
+        @else
+            {{-- ヒットなし --}}
+            <div style="text-align: center; padding: 60px 20px; background: #f9fafb; border-radius: 12px;">
+                <p style="font-size: 4rem; margin-bottom: 20px;">😢</p>
+                <h3 style="font-weight: bold; color: #333; margin-bottom: 10px;">見つかりませんでした</h3>
+                <p style="color: #666;">
+                    キーワードを変えて、もう一度検索してみてください。
+                </p>
+                <div style="margin-top: 30px;">
+                    <a href="/" style="color: #16a34a; font-weight: bold; text-decoration: underline;">ホームに戻る</a>
+                </div>
+            </div>
+        @endif
+    </div>
+
+    {{-- 再検索ボタン --}}
+    <div style="margin-top: 40px; text-align: center;">
+        <a href="/" style="display: inline-block; background: #fff; border: 1px solid #ccc; color: #333; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            条件を変えて再検索
+        </a>
+    </div>
+
 </div>
+
+<style>
+    @media (min-width: 640px) {
+        .result-card a {
+            flex-direction: row !important;
+        }
+        .result-card img {
+            width: 240px !important;
+            height: 100% !important;
+        }
+    }
+    .result-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1) !important;
+    }
+    .result-card:hover span[style*="background-color: #16a34a"] {
+        background-color: #15803d !important;
+    }
+</style>
+
 @endsection
