@@ -30,7 +30,7 @@
 			<div class="profile-edit-avatar-group">
 				<img
 					id="profile_preview"
-					src="{{ Auth::user()->icon_ext ? asset('storage/icons/' . Auth::user()->id . '.' . Auth::user()->icon_ext . '?' . time()) : asset('storage/icons/default_icon.jpg') }}"
+					src="{{ Auth::user()->icon_url }}"
 					alt="ユーザーの現在のアバター画像"
 					class="profile-avatar"
 				>

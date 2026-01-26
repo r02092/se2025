@@ -248,6 +248,14 @@ Route::middleware(['auth'])
             ->names('admin.users');
     });
 
-// 検索
 // SearchControllerのsearchメソッドを使って検索を実行し、履歴を保存します
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+// デフォルトアイコン配信 (Git管理下のSeederファイルを表示)
+Route::get('/default-icon', function () {
+    $path = base_path('database/seeders/files/icons/1.JPG');
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+})->name('default_icon');
