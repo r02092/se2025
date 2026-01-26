@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - ログアウト確認')
+@section('title', 'ログアウト確認')
 
 @section('content')
 <h1>ログアウト確認</h1>
 <section class="general-box achievement" aria-labelledby="achievement-title">
-	<div id="achievement-title">ログアウトしますか？</div>
+	<div id="achievement_title">ログアウトしますか？</div>
 	<div style="text-align: center;">「はい」をクリックすると、ログアウトしてトップページに戻ります。<br></div>
 	<div class="general-box divider" aria-hidden="true"></div>
 

@@ -6,7 +6,7 @@ const track = document.querySelector(".slider-track") as HTMLElement | null;
 const handle = document.querySelector(".slider-handle") as HTMLElement | null;
 const fill = document.querySelector(".slider-fill") as HTMLElement | null;
 // overlay は従来のモーダルを残していますが、クリックは別ページへ遷移します
-const overlay = document.getElementById("qr-overlay") as HTMLElement | null;
+const overlay = document.getElementById("qr_overlay") as HTMLElement | null;
 const closeBtn = overlay?.querySelector(".qr-close") as HTMLElement | null;
 
 if (track && handle && fill) {
@@ -118,5 +118,3 @@ if (track && handle && fill) {
 	// 初期化
 	resetHandle(false);
 }
-
-export {};

@@ -17,9 +17,6 @@ class SearchApiTest extends TestCase
 
         $response->assertStatus(200)->assertJson([
             [
-                'user_id' => 1,
-                'plan' => 1,
-                'type' => 0,
                 'name' => 'chimney',
             ],
         ]);
@@ -31,9 +28,6 @@ class SearchApiTest extends TestCase
 
         $response->assertStatus(200)->assertJson([
             [
-                'user_id' => 1,
-                'plan' => 1,
-                'type' => 0,
                 'name' => 'chimney',
             ],
         ]);

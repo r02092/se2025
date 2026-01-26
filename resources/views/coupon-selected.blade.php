@@ -2,6 +2,10 @@
 
 @section('title', 'クーポン')
 
+@push('scripts')
+@vite(['resources/ts/coupon_selected.ts'])
+@endpush
+
 @section('content')
 <div class="main-area">
 	<div class="coupon-titlebar">
@@ -10,12 +14,12 @@
 
 	<!-- HERO（上部の大きな画像） -->
 	<section class="hero">
-		<img src="{{ asset('images/ryugado.jpg') }}" alt="Harimaya Bridge" class="hero-img" />
+		<img src="{{ asset('images/ryugado.jpg') }}" alt="Harimaya Bridge" class="hero-img">
 	</section>
 
 	<!-- クーポン詳細（背景に直接描画するスタイル） -->
 	<article class="coupon-detail">
-		<h1 class="coupon-detail-title">{{ $coupon->title ?? '龍河洞入場割引' }}</h1>
+		<h2 class="coupon-detail-title">{{ $coupon->title ?? '龍河洞入場割引' }}</h2>
 		<p class="coupon-detail-desc">
 			{{ $coupon->description ?? '入場料100円引き。スタッフに画面を見せてください。' }}
 		</p>

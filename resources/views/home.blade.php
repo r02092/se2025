@@ -1,26 +1,74 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - ホーム')
+@section('title', 'ホーム')
 
+@push('scripts')
+    @vite(['resources/ts/home.ts'])
+@endpush
+
+{{-- ▼▼▼ スタイル定義 (緑色を統一) ▼▼▼ --}}
 @push('styles')
+<style>
+    /* 統一する緑色: #16a34a */
+
+    /* 検索ボタン等の共通クラス */
+    .btn-green {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        cursor: pointer;
+        background-color: #16a34a; /* 統一した緑 */
+        color: white;
+        font-weight: bold;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+    .btn-green:hover {
+        background-color: #15803d; /* ホバー時は少し濃く */
+    }
+
+    /* ログインボタン用 */
+    .btn-login-link {
+        display: inline-block;
+        background-color: #16a34a; /* 統一した緑 */
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+    .btn-login-link:hover {
+        background-color: #15803d;
+    }
+
+    /* 「詳細を見る」のテキスト色 */
+    .text-green-link {
+        font-size: 0.8rem;
+        color: #16a34a; /* 統一した緑 */
+        text-align: right;
+        margin-top: 5px;
+        font-weight: bold;
+    }
+</style>
 @endpush
 
 @section('content')
 <div class="map-area">
-    <div id="map"></div>
+    <div id="map" data-spots="{{ json_encode($allSpots) }}"></div>
 </div>
 
 {{-- ▼▼▼ 検索フォームエリア ▼▼▼ --}}
 <div class="general-box form-container" style="padding-top: 0; padding-bottom: 20px; margin: 16px 5% 16px; overflow: hidden;">
 
     {{-- 1. タブ切り替えボタン --}}
-    <div style="display: flex; border-bottom: 1px solid #eee; background: #f9fafb;">
-        <button type="button" id="tab-btn-keyword" onclick="switchSearchTab('keyword')"
-            style="flex: 1; padding: 15px; border: none; background: #fff; border-bottom: 3px solid #16a34a; font-weight: bold; color: #16a34a; cursor: pointer; transition: all 0.2s;">
+    <div class="home-btns">
+        {{-- キーワード検索タブ (アクティブ時の色を #16a34a に統一) --}}
+        <button type="button" id="tab_btn_keyword"
+            style="background: #fff; border-bottom: 3px solid #16a34a; color: #16a34a; font-weight: bold;">
             🔍 キーワード検索
         </button>
-        <button type="button" id="tab-btn-ai" onclick="switchSearchTab('ai')"
-            style="flex: 1; padding: 15px; border: none; background: #f3f4f6; border-bottom: 3px solid transparent; font-weight: bold; color: #6b7280; cursor: pointer; transition: all 0.2s;">
+        <button type="button" id="tab_btn_ai">
             🤖 AIに聞く
         </button>
     </div>
@@ -28,15 +76,16 @@
     <div style="padding: 20px 15px 0;">
 
         {{-- 2. キーワード検索フォーム (初期表示) --}}
-        <div id="form-area-keyword">
+        <div id="form_area_keyword">
             <form action="{{ route('search') }}" method="GET">
                 <div style="margin-bottom: 15px;">
                     <label for="destination" style="font-weight:bold; display:block; margin-bottom:5px;">目的地・キーワード</label>
                     <input type="text" id="destination" name="destination" placeholder="作品名・地名・キーワードを入力"
-                           style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:16px;" required />
+                           style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:16px;" required>
                 </div>
 
-                <button type="submit" class="btn-green" style="width:100%; padding:12px; border:none; cursor:pointer; background-color: #16a34a; color: white; font-weight: bold; border-radius: 4px;">
+                {{-- 検索ボタン (クラスで統一色を適用) --}}
+                <button type="submit" class="btn-green">
                     検索する
                 </button>
             </form>
@@ -46,25 +95,30 @@
         </div>
 
         {{-- 3. AI検索フォーム --}}
-        <div id="form-area-ai" style="display: none;">
+        <div id="form_area_ai" style="display: none;">
 
             {{-- ▼▼▼ ログイン済みの場合：フォームを表示 ▼▼▼ --}}
             @auth
                 <form action="{{ route('ai.plan') }}" method="GET">
                     <div style="background-color: #eff6ff; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 0.9rem; color: #1e40af;">
-                        <strong>🤖 AIプランナー:</strong> <br>出発地か目的地を入力すると、最適な寄り道スポットを提案します。
+                        <strong>🤖 AIプランナー:</strong> <br>出発地と目的地を入力すると、最適な寄り道スポットを提案します。
                     </div>
 
-                    <div style="margin-bottom: 15px;">
-                        <label for="ai_departure" style="font-weight:bold; display:block; margin-bottom:5px;">出発地 <span style="color:#e11d48; font-size:0.8rem;">(どちらか必須)</span></label>
-                        <input type="text" id="ai_departure" name="departure" placeholder="例: 高知駅"
-                               style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
+                    <div>
+                        <label for="ai_departure">出発地 <span>（どちらか必須）</span></label>
+                        <input type="text" id="ai_departure" name="departure" placeholder="例: 高知駅" autocomplete="off">
+                        <div id="ai_departure_suggest"></div>
                     </div>
 
-                    <div style="margin-bottom: 15px;">
-                        <label for="ai_destination" style="font-weight:bold; display:block; margin-bottom:5px;">目的地 <span style="color:#e11d48; font-size:0.8rem;">(どちらか必須)</span></label>
-                        <input type="text" id="ai_destination" name="destination" placeholder="例: 桂浜"
-                               style="width:100%; padding:10px; border:1px solid #93c5fd; border-radius:4px; background-color: #f0f9ff; font-size:16px;" />
+                    <div>
+                        <label for="ai_destination">目的地 <span>（どちらか必須）</span></label>
+                        <input type="text" id="ai_destination" name="destination" placeholder="例: 桂浜" autocomplete="off">
+                        <div id="ai_destination_suggest"></div>
+                    </div>
+
+                    <div>
+                        <label for="ai_prompt">質問内容 <span class="form-detail">（空欄の場合、特に条件を絞らずおすすめのスポットを提案します）</span></label>
+                        <input type="text" id="ai_prompt" name="prompt" placeholder="例: この間にある観光スポットを推薦して" />
                     </div>
 
                     <button type="submit" style="width:100%; padding:12px; border:none; cursor:pointer; background: linear-gradient(to right, #2563eb, #7c3aed); color: white; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
@@ -81,7 +135,8 @@
                     <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">
                         AIプランニング機能を利用するには、<br>ログインまたは会員登録を行ってください。
                     </p>
-                    <a href="{{ route('login') }}" style="display: inline-block; background-color: #16a34a; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold;">
+                    {{-- ログインボタン (クラスで統一色を適用) --}}
+                    <a href="{{ route('login') }}" class="btn-login-link">
                         ログイン画面へ
                     </a>
                 </div>
@@ -106,87 +161,45 @@
         $displaySpots = $rankingSpots ?? ($spots ?? []);
     @endphp
 
-    <ul class="spot-list" aria-label="人気のスポット一覧">
+    <div class="spot-list home-spot" aria-label="人気のスポット一覧">
 
         @if(count($displaySpots) > 0)
             @foreach($displaySpots as $index => $spot)
-                <li class="spot-item" style="position: relative; transition: transform 0.2s;">
+                <a class="spot-item" href="{{ route('detail', ['id' => $spot->id]) }}">
 
-                    {{-- 2. 全体をリンク(aタグ)で囲んで詳細画面へ飛べるようにする --}}
-                    <a href="{{ route('detail', ['id' => $spot->id]) }}"
-                       style="display: block; text-decoration: none; color: inherit; height: 100%;">
+                    {{-- 順位バッジ --}}
+                    <div style="background: {{ $index < 3 ? '#eab308' : '#9ca3af' }};">
+                        {{ $index + 1 }}
+                    </div>
 
-                        {{-- 順位バッジ --}}
-                        <div style="position: absolute; top: 0; left: 0; background: {{ $index < 3 ? '#eab308' : '#9ca3af' }}; color: white; font-weight: bold; padding: 4px 10px; border-radius: 4px 0 4px 0; z-index: 10;">
-                            {{ $index + 1 }}
-                        </div>
+                    <img class="spot-thumb"
+                         src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
+                         alt="{{ $spot->name }}"
+                         onmouseover="this.style.opacity='0.8'"
+                         onmouseout="this.style.opacity='1.0'">
 
-                        {{-- 画像 (▼▼▼ 修正: onerrorで代替画像を指定 ▼▼▼) --}}
-                        <img class="spot-thumb"
-                             src="{{ asset('images/' . $spot->name . '.' . ($spot->img_ext ?? 'jpg')) }}"
-                             alt="{{ $spot->name }}"
-                             onerror="this.src='{{ asset('images/no-image.png') }}'"
-                             style="transition: opacity 0.2s;"
-                             onmouseover="this.style.opacity='0.8'"
-                             onmouseout="this.style.opacity='1.0'" />
-
-                        <div class="spot-content">
-                            <h3 class="spot-title">{{ $spot->name }}</h3>
-                            <p style="font-size: 0.8rem; color: #16a34a; text-align: right; margin-top: 5px;">
-                                詳細を見る ➜
-                            </p>
-                        </div>
-                    </a>
-                </li>
+                    <div class="spot-content">
+                        <h3 class="spot-title">{{ $spot->name }}</h3>
+                        {{-- 詳細を見る (クラスで統一色を適用) --}}
+                        <p class="text-green-link">
+                            詳細を見る ➜
+                        </p>
+                    </div>
+                </a>
             @endforeach
         @else
             {{-- データがない場合 --}}
-            <li class="spot-item">
+            <div class="spot-item">
                 <div class="spot-content">
-                    <h3 class="spot-title">集計中...</h3>
+                    <h3 class="spot-title">集計中……</h3>
                     <p>検索データが集まるとランキングが表示されます。</p>
                 </div>
-            </li>
+            </div>
         @endif
 
-    </ul>
+    </div>
 </div>
 {{-- ▲▲▲ 人気スポットエリア（ここまで） ▲▲▲ --}}
-
-{{-- ▼▼▼ タブ切り替え用のスクリプト ▼▼▼ --}}
-<script>
-    function switchSearchTab(tabName) {
-        const btnKeyword = document.getElementById('tab-btn-keyword');
-        const btnAi = document.getElementById('tab-btn-ai');
-        const areaKeyword = document.getElementById('form-area-keyword');
-        const areaAi = document.getElementById('form-area-ai');
-
-        if (tabName === 'keyword') {
-            areaKeyword.style.display = 'block';
-            areaAi.style.display = 'none';
-
-            btnKeyword.style.background = '#fff';
-            btnKeyword.style.color = '#16a34a';
-            btnKeyword.style.borderBottomColor = '#16a34a';
-
-            btnAi.style.background = '#f3f4f6';
-            btnAi.style.color = '#6b7280';
-            btnAi.style.borderBottomColor = 'transparent';
-        } else {
-            areaKeyword.style.display = 'none';
-            areaAi.style.display = 'block';
-
-            btnAi.style.background = '#fff';
-            btnAi.style.color = '#2563eb';
-            btnAi.style.borderBottomColor = '#2563eb';
-
-            btnKeyword.style.background = '#f3f4f6';
-            btnKeyword.style.color = '#6b7280';
-            btnKeyword.style.borderBottomColor = 'transparent';
-        }
-    }
-</script>
-{{-- ▲▲▲ 検索フォームエリア（ここまで） ▲▲▲ --}}
 
 <div class="suggest"></div>
 @endsection

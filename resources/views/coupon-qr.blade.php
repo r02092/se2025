@@ -2,6 +2,10 @@
 
 @section('title', 'クーポンQR')
 
+@push('scripts')
+@vite(['resources/ts/coupon_qr.ts'])
+@endpush
+
 @section('content')
 <main class="main-area qr-page" role="main">
 	<div class="coupon-titlebar">
@@ -10,12 +14,12 @@
 
 	<!-- HERO（上部の大きな画像） -->
 	<section class="hero">
-		<img src="{{ asset('images/ryugado.jpg') }}" alt="Harimaya Bridge" class="hero-img" />
+		<img src="{{ asset('images/ryugado.jpg') }}" alt="Harimaya Bridge" class="hero-img">
 	</section>
 
 	<!-- クーポン詳細（背景に直接描画するスタイル） -->
 	<article class="coupon-detail">
-		<h1 class="coupon-detail-title">{{ $coupon->title ?? '龍河洞入場割引' }}</h1>
+		<h2 class="coupon-detail-title">{{ $coupon->title ?? '龍河洞入場割引' }}</h2>
 		<p class="coupon-detail-desc">
 			{{ $coupon->description ?? '入場料100円引き。スタッフに画面を見せてください。' }}
 		</p>
@@ -38,14 +42,14 @@
 </main>
 
 <!-- オーバーレイ（ポップアップ用） -->
-<div id="qr-overlay" class="qr-overlay" aria-hidden="true">
+<div id="qr_overlay" class="qr-overlay" aria-hidden="true">
 	<div
 		class="qr-modal"
 		role="dialog"
 		aria-modal="true"
 		aria-labelledby="qr-modal-title"
 	>
-		<h2 id="qr-modal-title" class="qr-modal-title">{{ $coupon->title ?? '龍河洞 入場割引' }}</h2>
+		<h2 class="qr-modal-title">{{ $coupon->title ?? '龍河洞 入場割引' }}</h2>
 		<p class="qr-modal-sub">
 			こちらの二次元コードをスタッフにご提示ください
 		</p>
@@ -54,7 +58,7 @@
 				src="{{ asset('images/coupon-code.gif') }}"
 				alt="クーポンQRコード"
 				style="image-rendering: pixelated"
-			/>
+			>
 		</div>
 		<p class="qr-modal-hint">
 			この画面をスタッフに見せて割引を受けてください。

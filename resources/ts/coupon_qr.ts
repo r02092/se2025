@@ -1,7 +1,7 @@
 // coupon-QR:  ページ読み込み時に main-area を暗くしてモーダル（QR）をポップアップ表示。
 // 閉じるはボタン・背景クリック・Esc で行えるようにしています。
 
-const overlay = document.getElementById("qr-overlay") as HTMLElement | null;
+const overlay = document.getElementById("qr_overlay") as HTMLElement | null;
 
 if (overlay) {
 	const closeBtn = overlay.querySelector(
@@ -67,5 +67,3 @@ if (overlay) {
 		}
 	});
 }
-
-export {};

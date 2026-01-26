@@ -87,5 +87,3 @@ if (!overlay) {
 	// 自動表示
 	setTimeout(showOverlay, 120);
 }
-
-export {};

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage; // 追加
 
 /**
@@ -99,7 +98,7 @@ class ProfileEditController extends Controller
         if ($request->filled('new-password')) {
             // 現在のパスワードが合っているかチェック
             if (
-                !Hash::check(
+                !password_verify(
                     $request->input('current-password'),
                     $user->password,
                 )
@@ -113,7 +112,7 @@ class ProfileEditController extends Controller
             }
             // パスワードをハッシュ化して保存
             $user->password = password_hash(
-                $request->input('new_password'),
+                $request->input('new-password'),
                 PASSWORD_ARGON2ID,
             );
         }

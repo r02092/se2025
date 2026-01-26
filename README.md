@@ -88,7 +88,7 @@ podman rmi se2025_app
 コンテナ内のシェルを起動するには、下記のコマンドを実行します。`composer`コマンドや`php`コマンドはこの方法でコンテナの中に入ってから実行してください。
 
 ```sh
-podman exec -it se2025_app_1 /bin/sh
+podman compose exec app /bin/sh
 ```
 
 ### 動作確認・ビルド方法

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - 事業者機能')
+@section('title', '事業者機能')
 
 @section('content')
 <h1>事業者機能</h1>
 
 <div class="general-box column-menu">
-    <h2>事業者メニュー</h2>
-    <div class="spot-divider" aria-hidden="true"></div>
+	<h2>事業者メニュー</h2>
+	<div class="spot-divider" aria-hidden="true"></div>
 
 	<!-- <div class="column-menu"> -->
 		<button class="settings-button" onclick="location.href = '{{ route('business.spots') }}'">

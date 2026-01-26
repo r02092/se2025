@@ -25,8 +25,9 @@ class SearchController extends Controller
             ->orderByDesc('search_count')
             ->take(5)
             ->get();
+        $allSpots = Spot::get(['id', 'name', 'lng', 'lat']);
 
-        return view('home', compact('spots'));
+        return view('home', compact('spots', 'allSpots'));
     }
 
     /**
@@ -132,7 +133,7 @@ class SearchController extends Controller
         $toSpot = $findSpotViaApi($dstName);
 
         // 4. ビューを表示
-        return view('search.ai_plan', [
+        return view('search.ai-plan', [
             'depName' => $depName,
             'dstName' => $dstName,
             'fromSpot' => $fromSpot,

@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - ログイン')
+@section('title', 'ログイン')
 
 @section('content')
 <div class="general-box form-container">
-	<h2>ログイン</h2>
+	<h1 class="h2">ログイン</h1>
 	<form action="{{ route('login.post') }}" method="POST">
 		@csrf
 		<label for="login_name">ログイン名</label>
-		<input type="text" id="login_name" name="login_name" required value="{{ old('username') }}" />
+		<input type="text" id="login_name" name="login_name" required value="{{ old('username') }}">
 
 		<label for="password">パスワード</label>
-		<input type="password" id="password" name="password" required />
+		<input type="password" id="password" name="password" required>
 
 		@if ($errors->any())
 		<div class="alert alert-danger">

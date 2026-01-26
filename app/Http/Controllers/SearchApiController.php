@@ -37,7 +37,7 @@ class SearchApiController extends Controller
         }
 
         // 4. データの取得
-        $spots = $query->get();
+        $spots = $query->get(['id', 'name', 'description', 'img_ext']);
 
         // ▼▼▼ 追加: 取得後に優先順位で並び替えるロジック ▼▼▼
         if ($request->filled('keyword')) {
@@ -63,26 +63,7 @@ class SearchApiController extends Controller
                 ->values(); // キーを連番に振り直す
         }
 
-        // 5. JSON形式に整形して返す
-        // (APIとしても、SearchControllerから呼ばれた場合も使いやすい形にする)
-        $result = $spots->map(function (\App\Models\Spot $spot) {
-            return [
-                'id' => $spot->id,
-                'name' => $spot->name,
-                // ▼▼▼ 追加: テストコードを通すために必要なデータ ▼▼▼
-                'user_id' => $spot->user_id,
-                'plan' => $spot->plan,
-                'description' => $spot->description,
-                'type' => $spot->type,
-                // 画像URLの生成ロジック
-                'image_url' => asset(
-                    'images/' . $spot->name . '.' . ($spot->img_ext ?? 'jpg'),
-                ),
-                'keywords' => $spot->keywords->pluck('keyword')->toArray(),
-            ];
-        });
-
         // JSONレスポンスとして返す
-        return response()->json($result);
+        return response()->json($spots);
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SceneTrip - APIキー')
+@section('title', 'APIキー')
 
 @section('content')
 <h1>APIキー</h1>
@@ -9,7 +9,7 @@
 	<form method="POST">
 		@csrf
 		<label for="create_name">名前</label>
-		<input type="text" name="create_name" required />
+		<input type="text" name="create_name" required>
 		<button type="submit">発行</button>
 	</form>
 </div>
@@ -17,7 +17,7 @@
 	@foreach($apiKeys ?? [] as $apiKey)
 	<article class="general-box coupon-card" tabindex="0" role="article">
 		<div class="coupon-info">
-			<h2 class="coupon-title">{{ $apiKey->name }}</h2>
+			<h3 class="coupon-title">{{ $apiKey->name }}</h3>
 			<form method="POST">
 				@csrf
 				<input type="hidden" name="delete_id" value="{{ $apiKey->id }}">
