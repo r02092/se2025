@@ -420,7 +420,7 @@ h1 {
 }
 .coupon-exp {
 	font-size: 12px;
-	color: #999;
+	color: #888888;
 }
 .coupon-action {
 	position: absolute;
@@ -979,6 +979,9 @@ h1 {
 }
 
 /* ==== coupon-QR.css ==== */
+.main-area.coupon-area-background {
+	background: #ffffff;
+}
 .coupon-titlebar {
 	background-image: linear-gradient(#eee 80%, transparent);
 	height: 100px;
@@ -1022,9 +1025,10 @@ h1 {
 	pointer-events: none;
 }
 .coupon-detail {
-	margin: 12px auto 180px;
-	padding: 12px 6%;
-	background: transparent;
+	min-height: 545px;
+	margin: 12px 0 0;
+	padding: 12px 6% 0;
+	background: #ffffff;
 	border-radius: 0;
 	box-shadow: none;
 	color: #0b6b4d;
@@ -1053,7 +1057,7 @@ h1 {
 .coupon-use-button-area {
 	position: fixed;
 	left: 50%;
-	bottom: 120px;
+	bottom: 128px;
 	transform: translateX(-50%);
 	width: 90%;
 	max-width: 940px;
@@ -1095,6 +1099,12 @@ h1 {
 	text-align: center;
 	font-weight: 800;
 	font-size: 16px;
+}
+.qr-modal-close-btn.confirm {
+	margin-top: 5%;
+}
+.qr-modal-sub.confirm {
+	font-size: 24px;
 }
 
 /* color: #d1ffe5; */

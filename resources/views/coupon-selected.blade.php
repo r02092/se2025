@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'クーポン')
+@section('title', 'クーポン詳細')
 
 @push('scripts')
 @vite(['resources/ts/coupon_selected.ts'])
 @endpush
 
 @section('content')
-<div class="main-area">
+<div class="main-area coupon-area-background">
 	<div class="coupon-titlebar">
-		<h1>クーポン</h1>
+		<h1>クーポン 詳細</h1>
 	</div>
 
 	<!-- HERO（上部の大きな画像） -->
@@ -38,7 +38,7 @@
 		<div
 			class="coupon-use-button"
 			type="button"
-			onclick="location.href = '{{ route('coupon.qr', $coupon->id ?? 1) }}'"
+			onclick="document.getElementById('coupon-confirm-overlay').classList.add('show')"
 			aria-label="クーポン利用"
 		>
 			クーポンを利用する
@@ -46,9 +46,18 @@
 		<div class="close-btn" onclick="location.href = '{{ route('coupon') }}'">
 			一覧に戻る
 		</div>
-		</div>
 	</div>
 
-	<!-- QR オーバーレイ -->
+	<!-- 確認オーバーレイ -->
+	<div id="coupon-confirm-overlay" class="qr-overlay">
+		<div class="qr-modal">
+			<h3 class="qr-modal-title">確認</h3>
+			<h3 class="qr-modal-sub confirm">本当に使いますか？</h3>
+			<div class="qr-modal-actions">
+				<a class="qr-modal-close-btn confirm" onclick="location.href='{{ route('coupon.qr', $coupon->id ?? 1) }}'">はい</a>
+				<a class="close-btn" onclick="document.getElementById('coupon-confirm-overlay').classList.remove('show')">いいえ</a>
+			</div>
+		</div>
+	</div>
 </div>
 @endsection
