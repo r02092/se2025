@@ -22,20 +22,22 @@ class PostMapController extends Controller
 
         $photos = Photo::with('user')->get();
 
-        $photos = $photos->filter(function ($photo) use (
-            $cner_ne_lat,
-            $cner_ne_lng,
-            $cner_sw_lat,
-            $cner_sw_lng,
-        ) {
-            $lat = $photo->lat;
-            $lng = $photo->lng;
+        $photos = $photos
+            ->filter(function ($photo) use (
+                $cner_ne_lat,
+                $cner_ne_lng,
+                $cner_sw_lat,
+                $cner_sw_lng,
+            ) {
+                $lat = $photo->lat;
+                $lng = $photo->lng;
 
-            return $lat <= $cner_ne_lat &&
-                $lat >= $cner_sw_lat &&
-                $lng <= $cner_ne_lng &&
-                $lng >= $cner_sw_lng;
-        });
+                return $lat <= $cner_ne_lat &&
+                    $lat >= $cner_sw_lat &&
+                    $lng <= $cner_ne_lng &&
+                    $lng >= $cner_sw_lng;
+            })
+            ->values();
 
         $photos = $photos->map(function ($photo) {
             $user = $photo->user;
