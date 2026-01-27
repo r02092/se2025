@@ -145,7 +145,8 @@ class AiApiController extends Controller
                                     env('OPENROUTER_API_KEY'),
                                 ],
                                 'content' => json_encode([
-                                    'model' => 'xiaomi/mimo-v2-flash:free',
+                                    'model' =>
+                                        'tngtech/deepseek-r1t2-chimera:free',
                                     'messages' => [
                                         [
                                             'role' => 'system',
