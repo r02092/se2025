@@ -2002,6 +2002,12 @@ h1 {
 	}
 }
 
+#ai_text a {
+	color: #2563eb;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
 #ai_spots_list > a {
 	display: block;
 	border: 1px solid #e5e7eb;

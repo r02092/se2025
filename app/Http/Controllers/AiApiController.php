@@ -124,7 +124,7 @@ class AiApiController extends Controller
         $prompt .= 'Markdown形式かつ日本語で、魅力的に書いてください。';
         $prompt .= '文中には推薦するスポットの名前を含めてください。\n\n';
         $prompt .= '文中でスポットの名前を言及する際は、';
-        $prompt .= '`[スポットの名前](spots/スポットのID)`の形式で';
+        $prompt .= '`[スポットの名前](/detail?id=スポットのID)`の形式で';
         $prompt .= 'リンクを張ってください。';
         $prompt .= '文中では「キーワード」という言葉を避けてください。';
 

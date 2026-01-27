@@ -1,3 +1,5 @@
+import {marked} from "marked";
+
 document.addEventListener("DOMContentLoaded", async () => {
 	// PHPからデータを取得（存在しない場合はnullになるように修正）
 	const fromId = document.getElementById("ai_container")?.dataset.from;
@@ -81,13 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 		// テキスト表示 (Markdown簡易変換)
 		const rawText = data.explanation || "解説文が取得できませんでした。";
-		const formattedText = rawText
-			.replace(/\*\*(.*?)\*\*/g, '<b style="color:#2563eb;">$1</b>')
-			.replace(
-				/\[(.*?)\]\(spots\/(\d+)\)/g,
-				'<a href="/detail?id=$2" target="_blank" style="color:#2563eb; text-decoration:underline; font-weight:bold;">$1</a>',
-			)
-			.replace(/\n/g, "<br>");
+		const formattedText = marked.parse(rawText);
 
 		textField.innerHTML = formattedText;
 

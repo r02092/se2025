@@ -5,6 +5,7 @@
     "@types/blueimp-load-image": "^5.16.6",
     "blueimp-load-image": "^5.16.0",
     "maplibre-gl": "^5.16.0",
+    "marked": "^17.0.1",
     "qr-scanner": "^1.4.2"
   },
   "devDependencies": {
