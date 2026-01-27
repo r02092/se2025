@@ -2,6 +2,9 @@
 // ハンドルは幅 80px を想定。ドラッグで動き、100% 到達で QR 表示（既存ロジック）。
 // クリック（ドラッグ中でなければ）は Coupon-QR.html へ遷移します。
 
+const couponDetail = document.querySelector(
+	".coupon-detail",
+) as HTMLElement | null;
 const track = document.querySelector(".slider-track") as HTMLElement | null;
 const handle = document.querySelector(".slider-handle") as HTMLElement | null;
 const fill = document.querySelector(".slider-fill") as HTMLElement | null;
@@ -10,6 +13,20 @@ const overlay = document.getElementById("qr_overlay") as HTMLElement | null;
 const closeBtn = overlay?.querySelector(".qr-close") as HTMLElement | null;
 
 if (track && handle && fill) {
+	function adjustCouponPadding(): void {
+		if (!couponDetail) return;
+		const height = couponDetail.getBoundingClientRect().height;
+		let padding = 0;
+		if (height > 545) {
+			padding = Math.min(150, height - 545);
+		}
+		couponDetail.style.paddingBottom = `${padding}px`;
+	}
+
+	window.addEventListener("resize", adjustCouponPadding);
+	window.addEventListener("load", adjustCouponPadding);
+	adjustCouponPadding();
+
 	const dragging = false;
 	const trackRect: DOMRect | null = null;
 	const handleWidth = 0;

@@ -28,6 +28,6 @@
 		</div>
 	</article>
 	@endforeach
-	{{ $users->links() }}
+
 </section>
 @endsection

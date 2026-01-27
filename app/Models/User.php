@@ -65,4 +65,28 @@ class User extends Authenticatable
     {
         return $this->hasMany(ApiKey::class);
     }
+    /**
+     * Get the user's icon URL.
+     * Uses the user's stored icon if available, otherwise falls back to the default icon.
+     *
+     * @return string
+     */
+    public function getIconUrlAttribute()
+    {
+        if ($this->icon_ext) {
+            $path = 'icons/' . $this->id . '.' . $this->icon_ext;
+            // ファイルが実際に存在するか確認
+            if (
+                \Illuminate\Support\Facades\Storage::disk('public')->exists(
+                    $path,
+                )
+            ) {
+                // キャッシュ対策として time() を付与
+                return asset('storage/' . $path . '?' . time());
+            }
+        }
+
+        // デフォルトアイコン (Seederファイルへのルート)
+        return route('default_icon');
+    }
 }

@@ -92,26 +92,26 @@ class AiApiController extends Controller
         // 4. AIへのプロンプト作成
         $prompt = 'あなたは優秀な観光プランナーです。';
         $prompt .= 'これから示すスポットの情報を基に、';
-        $prompt .= "ユーザーの質問に対して、正確な情報を提供してください。\n";
+        $prompt .= "ユーザーの質問に対して、正確な情報を提供してください。\n\n";
         $prompt .= 'スポットの情報の「キーワード」は、';
         $prompt .= "そのスポットが登場する作品などを表しています。\n\n";
 
         // 出発地の情報 (あれば追加)
         if ($from) {
-            $prompt .= "ユーザーが入力した出発地は以下に示すスポットです:\n";
+            $prompt .= "ユーザーが入力した出発地は以下に示すスポットです:\n\n";
             $prompt .= $this->spotToMarkdown($from);
             $prompt .= "\n";
         }
 
         // 目的地の情報 (あれば追加)
         if ($to) {
-            $prompt .= "ユーザーが入力した目的地は以下に示すスポットです:\n";
+            $prompt .= "ユーザーが入力した目的地は以下に示すスポットです:\n\n";
             $prompt .= $this->spotToMarkdown($to);
             $prompt .= "\n";
         }
 
         $prompt .= 'ユーザーにスポットを推薦する場合は、';
-        $prompt .= "以下の中から選んでください:\n";
+        $prompt .= "以下の中から選んでください:\n\n";
         foreach ($spots as $spot) {
             $prompt .= $this->spotToMarkdown($spot);
         }
@@ -119,18 +119,18 @@ class AiApiController extends Controller
         $prompt .= '回答の**1行目**は、推薦するスポットの**IDのみ**を';
         $prompt .= 'カンマ区切りで並べたものにしてください。';
         $prompt .= '例えば`1,2,4`のようにします。';
-        $prompt .= "この行は機械的に処理され、ユーザーに表示されません。\n";
+        $prompt .= "この行は機械的に処理され、ユーザーに表示されません。\n\n";
         $prompt .= '**2行目から**は、推薦する理由を';
         $prompt .= 'Markdown形式かつ日本語で、魅力的に書いてください。';
-        $prompt .= '文中には推薦するスポットの名前を含めてください。\n';
+        $prompt .= '文中には推薦するスポットの名前を含めてください。\n\n';
         $prompt .= '文中でスポットの名前を言及する際は、';
-        $prompt .= '`[スポットの名前](spots/スポットのID)`の形式で';
+        $prompt .= '`[スポットの名前](/detail?id=スポットのID)`の形式で';
         $prompt .= 'リンクを張ってください。';
         $prompt .= '文中では「キーワード」という言葉を避けてください。';
 
         // 5. APIコール (変更なし)
         preg_match(
-            '/^([,\d]+\d)\n(.+)$/s',
+            '/^\n*([,\d]+\d)\n(.+)$/s',
             json_decode(
                 env('OPENROUTER_API_KEY')
                     ? file_get_contents(
@@ -145,7 +145,8 @@ class AiApiController extends Controller
                                     env('OPENROUTER_API_KEY'),
                                 ],
                                 'content' => json_encode([
-                                    'model' => 'xiaomi/mimo-v2-flash:free',
+                                    'model' =>
+                                        'tngtech/deepseek-r1t2-chimera:free',
                                     'messages' => [
                                         [
                                             'role' => 'system',
@@ -157,6 +158,9 @@ class AiApiController extends Controller
                                                 'chat',
                                             ),
                                         ],
+                                    ],
+                                    'reasoning' => [
+                                        'effort' => 'none',
                                     ],
                                 ]),
                             ],

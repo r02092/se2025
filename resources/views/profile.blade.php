@@ -7,7 +7,7 @@
 	<h1 class="h2">プロフィール</h1>
 	<div class="profile-avatar-group">
 		<span>現在のアバター画像</span>
-		<img src="{{ Auth::user()->icon_ext ? asset('storage/icons/' . Auth::user()->id . '.' . Auth::user()->icon_ext . '?' . time()) : asset('images/Profile_pic.JPG') }}"
+		<img src="{{ Auth::user()->icon_url }}"
 			 alt="ユーザーのアバター画像"
 			 class="profile-avatar">
 	</div>

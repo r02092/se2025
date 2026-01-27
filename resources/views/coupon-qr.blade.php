@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-<main class="main-area qr-page" role="main">
+<main class="main-area">
 	<div class="coupon-titlebar">
 		<h1>クーポン</h1>
 	</div>
