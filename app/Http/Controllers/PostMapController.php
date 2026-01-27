@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Photo;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
 
 class PostMapController extends Controller
 {
@@ -42,11 +41,11 @@ class PostMapController extends Controller
             $user = $photo->user;
             return [
                 'username' => $user->name,
-                'avatar_url' => Storage::url(
-                    'app/public/icons/' . $user->id . '.' . $user->icon_ext,
+                'avatar_url' => asset(
+                    'storage/icons/' . $user->id . '.' . $user->icon_ext,
                 ),
-                'photo_img_url' => Storage::url(
-                    'posts/' . $photo->id . '.' . $photo->img_ext,
+                'photo_img_url' => asset(
+                    'storage/posts/' . $photo->id . '.' . $photo->img_ext,
                 ),
                 'comment' => $photo->comment,
                 'lat' => $photo->lat,
