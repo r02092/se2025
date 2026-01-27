@@ -161,7 +161,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39201,
                 'addr_detail' => '南はりまや町１丁目',
                 'description' =>
-                    '南国市・高知市・吾川郡いの町を結ぶ路面電車。現役最古の路面電車として知られ、高知県民の重要な足となっている。',
+                    '南国市・高知市・吾川郡いの町を結ぶ路面電車。現役最古の路面電車として知られ、高知市民の重要な足となっている。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 1,
@@ -305,7 +305,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39210,
                 'addr_detail' => '駅前町７',
                 'description' =>
-                    '土佐くろしお鉄道の主要駅。四万十川観光の玄関口であり、グッドデザイン賞を受賞したリノベーション後のモダンな駅舎も必見。',
+                    '土佐くろしお鉄道の中村線と宿毛線を繋ぐ駅。四万十川観光の玄関口であり、グッドデザイン賞を受賞したリノベーション後のモダンな駅舎も必見。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -359,7 +359,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39203,
                 'addr_detail' => '伊尾木',
                 'description' =>
-                    'ごめん・なはり線の駅。伊尾木洞への最寄り駅であり、駅キャラ「伊尾木トラ」が出迎えてくれる。',
+                    'ごめん・なはり線の駅。伊尾木洞への最寄り駅である。駅のキャラクターとして、やなせたかし氏デザインの「いおき トラオ君」がいる。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -449,7 +449,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39210,
                 'addr_detail' => '鵜ノ江',
                 'description' =>
-                    '橋脚が３本ある珍しい沈下橋。映画「釣りバカ日誌14」のロケ地としても有名で、釣りファンにも親しまれている。',
+                    '橋脚が3本ある珍しい沈下橋。映画「釣りバカ日誌14」のロケ地としても有名で、釣りファンにも親しまれている。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -467,7 +467,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39212,
                 'addr_detail' => '物部町小浜３０７',
                 'description' =>
-                    'PCゲーム「ものべの」の聖地としてファンに知られる神社。百合の大樹があり、神秘的な雰囲気が漂う。',
+                    'ゲーム「ものべの」の聖地としてファンに知られる神社。百合の大樹があり、神秘的な雰囲気が漂う。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -629,7 +629,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39302,
                 'addr_detail' => '乙',
                 'description' =>
-                    'ごめん・なはり線の終着駅。高架駅からは太平洋が一望できる。駅舎内には物産館もあり便利。',
+                    'ごめん・なはり線の終着駅。高架駅からは太平洋が一望できる。駅舎内には物産館もあり便利。駅のキャラクターとして、やなせたかし氏デザインの「なは りこちゃん」がいる。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -647,7 +647,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39203,
                 'addr_detail' => '伊尾木１６９−６',
                 'description' =>
-                    '映画「男はつらいよ」のロケ地記念として建立された地蔵。伊尾木洞の近くにあり、ファンが訪れるスポット。',
+                    '映画「男はつらいよ」のロケ地となる予定だった伊尾木に、寅さんを演じる渥美清さんの急逝をしのんで建立された地蔵。伊尾木洞の近くにあり、ファンが訪れるスポットとなっている。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -665,7 +665,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39212,
                 'addr_detail' => '物部町別役',
                 'description' =>
-                    '物部町の山奥に鎮座する神社。平家の落人伝説が残り、静寂に包まれた境内は厳かな雰囲気が漂う。',
+                    '物部町の山奥に鎮座する神社。平家の落人伝説が残り、静寂に包まれた境内は厳かな雰囲気が漂う。国の重要無形民俗文化財となっている「いざなぎ流」が伝承されている。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -719,7 +719,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39204,
                 'addr_detail' => '駅前町２丁目４',
                 'description' =>
-                    'JR土讃線と土佐くろしお鉄道が接続する交通の要衝。やなせたかし氏デザインの「ごめん えきお君」がいる。',
+                    'JR土讃線とごめん・なはり線が接続する交通の要衝。やなせたかし氏デザインの「ごめん えきお君」がいる。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -791,7 +791,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39212,
                 'addr_detail' => '土佐山田町東川',
                 'description' =>
-                    '山奥にある秘境駅。スイッチバック式の駅として鉄道ファンに有名で、静寂に包まれた独特の雰囲気がある。',
+                    '山奥にあるJR土讃線の秘境駅。スイッチバック式の駅として鉄道ファンに有名で、静寂に包まれた独特の雰囲気がある。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -989,7 +989,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39212,
                 'addr_detail' => '物部町別府',
                 'description' =>
-                    '四国屈指の険しい山、石立山への登山口。紅葉の美しさで知られる別府峡谷の近くにある。',
+                    '四国屈指の険しい山、石立山への登山口。紅葉の美しさで知られる別府峡谷の近くにあり、ここにある橋は紅葉狩りのスポットにもなっている。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1061,7 +1061,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39412,
                 'addr_detail' => '若井',
                 'description' =>
-                    'JR予土線の分岐点となる駅。四万十川沿いを走る列車の旅の拠点となる小さな駅。',
+                    'JR予土線と土佐くろしお鉄道中村線の分岐点となる駅。四万十川沿いを走る列車の旅の拠点となる小さな駅。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1169,7 +1169,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39212,
                 'addr_detail' => '物部町大栃８９８−１',
                 'description' =>
-                    'PCゲーム「ものべの」の聖地巡礼スポットの一つとして知られる場所。物部川のほとりにある。',
+                    'ゲーム「ものべの」の聖地巡礼スポットの一つとして知られる場所。物部川のほとりにある。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1259,7 +1259,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39201,
                 'addr_detail' => '城北町１−１４',
                 'description' =>
-                    'ジブリ作品「海がきこえる」の舞台モデルとなった高校。聖地巡礼に訪れるファンもいる。（見学はマナーを守って）',
+                    '漫画・アニメ「政宗くんのリベンジ」の舞台モデルとなった高校。聖地巡礼に訪れるファンもいる。（見学はマナーを守って）',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
