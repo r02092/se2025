@@ -130,7 +130,7 @@ class AiApiController extends Controller
 
         // 5. APIコール (変更なし)
         preg_match(
-            '/^([,\d]+\d)\n(.+)$/s',
+            '/^\n*([,\d]+\d)\n(.+)$/s',
             json_decode(
                 env('OPENROUTER_API_KEY')
                     ? file_get_contents(
