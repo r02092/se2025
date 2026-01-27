@@ -22,8 +22,8 @@
 			UGC監視・管理
 		</button>
 
-		<button class="settings-button" onclick="location.href = '{{ route('admin.spots') }}'">
-			スポット情報編集
+		<button class="settings-button" onclick="location.href = '{{ route('business.spots') }}'">
+			スポット作成・編集
 		</button>
 
 		<button class="settings-button" onclick="location.href = '{{ route('admin.data') }}'">

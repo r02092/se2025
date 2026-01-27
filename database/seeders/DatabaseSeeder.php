@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
                 'name' => '中華そば 碧空',
                 'provider' => 0,
                 'icon_ext' => 'jpg',
-                'num_plan_std' => 0,
+                'num_plan_std' => 1,
                 'num_plan_prm' => 0,
                 'created_at' => now(),
                 'updated_at' => now(),

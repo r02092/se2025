@@ -17,6 +17,7 @@ use App\Http\Controllers\ProfileEditController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ProfileTwoFactorController;
 use App\Http\Controllers\AddrApiController;
+use App\Http\Controllers\EditSpotController;
 use App\Http\Controllers\AiApiController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
@@ -191,9 +192,19 @@ Route::middleware(['auth'])
             return view('business');
         })->name('business');
 
-        Route::get('/spots', function () {
-            return view('business.spots');
-        })->name('business.spots');
+        Route::get('/spots/{page}', [EditSpotController::class, 'get'])->name(
+            'business.spots',
+        );
+
+        Route::post('/spots/update', [
+            EditSpotController::class,
+            'update',
+        ])->name('business.spots.upd');
+
+        Route::post('/spots/delete', [
+            EditSpotController::class,
+            'delete',
+        ])->name('business.spots.del');
 
         Route::get('/data', function () {
             return view('business.data');
@@ -230,10 +241,6 @@ Route::middleware(['auth'])
         Route::post('/ugc/delete', [AdminUgcController::class, 'post'])->name(
             'admin.ugc.del',
         );
-
-        Route::get('/spots', function () {
-            return view('admin.spots');
-        })->name('admin.spots');
 
         Route::get('/data', function () {
             return view('admin.data');

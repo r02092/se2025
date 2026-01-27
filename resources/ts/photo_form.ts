@@ -18,8 +18,8 @@ map.on("click", e => inputCoord(e.lngLat.toArray()));
 const photo = document.getElementById("photo") as HTMLInputElement;
 const preview = document.getElementById("photo_preview") as HTMLImageElement;
 addImageHandler(photo, preview);
-photo.addEventListener("change", e => {
-	const file = (e.target as HTMLInputElement).files;
+photo.addEventListener("change", () => {
+	const file = photo.files;
 	if (file) {
 		preview.setAttribute("src", URL.createObjectURL(file[0]));
 		loadImage.parseMetaData(file[0], data => {
