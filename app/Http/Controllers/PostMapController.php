@@ -34,7 +34,7 @@ class PostMapController extends Controller
             return [
                 'username' => $user->get('name'),
                 'avatar_url' => Strage::url(
-                    '/app/public/icons' .
+                    '/app/public/icons/' .
                         $user->get('id') .
                         '.' .
                         $user->get('img_ext'),
@@ -46,8 +46,8 @@ class PostMapController extends Controller
                         $photo->get('img_ext'),
                 ),
                 'comment' => $photo->get('comment'),
-                'created_at' => $photo->get('created_at'),
-                'updated_at' => $photo->get('updated_at'),
+                'created_at' => $photo->get('created_at')->timestamp,
+                'updated_at' => $photo->get('updated_at')->timestamp,
             ];
         });
 
