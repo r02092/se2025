@@ -6,53 +6,6 @@
 	@vite(['resources/ts/home.ts'])
 @endpush
 
-{{-- ▼▼▼ スタイル定義 (緑色を統一) ▼▼▼ --}}
-@push('styles')
-<style>
-	/* 統一する緑色: #16a34a */
-
-	/* 検索ボタン等の共通クラス */
-	.btn-green {
-		width: 100%;
-		padding: 12px;
-		border: none;
-		cursor: pointer;
-		background-color: #16a34a; /* 統一した緑 */
-		color: white;
-		font-weight: bold;
-		border-radius: 4px;
-		transition: background-color 0.3s;
-	}
-	.btn-green:hover {
-		background-color: #15803d; /* ホバー時は少し濃く */
-	}
-
-	/* ログインボタン用 */
-	.btn-login-link {
-		display: inline-block;
-		background-color: #16a34a; /* 統一した緑 */
-		color: white;
-		padding: 10px 20px;
-		border-radius: 4px;
-		text-decoration: none;
-		font-weight: bold;
-		transition: background-color 0.3s;
-	}
-	.btn-login-link:hover {
-		background-color: #15803d;
-	}
-
-	/* 「詳細を見る」のテキスト色 */
-	.text-green-link {
-		font-size: 0.8rem;
-		color: #16a34a; /* 統一した緑 */
-		text-align: right;
-		margin-top: 5px;
-		font-weight: bold;
-	}
-</style>
-@endpush
-
 @section('content')
 <div class="map-area">
 	<div id="map" data-spots="{{ json_encode($allSpots) }}"></div>
@@ -63,9 +16,8 @@
 
 	{{-- 1. タブ切り替えボタン --}}
 	<div class="home-btns">
-		{{-- キーワード検索タブ (アクティブ時の色を #16a34a に統一) --}}
 		<button type="button" id="tab_btn_keyword"
-			style="background: #fff; border-bottom: 3px solid #16a34a; color: #16a34a; font-weight: bold;">
+			style="background: #fff; border-bottom: 3px solid #108a66; color: #108a66; font-weight: bold;">
 			🔍 キーワード検索
 		</button>
 		<button type="button" id="tab_btn_ai">

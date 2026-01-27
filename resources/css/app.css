@@ -287,7 +287,9 @@ h1 {
 .profile-button-subscription:hover,
 .profile-edit-container button[type="submit"]:hover,
 .subscription-form-container button[type="submit"]:hover,
-.spot-detail-btn:hover {
+.spot-detail-btn:hover,
+.btn-green:hover,
+.btn-login-link:hover {
 	background: #108a66;
 }
 
@@ -1839,15 +1841,38 @@ h1 {
 	}
 }
 
+/* 検索ボタン等の共通クラス */
 .btn-green {
 	width: 100%;
 	padding: 12px;
 	border: none;
 	cursor: pointer;
-	background: #16a34a;
-	color: white;
+	background: #108a66;
+	color: #fff;
 	font-weight: bold;
 	border-radius: 4px;
+	transition: background-color 0.3s;
+}
+
+/* ログインボタン用 */
+.btn-login-link {
+	display: inline-block;
+	background-color: #108a66;
+	color: white;
+	padding: 10px 20px;
+	border-radius: 4px;
+	text-decoration: none;
+	font-weight: bold;
+	transition: background-color 0.3s;
+}
+
+/* 「詳細を見る」のテキスト色 */
+.text-green-link {
+	font-size: 0.8rem;
+	color: #108a66;
+	text-align: right;
+	margin-top: 5px;
+	font-weight: bold;
 }
 
 #destination,
@@ -1929,7 +1954,7 @@ h1 {
 	}
 	> div > p {
 		font-size: 0.8rem;
-		color: #16a34a;
+		color: #108a66;
 		text-align: right;
 		margin-top: 5px;
 	}
@@ -2055,53 +2080,89 @@ iframe {
 	font-weight: bold;
 }
 
-.search-res {
-	list-style: none;
-	padding: 0;
-	> li {
-		background: #fff;
-		padding: 15px;
-		margin-bottom: 15px;
-		border-radius: 8px;
-		border: 1px solid #eee;
+/* カードの基本スタイル */
+.result-card {
+	background: #fff;
+	border: 1px solid #e5e7eb;
+	border-radius: 12px;
+	overflow: hidden;
+	margin-bottom: 20px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+	transition: transform 0.2s;
+}
+.result-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+.result-link {
+	text-decoration: none;
+	color: inherit;
+	display: flex;
+	flex-direction: column; /* スマホは縦並び */
+	> div:last-child {
+		padding: 20px;
+		flex: 1;
 		display: flex;
-		gap: 15px;
-		> img {
-			width: 100px;
-			height: 100px;
-			object-fit: cover;
-			border-radius: 8px;
-			background: #eee;
-			flex-shrink: 0;
+		flex-direction: column;
+		strong {
+			background: #fef08a;
+			color: #854d0e;
+			padding: 0 2px;
+			border-radius: 2px;
+		}
+		> h2 {
+			font-size: 1.25rem;
+			font-weight: bold;
+			color: #333;
+			margin: 0 0 10px 0;
+		}
+		> p {
+			font-size: 0.9rem;
+			color: #666;
+			line-height: 1.6;
+			margin-bottom: 15px;
 		}
 		> div {
-			flex-grow: 1;
-			> h4 {
-				font-weight: bold;
-				font-size: 1.1rem;
-				color: #16a34a;
-				margin-top: 0;
-			}
-			> p {
-				font-size: 0.9rem;
-				color: #666;
-				margin: 5px 0;
-				line-height: 1.5;
-			}
-			> div {
-				margin-top: 10px;
-				text-align: right;
-				> a {
-					color: #16a34a;
-					text-decoration: none;
-					font-weight: bold;
-					border: 1px solid #16a34a;
-					padding: 5px 15px;
-					border-radius: 4px;
-					display: inline-block;
-				}
+			margin-bottom: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			> span {
+				font-size: 0.8rem;
+				background: #f3f4f6;
+				color: #555;
+				padding: 4px 10px;
+				border-radius: 20px;
 			}
 		}
+	}
+}
+
+/* 画像エリアのスタイル */
+.spot-image-div {
+	height: 200px; /* スマホ・PC共通の基準高さ */
+	position: relative;
+	overflow: hidden;
+	flex-shrink: 0;
+}
+.spot-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+/* ▼▼▼ PCレイアウト (幅640px以上) ▼▼▼ */
+@media (min-width: 640px) {
+	.result-link {
+		flex-direction: row; /* 横並び */
+		align-items: center; /* ★画像とテキストを垂直方向中央に配置 */
+	}
+	.spot-image-div {
+		width: 240px;
+		height: 200px; /* ★高さを固定（全部同じ大きさ） */
+		/* 必要であれば左端の角丸を調整 */
+		/* border-radius: 12px 0 0 12px; */
 	}
 }
 

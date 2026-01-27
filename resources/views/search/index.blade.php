@@ -42,7 +42,7 @@
 		$regex = '/(' . implode('|', $patterns) . ')/iu';
 		return preg_replace(
 			$regex,
-			'<strong style="background: #fef08a; color: #854d0e; padding: 0 2px; border-radius: 2px;">$1</strong>',
+			'<strong>$1</strong>',
 			e($text)
 		);
 	}
@@ -89,36 +89,28 @@
 						</div>
 
 						{{-- 2. 情報エリア --}}
-						<div style="padding: 20px; flex: 1; display: flex; flex-direction: column;">
+						<div>
 
 							{{-- タイトル --}}
-							<h2 style="font-size: 1.25rem; font-weight: bold; color: #333; margin: 0 0 10px 0;">
+							<h2>
 								{!! highlightKeywords($spot->name, $destination) !!}
 							</h2>
 
 							{{-- 説明文 --}}
-							<p style="font-size: 0.9rem; color: #666; line-height: 1.6; margin-bottom: 15px;">
+							<p>
 								{!! highlightKeywords($spot->description, $destination) !!}
 							</p>
 
 							{{-- キーワードタグ --}}
 							@if(!empty($spot->keywords))
-								<div style="margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px;">
+								<div>
 									@foreach($spot->keywords as $keyword)
-										<span style="font-size: 0.8rem; background: #f3f4f6; color: #555; padding: 4px 10px; border-radius: 20px;">
+										<span>
 											# {!! highlightKeywords($keyword, $destination) !!}
 										</span>
 									@endforeach
 								</div>
 							@endif
-
-							{{-- 3. アクションボタン --}}
-							<div style="margin-top: auto;">
-								<span style="display: inline-block; background-color: #16a34a; color: white; padding: 10px 20px; border-radius: 6px; font-weight: bold; font-size: 0.95rem; text-align: center; transition: background 0.2s;">
-									詳細を見る
-								</span>
-							</div>
-
 						</div>
 					</a>
 				</div>
@@ -132,7 +124,7 @@
 					キーワードを変えて、もう一度検索してみてください。
 				</p>
 				<div style="margin-top: 30px;">
-					<a href="/" style="color: #16a34a; font-weight: bold; text-decoration: underline;">ホームに戻る</a>
+					<a href="/" style="color: #108a66; font-weight: bold; text-decoration: underline;">ホームに戻る</a>
 				</div>
 			</div>
 		@endif
@@ -146,62 +138,5 @@
 	</div>
 
 </div>
-
-<style>
-	/* カードの基本スタイル */
-	.result-card {
-		background: #fff;
-		border: 1px solid #e5e7eb;
-		border-radius: 12px;
-		overflow: hidden;
-		margin-bottom: 20px;
-		box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-		transition: transform 0.2s;
-	}
-	.result-card:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-	}
-	.result-link {
-		text-decoration: none;
-		color: inherit;
-		display: flex;
-		flex-direction: column; /* スマホは縦並び */
-	}
-
-	/* 画像エリアのスタイル */
-	.spot-image-div {
-		height: 200px; /* スマホ・PC共通の基準高さ */
-		background: #f3f4f6;
-		position: relative;
-		overflow: hidden;
-		flex-shrink: 0;
-	}
-	.spot-image {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: center;
-	}
-
-	/* ボタンのホバー効果 */
-	.result-card:hover span[style*="background-color: #16a34a"] {
-		background-color: #15803d !important;
-	}
-
-	/* ▼▼▼ PCレイアウト (幅640px以上) ▼▼▼ */
-	@media (min-width: 640px) {
-		.result-link {
-			flex-direction: row; /* 横並び */
-			align-items: center; /* ★画像とテキストを垂直方向中央に配置 */
-		}
-		.spot-image-div {
-			width: 240px;
-			height: 200px; /* ★高さを固定（全部同じ大きさ） */
-			/* 必要であれば左端の角丸を調整 */
-			/* border-radius: 12px 0 0 12px; */
-		}
-	}
-</style>
 
 @endsection
