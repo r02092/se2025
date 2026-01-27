@@ -159,6 +159,9 @@ class AiApiController extends Controller
                                             ),
                                         ],
                                     ],
+                                    'reasoning' => [
+                                        'effort' => 'none',
+                                    ],
                                 ]),
                             ],
                         ]),
