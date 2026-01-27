@@ -83,6 +83,12 @@
 					<option value="{{ $value }}"{{ ($spot->plan === $value || ($value === 1 && $enablePlans === [false, true]) ? ' selected' : '') . ($i + 1 || $enablePlans[$value] ? '' : ' disabled') }}>{{ $plan }}プラン</option>
 				@endforeach
 			</select>
+			<label>チェックイン用二次元コード</label>
+			@if ($i + 1)
+			<img id="qr_{{ $spot->id }}" data-key="{{ $spot->stamp_key }}">
+			@else
+			<span class="form-detail">チェックイン用二次元コードはスポットの作成後に表示されます。</span>
+			@endif
 			<label>投稿者</label>
 			@php
 				$user = $spot->user ?? Auth::user()

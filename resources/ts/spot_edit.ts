@@ -2,6 +2,7 @@ import addImageHandler from "./profile_icon_handler";
 import addAddrHandler from "./addr";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+import * as QRCode from "qrcode";
 
 for (const i of document.querySelectorAll("[id^='map_']")) {
 	const coord = (i as HTMLDivElement).dataset as unknown as {
@@ -41,4 +42,12 @@ for (const i of document.querySelectorAll("[id^='map_']")) {
 		document.getElementById("city_select_" + idStr) as HTMLSelectElement,
 		document.getElementById("address_" + idStr) as HTMLInputElement,
 	);
+	const qrImgElem = document.getElementById("qr_" + idStr) as HTMLImageElement;
+	if (qrImgElem)
+		qrImgElem.src = await QRCode.toDataURL(
+			("scenetrip:stamp/" + qrImgElem.dataset.key) as string,
+			{
+				scale: 1,
+			},
+		);
 }

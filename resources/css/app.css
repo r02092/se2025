@@ -2129,3 +2129,7 @@ iframe {
 	border-radius: 8px;
 	height: 240px;
 }
+
+[id^="qr_"] {
+	image-rendering: pixelated;
+}
