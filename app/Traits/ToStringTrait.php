@@ -4,6 +4,16 @@ namespace App\Traits;
 
 trait ToStringTrait
 {
+    public $types = [
+        0 => '飲食',
+        1 => 'お土産',
+        2 => '観光',
+        3 => '体験アクティビティ',
+        4 => '宿泊',
+        5 => '公共施設',
+        6 => '公共交通機関',
+        255 => 'その他',
+    ];
     public $prefs = [
         1 => '北海道',
         2 => '青森県',
@@ -1976,16 +1986,7 @@ trait ToStringTrait
     ];
     public function spotTypeToString($type)
     {
-        return [
-            0 => '飲食',
-            1 => 'お土産',
-            2 => '観光',
-            3 => '体験アクティビティ',
-            4 => '宿泊',
-            5 => '公共施設',
-            6 => '公共交通機関',
-            255 => 'その他',
-        ][$type];
+        return $this->types[$type];
     }
     public function postalCodeToString($postalCode)
     {
@@ -2003,5 +2004,23 @@ trait ToStringTrait
             return $this->prefs[intdiv($city, 1000)] . $this->cities[$city];
         }
         return '不明';
+    }
+    public function selectPrefsCities()
+    {
+        $cities = $this->cities;
+        foreach ($cities as $key => $name) {
+            if (
+                $key % 1000 === 100 ||
+                $key % 1000 === 130 ||
+                $name === '相模原市' ||
+                $name === '堺市'
+            ) {
+                unset($cities[$key]);
+            }
+        }
+        return [
+            'prefs' => $this->prefs,
+            'cities' => $cities,
+        ];
     }
 }
