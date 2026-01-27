@@ -72,7 +72,7 @@ for (const i of document.querySelectorAll("[id^='tab_btn_']")) {
 			).style.display = hide ? "none" : "block";
 			const iStyle = (i as HTMLButtonElement).style;
 			iStyle.background = hide ? "" : "#fff";
-			const color = hide ? "" : tab !== "ai" ? "#16a34a" : "#2563eb";
+			const color = hide ? "" : tab !== "ai" ? "#108a66" : "#2563eb";
 			iStyle.color = color;
 			iStyle.borderBottomColor = color;
 		}
