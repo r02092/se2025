@@ -31,7 +31,7 @@ function getDiffTimeFormat(timestamp: number): string {
 	return "たった今";
 }
 
-let currentMarkers: Array<maplibregl.Marker> = [];
+let currentPopup: Array<maplibregl.Popup> = [];
 
 // マップの表示範囲を基に投稿内容をリロード
 async function reloadPosts(): Promise<void> {
@@ -56,29 +56,29 @@ async function reloadPosts(): Promise<void> {
 	}> = await response.json();
 
 	// 古いマーカーを地図から削除
-	currentMarkers.forEach(marker => marker.remove());
-	currentMarkers = [];
+	currentPopup.forEach(popup => popup.remove());
+	currentPopup = [];
 
-	// 新しいスポットをループしてマーカーを設置
+	// 新しく取得した投稿をループしてポップアップを設置
 	posts.forEach(post => {
-		const popup = new maplibregl.Popup({offset: 25}).setHTML(`
-				<header class="post-head">
-					<img class="post-avatar" src="${post.avatar_url}" />
-					<div class="post-meta">
-						<div class="post-author">${post.username}</div>
-						<div class="post-time">${getDiffTimeFormat(post.created_at)}</div>
-					</div>
-				</header>
-				<img class="post-image" src="${post.photo_img_url}" />
-				<div class="post-body">${post.comment}</div>
-			`);
-
-		const marker = new maplibregl.Marker()
+		const popup = new maplibregl.Popup()
 			.setLngLat([post.lng, post.lat])
-			.setPopup(popup) // ポップアップを紐付け
+			.setHTML(
+				`
+					<header class="post-head">
+						<img class="post-avatar" src="${post.avatar_url}" />
+						<div class="post-meta">
+							<div class="post-author">${post.username}</div>
+							<div class="post-time">${getDiffTimeFormat(post.created_at)}</div>
+						</div>
+					</header>
+					<img class="post-image" src="${post.photo_img_url}" />
+					<div class="post-body">${post.comment}</div>
+				`,
+			)
 			.addTo(map);
 
-		currentMarkers.push(marker); // 配列に保存（次回の削除用）
+		currentPopup.push(popup); // 配列に保存（次回の削除用）
 	});
 }
 
