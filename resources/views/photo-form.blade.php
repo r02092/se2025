@@ -4,7 +4,6 @@
 
 @push('scripts')
 @vite(['resources/ts/photo_form.ts'])
-@vite(['resources/ts/profile_icon_handler.ts'])
 @endpush
 
 @section('content')
@@ -14,8 +13,8 @@
 		@csrf
 
 		<label for="photo" class="spot-detail-form-label">写真</label>
-		<img id="profile_preview" class="photo-preview">
-		<input type="file" id="avatar_img" name="photo" class="photo-file spot-detail-form-group" accept="image/*">
+		<img id="photo_preview" class="photo-preview">
+		<input type="file" id="photo" name="photo" class="photo-file spot-detail-form-group" accept="image/*">
 		<div class="spot-detail-form-group">
 			<label for="comment" class="spot-detail-form-label">コメント</label>
 			<textarea name="comment" id="comment" rows="4" class="spot-detail-form-input" placeholder="写真の説明など、写真に関してコメントを書きましょう" required></textarea>

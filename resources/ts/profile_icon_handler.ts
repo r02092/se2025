@@ -1,11 +1,7 @@
-const fileInput = document.getElementById(
-	"avatar_img",
-) as HTMLInputElement | null;
-const previewImage = document.getElementById(
-	"profile_preview",
-) as HTMLImageElement | null;
-
-if (fileInput && previewImage) {
+export default function (
+	fileInput: HTMLInputElement,
+	previewImage: HTMLImageElement,
+) {
 	fileInput.addEventListener("change", function (event: Event) {
 		const target = event.target as HTMLInputElement;
 		const file = target.files ? target.files[0] : null;

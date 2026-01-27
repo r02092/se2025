@@ -10,8 +10,8 @@
 	<div class="spot-divider" aria-hidden="true"></div>
 
 	<!-- <div class="column-menu"> -->
-		<button class="settings-button" onclick="location.href = '{{ route('business.spots') }}'">
-			スポット情報編集
+		<button class="settings-button" onclick="location.href = '{{ route('business.spots', 0) }}'">
+			スポット作成・編集
 		</button>
 
 		<button class="settings-button" onclick="location.href = '{{ route('business.data') }}'">

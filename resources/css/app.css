@@ -1526,7 +1526,8 @@ h1 {
 }
 
 /* ==== subscription-form.css ==== */
-.subscription-form-container select {
+.subscription-form-container select,
+.spot-edit > article > form > select {
 	width: 80%;
 	padding: 10px;
 	margin-bottom: 16px;
@@ -1894,10 +1895,6 @@ h1 {
 		font-weight: bold;
 		display: block;
 		margin-bottom: 5px;
-		> span:not(.form-detail) {
-			color: #e11d48;
-			font-size: 0.8rem;
-		}
 	}
 	> div {
 		position: absolute;
@@ -1929,6 +1926,12 @@ h1 {
 			background: #eee;
 		}
 	}
+}
+
+#form_area_ai > form > div > label > span:not(.form-detail),
+.form-detail-strong {
+	color: #e11d48;
+	font-size: 0.8rem;
 }
 
 .home-input-suggested {
@@ -2178,4 +2181,33 @@ iframe {
 	max-width: 400px;
 	max-height: 400px;
 	margin: 16px auto;
+}
+
+.spot-edit > article {
+	margin: 0;
+	width: 90%;
+	> form > img {
+		border-radius: 8px;
+		width: 100%;
+	}
+	> form:first-child > button {
+		margin: 16px 0;
+	}
+	> form:not([enctype="multipart/form-data"]) {
+		> button {
+			background: #f22727;
+		}
+		> button:hover {
+			background: #aa1b1b;
+		}
+	}
+}
+
+[id^="map_"] {
+	border-radius: 8px;
+	height: 240px;
+}
+
+[id^="qr_"] {
+	image-rendering: pixelated;
 }

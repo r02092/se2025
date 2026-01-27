@@ -16,21 +16,7 @@ class SubscriptionController extends Controller
 
     public function create(): View
     {
-        $cities = $this->cities;
-        foreach ($cities as $key => $name) {
-            if (
-                $key % 1000 === 100 ||
-                $key % 1000 === 130 ||
-                $name === '相模原市' ||
-                $name === '堺市'
-            ) {
-                unset($cities[$key]);
-            }
-        }
-        return view('subscription-form', [
-            'prefs' => $this->prefs,
-            'cities' => $cities,
-        ]);
+        return view('subscription-form', $this->selectPrefsCities());
     }
 
     public function store(Request $request): RedirectResponse
