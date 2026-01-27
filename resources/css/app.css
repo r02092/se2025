@@ -2099,15 +2099,15 @@ iframe {
 	color: inherit;
 	display: flex;
 	flex-direction: column; /* スマホは縦並び */
+	padding: 20px;
+	gap: 20px;
 	> div:last-child {
-		padding: 20px;
 		flex: 1;
 		display: flex;
 		flex-direction: column;
 		strong {
 			background: #fef08a;
 			color: #854d0e;
-			padding: 0 2px;
 			border-radius: 2px;
 		}
 		> h2 {
@@ -2150,6 +2150,7 @@ iframe {
 	height: 100%;
 	object-fit: cover;
 	object-position: center;
+	border-radius: 8px;
 }
 
 /* ▼▼▼ PCレイアウト (幅640px以上) ▼▼▼ */
