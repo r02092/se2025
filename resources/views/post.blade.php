@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', '投稿')
+@section('title', 'UGC監視・管理')
 
 @section('content')
 <div class="post-titlebar">
