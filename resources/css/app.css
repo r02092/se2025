@@ -831,6 +831,15 @@ h1 {
 }
 .post-card {
 	padding: 12px;
+	margin: 0 5%;
+	> div:first-of-type {
+		color: #ddcc00;
+		margin-top: 8px;
+	}
+	> div:last-of-type {
+		color: #aaa;
+		font-size: 0.6em;
+	}
 }
 .post-head {
 	display: flex;

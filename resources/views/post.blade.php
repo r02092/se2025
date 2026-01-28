@@ -26,9 +26,9 @@
 		@if($post['data']->image)
 		<img class="post-image" src="{{ asset('storage/' . $post['data']->image) }}" alt="">
 		@endif
-		<div style="color: #ddcc00; margin-top: 8px">{{ str_repeat('★', $post['data']->rate) }}</div>
+		<div>{{ str_repeat('★', $post['data']->rate) }}</div>
 		<div class="post-body">{{ $post['data']->comment }}</div>
-		<div style="color: #aaa; font-size: 0.6em">
+		<div>
 			種別: {{ $post['type'] !== 'photo' ? '口コミ' : '写真' }}<br>
 			ID: {{ $post['data']->id }}<br>
 			投稿者: <a href="{{ route('user.detail', $post['data']->user->id) }}">{{ $post['data']->user->name }}</a><br>
