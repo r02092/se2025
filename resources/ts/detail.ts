@@ -17,3 +17,14 @@ const map = new maplibregl.Map({
 map.addControl(new maplibregl.NavigationControl(), "top-right");
 // ピン（マーカー）を立てる
 new maplibregl.Marker().setLngLat(coord).addTo(map);
+
+const dialog = document.getElementById("dialog") as HTMLDialogElement;
+
+(document.getElementById("img") as HTMLImageElement).addEventListener(
+	"click",
+	() => dialog.showModal(),
+);
+
+document.body.addEventListener("click", e => {
+	if ((e.target as HTMLImageElement).id !== "img") dialog.close();
+});

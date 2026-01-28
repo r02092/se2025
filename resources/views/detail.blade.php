@@ -23,7 +23,9 @@
 			<!-- 画像がない場合の代替画像も設定しておくと安全です -->
 			<img src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
 				alt="{{ $spot->name }}"
-				class="spot-detail-image post-image">
+				id="img"
+				class="spot-detail-image">
+			<dialog id="dialog"><img src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"></dialog>
 		</div>
 
 		<div>
