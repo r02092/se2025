@@ -53,7 +53,7 @@ if (!overlay) {
 			.start()
 			.then(() => {
 				if (statusMessage)
-					statusMessage.textContent = "QRコードを枠内に収めてください";
+					statusMessage.textContent = "二次元コードを枠内に収めてください";
 			})
 			.catch(err => {
 				if (statusMessage)
