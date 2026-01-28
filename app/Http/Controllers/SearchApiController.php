@@ -14,10 +14,10 @@ class SearchApiController extends Controller
 
         // ▼▼▼ 修正: 'keyword' または 'destination' どちらでも受け取れるようにする ▼▼▼
         // (Blade側で destination を使っているため)
-        $rawKeyword = $request->input('keyword') ?? $request->input('destination');
+        $rawKeyword =
+            $request->input('keyword') ?? $request->input('destination');
 
         if (!empty($rawKeyword)) {
-
             // ▼▼▼ 修正: 配列で来た場合の対策 (Array to string conversionエラー防止) ▼▼▼
             if (is_array($rawKeyword)) {
                 // 配列ならスペース区切りの文字列に変換
@@ -34,7 +34,9 @@ class SearchApiController extends Controller
                     ->orWhere('description', 'LIKE', "%{$keyword}%")
                     // または、紐づくキーワード (keywordsテーブル) に含まれているか
                     // ▼▼▼ 修正: useの中のカンマを削除 ▼▼▼
-                    ->orWhereHas('keywords', function ($subQuery) use ($keyword) {
+                    ->orWhereHas('keywords', function ($subQuery) use (
+                        $keyword,
+                    ) {
                         $subQuery->where('keyword', 'LIKE', "%{$keyword}%");
                     });
             });
