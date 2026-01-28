@@ -1296,10 +1296,9 @@ h1 {
 	margin-bottom: 12px;
 	border-radius: 1px;
 }
-/* バッジ群（4列 × 2行 = 8個） */
 .achievement-grid {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 	gap: 18px;
 	align-items: start;
 	justify-items: center;
@@ -1307,7 +1306,7 @@ h1 {
 }
 /* 個々のバッジラッパー */
 .achievement-item {
-	width: 100%;
+	width: 20vw;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -1318,7 +1317,8 @@ h1 {
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
-	background: linear-gradient(135deg, #fff 0%, #f0f4f1 40%, #c8efd9 100%);
+	background: center no-repeat url("http://localhost:8000/images/spot_icon.svg");
+	background-size: cover;
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 	border: 2px solid rgba(20, 184, 136, 0.12);
 	display: flex;
