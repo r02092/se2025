@@ -126,7 +126,7 @@ class DatabaseSeeder extends Seeder
                 'addr_detail' => '土佐山田町神通寺３４６－２',
                 'description' =>
                     '人気絵本「パンどろぼう」のモチーフになったとされる、土佐山田のパン屋。',
-                'img_ext' => null,
+                'img_ext' => 'JPG',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
                 'created_at' => now(),
