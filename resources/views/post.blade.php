@@ -11,6 +11,13 @@
 		</button>
 	</div>
 </div>
+@if ($page)
+	<div class="out-btn btn-top">
+		<a href="{{ $page - 1 }}">
+			前のページへ
+		</a>
+	</div>
+@endif
 
 <!-- フィード（投稿カードをここに差し込む） -->
 <section id="feed" class="feed">
@@ -51,4 +58,11 @@
 	</article>
 	@endforeach
 </section>
+@if ($nextBtn)
+	<div class="out-btn btn-bottom btn-bottom-margin">
+		<a href="{{ $page + 1 }}">
+			次のページへ
+		</a>
+	</div>
+@endif
 @endsection

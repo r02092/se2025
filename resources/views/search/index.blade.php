@@ -131,8 +131,8 @@
 	</div>
 
 	{{-- 再検索ボタン --}}
-	<div style="margin-top: 40px; text-align: center;">
-		<a href="/" style="display: inline-block; background: #fff; border: 1px solid #ccc; color: #333; padding: 12px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+	<div class="out-btn btn-bottom">
+		<a href="/">
 			条件を変えて再検索
 		</a>
 	</div>
