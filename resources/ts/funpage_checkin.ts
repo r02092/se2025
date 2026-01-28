@@ -22,15 +22,23 @@ if (!overlay) {
 	console.error("オーバーレイ要素が見つかりません。");
 } else {
 	const video = document.getElementById("qr-video") as HTMLVideoElement;
-	const statusMessage = document.getElementById("scanner-status");
+	const statusMessage = document.getElementById(
+		"scanner-status",
+	) as HTMLParagraphElement;
 
 	// --- QRスキャナーの初期化 ---
 	const qrScanner = new QrScanner(
 		video,
 		async result => {
 			qrScanner.stop(); // 読み取ったら一旦カメラ停止
-			if (statusMessage) statusMessage.textContent = "チェックイン中...";
-			await handleCheckin(result.data); // サーバーへ送信
+			const match = result.data.match(/^scenetrip:stamp\/(\d+)$/);
+			if (match) {
+				if (statusMessage) statusMessage.textContent = "チェックイン中……";
+				await handleCheckin(match[1]); // サーバーへ送信
+			} else {
+				statusMessage.textContent =
+					"チェックイン用の二次元コードではありません。";
+			}
 		},
 		{returnDetailedScanResult: true, highlightScanRegion: true},
 	);
@@ -57,7 +65,7 @@ if (!overlay) {
 		// 現在地を取得
 		navigator.geolocation.getCurrentPosition(
 			async pos => {
-				const response = await fetch("/api/checkin", {
+				const response = await fetch("/funpage/checkin/api", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",

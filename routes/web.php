@@ -7,6 +7,7 @@ use App\Http\Controllers\PostMapController;
 use App\Http\Controllers\PostFormController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\CheckinApiController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AccountCreateController;
@@ -66,6 +67,11 @@ Route::get('/funpage', function () {
 Route::get('/funpage/checkin', function () {
     return view('funpage-checkin');
 })->name('funpage.checkin');
+
+Route::post('/funpage/checkin/api', [
+    CheckinApiController::class,
+    '__invoke',
+])->name('funpage.checkin.api');
 
 Route::get('/terms', [TermsController::class, 'index'])->name('terms');
 
