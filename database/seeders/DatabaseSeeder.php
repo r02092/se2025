@@ -1302,6 +1302,60 @@ class DatabaseSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'user_id' => 1,
+                'plan' => 1,
+                'type' => 2,
+                'name' => '牧野公園',
+                'lng' => $this->encodeLng(133.289343),
+                'lat' => $this->encodeLat(33.497658),
+                'postal_code' => 7811301,
+                'addr_city' => 39403, // 佐川町
+                'addr_detail' => '佐川町甲2458',
+                'description' =>
+                    '牧野富太郎博士が自ら桜の苗木を贈ったことが始まりの公園。博士ゆかりの植物が多数植えられており、春には見事な桜が咲き誇る。',
+                'img_ext' => 'jpg',
+                'stamp_key' => $this->randKey(),
+                'shows' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'user_id' => 1,
+                'plan' => 1,
+                'type' => 2,
+                'name' => '名教館',
+                'lng' => $this->encodeLng(133.288286),
+                'lat' => $this->encodeLat(33.499068),
+                'postal_code' => 7811301,
+                'addr_city' => 39403, // 佐川町
+                'addr_detail' => '佐川町甲2310',
+                'description' =>
+                    '牧野富太郎博士が幼少期に学んだ、佐川領主深尾氏の家塾。博士の勉学の原点ともいえる場所で、ドラマの雰囲気を感じることができる。',
+                'img_ext' => null,
+                'stamp_key' => $this->randKey(),
+                'shows' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'user_id' => 1,
+                'plan' => 1,
+                'type' => 2,
+                'name' => '金峰神社',
+                'lng' => $this->encodeLng(133.286714),
+                'lat' => $this->encodeLat(33.498421),
+                'postal_code' => 7891201,
+                'addr_city' => 39403,
+                'addr_detail' => '佐川町甲1896',
+                'description' =>
+                    '朝ドラ「らんまん」の天久神社のモデル。牧野富太郎博士の生家裏山にあり、幼少期の博士がバイカオウレンに出会った大切な場所です。',
+                'img_ext' => 'jpg',
+                'stamp_key' => $this->randKey(),
+                'shows' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
         DB::table('keywords')->insert([
             [
@@ -1790,6 +1844,18 @@ class DatabaseSeeder extends Seeder
             [
                 'spot_id' => 66,
                 'keyword' => '東海オンエア',
+            ],
+            [
+                'spot_id' => 67, // スポットの順番に合わせて調整
+                'keyword' => 'らんまん',
+            ],
+            [
+                'spot_id' => 68,
+                'keyword' => 'らんまん',
+            ],
+            [
+                'spot_id' => 69,
+                'keyword' => 'らんまん',
             ],
         ]);
         DB::table('reviews')->insert([
