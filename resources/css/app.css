@@ -2239,10 +2239,6 @@ iframe {
 .spot-edit > article {
 	margin: 0;
 	width: 90%;
-	> form > img {
-		border-radius: 8px;
-		width: 100%;
-	}
 	> form:first-child > button {
 		margin: 16px 0;
 	}
@@ -2263,4 +2259,5 @@ iframe {
 
 [id^="qr_"] {
 	image-rendering: pixelated;
+	width: 9rem;
 }
