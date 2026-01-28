@@ -61,7 +61,10 @@ async function reloadPosts(): Promise<void> {
 
 	// 新しく取得した投稿をループしてポップアップを設置
 	posts.forEach(post => {
-		const popup = new maplibregl.Popup()
+		const popup = new maplibregl.Popup({
+			closeButton: false,
+			closeOnClick: false,
+		})
 			.setLngLat([post.lng, post.lat])
 			.setHTML(
 				`
