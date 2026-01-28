@@ -24,14 +24,14 @@
 	@foreach($posts ?? [] as $post)
 	<article class="general-box post-card">
 		<header class="post-head">
-			<img class="post-avatar" src="{{ asset('images/' . $post['data']->user->id) }}" alt="avatar">
+			<img class="post-avatar" src="{{ asset('storage/icons/' . $post['data']->user->id . '.' . $post['data']->user->icon_ext) }}" alt="avatar">
 			<div class="post-meta">
 				<div class="post-author">{{ $post['data']->user->name }}</div>
 				<div class="post-time">{{ $post['data']->created_at->diffForHumans() }}</div>
 			</div>
 		</header>
-		@if($post['data']->image)
-		<img class="post-image" src="{{ asset('storage/' . $post['data']->image) }}" alt="">
+		@if($post['data']->img_ext)
+		<img class="post-image" src="{{ asset('storage/posts/' . $post['data']->id . '.' . $post['data']->img_ext) }}" alt="">
 		@endif
 		<div>{{ str_repeat('★', $post['data']->rate) }}</div>
 		<div class="post-body">{{ $post['data']->comment }}</div>
