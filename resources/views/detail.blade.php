@@ -69,15 +69,20 @@
 
 			<!-- 関連キーワード -->
 			@if($spot->keywords->isNotEmpty())
-				<div>
-					<h2>関連キーワード</h2>
-					<div class="spot-detail-keywords">
-						@foreach($spot->keywords as $keyword)
-							<span class="spot-detail-keyword-tag">{{ $keyword->keyword }}</span>
-						@endforeach
-					</div>
-				</div>
-			@endif
+                <div>
+                    <h2>関連キーワード</h2>
+                    <div class="spot-detail-keywords">
+                        @foreach($spot->keywords as $keyword)
+                            {{-- ▼▼▼ 変更箇所: span を a タグに変えて検索ページへリンク ▼▼▼ --}}
+                            <a href="{{ route('search', ['destination' => $keyword->keyword]) }}"
+                               class="spot-detail-keyword-tag"
+                               style="text-decoration: none; color: inherit; cursor: pointer;">
+                                {{ $keyword->keyword }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
 		</div>
 	</article>
 
