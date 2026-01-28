@@ -13,7 +13,8 @@ class SearchApiController extends Controller
         $query = Spot::with(['keywords', 'reviews']);
 
         // 'keyword' または 'destination' どちらでも受け取れるようにする
-        $rawKeyword = $request->input('keyword') ?? $request->input('destination');
+        $rawKeyword =
+            $request->input('keyword') ?? $request->input('destination');
 
         // ▼▼▼ 修正1: ここで初期化することで「未定義」の警告を消します ▼▼▼
         $keyword = '';
@@ -35,7 +36,9 @@ class SearchApiController extends Controller
                     ->orWhere('description', 'LIKE', "%{$keyword}%")
                     // または、紐づくキーワード (keywordsテーブル) に含まれているか
                     // ▼▼▼ 修正2: useの中の不要なカンマを削除しました ▼▼▼
-                    ->orWhereHas('keywords', function ($subQuery) use ($keyword) {
+                    ->orWhereHas('keywords', function ($subQuery) use (
+                        $keyword,
+                    ) {
                         $subQuery->where('keyword', 'LIKE', "%{$keyword}%");
                     });
             });
