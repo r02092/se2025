@@ -104,18 +104,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 </a>`;
 				spotsList.innerHTML += html;
 			});
-			const len6 = data.recommended_spots.length * 6;
+			const mapSpotNames = [
+				document.getElementById("ai_from")?.textContent,
+				...data.recommended_spots.map(i => i.name),
+				document.getElementById("ai_to")?.textContent,
+			].filter(v => v);
+			const len6 = mapSpotNames.length * 6;
 			document.getElementsByTagName("iframe")[0].src =
 				"https://www.google.com/maps/embed?pb=!1m" +
-				(len6 + 28) +
+				(len6 + 16) +
 				"!!!!!!!!!!!!!!4m" +
-				(len6 + 13) +
+				(len6 + 1) +
 				"!" +
-				[
-					document.getElementById("ai_from")?.textContent,
-					...data.recommended_spots.map(i => i.name),
-					document.getElementById("ai_to")?.textContent,
-				]
+				mapSpotNames
 					.map(
 						i =>
 							"!4m5!!2z" +
