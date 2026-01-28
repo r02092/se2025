@@ -7,6 +7,7 @@ use App\Http\Controllers\PostMapController;
 use App\Http\Controllers\PostFormController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\FunpageController;
 use App\Http\Controllers\CheckinApiController;
 use App\Http\Controllers\TermsController;
 use App\Http\Controllers\LoginController;
@@ -60,9 +61,7 @@ Route::get('/coupon/{id}/qr', function ($id) {
     return view('coupon-qr');
 })->name('coupon.qr');
 
-Route::get('/funpage', function () {
-    return view('funpage');
-})->name('funpage');
+Route::get('/funpage', [FunpageController::class, 'get'])->name('funpage');
 
 Route::get('/funpage/checkin', function () {
     return view('funpage-checkin');

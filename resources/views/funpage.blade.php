@@ -22,14 +22,14 @@
 	<div class="general-box divider" aria-hidden="true"></div>
 
 	<div class="achievement-grid" role="list">
-		@for($i = 1; $i <= 8; $i++)
+		@foreach ($stamps as $stamp)
 		<div class="achievement-item" role="listitem">
-			<button class="achievement-badge {{ isset($stamps) && in_array($i, $stamps) ? 'earned' : '' }}" aria-label="バッジ{{ $i }}">
-				<span class="badge-inner">{{ $i }}</span>
+			<button class="achievement-badge {{ isset($stamp) ? 'earned' : '' }}" aria-label="{{ $stamp->spot->name }}" onclick="location='{{ route('detail', ['id' => $stamp->spot->id]) }}'">
+				<span class="badge-inner"></span>
 			</button>
-			<div class="achievement-label">スタンプ{{ $i }}</div>
+			<div class="achievement-label">{{ $stamp->spot->name }}<br>{{ $stamp->spot->created_at->format('Y/m/d') }}</div>
 		</div>
-		@endfor
+		@endforeach
 	</div>
 </section>
 @endsection
