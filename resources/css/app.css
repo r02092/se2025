@@ -1651,10 +1651,27 @@ h1 {
 	height: 100%;
 	object-fit: cover; /* 画像比率を維持してトリミング */
 	transition: transform 0.3s ease;
+	max-height: 420px;
 }
 
 .spot-detail-image:hover {
 	transform: scale(1.02);
+}
+
+.spot-detail-image-wrapper {
+	> #dialog {
+		border: 0;
+		padding: 0;
+		outline: none;
+		> img {
+			display: block;
+			max-width: 90vw;
+			max-height: 90vh;
+		}
+	}
+	> #dialog::backdrop {
+		background: rgba(0, 0, 0, 0.75);
+	}
 }
 
 .spot-detail-card > div:last-child > * > h2 {
@@ -2222,10 +2239,6 @@ iframe {
 .spot-edit > article {
 	margin: 0;
 	width: 90%;
-	> form > img {
-		border-radius: 8px;
-		width: 100%;
-	}
 	> form:first-child > button {
 		margin: 16px 0;
 	}
@@ -2246,4 +2259,5 @@ iframe {
 
 [id^="qr_"] {
 	image-rendering: pixelated;
+	width: 9rem;
 }

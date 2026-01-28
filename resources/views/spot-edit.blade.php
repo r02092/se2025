@@ -51,7 +51,7 @@
 			<label for="img_{{ $spot->id }}">画像</label>
 			<img
 				src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
-				id="img_preview_{{ $spot->id }}"
+				id="img_preview_{{ $spot->id }}" class="post-image"
 			>
 			<input type="file" id="img_{{ $spot->id }}" name="img" class="photo-file" accept="image/*">
 			<label for="description_{{ $spot->id }}">説明</label>
