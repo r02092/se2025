@@ -1312,7 +1312,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7811301,
                 'addr_city' => 39403, // 佐川町
                 'addr_detail' => '佐川町甲2458',
-                'description' => '牧野富太郎博士が自ら桜の苗木を贈ったことが始まりの公園。博士ゆかりの植物が多数植えられており、春には見事な桜が咲き誇る。',
+                'description' =>
+                    '牧野富太郎博士が自ら桜の苗木を贈ったことが始まりの公園。博士ゆかりの植物が多数植えられており、春には見事な桜が咲き誇る。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1329,7 +1330,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7811301,
                 'addr_city' => 39403, // 佐川町
                 'addr_detail' => '佐川町甲2310',
-                'description' => '牧野富太郎博士が幼少期に学んだ、佐川領主深尾氏の家塾。博士の勉学の原点ともいえる場所で、ドラマの雰囲気を感じることができる。',
+                'description' =>
+                    '牧野富太郎博士が幼少期に学んだ、佐川領主深尾氏の家塾。博士の勉学の原点ともいえる場所で、ドラマの雰囲気を感じることができる。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1346,7 +1348,8 @@ class DatabaseSeeder extends Seeder
                 'postal_code' => 7891201,
                 'addr_city' => 39403,
                 'addr_detail' => '佐川町甲1896',
-                'description' => '朝ドラ「らんまん」の天久神社のモデル。牧野富太郎博士の生家裏山にあり、幼少期の博士がバイカオウレンに出会った大切な場所です。',
+                'description' =>
+                    '朝ドラ「らんまん」の天久神社のモデル。牧野富太郎博士の生家裏山にあり、幼少期の博士がバイカオウレンに出会った大切な場所です。',
                 'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
