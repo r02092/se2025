@@ -1864,11 +1864,39 @@ class DatabaseSeeder extends Seeder
                 'user_id' => 1,
                 'rate' => 5,
                 'comment' => '車窓から海が見えて最高でした！',
-                'views' => 1,
+                'views' => 16,
                 'ip_addr' => '192.0.2.11',
                 'port' => 49211,
                 'user_agent' =>
                     'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Mobile Safari/537.36',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'spot_id' => 2,
+                'user_id' => 4,
+                'rate' => 3,
+                'comment' =>
+                    '前は往復で移動するだけで簡単にフリーきっぷの元が取れたけど、流石に値上げされたか……',
+                'views' => 8,
+                'ip_addr' => '192.0.2.12',
+                'port' => 49212,
+                'user_agent' =>
+                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'spot_id' => 66,
+                'user_id' => 2,
+                'rate' => 4,
+                'comment' =>
+                    '思ってたより長いし、広い空間も多くて迫力あって良かった！',
+                'views' => 18,
+                'ip_addr' => '192.0.2.13',
+                'port' => 49213,
+                'user_agent' =>
+                    'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -1905,7 +1933,7 @@ class DatabaseSeeder extends Seeder
                 'spot_id' => 2,
                 'user_id' => 2,
                 'ip_addr' => '192.0.2.21',
-                'port' => 49231,
+                'port' => 49221,
                 'user_agent' =>
                     'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0',
                 'created_at' => now(),
@@ -1915,7 +1943,27 @@ class DatabaseSeeder extends Seeder
                 'spot_id' => 2,
                 'user_id' => 5,
                 'ip_addr' => '192.0.2.22',
-                'port' => 49231,
+                'port' => 49222,
+                'user_agent' =>
+                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'spot_id' => 24,
+                'user_id' => 4,
+                'ip_addr' => '192.0.2.23',
+                'port' => 49223,
+                'user_agent' =>
+                    'Mozilla/5.0 (Android 15; Mobile; rv:146.0) Gecko/146.0 Firefox/146.0',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'spot_id' => 66,
+                'user_id' => 5,
+                'ip_addr' => '192.0.2.24',
+                'port' => 49224,
                 'user_agent' =>
                     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0',
                 'created_at' => now(),

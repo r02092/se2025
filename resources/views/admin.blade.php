@@ -26,7 +26,7 @@
 			スポット作成・編集
 		</button>
 
-		<button class="settings-button" onclick="location.href = '{{ route('admin.data') }}'">
+		<button class="settings-button" onclick="location.href = '{{ route('business.data') }}'">
 			観光データ確認
 		</button>
 	</div>

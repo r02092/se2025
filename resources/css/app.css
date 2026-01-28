@@ -528,6 +528,9 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
+	> a {
+		text-decoration: none;
+	}
 }
 .spot-item {
 	background: #fafafa;
@@ -568,6 +571,7 @@ h1 {
 	margin: 6px 0 0 0;
 	color: #666;
 	font-size: 14px;
+	font-weight: bold;
 }
 
 /* ==== login.css ==== */
@@ -1967,7 +1971,6 @@ h1 {
 .home-spot > a {
 	position: relative;
 	transition: transform 0.2s;
-	text-decoration: none;
 	> div:first-child {
 		position: absolute;
 		top: 0;
@@ -2107,11 +2110,6 @@ iframe {
 
 .h2 {
 	font-size: 1.5em;
-	font-weight: bold;
-}
-
-.spot-desc {
-	font-size: 1.17em;
 	font-weight: bold;
 }
 

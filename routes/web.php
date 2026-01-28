@@ -20,6 +20,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\ProfileTwoFactorController;
 use App\Http\Controllers\AddrApiController;
 use App\Http\Controllers\EditSpotController;
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\AiApiController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
@@ -215,9 +216,9 @@ Route::middleware(['auth'])
             'delete',
         ])->name('business.spots.del');
 
-        Route::get('/data', function () {
-            return view('business.data');
-        })->name('business.data');
+        Route::get('/data', [DataController::class, 'get'])->name(
+            'business.data',
+        );
 
         Route::get('/api-keys', [ApiKeyController::class, 'get'])->name(
             'business.api',
@@ -250,10 +251,6 @@ Route::middleware(['auth'])
         Route::post('/ugc/delete', [AdminUgcController::class, 'post'])->name(
             'admin.ugc.del',
         );
-
-        Route::get('/data', function () {
-            return view('admin.data');
-        })->name('admin.data');
 
         Route::get('/user/{id}', function ($id) {
             return view('admin.user-detail');
