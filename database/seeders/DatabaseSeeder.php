@@ -1188,7 +1188,7 @@ class DatabaseSeeder extends Seeder
                 'addr_detail' => '丸ノ内１丁目２−１',
                 'description' =>
                     '現存十二天守の一つ。追手門と天守閣が両方現存している珍しい城で、高知市のシンボル。',
-                'img_ext' => null,
+                'img_ext' => jpg,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
                 'created_at' => now(),
