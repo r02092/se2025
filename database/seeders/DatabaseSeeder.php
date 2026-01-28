@@ -1985,8 +1985,8 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'user_id' => 4,
-                'query' => '「ものべの」の聖地はどこ？',
-                'from_spot_id' => null,
+                'query' => 'この付近で「ものべの」の聖地はどこ？',
+                'from_spot_id' => 24,
                 'to_spot_id' => null,
                 'ip_addr' => '192.0.2.32',
                 'port' => 49232,
