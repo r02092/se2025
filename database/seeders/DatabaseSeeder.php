@@ -1309,12 +1309,12 @@ class DatabaseSeeder extends Seeder
                 'name' => '牧野公園',
                 'lng' => $this->encodeLng(133.289343),
                 'lat' => $this->encodeLat(33.497658),
-                'postal_code' => 7811301,
-                'addr_city' => 39403, // 佐川町
-                'addr_detail' => '佐川町甲2458',
+                'postal_code' => 7891201,
+                'addr_city' => 39402, // 佐川町
+                'addr_detail' => '甲２４５８',
                 'description' =>
                     '牧野富太郎博士が自ら桜の苗木を贈ったことが始まりの公園。博士ゆかりの植物が多数植えられており、春には見事な桜が咲き誇る。',
-                'img_ext' => 'jpg',
+                'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
                 'created_at' => now(),
@@ -1327,9 +1327,9 @@ class DatabaseSeeder extends Seeder
                 'name' => '名教館',
                 'lng' => $this->encodeLng(133.288286),
                 'lat' => $this->encodeLat(33.499068),
-                'postal_code' => 7811301,
-                'addr_city' => 39403, // 佐川町
-                'addr_detail' => '佐川町甲2310',
+                'postal_code' => 7891201,
+                'addr_city' => 39402, // 佐川町
+                'addr_detail' => '甲１４７２－１',
                 'description' =>
                     '牧野富太郎博士が幼少期に学んだ、佐川領主深尾氏の家塾。博士の勉学の原点ともいえる場所で、ドラマの雰囲気を感じることができる。',
                 'img_ext' => null,
@@ -1346,11 +1346,11 @@ class DatabaseSeeder extends Seeder
                 'lng' => $this->encodeLng(133.286714),
                 'lat' => $this->encodeLat(33.498421),
                 'postal_code' => 7891201,
-                'addr_city' => 39403,
-                'addr_detail' => '佐川町甲1896',
+                'addr_city' => 39402,
+                'addr_detail' => '甲１８９６',
                 'description' =>
                     '朝ドラ「らんまん」の天久神社のモデル。牧野富太郎博士の生家裏山にあり、幼少期の博士がバイカオウレンに出会った大切な場所です。',
-                'img_ext' => 'jpg',
+                'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
                 'created_at' => now(),
