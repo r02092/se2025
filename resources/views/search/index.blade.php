@@ -102,15 +102,24 @@
 							</p>
 
 							{{-- キーワードタグ --}}
-							@if(!empty($spot->keywords))
-								<div>
-									@foreach($spot->keywords as $keyword)
-										<span>
-											# {!! highlightKeywords($keyword, $destination) !!}
-										</span>
-									@endforeach
-								</div>
-							@endif
+                            @if(!empty($spot->keywords))
+                                {{-- ▼▼▼ 変更箇所: リンクの入れ子回避のため object タグで囲みます ▼▼▼ --}}
+                                <object>
+                                    <div style="margin-top: 8px;">
+                                        @foreach($spot->keywords as $keyword)
+                                            {{-- 現在の検索条件を維持しつつ、キーワードだけ書き換えてリンク --}}
+                                            <a href="{{ request()->fullUrlWithQuery(['destination' => $keyword]) }}"
+                                               style="text-decoration: none; display: inline-block; cursor: pointer;">
+                                                {{-- 見た目を少しボタン風にしてクリックできる感を出す --}}
+                                                <span style="background: #f3f4f6; color: #555; padding: 2px 8px; border-radius: 4px; font-size: 0.9rem; margin-right: 5px; margin-bottom: 5px; display: inline-block;">
+                                                    # {!! highlightKeywords($keyword, $destination) !!}
+                                                </span>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </object>
+                                {{-- ▲▲▲ 変更箇所ここまで ▲▲▲ --}}
+                            @endif
 						</div>
 					</a>
 				</div>
