@@ -9,12 +9,22 @@ class SearchApiController extends Controller
 {
     public function getSpotList(Request $request)
     {
-        // 1. クエリの準備（keywordsとreviewsを一緒に読み込む）
+        // 1. クエリの準備
         $query = Spot::with(['keywords', 'reviews']);
 
-        // 2. キーワード検索（名前 OR 説明文 OR タグ）
-        if ($request->filled('keyword')) {
-            $keyword = $request->input('keyword');
+        // ▼▼▼ 修正: 'keyword' または 'destination' どちらでも受け取れるようにする ▼▼▼
+        // (Blade側で destination を使っているため)
+        $rawKeyword = $request->input('keyword') ?? $request->input('destination');
+
+        if (!empty($rawKeyword)) {
+
+            // ▼▼▼ 修正: 配列で来た場合の対策 (Array to string conversionエラー防止) ▼▼▼
+            if (is_array($rawKeyword)) {
+                // 配列ならスペース区切りの文字列に変換
+                $keyword = implode(' ', $rawKeyword);
+            } else {
+                $keyword = (string) $rawKeyword;
+            }
 
             // where(function(...)) で囲むことで、AND条件の中にORを含めることができます
             $query->where(function ($q) use ($keyword) {
@@ -23,15 +33,14 @@ class SearchApiController extends Controller
                     // または、説明文 (description) に含まれているか
                     ->orWhere('description', 'LIKE', "%{$keyword}%")
                     // または、紐づくキーワード (keywordsテーブル) に含まれているか
-                    ->orWhereHas('keywords', function ($subQuery) use (
-                        $keyword,
-                    ) {
+                    // ▼▼▼ 修正: useの中のカンマを削除 ▼▼▼
+                    ->orWhereHas('keywords', function ($subQuery) use ($keyword) {
                         $subQuery->where('keyword', 'LIKE', "%{$keyword}%");
                     });
             });
         }
 
-        // 3. カテゴリ（種別）での絞り込み（もしあれば）
+        // 3. カテゴリ（種別）での絞り込み
         if ($request->filled('type')) {
             $query->where('type', $request->input('type'));
         }
@@ -40,7 +49,8 @@ class SearchApiController extends Controller
         $spots = $query->get(['id', 'name', 'description', 'img_ext']);
 
         // ▼▼▼ 追加: 取得後に優先順位で並び替えるロジック ▼▼▼
-        if ($request->filled('keyword')) {
+        // $keyword が存在する場合のみ実行
+        if (!empty($rawKeyword)) {
             $spots = $spots
                 ->sortByDesc(function ($spot) use ($keyword) {
                     // 1. 名前が完全一致なら最強 (100点)
@@ -52,7 +62,8 @@ class SearchApiController extends Controller
                         return 50;
                     }
                     // 3. キーワードタグに含まれていれば (30点)
-                    foreach ($spot->keywords as $k) {
+                    // null安全演算子 (?->) を使ってエラー回避
+                    foreach ($spot->keywords ?? [] as $k) {
                         if (str_contains($k->keyword, $keyword)) {
                             return 30;
                         }
