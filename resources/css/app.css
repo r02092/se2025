@@ -1321,7 +1321,7 @@ h1 {
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
-	background: center no-repeat url("http://localhost:8000/images/spot_icon.svg");
+	background: center no-repeat url("/images/spot_icon.svg");
 	background-size: cover;
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 	border: 2px solid rgba(20, 184, 136, 0.12);
