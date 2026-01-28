@@ -13,7 +13,7 @@ const marker = new maplibregl.Marker()
 	.setLngLat([133.719998, 33.620661])
 	.addTo(map);
 map.addControl(new maplibregl.NavigationControl(), "top-right");
-map.on("click", e => inputCoord(e.lngLat.toArray()));
+map.on("click", e => inputCoord(e.lngLat.toArray(), false));
 
 const photo = document.getElementById("photo") as HTMLInputElement;
 const preview = document.getElementById("photo_preview") as HTMLImageElement;
@@ -36,6 +36,7 @@ photo.addEventListener("change", () => {
 							.map((e, j) => e / 60 ** j)
 							.reduce((s, e) => s + e, 0),
 					) as [number, number],
+					true,
 				);
 			} else {
 				document.getElementById("ud");
@@ -48,11 +49,12 @@ photo.addEventListener("change", () => {
 });
 document.getElementById("location_btn")?.addEventListener("click", () => {
 	navigator.geolocation.getCurrentPosition(c => {
-		inputCoord([c.coords.longitude, c.coords.latitude]);
+		inputCoord([c.coords.longitude, c.coords.latitude], true);
 	});
 });
 
-function inputCoord(lngLat: [number, number]) {
+function inputCoord(lngLat: [number, number], move: boolean) {
+	if (move) map.setCenter(lngLat);
 	marker.setLngLat(lngLat);
 	(document.getElementsByName("coord")[0] as HTMLInputElement).value =
 		JSON.stringify(lngLat);
