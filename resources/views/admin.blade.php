@@ -18,11 +18,11 @@
 			ユーザー一覧
 		</button>
 
-		<button class="settings-button" onclick="location.href = '{{ route('admin.ugc', ['page' => 1]) }}'">
+		<button class="settings-button" onclick="location.href = '{{ route('admin.ugc', 0) }}'">
 			UGC監視・管理
 		</button>
 
-		<button class="settings-button" onclick="location.href = '{{ route('business.spots') }}'">
+		<button class="settings-button" onclick="location.href = '{{ route('business.spots', 0) }}'">
 			スポット作成・編集
 		</button>
 

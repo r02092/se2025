@@ -8,6 +8,13 @@
 
 @section('content')
 <h1>スポット作成・編集</h1>
+@if ($page)
+	<div class="out-btn btn-top">
+		<a href="{{ $page - 1 }}">
+			前のページへ
+		</a>
+	</div>
+@endif
 <section class="coupon-list spot-edit">
 	@for($i = -1; $i < count($spots); $i++)
 	@php
@@ -19,7 +26,7 @@
 			$spot->lat = 33.620661;
 		}
 	@endphp
-	@if ($i + 1 || Auth::user()->permission === 0 || Auth::user()->num_plan_std + Auth::user()->num_plan_prm > count(Auth::user()->spots))
+	@if ((!$page && (Auth::user()->permission === 0 || Auth::user()->num_plan_std + Auth::user()->num_plan_prm > count(Auth::user()->spots))) || $i + 1)
 	<article
 		class="general-box form-container"
 		tabindex="0"
@@ -107,4 +114,11 @@
 	@endif
 	@endfor
 </section>
+@if ($nextBtn)
+	<div class="out-btn btn-bottom btn-bottom-margin">
+		<a href="{{ $page + 1 }}">
+			次のページへ
+		</a>
+	</div>
+@endif
 @endsection

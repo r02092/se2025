@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', '投稿')
+@section('title', 'UGC監視・管理')
 
 @section('content')
 <div class="post-titlebar">
@@ -11,24 +11,31 @@
 		</button>
 	</div>
 </div>
+@if ($page)
+	<div class="out-btn btn-top">
+		<a href="{{ $page - 1 }}">
+			前のページへ
+		</a>
+	</div>
+@endif
 
 <!-- フィード（投稿カードをここに差し込む） -->
 <section id="feed" class="feed">
 	@foreach($posts ?? [] as $post)
 	<article class="general-box post-card">
 		<header class="post-head">
-			<img class="post-avatar" src="{{ asset('images/' . $post['data']->user->id) }}" alt="avatar">
+			<img class="post-avatar" src="{{ asset('storage/icons/' . $post['data']->user->id . '.' . $post['data']->user->icon_ext) }}" alt="avatar">
 			<div class="post-meta">
 				<div class="post-author">{{ $post['data']->user->name }}</div>
 				<div class="post-time">{{ $post['data']->created_at->diffForHumans() }}</div>
 			</div>
 		</header>
-		@if($post['data']->image)
-		<img class="post-image" src="{{ asset('storage/' . $post['data']->image) }}" alt="">
+		@if($post['data']->img_ext)
+		<img class="post-image" src="{{ asset('storage/posts/' . $post['data']->id . '.' . $post['data']->img_ext) }}" alt="">
 		@endif
-		<div style="color: #ddcc00; margin-top: 8px">{{ str_repeat('★', $post['data']->rate) }}</div>
+		<div>{{ str_repeat('★', $post['data']->rate) }}</div>
 		<div class="post-body">{{ $post['data']->comment }}</div>
-		<div style="color: #aaa; font-size: 0.6em">
+		<div>
 			種別: {{ $post['type'] !== 'photo' ? '口コミ' : '写真' }}<br>
 			ID: {{ $post['data']->id }}<br>
 			投稿者: <a href="{{ route('user.detail', $post['data']->user->id) }}">{{ $post['data']->user->name }}</a><br>
@@ -51,4 +58,11 @@
 	</article>
 	@endforeach
 </section>
+@if ($nextBtn)
+	<div class="out-btn btn-bottom btn-bottom-margin">
+		<a href="{{ $page + 1 }}">
+			次のページへ
+		</a>
+	</div>
+@endif
 @endsection

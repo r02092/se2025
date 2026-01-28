@@ -18,6 +18,7 @@ class EditSpotController extends Controller
             'spot-edit',
             array_merge(
                 [
+                    'page' => $page,
                     'spots' => (Auth::user()->permission
                         ? Spot::where('user_id', Auth::user()->id)
                         : Spot::with('user')
@@ -37,6 +38,12 @@ class EditSpotController extends Controller
                                 ][$v];
                         }, range(0, 1))
                         : [true, true],
+                    'nextBtn' =>
+                        (Auth::user()->permission
+                            ? Auth::user()->spots
+                            : Spot::with('user')
+                        )->count() >
+                        ($page + 1) * self::DISPLAY_NUM,
                 ],
                 $this->selectPrefsCities(),
             ),
