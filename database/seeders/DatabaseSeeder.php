@@ -1361,8 +1361,8 @@ class DatabaseSeeder extends Seeder
                 'plan' => 1,
                 'type' => 5, // 公園
                 'name' => 'やなせたかし朴ノ木公園',
-                'lng' => $this->encodeLng(139.7661275),
-                'lat' => $this->encodeLat(35.690395),
+                'lng' => $this->encodeLng(133.80308032034065),
+                'lat' => $this->encodeLat(33.66135551042985),
                 'postal_code' => 7814217,
                 'addr_city' => 39212, // 香美市
                 'addr_detail' => '香北町朴ノ木405',
@@ -1379,8 +1379,8 @@ class DatabaseSeeder extends Seeder
                 'plan' => 1,
                 'type' => 2, // 観光名所
                 'name' => '琴ヶ浜',
-                'lng' => $this->encodeLng(139.7661275),
-                'lat' => $this->encodeLat(35.690395),
+                'lng' => $this->encodeLng(133.82802676205878),
+                'lat' => $this->encodeLat(33.59614317040632),
                 'postal_code' => 7815700,
                 'addr_city' => 39301, // 安芸群
                 'addr_detail' => '芸西村和食甲1番地',
@@ -1397,8 +1397,8 @@ class DatabaseSeeder extends Seeder
                 'plan' => 1,
                 'type' => 5, // 公園
                 'name' => 'やなせライオン公園',
-                'lng' => $this->encodeLng(139.7661275),
-                'lat' => $this->encodeLat(35.690395),
+                'lng' => $this->encodeLng(133.6459946355777),
+                'lat' => $this->encodeLat(33.57652931775358),
                 'postal_code' => 7830002,
                 'addr_city' => 39204, // 南国市
                 'addr_detail' => '後免町1-40-11',
@@ -1415,11 +1415,11 @@ class DatabaseSeeder extends Seeder
                 'plan' => 1,
                 'type' => 2, // 観光名所
                 'name' => 'やなせたかしロード',
-                'lng' => $this->encodeLng(139.7661275),
-                'lat' => $this->encodeLat(35.690395),
+                'lng' => $this->encodeLng(133.64706895982113),
+                'lat' => $this->encodeLat(33.57571216292037),
                 'postal_code' => 7830011,
                 'addr_city' => 39204, // 南国市
-                'addr_detail' => '後免町2-1-14',
+                'addr_detail' => '後免町２丁目１−１４',
                 'description' =>
                     '後免町商店街の愛称。キャラクターの石像が通りに立ち並ぶ。朝ドラ「あんぱん」では、やなせ氏と妻・暢（のぶ）さんがモデルの登場人物たちが少年時代を過ごした町として、「御免与町（ごめんよちょう）」という場所で登場する。',
                 'img_ext' => null,
