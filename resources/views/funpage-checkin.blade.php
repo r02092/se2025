@@ -27,7 +27,7 @@
 		<p id="scanner-status">カメラを起動中...</p>
 
 		<div class="button-group">
-			<button type="button" class="btn-secondary" onclick="location.href='{{ route('funpage') }}'">
+			<button type="button" class="btn btn-secondary" onclick="location.href='{{ route('funpage') }}'">
 				戻る
 			</button>
 		</div>
