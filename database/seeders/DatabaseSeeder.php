@@ -1921,7 +1921,7 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'spot_id' => 45,
+                'spot_id' => 46,
                 'keyword' => '東海オンエア',
                 'created_at' => now(),
                 'updated_at' => now(),
