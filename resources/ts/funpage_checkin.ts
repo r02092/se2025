@@ -68,8 +68,8 @@ if (!overlay) {
 	}
 
 	async function handleCoupon(couponKey: string) {
-		const data = new FormData();
-		data.set("key", couponKey);
+		const body = new FormData();
+		body.set("key", couponKey);
 		alert(
 			await (
 				await fetch("/business/coupon/api", {
@@ -81,7 +81,7 @@ if (!overlay) {
 							) as HTMLMetaElement
 						).content,
 					},
-					body: data,
+					body: body,
 				})
 			).text(),
 		);

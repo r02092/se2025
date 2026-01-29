@@ -7,8 +7,8 @@ if (Number(yesBtn.dataset.active)) showCoupon();
 async function showCoupon() {
 	const match = location.pathname.match(/^\/coupon\/(\d+)$/);
 	if (match) {
-		const data = new FormData();
-		data.set("coupon_id", match[1]);
+		const body = new FormData();
+		body.set("coupon_id", match[1]);
 		const res = await (
 			await fetch("api", {
 				method: "POST",
@@ -17,7 +17,7 @@ async function showCoupon() {
 						document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement
 					).content,
 				},
-				body: data,
+				body: body,
 			})
 		).json();
 		if (res.key) {
