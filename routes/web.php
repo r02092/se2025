@@ -26,6 +26,7 @@ use App\Http\Controllers\DataController;
 use App\Http\Controllers\AiApiController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\CouponCheckApiController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\AdminUgcController;
 use App\Http\Controllers\InsertUserController;
@@ -237,6 +238,11 @@ Route::middleware(['auth'])
         Route::get('/invoice', [InvoiceController::class, 'get'])->name(
             'business.invoice',
         );
+
+        Route::post('/coupon/api', [
+            CouponCheckApiController::class,
+            'post',
+        ])->name('business.coupon.api');
     });
 
 // 管理者専用ルート

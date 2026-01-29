@@ -14,11 +14,14 @@
 			スポット作成・編集
 		</button>
 
+		<button class="settings-button" onclick="location.href = '{{ route('funpage') }}'">
+			クーポン読み取り（お楽しみ機能画面へ移動）
+		</button>
+
 		<button class="settings-button" onclick="location.href = '{{ route('business.data') }}'">
 			観光データ確認
 		</button>
 
-		<!-- 以下 遷移先空白 -->
 		<button class="settings-button" onclick="location.href = '{{ route('business.api') }}'">
 			APIキー管理
 		</button>
