@@ -12,7 +12,7 @@
 </div>
 
 {{-- ▼▼▼ 検索フォームエリア ▼▼▼ --}}
-<div class="general-box form-container" style="padding-top: 0; padding-bottom: 20px; margin: 16px 5% 16px; overflow: hidden;">
+<div class="general-box form-container" style="padding-top: 0; padding-bottom: 20px; margin: 16px auto 16px; overflow: hidden;">
 
 	{{-- 1. タブ切り替えボタン --}}
 	<div class="home-btns">

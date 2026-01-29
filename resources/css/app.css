@@ -25,9 +25,14 @@ body {
 	height: auto;
 }
 .general-box {
+	width: 100%;
+	max-width: 760px;
+	margin-left: auto;
+	margin-right: auto;
 	background: #fff;
 	border-radius: 8px;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+	box-sizing: border-box;
 }
 h1 {
 	text-align: center;
@@ -40,6 +45,7 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	text-align: center;
+	padding: 1% 5% 1% 5%;
 }
 
 /* Header Bar */
@@ -229,7 +235,6 @@ h1 {
 .profile-edit-container,
 .subscription-confirm-container,
 .subscription-form-container {
-	width: 80%;
 	margin: 80px auto;
 	padding: 1% 5% 1% 5%;
 	text-align: center;
@@ -297,6 +302,10 @@ h1 {
 .hidden {
 	display: none !important;
 }
+.coupon-container {
+	max-width: 760px;
+	margin: 0 auto;
+}
 .coupon-filter {
 	width: 100%;
 	box-sizing: border-box;
@@ -359,7 +368,7 @@ h1 {
 	background: #fff;
 }
 .coupon-list {
-	width: 90%;
+	width: 100%;
 	margin: 0 auto 24px;
 	display: flex;
 	flex-direction: column;
@@ -835,7 +844,7 @@ h1 {
 }
 .post-card {
 	padding: 12px;
-	margin: 0 5%;
+	margin: 0 auto;
 	> div:first-of-type {
 		color: #ddcc00;
 		margin-top: 8px;
@@ -926,7 +935,6 @@ h1 {
 	text-align: center;
 }
 .profile-subscription-container {
-	width: 80%;
 	margin: 80px auto;
 	margin-top: 10px;
 	padding: 1% 5% 1% 5%;
@@ -1581,7 +1589,7 @@ h1 {
 
 /* admin.blade.php */
 .settings-button {
-	width: 80vw;
+	width: 100%;
 	padding: 10px 10px;
 	background: #168dc4;
 	color: #fff;
@@ -1599,7 +1607,6 @@ h1 {
 
 /* ベースレイアウト */
 .spot-detail-container {
-	width: 80%;
 	margin: 80px auto;
 	color: #333;
 	margin-bottom: 10px;
@@ -1607,12 +1614,8 @@ h1 {
 
 /* カード共通スタイル */
 .spot-detail-card {
-	background: #fff;
-	border-radius: 12px;
-	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 	overflow: hidden;
 	margin-bottom: 1rem;
-	border: 1px solid #f0f0f0;
 	padding: 12px;
 }
 
@@ -2005,12 +2008,9 @@ h1 {
 	font-size: 1.2rem;
 }
 
-.ai-container {
-	background: #fff;
-	border: 1px solid #e5e7eb;
-	border-radius: 12px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+#ai_container {
 	overflow: hidden;
+	min-height: 300px;
 }
 
 .ai-text {
@@ -2033,10 +2033,6 @@ h1 {
 			margin-bottom: 20px;
 		}
 	}
-}
-
-#ai_container {
-	min-height: 300px;
 }
 
 #ai_loading {
@@ -2115,12 +2111,8 @@ iframe {
 
 /* カードの基本スタイル */
 .result-card {
-	background: #fff;
-	border: 1px solid #e5e7eb;
-	border-radius: 12px;
 	overflow: hidden;
 	margin-bottom: 20px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 	transition: transform 0.2s;
 }
 .result-card:hover {
@@ -2268,8 +2260,7 @@ iframe {
 }
 
 .spot-edit > article {
-	margin: 0;
-	width: 90%;
+	margin: 0 auto;
 	> form:first-child > button {
 		margin: 16px 0;
 	}

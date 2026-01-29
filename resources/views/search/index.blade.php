@@ -52,7 +52,7 @@
 	}
 @endphp
 
-<div class="container" style="max-width: 800px; margin: 0 auto; padding: 30px 20px;">
+<div style="max-width: 760px; margin: 0 auto;">
 
 	{{-- ヘッダー --}}
 	<div style="margin-bottom: 30px;">
@@ -81,7 +81,7 @@
 	<div class="search-results">
 		@if(count($spots) > 0)
 			@foreach($spots as $spot)
-				<div class="result-card">
+				<div class="general-box result-card">
 
 					{{-- カード全体リンク --}}
 					<a href="{{ route('detail', ['id' => $spot->id]) }}" class="result-link">

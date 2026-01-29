@@ -10,7 +10,7 @@
 <div class="spot-detail-container">
 
 	<!-- スポット基本情報カード -->
-	<article class="spot-detail-card">
+	<article class="general-box spot-detail-card">
 
 		<!-- タイトルとカテゴリ -->
 		<header class="spot-detail-header">
@@ -87,7 +87,7 @@
 	</article>
 
 	<!-- ▼ 口コミ・評価エリア ▼ -->
-	<section class="spot-detail-card spot-detail-review-section">
+	<section class="general-box spot-detail-card spot-detail-review-section">
 		<h2>口コミ・評判</h2>
 
 		<!-- 評価の平均点表示 -->
