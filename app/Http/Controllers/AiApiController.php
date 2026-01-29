@@ -186,6 +186,7 @@ class AiApiController extends Controller
                     'addr_detail',
                     'description',
                     'img_ext',
+                    'shows',
                 ]);
                 if ($spot) {
                     $recommendedSpots[] = $spot;
@@ -208,6 +209,8 @@ class AiApiController extends Controller
                                 )),
                         ];
                     }
+                    $spot->shows++;
+                    $spot->save();
                 }
                 if ($from && $to) {
                     array_multisort($dists, $recommendedSpots);
