@@ -14,7 +14,7 @@
 			s66.516,29.781,66.516,66.531C322.516,210.625,292.734,240.406,256,240.406z"
 			fill="#14b888">
 	</svg>
-	<h2>チェックイン</h2>
+	<h2>チェックイン{{ Auth::user()->permission !== 1 ? '・クーポン読み取り' : '' }}</h2>
 </a>
 
 <section class="general-box achievement" aria-labelledby="achievement_title">

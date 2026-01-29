@@ -31,13 +31,19 @@ if (!overlay) {
 		video,
 		async result => {
 			qrScanner.stop(); // 読み取ったら一旦カメラ停止
-			const match = result.data.match(/^scenetrip:stamp\/(\d+)$/);
-			if (match) {
-				if (statusMessage) statusMessage.textContent = "チェックイン中……";
-				await handleCheckin(match[1]); // サーバーへ送信
-			} else {
-				statusMessage.textContent =
-					"チェックイン用の二次元コードではありません。";
+			const match = result.data.match(/^scenetrip:(coupon|stamp)\/(\d+)$/);
+			switch (match ? match[1] : "") {
+				case "coupon":
+					statusMessage.textContent = "クーポンを読み込み中……";
+					await handleCoupon((match as RegExpMatchArray)[2]);
+					break;
+				case "stamp":
+					statusMessage.textContent = "チェックイン中……";
+					await handleCheckin((match as RegExpMatchArray)[2]); // サーバーへ送信
+					break;
+				default:
+					statusMessage.textContent =
+						"チェックイン用の二次元コードではありません。";
 			}
 		},
 		{returnDetailedScanResult: true, highlightScanRegion: true},
@@ -59,6 +65,27 @@ if (!overlay) {
 				if (statusMessage)
 					statusMessage.textContent = "カメラの起動に失敗しました。";
 			});
+	}
+
+	async function handleCoupon(couponKey: string) {
+		const data = new FormData();
+		data.set("key", couponKey);
+		alert(
+			await (
+				await fetch("/business/coupon/api", {
+					method: "POST",
+					headers: {
+						"X-CSRF-TOKEN": (
+							document.querySelector(
+								'meta[name="csrf-token"]',
+							) as HTMLMetaElement
+						).content,
+					},
+					body: data,
+				})
+			).text(),
+		);
+		location = "/funpage" as unknown as Location;
 	}
 
 	async function handleCheckin(stampKey: string) {
