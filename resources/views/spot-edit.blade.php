@@ -100,7 +100,7 @@
 			@php
 				$user = $spot->user ?? Auth::user()
 			@endphp
-			<a href="{{ route('user.detail', $user->id) }}">{{ $user->name }}</a>
+			<a href="{{ route('admin.user.detail', $user->id) }}">{{ $user->name }}</a>
 			<button type="submit">{{ $i + 1 ? '更新' : '作成' }}</button>
 		</form>
 		@if ($i + 1)

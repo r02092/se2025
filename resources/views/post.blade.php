@@ -6,7 +6,7 @@
 <div class="post-titlebar">
 	<h1>UGC監視・管理</h1>
 	<div class="post-titlebar-update">
-		<button type="button" onclick="location.href = '{{ route('post') }}'">
+		<button type="button" onclick="location.href = '{{ route('admin.ugc', ['page' => $page]) }}'">
 			内容更新
 		</button>
 	</div>
@@ -38,7 +38,7 @@
 		<div>
 			種別: {{ $post['type'] !== 'photo' ? '口コミ' : '写真' }}<br>
 			ID: {{ $post['data']->id }}<br>
-			投稿者: <a href="{{ route('user.detail', $post['data']->user->id) }}">{{ $post['data']->user->name }}</a><br>
+			投稿者: <a href="{{ route('admin.user.detail', $post['data']->user->id) }}">{{ $post['data']->user->name }}</a><br>
 			@if($post['type'] !== 'photo')
 			閲覧数: {{ $post['data']->views }}<br>
 			@else

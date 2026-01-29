@@ -253,8 +253,8 @@ Route::middleware(['auth'])
         );
 
         Route::get('/user/{id}', function ($id) {
-            return view('admin.user-detail');
-        })->name('user.detail');
+            return view('user-detail', ['id' => $id]);
+        })->name('admin.user.detail');
 
         Route::resource('users', InsertUserController::class)
             ->only(['create', 'store'])

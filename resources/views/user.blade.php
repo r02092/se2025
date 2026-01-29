@@ -6,7 +6,7 @@
 <h1>ユーザー一覧</h1>
 <section class="coupon-list">
 	@foreach($users as $user)
-	<article class="general-box coupon-card" tabindex="0" role="article">
+	<article class="general-box coupon-card" tabindex="0" role="article" onclick="location.href='{{ route('admin.user.detail', ['id' => $user->id]) }}'" style="cursor: pointer;">
 		<img class="coupon-thumb" src="{{ $user->icon_url }}">
 		<div class="coupon-info">
 			<h2 class="coupon-title">{{ $user->name }}</h2>
