@@ -64,7 +64,7 @@
 				</div>
 				<div class="coupon-action" role="note" aria-label="詳細の案内">
 					<span class="detail-note">
-						<div class="detail-note">{{ $coupons[0] == '現在利用中の' ? '詳細を見る' : '利用する' }}</div>
+						<div class="detail-note">利用する</div>
 					</span>
 				</div>
 			</article>
