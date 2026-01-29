@@ -54,7 +54,7 @@
 
 	{{-- ▼▼▼ 正常系: AI処理エリア ▼▼▼ --}}
 	@else
-		<div id="ai_container" class="ai-container" data-from="{{ $fromSpot ? $fromSpot->id : null }}" data-to="{{ $toSpot ? $toSpot->id : null }}">
+		<div id="ai_container" class="general-box" data-from="{{ $fromSpot ? $fromSpot->id : null }}" data-to="{{ $toSpot ? $toSpot->id : null }}">
 
 			{{-- 1. ローディング画面 --}}
 			<div id="ai_loading">
