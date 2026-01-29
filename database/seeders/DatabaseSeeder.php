@@ -1275,7 +1275,7 @@ class DatabaseSeeder extends Seeder
                 'lat' => $this->encodeLat(33.561596),
                 'postal_code' => 7800842,
                 'addr_city' => 39201,
-                'addr_detail' => '追手筋２丁目２−１０',
+                'addr_detail' => '追手筋２丁目２－１０',
                 'description' =>
                     '時計台のある歴史的な校舎が特徴。日曜市の通りに面しており、高知の風景の一部となっている。',
                 'img_ext' => null,
@@ -1349,7 +1349,7 @@ class DatabaseSeeder extends Seeder
                 'addr_city' => 39402,
                 'addr_detail' => '甲１８９６',
                 'description' =>
-                    '朝ドラ「らんまん」の天久神社のモデル。牧野富太郎博士の生家裏山にあり、幼少期の博士がバイカオウレンに出会った大切な場所です。',
+                    '朝ドラ「らんまん」の天久神社のモデル。牧野富太郎博士の生家裏山にあり、幼少期の博士がバイカオウレンに出会った大切な場所。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1359,15 +1359,15 @@ class DatabaseSeeder extends Seeder
             [
                 'user_id' => 1,
                 'plan' => 1,
-                'type' => 5, // 公園
+                'type' => 5,
                 'name' => 'やなせたかし朴ノ木公園',
                 'lng' => $this->encodeLng(133.80308032034065),
                 'lat' => $this->encodeLat(33.66135551042985),
-                'postal_code' => 7814217,
+                'postal_code' => 7814235,
                 'addr_city' => 39212, // 香美市
-                'addr_detail' => '香北町朴ノ木405',
+                'addr_detail' => '香北町朴ノ木４０５',
                 'description' =>
-                    '柳瀬家跡地 に整備された、やなせたかし氏と妻の暢（のぶ）さんが眠る墓地公園。墓碑の両側にはアンパンマンとばいきんまんの石像があり、アンパンマンミュージアムを見守るように斜めを向いているのが特徴',
+                    '柳瀬家跡地に整備された、やなせたかし氏と妻の暢（のぶ）さんが眠る墓地公園。墓碑の両側にはアンパンマンとばいきんまんの石像があり、アンパンマンミュージアムを見守るように斜めを向いているのが特徴。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
@@ -1377,13 +1377,13 @@ class DatabaseSeeder extends Seeder
             [
                 'user_id' => 1,
                 'plan' => 1,
-                'type' => 2, // 観光名所
+                'type' => 2,
                 'name' => '琴ヶ浜',
                 'lng' => $this->encodeLng(133.8020824006695),
                 'lat' => $this->encodeLat(33.51673275537322),
-                'postal_code' => 7815700,
-                'addr_city' => 39301, // 安芸群
-                'addr_detail' => '芸西村和食甲1番地',
+                'postal_code' => 7815701,
+                'addr_city' => 39307,
+                'addr_detail' => '和食甲１',
                 'description' =>
                     '白砂青松の美しい海岸で、日本の白砂青松100選にも選ばれている。朝ドラ「あんぱん」では「夢ヶ浜」という名で登場し、登場人物たちが並んでかき氷を食べるシーンが印象的。',
                 'img_ext' => null,
@@ -1395,13 +1395,13 @@ class DatabaseSeeder extends Seeder
             [
                 'user_id' => 1,
                 'plan' => 1,
-                'type' => 5, // 公園
+                'type' => 5,
                 'name' => 'やなせライオン公園',
                 'lng' => $this->encodeLng(133.6459946355777),
                 'lat' => $this->encodeLat(33.57652931775358),
-                'postal_code' => 7830002,
+                'postal_code' => 7830011,
                 'addr_city' => 39204, // 南国市
-                'addr_detail' => '後免町1-40-11',
+                'addr_detail' => '後免町１丁目４０－１１',
                 'description' =>
                     'ごめん・なはり線後免町駅のすぐ近くにある公園。朝ドラ「あんぱん」の舞台となる高知の雰囲気を色濃く残すスポット。',
                 'img_ext' => null,
@@ -1413,13 +1413,13 @@ class DatabaseSeeder extends Seeder
             [
                 'user_id' => 1,
                 'plan' => 1,
-                'type' => 2, // 観光名所
+                'type' => 2,
                 'name' => 'やなせたかしロード',
                 'lng' => $this->encodeLng(133.64706895982113),
                 'lat' => $this->encodeLat(33.57571216292037),
                 'postal_code' => 7830011,
                 'addr_city' => 39204, // 南国市
-                'addr_detail' => '後免町２丁目１−１４',
+                'addr_detail' => '後免町２丁目１－１４',
                 'description' =>
                     '後免町商店街の愛称。キャラクターの石像が通りに立ち並ぶ。朝ドラ「あんぱん」では、やなせ氏と妻・暢（のぶ）さんがモデルの登場人物たちが少年時代を過ごした町として、「御免与町（ごめんよちょう）」という場所で登場する。',
                 'img_ext' => null,
