@@ -2009,8 +2009,11 @@ h1 {
 }
 
 #ai_container {
-	overflow: hidden;
 	min-height: 300px;
+}
+
+.ai-container {
+	overflow: hidden;
 }
 
 .ai-text {

@@ -67,6 +67,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 					addr_detail: string;
 					description: string;
 					img_ext: string | null;
+					shows: number;
 				},
 			];
 			explanation: string;
