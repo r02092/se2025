@@ -1379,8 +1379,8 @@ class DatabaseSeeder extends Seeder
                 'plan' => 1,
                 'type' => 2, // 観光名所
                 'name' => '琴ヶ浜',
-                'lng' => $this->encodeLng(133.82802676205878),
-                'lat' => $this->encodeLat(33.59614317040632),
+                'lng' => $this->encodeLng(133.8020824006695),
+                'lat' => $this->encodeLat(33.51673275537322),
                 'postal_code' => 7815700,
                 'addr_city' => 39301, // 安芸群
                 'addr_detail' => '芸西村和食甲1番地',
