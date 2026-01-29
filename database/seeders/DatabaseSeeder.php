@@ -1428,6 +1428,96 @@ class DatabaseSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'user_id' => 1,
+                'plan' => 1,
+                'type' => 3, // 道の駅・商業施設
+                'name' => '道の駅「やす」（ヤ・シィパーク）',
+                'lng' => $this->encodeLng(133.75174978506766),
+                'lat' => $this->encodeLat(33.53399391326713),
+                'postal_code' => 7815621,
+                'addr_city' => 39211, // 香南市
+                'addr_detail' => '夜須町千切５３７−９０',
+                'description' =>
+                    '海水浴場「ヤ・シィパーク」に隣接した南国ムード漂う道の駅。特産品の販売所や飲食店が充実しており、可動橋などの観光名所へのアクセスも良好。',
+                'img_ext' => null,
+                'stamp_key' => $this->randKey(),
+                'shows' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'user_id' => 1,
+                'plan' => 1,
+                'type' => 2, // 港・風景
+                'name' => '赤岡海浜',
+                'lng' => $this->encodeLng(133.72559127169458),
+                'lat' => $this->encodeLat(33.53878657183293),
+                'postal_code' => 7815310,
+                'addr_city' => 39211, // 香南市
+                'addr_detail' => '赤岡町700',
+                'description' =>
+                    '「どろめ祭り」や「絵金祭り」で知られる赤岡町の海岸エリア。古い商家や蔵が残るレトロな町並みと、広大な太平洋の風景が魅力。',
+                'img_ext' => null,
+                'stamp_key' => $this->randKey(),
+                'shows' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'user_id' => 1,
+                'plan' => 1,
+                'type' => 3, // 直売所
+                'name' => 'JA高知県直売所「とさのさと」',
+                'lng' => $this->encodeLng(133.5598093271221),
+                'lat' => $this->encodeLat(33.56795381845755),
+                'postal_code' => 7800084,
+                'addr_city' => 39201, // 高知市
+                'addr_detail' => '北御座１０－４６',
+                'description' =>
+                    '県内最大級の売り場面積を誇る農産物直売所。高知県全域から新鮮な野菜、果物、海産物などが集結し、地元ならではの食材が手に入る。',
+                'img_ext' => null,
+                'stamp_key' => $this->randKey(),
+                'shows' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'user_id' => 1,
+                'plan' => 1,
+                'type' => 5, // 公園
+                'name' => '宇佐しおかぜ公園',
+                'lng' => $this->encodeLng(133.45284315767196),
+                'lat' => $this->encodeLat(33.45010474292591),
+                'postal_code' => 7811161,
+                'addr_city' => 39205, // 土佐市
+                'addr_detail' => '宇佐町宇佐橋田浜２７５２−７',
+                'description' =>
+                    '大きな親子クジラのオブジェがシンボルの海浜公園。ホエールウォッチング船の乗船場があり、潮風を感じながら散策できる憩いの場。',
+                'img_ext' => null,
+                'stamp_key' => $this->randKey(),
+                'shows' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'user_id' => 1,
+                'plan' => 1,
+                'type' => 3, // 道の駅
+                'name' => '道の駅 あぐり窪川',
+                'lng' => $this->encodeLng(133.14916312693188),
+                'lat' => $this->encodeLat(33.23134462150663),
+                'postal_code' => 7860026,
+                'addr_city' => 39412, // 四万十町
+                'addr_detail' => '平串２８４－１',
+                'description' =>
+                    '四万十川観光の玄関口に位置する道の駅。特産の生姜を使った商品や、地元ポークをふんだんに使った名物「具だくさん豚まん」が大人気。',
+                'img_ext' => null,
+                'stamp_key' => $this->randKey(),
+                'shows' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
         DB::table('keywords')->insert([
             [
@@ -1921,7 +2011,7 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'spot_id' => 45,
+                'spot_id' => 46,
                 'keyword' => '東海オンエア',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -2202,6 +2292,50 @@ class DatabaseSeeder extends Seeder
             [
                 'spot_id' => 73, // やなせたかしロード
                 'keyword' => 'あんぱん',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            // 新規追加スポットへのキーワード紐付け
+            [
+                'spot_id' => 74, // 道の駅やす
+                'keyword' => 'ザ！鉄腕！DASH！！',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'spot_id' => 75, // 赤岡漁港
+                'keyword' => 'ザ！鉄腕！DASH！！',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'spot_id' => 76, // とさのさと
+                'keyword' => 'ザ！鉄腕！DASH！！',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'spot_id' => 77, // 宇佐しおかぜ公園
+                'keyword' => 'ザ！鉄腕！DASH！！',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'spot_id' => 78, // 道の駅あぐり窪川
+                'keyword' => 'ザ！鉄腕！DASH！！',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            // 既存スポットへのキーワード紐付け
+            [
+                'spot_id' => 43, // 桂浜（既存）
+                'keyword' => 'ザ！鉄腕！DASH！！',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'spot_id' => 37, // 手結港可動橋（既存）
+                'keyword' => 'ザ！鉄腕！DASH！！',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
