@@ -29,6 +29,10 @@
 		<button class="settings-button" onclick="location.href = '{{ route('business.data') }}'">
 			観光データ確認
 		</button>
+
+		<button class="settings-button" onclick="location.href = '{{ route('funpage') }}'">
+			クーポン読み取り（お楽しみ機能画面へ移動）
+		</button>
 	</div>
 </div>
 @endsection
