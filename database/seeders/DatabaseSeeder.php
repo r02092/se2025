@@ -1440,7 +1440,7 @@ class DatabaseSeeder extends Seeder
                 'addr_detail' => '夜須町千切５３７－９０',
                 'description' =>
                     '海水浴場「ヤ・シィパーク」に隣接した南国ムード漂う道の駅。特産品の販売所や飲食店が充実しており、可動橋などの観光名所へのアクセスも良好。',
-                'img_ext' => null,
+                'img_ext' => 'jpg',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
                 'created_at' => now(),
