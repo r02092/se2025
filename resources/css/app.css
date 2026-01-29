@@ -432,6 +432,7 @@ h1 {
 .coupon-exp {
 	font-size: 12px;
 	color: #888888;
+	margin: 0;
 }
 .coupon-action {
 	position: absolute;
@@ -1064,6 +1065,9 @@ h1 {
 .coupon-detail-desc {
 	margin: 6px 0;
 	color: #444;
+	> span {
+		font-weight: bold;
+	}
 }
 .coupon-detail-meta {
 	display: flex;

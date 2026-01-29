@@ -20,6 +20,11 @@
 	<!-- クーポン詳細（背景に直接描画するスタイル） -->
 	<article class="coupon-detail">
 		<h2 class="coupon-detail-title">{{ $coupon->name }}</h2>
+		@if ($coupon->cond_spot_id)
+		<p class="coupon-detail-desc">
+			<span>クーポン利用条件</span>: {{ $condSpotName }}にチェックインする
+		</p>
+		@endif
 		<div class="coupon-detail-meta">
 			<span class="coupon-tag">{{ $type }}</span>
 			<span class="coupon-exp">{{ $coupon->expires_date ? '〜' . $coupon->expires_date : '' }}</span>

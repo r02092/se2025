@@ -59,6 +59,9 @@
 						入場料100円引き。スタッフに画面を見せてください。
 					</p> -->
 					<p class="coupon-exp">スポット: {{ $coupon[0]->spot->name }}</p>
+					@if ($coupon[0]->cond_spot_id)
+					<p class="coupon-exp">利用条件: {{ $coupon[2]->name }}にチェックインする</p>
+					@endif
 					<span class="coupon-tag">{{ $coupon[1] }}</span>
 					<span class="coupon-exp">有効期限: {{ isset($coupon[0]->expires_at) ? $coupon[0]->expires_at->format('Y年m月d日') : 'なし' }}</span>
 				</div>

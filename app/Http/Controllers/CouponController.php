@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserCoupon;
 use App\Models\Coupon;
+use App\Models\Spot;
 use App\Traits\ToStringTrait;
 
 class CouponController extends Controller
@@ -32,6 +33,7 @@ class CouponController extends Controller
                             return [
                                 $j,
                                 $this->spotTypeToString($j->spot->type),
+                                Spot::find($j->cond_spot_id),
                             ];
                         });
                     return $i;
