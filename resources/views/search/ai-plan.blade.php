@@ -31,7 +31,7 @@
 		</div>
 	</div>
 
-	<div id="ai_user_container" class="ai-container" style="display: none; margin: 40px 0;">
+	<div id="ai_user_container" class="ai-container general-box" style="display: none; margin: 40px 0;">
 		<div class="ai-text">
 			<div style="background: #14b888;">
 				<h2>👱 あなたの質問内容</h2>
@@ -54,7 +54,7 @@
 
 	{{-- ▼▼▼ 正常系: AI処理エリア ▼▼▼ --}}
 	@else
-		<div id="ai_container" class="general-box" data-from="{{ $fromSpot ? $fromSpot->id : null }}" data-to="{{ $toSpot ? $toSpot->id : null }}">
+		<div id="ai_container" class="ai-container general-box" data-from="{{ $fromSpot ? $fromSpot->id : null }}" data-to="{{ $toSpot ? $toSpot->id : null }}">
 
 			{{-- 1. ローディング画面 --}}
 			<div id="ai_loading">
