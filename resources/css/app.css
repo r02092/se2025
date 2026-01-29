@@ -1135,11 +1135,13 @@ h1 {
 .qr-overlay {
 	position: fixed;
 	inset: 0;
-	background: rgba(0, 0, 0, 0.5);
-	display: none;
+	background: rgba(0, 0, 0, 0.56);
 	align-items: center;
 	justify-content: center;
 	z-index: 900;
+	padding: 20px;
+	box-sizing: border-box;
+	animation: overlayFadeIn 180ms ease both;
 }
 .qr-overlay.show {
 	display: flex;
@@ -1171,26 +1173,6 @@ h1 {
 	height: 220px;
 	object-fit: contain;
 	display: inline-block;
-}
-.qr-hint {
-	font-size: 13px;
-	color: #666;
-	margin-top: 8px;
-}
-.qr-overlay {
-	position: fixed;
-	inset: 0;
-	background: rgba(0, 0, 0, 0.56);
-	display: none;
-	align-items: center;
-	justify-content: center;
-	z-index: 1200;
-	padding: 20px;
-	box-sizing: border-box;
-}
-.qr-overlay.show {
-	display: flex;
-	animation: overlayFadeIn 180ms ease both;
 }
 @keyframes overlayFadeIn {
 	from {
@@ -1243,12 +1225,13 @@ h1 {
 	font-size: 14px;
 	margin-bottom: 12px;
 }
-.qr-modal-image img {
+#coupon_qr {
 	width: 260px;
 	height: 260px;
 	object-fit: contain;
 	display: block;
 	margin: 0 auto;
+	image-rendering: pixelated;
 }
 .qr-modal-hint {
 	margin-top: 10px;
