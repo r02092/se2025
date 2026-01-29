@@ -1361,11 +1361,11 @@ class DatabaseSeeder extends Seeder
                 'plan' => 1,
                 'type' => 5, // 公園
                 'name' => 'やなせたかし朴ノ木公園',
-                'lng' => $this->encodeLng(133.78822),
-                'lat' => $this->encodeLat(33.666324),
+                'lng' => $this->encodeLng(139.7661275),
+                'lat' => $this->encodeLat(35.690395),
                 'postal_code' => 7814217,
                 'addr_city' => 39212, // 香美市
-                'addr_detail' => '香北町谷相',
+                'addr_detail' => '香北町朴ノ木405',
                 'description' =>
                     '柳瀬家跡地 に整備された、やなせたかし氏と妻の暢（のぶ）さんが眠る墓地公園。墓碑の両側にはアンパンマンとばいきんまんの石像があり、アンパンマンミュージアムを見守るように斜めを向いているのが特徴',
                 'img_ext' => null,
@@ -1379,11 +1379,11 @@ class DatabaseSeeder extends Seeder
                 'plan' => 1,
                 'type' => 2, // 観光名所
                 'name' => '琴ヶ浜',
-                'lng' => $this->encodeLng(133.9235),
-                'lat' => $this->encodeLat(33.5042),
+                'lng' => $this->encodeLng(139.7661275),
+                'lat' => $this->encodeLat(35.690395),
                 'postal_code' => 7815700,
-                'addr_city' => 39301, // 芸西村
-                'addr_detail' => '芸西村',
+                'addr_city' => 39301, // 安芸群
+                'addr_detail' => '芸西村和食甲1番地',
                 'description' =>
                     '白砂青松の美しい海岸で、日本の白砂青松100選にも選ばれている。朝ドラ「あんぱん」では「夢ヶ浜」という名で登場し、登場人物たちが並んでかき氷を食べるシーンが印象的。',
                 'img_ext' => 'null',
@@ -1397,11 +1397,11 @@ class DatabaseSeeder extends Seeder
                 'plan' => 1,
                 'type' => 5, // 公園
                 'name' => 'やなせライオン公園',
-                'lng' => $this->encodeLng(133.6445),
-                'lat' => $this->encodeLat(33.579),
+                'lng' => $this->encodeLng(139.7661275),
+                'lat' => $this->encodeLat(35.690395),
                 'postal_code' => 7830002,
                 'addr_city' => 39204, // 南国市
-                'addr_detail' => '駅前町',
+                'addr_detail' => '後免町1-40-11',
                 'description' =>
                     'ごめん・なはり線後免町駅のすぐ近くにある公園。朝ドラ「あんぱん」の舞台となる高知の雰囲気を色濃く残すスポット。',
                 'img_ext' => null,
@@ -1415,11 +1415,11 @@ class DatabaseSeeder extends Seeder
                 'plan' => 1,
                 'type' => 2, // 観光名所
                 'name' => 'やなせたかしロード',
-                'lng' => $this->encodeLng(133.6455),
-                'lat' => $this->encodeLat(33.5775),
+                'lng' => $this->encodeLng(139.7661275),
+                'lat' => $this->encodeLat(35.690395),
                 'postal_code' => 7830011,
                 'addr_city' => 39204, // 南国市
-                'addr_detail' => '後免町',
+                'addr_detail' => '後免町2-1-14',
                 'description' =>
                     '後免町商店街の愛称。キャラクターの石像が通りに立ち並ぶ。朝ドラ「あんぱん」では、やなせ氏と妻・暢（のぶ）さんがモデルの登場人物たちが少年時代を過ごした町として、「御免与町（ごめんよちょう）」という場所で登場する。',
                 'img_ext' => null,
