@@ -14,10 +14,6 @@ class CouponController extends Controller
 
     public function get()
     {
-        $activeCouponIds = UserCoupon::where('user_id', Auth::user()->id)
-            ->where('is_used', false)
-            ->pluck('coupon_id')
-            ->toArray();
         return view('coupon', [
             'couponsList' => array_map(
                 function ($i) {
@@ -42,12 +38,23 @@ class CouponController extends Controller
                     [
                         '現在利用中の',
                         'active',
-                        Coupon::whereIn('id', $activeCouponIds),
+                        Coupon::whereIn(
+                            'id',
+                            UserCoupon::where('user_id', Auth::user()->id)
+                                ->where('is_used', false)
+                                ->pluck('coupon_id')
+                                ->toArray(),
+                        ),
                     ],
                     [
                         '利用可能な',
                         'available',
-                        Coupon::whereNotIn('id', $activeCouponIds),
+                        Coupon::whereNotIn(
+                            'id',
+                            UserCoupon::where('user_id', Auth::user()->id)
+                                ->pluck('coupon_id')
+                                ->toArray(),
+                        ),
                     ],
                 ],
             ),
