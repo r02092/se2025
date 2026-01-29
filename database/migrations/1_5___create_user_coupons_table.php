@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->unsignedInteger('user_id');
             $table->unique(['coupon_id', 'user_id']);
             $table->unsignedBigInteger('key')->unique();
-            $table->boolean('is_used');
+            $table->boolean('is_used')->default(false);
             $table->datetimes();
             $table
                 ->foreign('coupon_id')

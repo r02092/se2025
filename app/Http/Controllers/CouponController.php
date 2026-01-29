@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserCoupon;
 use App\Models\Coupon;
+use App\Models\Spot;
 use App\Traits\ToStringTrait;
 
 class CouponController extends Controller
@@ -20,21 +21,22 @@ class CouponController extends Controller
         return view('coupon', [
             'couponsList' => array_map(
                 function ($i) {
-                    return [
-                        $i[0],
-                        $i[1],
-                        $i[2]
-                            ->where('expires_at', '>=', now())
-                            ->orWhereNull('expires_at')
-                            ->with('spot')
-                            ->get()
-                            ->map(function ($j) {
-                                return [
-                                    $j,
-                                    $this->spotTypeToString($j->spot->type),
-                                ];
-                            }),
-                    ];
+                    $i[2] = $i[2]
+                        ->where(function ($q) {
+                            $q->where('expires_at', '>=', now())->orWhereNull(
+                                'expires_at',
+                            );
+                        })
+                        ->with('spot')
+                        ->get()
+                        ->map(function ($j) {
+                            return [
+                                $j,
+                                $this->spotTypeToString($j->spot->type),
+                                Spot::find($j->cond_spot_id),
+                            ];
+                        });
+                    return $i;
                 },
                 [
                     [

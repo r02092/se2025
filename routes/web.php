@@ -7,6 +7,8 @@ use App\Http\Controllers\PostMapController;
 use App\Http\Controllers\PostFormController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\CouponSelectedController;
+use App\Http\Controllers\CouponApiController;
 use App\Http\Controllers\FunpageController;
 use App\Http\Controllers\CheckinApiController;
 use App\Http\Controllers\TermsController;
@@ -54,9 +56,13 @@ Route::get('/detail', [DetailController::class, 'index'])->name('detail');
 
 Route::get('/coupon', [CouponController::class, 'get'])->name('coupon');
 
-Route::get('/coupon/{id}', function ($id) {
-    return view('coupon-selected');
-})->name('coupon.show');
+Route::get('/coupon/{id}', [CouponSelectedController::class, 'get'])->name(
+    'coupon.show',
+);
+
+Route::post('/coupon/api', [CouponApiController::class, 'use'])->name(
+    'coupon.api',
+);
 
 Route::get('/coupon/{id}/qr', function ($id) {
     return view('coupon-qr');

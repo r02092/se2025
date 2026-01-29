@@ -52,19 +52,22 @@
 					 data-category="{{ $coupon[1] }}"
 					 onclick="location.href='{{ route('coupon.show', $coupon[0]->id) }}'"
 			>
-				<img class="coupon-thumb" src="ryugado.jpg" alt="龍河洞の写真">
+				<img class="coupon-thumb" src="{{ isset($coupon[0]->spot->img_ext) ? asset('storage/spots/' . $coupon[0]->spot->id . '.' . $coupon[0]->spot->img_ext) : asset('images/no-image.png') }}" alt="{{ $coupon[0]->spot->name }}">
 				<div class="coupon-info">
 					<h3 class="coupon-title">{{ $coupon[0]->name }}</h3>
 					<!-- <p class="coupon-desc">
 						入場料100円引き。スタッフに画面を見せてください。
 					</p> -->
 					<p class="coupon-exp">スポット: {{ $coupon[0]->spot->name }}</p>
+					@if ($coupon[0]->cond_spot_id)
+					<p class="coupon-exp">利用条件: {{ $coupon[2]->name }}にチェックインする</p>
+					@endif
 					<span class="coupon-tag">{{ $coupon[1] }}</span>
 					<span class="coupon-exp">有効期限: {{ isset($coupon[0]->expires_at) ? $coupon[0]->expires_at->format('Y年m月d日') : 'なし' }}</span>
 				</div>
 				<div class="coupon-action" role="note" aria-label="詳細の案内">
 					<span class="detail-note">
-						<div class="detail-note">{{ $coupons[0] == '現在利用中の' ? '詳細を見る' : '利用する' }}</div>
+						<div class="detail-note">利用する</div>
 					</span>
 				</div>
 			</article>
