@@ -1386,7 +1386,7 @@ class DatabaseSeeder extends Seeder
                 'addr_detail' => '芸西村',
                 'description' =>
                     '白砂青松の美しい海岸で、日本の白砂青松100選にも選ばれている。朝ドラ「あんぱん」では「夢ヶ浜」という名で登場し、登場人物たちが並んでかき氷を食べるシーンが印象的。',
-                'img_ext' => 'jpg',
+                'img_ext' => 'null',
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
                 'created_at' => now(),
