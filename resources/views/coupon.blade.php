@@ -12,11 +12,11 @@
 	<div class="coupon-filter" role="region" aria-label="クーポンフィルタ">
 		<div class="chip-group" role="tablist" aria-label="クーポンカテゴリ">
 			<button class="chip active" data-cat="all" aria-pressed="true">すべて</button>
-			<button class="chip" data-cat="food" aria-pressed="false">飲食</button>
-			<button class="chip" data-cat="shop" aria-pressed="false">お土産</button>
-			<button class="chip" data-cat="attraction" aria-pressed="false">観光</button>
-			<button class="chip" data-cat="experience" aria-pressed="false">体験アクティビティ</button>
-			<button class="chip" data-cat="stay" aria-pressed="false">宿泊</button>
+			<button class="chip" data-cat="飲食" aria-pressed="false">飲食</button>
+			<button class="chip" data-cat="お土産" aria-pressed="false">お土産</button>
+			<button class="chip" data-cat="観光" aria-pressed="false">観光</button>
+			<button class="chip" data-cat="体験アクティビティ" aria-pressed="false">体験アクティビティ</button>
+			<button class="chip" data-cat="宿泊" aria-pressed="false">宿泊</button>
 		</div>
 
 		<div class="sort-wrap">
@@ -49,7 +49,7 @@
 			<h2>{{ $coupons[0] }}クーポン</h2>
 			@foreach($coupons[2] as $coupon)
 			<article class="general-box coupon-card"
-					 data-category="{{ $coupon[0]->type }}"
+					 data-category="{{ $coupon[1] }}"
 					 onclick="location.href='{{ route('coupon.show', $coupon[0]->id) }}'"
 			>
 				<img class="coupon-thumb" src="ryugado.jpg" alt="龍河洞の写真">

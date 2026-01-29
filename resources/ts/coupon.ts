@@ -9,6 +9,43 @@ const availableSection = document.getElementById(
 ) as HTMLElement | null;
 const live = document.getElementById("view_live") as HTMLElement | null;
 
+// カテゴリフィルター用
+const chips = document.querySelectorAll(".chip[data-cat]");
+const couponCards = document.querySelectorAll(".coupon-card[data-category]");
+
+// カテゴリフィルター関数
+function applyCategoryFilter(category: string): void {
+	couponCards.forEach(card => {
+		const cardCategory = card.getAttribute("data-category");
+		if (category === "all" || cardCategory === category) {
+			(card as HTMLElement).style.display = "";
+		} else {
+			(card as HTMLElement).style.display = "none";
+		}
+	});
+}
+
+// チップボタンのクリックイベント
+chips.forEach(chip => {
+	chip.addEventListener("click", () => {
+		const category = chip.getAttribute("data-cat");
+		if (!category) return;
+
+		// すべてのチップから active を削除
+		chips.forEach(c => {
+			c.classList.remove("active");
+			c.setAttribute("aria-pressed", "false");
+		});
+
+		// クリックされたチップを active に
+		chip.classList.add("active");
+		chip.setAttribute("aria-pressed", "true");
+
+		// フィルター適用
+		applyCategoryFilter(category);
+	});
+});
+
 if (viewSelect && activeSection && availableSection) {
 	function applyView(): void {
 		if (!viewSelect || !activeSection || !availableSection) return;
