@@ -21,7 +21,7 @@
 	<article class="coupon-detail">
 		<h2 class="coupon-detail-title">{{ $coupon->name }}</h2>
 		<div class="coupon-detail-meta">
-			<span class="coupon-tag">{{ $types[$coupon->spot->type] }}</span>
+			<span class="coupon-tag">{{ $type }}</span>
 			<span class="coupon-exp">{{ $coupon->expires_date ? '〜' . $coupon->expires_date : '' }}</span>
 		</div>
 		<!-- 必要に応じて追記する本文行など -->
