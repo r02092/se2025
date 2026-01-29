@@ -34,7 +34,8 @@ body {
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 	box-sizing: border-box;
 }
-h1 {
+h1,
+.twofa-center {
 	text-align: center;
 }
 
@@ -1224,6 +1225,10 @@ h1 {
 	color: #0b6b4d;
 	font-size: 18px;
 }
+.h3 {
+	font-size: 1.17em;
+	font-weight: bold;
+}
 .qr-modal-sub {
 	color: #666;
 	font-size: 14px;
@@ -1818,10 +1823,6 @@ h1 {
 	background: #f9f9f9;
 	border-radius: 8px;
 	text-align: left;
-}
-
-.twofa-center {
-	text-align: center;
 }
 
 .letter-spacing {

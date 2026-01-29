@@ -37,6 +37,7 @@
 
 	<!-- 下部固定のボタン -->
 	<div class="coupon-use-button-area">
+		@if ($available)
 		<div
 			class="coupon-use-button"
 			type="button"
@@ -45,6 +46,9 @@
 		>
 			クーポンを利用する
 		</div>
+		@else
+		<div class="h3 twofa-center">クーポンの利用条件を満たしていません。</div>
+		@endif
 		<div class="close-btn" onclick="location.href = '{{ route('coupon') }}'">
 			一覧に戻る
 		</div>
