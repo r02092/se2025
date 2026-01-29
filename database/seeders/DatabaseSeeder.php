@@ -2251,9 +2251,26 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('coupons')->insert([
             [
-                'spot_id' => 1,
-                'name' => 'テストクーポン（実際には使用できません）',
+                'spot_id' => 4,
+                'name' => 'はりまや橋通行料 50% OFF',
                 'cond_spot_id' => 2,
+                'expires_at' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'spot_id' => 12,
+                'name' => 'UFO発見確率 1% UP',
+                'cond_spot_id' => null,
+                'expires_at' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'spot_id' => 37,
+                'name' => '手結港可動橋観覧料 50% OFF',
+                'cond_spot_id' => null,
+                'expires_at' => now(),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
