@@ -72,7 +72,7 @@ async function reloadPosts(): Promise<void> {
 						<img class="post-avatar" src="${post.avatar_url}" />
 						<div class="post-meta">
 							<div class="post-author">${post.username}</div>
-							<div class="post-time">${getDiffTimeFormat(post.created_at)}</div>
+							<div>${getDiffTimeFormat(post.created_at)}</div>
 						</div>
 					</header>
 					<img class="post-image" src="${post.photo_img_url}" />

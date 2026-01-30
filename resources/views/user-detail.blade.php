@@ -39,7 +39,7 @@
 			<img class="post-avatar" alt="avatar">
 			<div class="post-meta">
 				<div class="post-author"></div>
-				<div class="post-time"></div>
+				<div></div>
 			</div>
 		</header>
 		<img class="post-image" alt="">
