@@ -1565,6 +1565,7 @@ h1,
 	font-weight: bold;
 	transition: background-color 0.2s;
 }
+
 .form-detail {
 	color: gray;
 	font-size: 0.8rem;
@@ -1573,12 +1574,11 @@ h1,
 .apikey {
 	color: gray;
 	font-size: 90%;
-}
-
-.apikey > input {
-	width: 60%;
-	font-family: monospace;
-	font-size: 70%;
+	> input {
+		width: 60%;
+		font-family: monospace;
+		font-size: 70%;
+	}
 }
 
 /* admin.blade.php */
@@ -1645,21 +1645,6 @@ h1,
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-}
-
-.spot-detail-image {
-	width: 100%;
-	height: 100%;
-	object-fit: cover; /* 画像比率を維持してトリミング */
-	transition: transform 0.3s ease;
-	max-height: 420px;
-}
-
-.spot-detail-image:hover {
-	transform: scale(1.02);
-}
-
-.spot-detail-image-wrapper {
 	> #dialog {
 		border: 0;
 		padding: 0;
@@ -1673,6 +1658,18 @@ h1,
 	> #dialog::backdrop {
 		background: rgba(0, 0, 0, 0.75);
 	}
+}
+
+.spot-detail-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* 画像比率を維持してトリミング */
+	transition: transform 0.3s ease;
+	max-height: 420px;
+}
+
+.spot-detail-image:hover {
+	transform: scale(1.02);
 }
 
 .spot-detail-card > div:last-child > * > h2 {
