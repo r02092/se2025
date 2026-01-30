@@ -34,6 +34,11 @@ body {
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 	box-sizing: border-box;
 }
+@media (max-width: 800px) {
+	.general-box {
+		width: calc(100vw - 40px);
+	}
+}
 h1,
 .twofa-center {
 	text-align: center;
@@ -41,7 +46,6 @@ h1,
 
 .column-menu {
 	align-items: center;
-	width: 90%;
 	margin: 80px auto;
 	display: flex;
 	flex-direction: column;
@@ -218,7 +222,6 @@ h1,
 
 /* merged ai-suggest: funpage.css + home.css + search.css (final margin/padding from search) */
 .ai-suggest {
-	width: 80%;
 	height: auto;
 	max-height: calc(100vh - 200px);
 	overflow-y: auto;
@@ -932,7 +935,6 @@ h1,
 
 /* ==== profile.css ==== */
 .profile-container {
-	width: 80%;
 	margin: 20px auto;
 	margin-bottom: 10px;
 	padding: 1% 5% 1% 5%;
@@ -1264,7 +1266,6 @@ h1,
 
 /* ==== funpage.css ==== */
 .general-box.checkin-box {
-	width: 80%;
 	margin: 40px auto;
 	padding: 1% 5% 1% 5%;
 	display: flex;
@@ -1284,7 +1285,6 @@ h1,
 }
 
 .general-box.achievement {
-	width: 90%;
 	margin: 40px auto 80px; /* 上は checkin と同じ、下はボトムバー回避 */
 	padding: 1% 5% 5% 5%;
 	box-sizing: border-box;
