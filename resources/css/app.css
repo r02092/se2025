@@ -806,7 +806,7 @@ h1,
 }
 .profile-avatar {
 	width: 130px;
-	height: 130px;
+	aspect-ratio: 1/1;
 	border-radius: 20%;
 	overflow: hidden;
 	background: rgba(255, 255, 255, 0.08);
