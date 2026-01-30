@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 			data.recommended_spots.forEach(spot => {
 				const html = `<a href="/detail?id=${spot.id}">
 	<div>
-		<img src="${spot.img_ext ? "/storage/spots/" + spot.id + "." + spot.img_ext : "images/no-image.png"}">
+		<img src="${spot.img_ext ? "/storage/spots/" + spot.id + "." + spot.img_ext : "images/no-image.svg"}">
 	</div>
 	<div>
 		<h4>${spot.name}</h4>

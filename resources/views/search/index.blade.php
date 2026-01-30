@@ -88,7 +88,7 @@
 
 						{{-- 画像エリア --}}
 						<div class="spot-image-div">
-							<img src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
+							<img src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.svg') }}"
 								 alt="{{ $spot->name }}"
 								 class="spot-image">
 						</div>

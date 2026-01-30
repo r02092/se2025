@@ -125,7 +125,7 @@
 					</div>
 
 					<img class="spot-thumb"
-						 src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
+						 src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.svg') }}"
 						 alt="{{ $spot->name }}"
 						 onmouseover="this.style.opacity='0.8'"
 						 onmouseout="this.style.opacity='1.0'">

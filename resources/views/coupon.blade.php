@@ -52,7 +52,7 @@
 					 data-category="{{ $coupon[1] }}"
 					 onclick="location.href='{{ route('coupon.show', $coupon[0]->id) }}'"
 			>
-				<img class="coupon-thumb" src="{{ isset($coupon[0]->spot->img_ext) ? asset('storage/spots/' . $coupon[0]->spot->id . '.' . $coupon[0]->spot->img_ext) : asset('images/no-image.png') }}" alt="{{ $coupon[0]->spot->name }}">
+				<img class="coupon-thumb" src="{{ isset($coupon[0]->spot->img_ext) ? asset('storage/spots/' . $coupon[0]->spot->id . '.' . $coupon[0]->spot->img_ext) : asset('images/no-image.svg') }}" alt="{{ $coupon[0]->spot->name }}">
 				<div class="coupon-info">
 					<h3 class="coupon-title">{{ $coupon[0]->name }}</h3>
 					{{-- <p class="coupon-desc">
