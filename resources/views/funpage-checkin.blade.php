@@ -34,6 +34,4 @@
 	</div>
 </div>
 
-{{-- 2. 内部設計書の「qr-scanner」を制御するJSを読み込み --}}
-@vite(['resources/ts/funpage_checkin.ts'])
 @endsection
