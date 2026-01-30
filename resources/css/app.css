@@ -229,7 +229,10 @@ h1,
 	padding: 1% 5% 5% 5%;
 	min-height: 120px;
 }
-.ai-suggest h2 {
+.ai-suggest h2,
+.post-titlebar h1,
+.general-box.checkin-box h2,
+.general-box.achievement h2 {
 	text-align: center;
 	width: 100%;
 }
@@ -753,10 +756,6 @@ h1,
 	color: #000;
 	z-index: 500;
 }
-.post-titlebar h1 {
-	text-align: center;
-	width: 100%;
-}
 .post-titlebar-update {
 	position: absolute;
 	right: 5%;
@@ -1274,10 +1273,6 @@ h1,
 	gap: 10px;
 	cursor: pointer;
 }
-.general-box.checkin-box h2 {
-	text-align: center;
-	width: 100%;
-}
 .marker-icon {
 	width: 15%; /* 親の幅に対する15%表示 */
 	min-width: 30px; /* モバイルや小画面対策で最小値も入れると良い */
@@ -1289,10 +1284,6 @@ h1,
 	margin: 40px auto 80px; /* 上は checkin と同じ、下はボトムバー回避 */
 	padding: 1% 5% 5% 5%;
 	box-sizing: border-box;
-}
-.general-box.achievement h2 {
-	text-align: center;
-	width: 100%;
 }
 /* 灰色の線（タイトルの下） */
 .general-box.divider {
