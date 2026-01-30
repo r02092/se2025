@@ -268,7 +268,6 @@ h1,
 	font-size: 15px;
 }
 .form-container input[type="text"],
-.form-container input[type="email"],
 .form-container input[type="password"],
 .profile-edit-container input[type="text"],
 .profile-edit-container input[type="password"],
@@ -297,7 +296,6 @@ h1,
 }
 .form-container button[type="submit"]:hover,
 .photo-file::file-selector-button:hover,
-.logout-button-confirm:hover,
 .profile-button-edit:hover,
 .profile-button-subscription:hover,
 .profile-edit-container button[type="submit"]:hover,
@@ -491,13 +489,6 @@ h1,
 	color: #0b6b4d;
 	border: 1px solid #e0e0e0;
 }
-.badge-done {
-	background: #e8f7ef;
-	color: #14b888;
-}
-.coupon-card.redeemed {
-	opacity: 0.6;
-}
 
 /* ==== home.css ==== */
 .map-area {
@@ -516,23 +507,6 @@ h1,
 	max-width: 100vw;
 	border: 0;
 	display: block;
-}
-.search-bar-area {
-	margin: 32px auto;
-}
-.search-bar-area input {
-	border: none;
-	outline: none;
-	height: 80%;
-	width: 80%;
-	margin-left: 16px;
-	font-size: 1rem;
-	background: transparent;
-}
-.search-icon {
-	width: 28px;
-	margin-right: 16px;
-	fill: #14b888;
 }
 /* merged ai-suggest: funpage.css + home.css + search.css (final margin/padding from search) */
 .spot-divider {
@@ -705,40 +679,10 @@ h1,
 }
 
 /* ==== logout.css ==== */
-.logout-grid-container {
-	display: flex;
-	gap: 20%;
-	margin-bottom: 20px;
-}
-.logout-button-cancel {
-	width: 100%;
-	padding: 10px 0;
-	background: #eee;
-	color: #000;
-	border: none;
-	border-radius: 6px;
-	font-size: 17px;
-	cursor: pointer;
-	font-weight: bold;
-	transition: background-color 0.2s;
-}
-.logout-button-cancel:hover,
 .profile-edit-avatar-group label:hover,
 .profile-edit-button-cancel:hover,
 .subscription-confirm-button-back:hover {
 	background: #ddd;
-}
-.logout-button-confirm {
-	width: 100%;
-	padding: 10px 0;
-	background: #14b888;
-	color: #fff;
-	border: none;
-	border-radius: 6px;
-	font-size: 17px;
-	cursor: pointer;
-	font-weight: bold;
-	transition: background-color 0.2s;
 }
 #achievement_title {
 	font-size: 1.5em;
@@ -776,20 +720,6 @@ h1,
 	font-weight: 700;
 	font-size: 13px;
 }
-.composer {
-	display: flex;
-	gap: 12px;
-	margin-bottom: 16px;
-}
-.composer-left .avatar {
-	width: 48px;
-	height: 48px;
-	box-sizing: border-box;
-	border-radius: 20%;
-	background: #fff;
-	object-fit: cover;
-	display: block;
-}
 .post-avatar {
 	width: 40px;
 	height: 40px;
@@ -798,52 +728,6 @@ h1,
 	background: #fff;
 	object-fit: cover;
 	display: block;
-}
-.composer-right {
-	flex: 1;
-	padding: 12px;
-}
-.composer-right textarea {
-	width: 100%;
-	min-height: 56px;
-	resize: none;
-	border: 0;
-	outline: none;
-	font-size: 15px;
-	background: transparent;
-}
-.composer-controls {
-	display: flex;
-	gap: 8px;
-	align-items: center;
-	margin-top: 8px;
-}
-.file-btn {
-	background: #eee;
-	padding: 6px 8px;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 13px;
-}
-.file-btn input {
-	display: none;
-}
-.post-submit {
-	margin-left: auto;
-	background: #14b888;
-	color: #fff;
-	border: 0;
-	padding: 8px 12px;
-	border-radius: 6px;
-	cursor: pointer;
-	font-weight: 700;
-}
-.composer-preview img {
-	width: 100%;
-	max-height: 300px;
-	object-fit: cover;
-	border-radius: 8px;
-	margin-top: 8px;
 }
 .feed {
 	display: flex;
@@ -887,43 +771,6 @@ h1,
 	object-fit: cover;
 	border-radius: 8px;
 	margin-top: 8px;
-}
-.post-actions {
-	display: flex;
-	gap: 8px;
-	margin-top: 8px;
-}
-.post-actions button {
-	background: transparent;
-	border: 1px solid rgba(0, 0, 0, 0.06);
-	padding: 8px 10px;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 14px;
-}
-.post-actions .btn-like.active {
-	background: rgba(20, 184, 136, 0.12);
-	border-color: rgba(20, 184, 136, 0.2);
-}
-.comments {
-	margin-top: 10px;
-	border-top: 1px dashed rgba(0, 0, 0, 0.06);
-	padding-top: 8px;
-}
-.comments-list .comment-item {
-	padding: 6px 0;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.02);
-}
-.comments-form {
-	display: flex;
-	gap: 8px;
-	margin-top: 8px;
-}
-.comment-input {
-	flex: 1;
-	padding: 8px;
-	border-radius: 8px;
-	border: 1px solid #e6e6e6;
 }
 .comment-send {
 	padding: 8px 10px;
@@ -1117,23 +964,6 @@ h1,
 	font-size: 24px;
 	cursor: pointer;
 }
-.coupon-use-button-active {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	border-radius: 999px;
-	background: #d1ffe5;
-	color: #14b888;
-	box-shadow: 0 8px 20px rgba(6, 24, 16, 0.06);
-	overflow: hidden;
-	border: 3px solid rgba(20, 184, 136, 0.12);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	font-weight: 800;
-	font-size: 16px;
-}
 .qr-modal-close-btn.confirm {
 	margin-top: 5%;
 }
@@ -1156,34 +986,6 @@ h1,
 }
 .qr-overlay.show {
 	display: flex;
-}
-.qr-panel {
-	width: min(92%, 420px);
-	background: #fff;
-	padding: 20px;
-	border-radius: 12px;
-	box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
-	text-align: center;
-	position: relative;
-}
-.qr-close {
-	position: absolute;
-	right: 10px;
-	top: 8px;
-	background: transparent;
-	border: 0;
-	font-size: 24px;
-	line-height: 1;
-	cursor: pointer;
-}
-.qr-image-wrap {
-	margin: 12px 0;
-}
-.qr-image-wrap img {
-	width: 220px;
-	height: 220px;
-	object-fit: contain;
-	display: inline-block;
 }
 @keyframes overlayFadeIn {
 	from {
@@ -1215,17 +1017,6 @@ h1,
 		transform: translateY(0) scale(1);
 	}
 }
-.qr-modal-close {
-	position: absolute;
-	right: 10px;
-	top: 8px;
-	background: transparent;
-	border: none;
-	font-size: 26px;
-	line-height: 1;
-	cursor: pointer;
-	color: #666;
-}
 .qr-modal-title {
 	margin: 6px 0;
 	color: #0b6b4d;
@@ -1247,11 +1038,6 @@ h1,
 	display: block;
 	margin: 0 auto;
 	image-rendering: pixelated;
-}
-.qr-modal-hint {
-	margin-top: 10px;
-	color: #666;
-	font-size: 13px;
 }
 .qr-modal-actions {
 	margin-top: 12px;
@@ -1451,17 +1237,6 @@ h1,
 .kmn-mt {
 	margin-top: 12px;
 }
-.checkin-qr-close-btn {
-	display: inline-block;
-	background: #14b888;
-	color: #fff;
-	padding: 8px 14px;
-	border-radius: 8px;
-	text-decoration: none;
-	border: none;
-	font-weight: 700;
-	cursor: pointer;
-}
 
 /* ==== profile-edit.css ==== */
 .profile-edit-avatar-group {
@@ -1510,12 +1285,6 @@ h1,
 }
 
 /* ==== subscription-confirm.css ==== */
-.subscription-confirm-container h3 {
-	font-weight: normal;
-	color: #333;
-}
-.subscription-confirm-container li,
-.subscription-form-container li,
 .form-error {
 	text-align: left;
 }
