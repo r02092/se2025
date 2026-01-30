@@ -244,11 +244,12 @@ h1,
 	text-align: center;
 }
 .form-container h2,
+.form-container .h2,
 .logout-container h2,
-.profile-container h2,
-.profile-edit-container h2,
-.subscription-confirm-container h2,
-.subscription-form-container h2 {
+.profile-container .h2,
+.profile-edit-container .h2,
+.subscription-confirm-container .h2,
+.subscription-form-container .h2 {
 	margin-bottom: 24px;
 	color: #333;
 }
