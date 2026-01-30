@@ -441,7 +441,7 @@ h1,
 }
 .coupon-exp {
 	font-size: 12px;
-	color: #888888;
+	color: #888;
 	margin: 0;
 }
 .coupon-action {
@@ -853,7 +853,7 @@ h1,
 	padding: 12px;
 	margin: 0 auto;
 	> div:first-of-type {
-		color: #ddcc00;
+		color: #dc0;
 		margin-top: 8px;
 	}
 	> div:last-of-type {
@@ -1009,7 +1009,7 @@ h1,
 
 /* ==== coupon-QR.css ==== */
 .main-area.coupon-area-background {
-	background: #ffffff;
+	background: #fff;
 }
 .coupon-titlebar {
 	background-image: linear-gradient(#eee 80%, transparent);
@@ -1057,7 +1057,7 @@ h1,
 	min-height: 545px;
 	margin: 12px 0 0;
 	padding: 12px 6% 0;
-	background: #ffffff;
+	background: #fff;
 	border-radius: 0;
 	box-shadow: none;
 	color: #0b6b4d;
