@@ -73,7 +73,7 @@
 						<input type="text" id="ai_prompt" name="prompt" placeholder="例: この間にある観光スポットを推薦して" />
 					</div>
 
-					<button type="submit" style="width:100%; padding:12px; border:none; cursor:pointer; background: linear-gradient(to right, #2563eb, #7c3aed); color: white; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+					<button type="submit" style="width:100%; padding:12px; border:none; cursor:pointer; background: #2563eb; color: white; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
 						AIにおすすめを聞く
 					</button>
 				</form>

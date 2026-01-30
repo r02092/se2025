@@ -73,7 +73,7 @@
 
 			{{-- 2. 結果表示エリア --}}
 			<div id="ai_result" class="ai-text" style="display: none;">
-				<div style="background: linear-gradient(to right, #2563eb, #7c3aed);">
+				<div style="background: #2563eb">
 					<h2>🤖 AIからの提案</h2>
 				</div>
 
