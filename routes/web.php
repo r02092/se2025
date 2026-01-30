@@ -158,11 +158,7 @@ Route::middleware(['auth'])->group(function () {
         'ai.plan',
     );
 
-    // ▼▼▼ 追加: AI検索処理 (Webルートに移動) ▼▼▼
-    // JavaScriptから叩くためのルートです
-    Route::post('/ai-search', [AiApiController::class, 'post'])->name(
-        'ai.search',
-    );
+    Route::post('/ai', [AiApiController::class, 'post'])->name('ai');
 
     // 事業者申込
     Route::get('/subscription', [
