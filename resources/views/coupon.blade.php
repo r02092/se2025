@@ -55,9 +55,9 @@
 				<img class="coupon-thumb" src="{{ isset($coupon[0]->spot->img_ext) ? asset('storage/spots/' . $coupon[0]->spot->id . '.' . $coupon[0]->spot->img_ext) : asset('images/no-image.png') }}" alt="{{ $coupon[0]->spot->name }}">
 				<div class="coupon-info">
 					<h3 class="coupon-title">{{ $coupon[0]->name }}</h3>
-					<!-- <p class="coupon-desc">
+					{{-- <p class="coupon-desc">
 						入場料100円引き。スタッフに画面を見せてください。
-					</p> -->
+					</p> --}}
 					<p class="coupon-exp">スポット: {{ $coupon[0]->spot->name }}</p>
 					@if ($coupon[0]->cond_spot_id)
 					<p class="coupon-exp">利用条件: {{ $coupon[2]->name }}にチェックインする</p>

@@ -19,7 +19,7 @@
 	</div>
 @endif
 
-<!-- フィード（投稿カードをここに差し込む） -->
+{{-- フィード（投稿カードをここに差し込む） --}}
 <section id="feed" class="feed">
 	@foreach($posts ?? [] as $post)
 	<article class="general-box post-card">

@@ -12,12 +12,12 @@
 		<h1>クーポン詳細</h1>
 	</div>
 
-	<!-- HERO（上部の大きな画像） -->
+	{{-- HERO（上部の大きな画像） --}}
 	<section class="hero">
 		<img src="{{ isset($coupon->spot->img_ext) ? asset('storage/spots/' . $coupon->spot->id . '.' . $coupon->spot->img_ext) : asset('images/no-image.png') }}" alt="{{ $coupon->spot->name }}" class="hero-img">
 	</section>
 
-	<!-- クーポン詳細（背景に直接描画するスタイル） -->
+	{{-- クーポン詳細（背景に直接描画するスタイル） --}}
 	<article class="coupon-detail">
 		<h2 class="coupon-detail-title">{{ $coupon->name }}</h2>
 		@if ($coupon->cond_spot_id)
@@ -29,13 +29,13 @@
 			<span class="coupon-tag">{{ $type }}</span>
 			<span class="coupon-exp">{{ $coupon->expires_date ? '〜' . $coupon->expires_date : '' }}</span>
 		</div>
-		<!-- 必要に応じて追記する本文行など -->
+		{{-- 必要に応じて追記する本文行など --}}
 		<p class="coupon-more">
 			このクーポンはウェブ限定の割引です。提示はスタッフに画面を見せて確認してください。
 		</p>
 	</article>
 
-	<!-- 下部固定のボタン -->
+	{{-- 下部固定のボタン --}}
 	<div class="coupon-use-button-area">
 		@if ($available)
 		<div
@@ -54,7 +54,7 @@
 		</div>
 	</div>
 
-	<!-- 確認オーバーレイ -->
+	{{-- 確認オーバーレイ --}}
 	<div id="coupon_confirm_overlay" class="qr-overlay" style="display:none">
 		<div class="qr-modal">
 			<h3 class="qr-modal-title">確認</h3>

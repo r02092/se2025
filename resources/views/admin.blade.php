@@ -13,7 +13,7 @@
 	<h2>管理メニュー</h2>
 	<div class="spot-divider" aria-hidden="true"></div>
 
-	<!-- <div class="column-menu"> -->
+	{{-- <div class="column-menu"> --}}
 		<button class="settings-button" onclick="location.href = '{{ route('admin.users.list') }}'">
 			ユーザー一覧
 		</button>
