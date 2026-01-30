@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 	}
 
 	try {
-		const response = await fetch("/ai-search", {
+		const response = await fetch("/ai", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

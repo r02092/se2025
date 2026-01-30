@@ -2510,6 +2510,20 @@ class DatabaseSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'user_id' => 5,
+                'lng' => $this->encodeLng(133.719998),
+                'lat' => $this->encodeLat(33.620661),
+                'img_ext' => 'jpg',
+                'comment' =>
+                    '久しぶりに高知工科大学で昼食。ここの食堂混雑しすぎでは……',
+                'ip_addr' => '192.0.2.42',
+                'port' => 49242,
+                'user_agent' =>
+                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
         DB::table('api_keys')->insert([
             [

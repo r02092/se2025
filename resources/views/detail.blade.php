@@ -19,14 +19,15 @@
 		</header>
 
 		{{-- スポット画像 --}}
-		<div class="spot-detail-image-wrapper">
-			{{-- 画像がない場合の代替画像も設定しておくと安全です --}}
-			<img src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.svg') }}"
-				alt="{{ $spot->name }}"
-				id="img"
-				class="spot-detail-image">
-			<dialog id="dialog"><img src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.svg') }}"></dialog>
-		</div>
+		@if (isset($spot->img_ext))
+			<div class="spot-detail-image-wrapper">
+				<img src="{{ asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) }}"
+					alt="{{ $spot->name }}"
+					id="img"
+					class="spot-detail-image">
+				<dialog id="dialog"><img src="{{ asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) }}"></dialog>
+			</div>
+		@endif
 
 		<div>
 			{{-- スポットの説明 --}}
