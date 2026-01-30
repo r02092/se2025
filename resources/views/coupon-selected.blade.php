@@ -18,7 +18,13 @@
 			style="visibility:hidden"
 		@endif
 	>
-		<img src="{{ isset($coupon->spot->img_ext) ? asset('storage/spots/' . $coupon->spot->id . '.' . $coupon->spot->img_ext) : asset('images/no-image.svg') }}" alt="{{ $coupon->spot->name }}" class="hero-img">
+		<img
+			@if (isset($coupon->spot->img_ext))
+				src="{{ asset('storage/spots/' . $coupon->spot->id . '.' . $coupon->spot->img_ext) }}"
+			@endif
+			alt="{{ $coupon->spot->name }}"
+			class="hero-img"
+		>
 	</section>
 
 	{{-- クーポン詳細（背景に直接描画するスタイル） --}}
