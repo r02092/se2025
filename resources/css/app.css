@@ -110,6 +110,7 @@ h1,
 	object-fit: cover;
 	display: block;
 }
+/*
 .hamburger {
 	width: 50px;
 	height: var(--header-height);
@@ -134,6 +135,7 @@ h1,
 	width: 100%;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
+*/
 .title {
 	position: absolute;
 	top: 0;
