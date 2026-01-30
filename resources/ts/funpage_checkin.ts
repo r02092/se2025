@@ -4,9 +4,9 @@ console.log("funpage_checkin.ts: loaded");
 
 // 要素を探す（候補リスト）
 const overlayCandidates = [
-	"checkin-qr-overlay",
-	"qr-overlay",
-	"checkin-overlay",
+	"checkin_qr_overlay",
+	"qr_overlay",
+	"checkin_overlay",
 ];
 let overlay: HTMLElement | null = null;
 
@@ -23,7 +23,7 @@ if (!overlay) {
 } else {
 	const video = document.getElementById("qr-video") as HTMLVideoElement;
 	const statusMessage = document.getElementById(
-		"scanner-status",
+		"scanner_status",
 	) as HTMLParagraphElement;
 
 	// --- QRスキャナーの初期化 ---

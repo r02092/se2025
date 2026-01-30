@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'スポット詳細')
+@section('title', $spot->name)
 
 @push('scripts')
 @vite(['resources/ts/detail.ts'])
@@ -9,36 +9,36 @@
 @section('content')
 <div class="spot-detail-container">
 
-	<!-- スポット基本情報カード -->
+	{{-- スポット基本情報カード --}}
 	<article class="general-box spot-detail-card">
 
-		<!-- タイトルとカテゴリ -->
+		{{-- タイトルとカテゴリ --}}
 		<header class="spot-detail-header">
 			<h1 class="spot-detail-title">{{ $spot->name }}</h1>
 			<span class="spot-category-badge">{{ $typeStr }}</span>
 		</header>
 
-		<!-- スポット画像 -->
+		{{-- スポット画像 --}}
 		<div class="spot-detail-image-wrapper">
-			<!-- 画像がない場合の代替画像も設定しておくと安全です -->
-			<img src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
+			{{-- 画像がない場合の代替画像も設定しておくと安全です --}}
+			<img src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.svg') }}"
 				alt="{{ $spot->name }}"
 				id="img"
 				class="spot-detail-image">
-			<dialog id="dialog"><img src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"></dialog>
+			<dialog id="dialog"><img src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.svg') }}"></dialog>
 		</div>
 
 		<div>
-			<!-- スポットの説明 -->
+			{{-- スポットの説明 --}}
 			<section>
 				<h2>説明</h2>
 				<div class="spot-detail-text">
-					<!-- 改行コードを<br>に変換して表示 -->
+					{{-- 改行コードを<br>に変換して表示 --}}
 					{!! nl2br(e($spot->description)) !!}
 				</div>
 			</section>
 
-			<!-- スポットの場所 -->
+			{{-- スポットの場所 --}}
 
 			<section>
 				<h2>住所</h2>
@@ -51,7 +51,7 @@
 					</div>
 				</div>
 			</section>
-			<!-- スポットの場所 -->
+			{{-- スポットの場所 --}}
 			<section>
 				<h2>場所</h2>
 				<div class="map-area">
@@ -67,7 +67,7 @@
 				</div>
 			</section>
 
-			<!-- 関連キーワード -->
+			{{-- 関連キーワード --}}
 			@if($spot->keywords->isNotEmpty())
                 <div>
                     <h2>関連キーワード</h2>
@@ -86,11 +86,11 @@
 		</div>
 	</article>
 
-	<!-- ▼ 口コミ・評価エリア ▼ -->
+	{{-- ▼ 口コミ・評価エリア ▼ --}}
 	<section class="general-box spot-detail-card spot-detail-review-section">
 		<h2>口コミ・評判</h2>
 
-		<!-- 評価の平均点表示 -->
+		{{-- 評価の平均点表示 --}}
 		<div class="spot-detail-rating-summary">
 			@php
 				// 平均評価の計算（Reviewがない場合は0）
@@ -105,18 +105,18 @@
 			</div>
 		</div>
 
-		<!-- 口コミ一覧 -->
+		{{-- 口コミ一覧 --}}
 		@if($spot->reviews->isNotEmpty())
 		<div class="spot-detail-review-list">
 				@foreach($spot->reviews as $review)
 				<div class="spot-detail-review-item">
 					<div class="spot-detail-review-header">
-						<!-- ユーザー名（Reviewモデルのuserメソッド経由） -->
+						{{-- ユーザー名（Reviewモデルのuserメソッド経由） --}}
 						<span class="spot-detail-review-user">{{ $review->user->name ?? '退会済みユーザー' }}</span>
 							<span class="spot-detail-review-date">{{ $review->updated_at->format('Y/m/d') }}</span>
 					</div>
 					<div class="review-stars">
-						<!-- 評価の星表示 -->
+						{{-- 評価の星表示 --}}
 						@for($i = 1; $i <= 5; $i++)
 							@if($i <= $review->rate) ★ @else <span>★</span> @endif
 						@endfor
@@ -131,15 +131,15 @@
 			<p style="text-align: center; color: #555;">まだ口コミはありません。</p>
 		@endif
 
-		<!-- 口コミ投稿フォーム -->
+		{{-- 口コミ投稿フォーム --}}
 		<div class="form-container general-box">
 			<h3 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.1rem;">口コミを投稿する</h3>
 
-			<!-- ログイン済みの場合のみ表示 -->
+			{{-- ログイン済みの場合のみ表示 --}}
 			@auth
 				<form action="{{ route('reviews.store', $spot->id) }}" method="POST">
 					@csrf
-					<!-- spot_idを送信するためのhidden項目 -->
+					{{-- spot_idを送信するためのhidden項目 --}}
 					<input type="hidden" name="spot_id" value="{{ $spot->id }}">
 
 					<div class="spot-detail-form-group">

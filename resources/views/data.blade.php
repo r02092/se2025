@@ -14,7 +14,7 @@
 		<a class="spot-item" href="{{ route('detail', ['id' => $spot->spot->id]) }}">
 			<img
 				class="spot-thumb"
-				src="{{ isset($spot->spot->img_ext) ? asset('storage/spots/' . $spot->spot->id . '.' . $spot->spot->img_ext) : asset('images/no-image.png') }}"
+				src="{{ isset($spot->spot->img_ext) ? asset('storage/spots/' . $spot->spot->id . '.' . $spot->spot->img_ext) : asset('images/no-image.svg') }}"
 				alt="{{ $spot->spot->name }}"
 			>
 			<div class="spot-content">

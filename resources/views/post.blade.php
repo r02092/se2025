@@ -19,7 +19,7 @@
 	</div>
 @endif
 
-<!-- フィード（投稿カードをここに差し込む） -->
+{{-- フィード（投稿カードをここに差し込む） --}}
 <section id="feed" class="feed">
 	@foreach($posts ?? [] as $post)
 	<article class="general-box post-card">
@@ -27,7 +27,7 @@
 			<img class="post-avatar" src="{{ asset('storage/icons/' . $post['data']->user->id . '.' . $post['data']->user->icon_ext) }}" alt="avatar">
 			<div class="post-meta">
 				<div class="post-author">{{ $post['data']->user->name }}</div>
-				<div class="post-time">{{ $post['data']->created_at->diffForHumans() }}</div>
+				<div>{{ $post['data']->created_at->diffForHumans() }}</div>
 			</div>
 		</header>
 		@if($post['data']->img_ext)

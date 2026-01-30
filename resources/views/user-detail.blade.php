@@ -27,19 +27,19 @@
 		</p>
 	</div>
 </section>
-<!-- フィード（投稿カードをここに差し込む） -->
+{{-- フィード（投稿カードをここに差し込む） --}}
 <section id="feed" class="feed">
-	<!-- post.js がここに投稿カードを挿入します -->
+	{{-- post.js がここに投稿カードを挿入します --}}
 </section>
 
-<!-- 投稿カードのテンプレート（post.js がこれをクローンします） -->
+{{-- 投稿カードのテンプレート（post.js がこれをクローンします） --}}
 <template id="post_template">
 	<article class="general-box post-card">
 		<header class="post-head">
 			<img class="post-avatar" alt="avatar">
 			<div class="post-meta">
 				<div class="post-author"></div>
-				<div class="post-time"></div>
+				<div></div>
 			</div>
 		</header>
 		<img class="post-image" alt="">

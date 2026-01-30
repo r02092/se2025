@@ -34,6 +34,11 @@ body {
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 	box-sizing: border-box;
 }
+@media (max-width: 800px) {
+	.general-box {
+		width: calc(100vw - 40px);
+	}
+}
 h1,
 .twofa-center {
 	text-align: center;
@@ -41,7 +46,6 @@ h1,
 
 .column-menu {
 	align-items: center;
-	width: 90%;
 	margin: 80px auto;
 	display: flex;
 	flex-direction: column;
@@ -106,6 +110,7 @@ h1,
 	object-fit: cover;
 	display: block;
 }
+/*
 .hamburger {
 	width: 50px;
 	height: var(--header-height);
@@ -130,6 +135,7 @@ h1,
 	width: 100%;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
+*/
 .title {
 	position: absolute;
 	top: 0;
@@ -218,7 +224,6 @@ h1,
 
 /* merged ai-suggest: funpage.css + home.css + search.css (final margin/padding from search) */
 .ai-suggest {
-	width: 80%;
 	height: auto;
 	max-height: calc(100vh - 200px);
 	overflow-y: auto;
@@ -226,7 +231,10 @@ h1,
 	padding: 1% 5% 5% 5%;
 	min-height: 120px;
 }
-.ai-suggest h2 {
+.ai-suggest h2,
+.post-titlebar h1,
+.general-box.checkin-box h2,
+.general-box.achievement h2 {
 	text-align: center;
 	width: 100%;
 }
@@ -241,11 +249,12 @@ h1,
 	text-align: center;
 }
 .form-container h2,
+.form-container .h2,
 .logout-container h2,
-.profile-container h2,
-.profile-edit-container h2,
-.subscription-confirm-container h2,
-.subscription-form-container h2 {
+.profile-container .h2,
+.profile-edit-container .h2,
+.subscription-confirm-container .h2,
+.subscription-form-container .h2 {
 	margin-bottom: 24px;
 	color: #333;
 }
@@ -259,7 +268,6 @@ h1,
 	font-size: 15px;
 }
 .form-container input[type="text"],
-.form-container input[type="email"],
 .form-container input[type="password"],
 .profile-edit-container input[type="text"],
 .profile-edit-container input[type="password"],
@@ -288,7 +296,6 @@ h1,
 }
 .form-container button[type="submit"]:hover,
 .photo-file::file-selector-button:hover,
-.logout-button-confirm:hover,
 .profile-button-edit:hover,
 .profile-button-subscription:hover,
 .profile-edit-container button[type="submit"]:hover,
@@ -434,7 +441,7 @@ h1,
 }
 .coupon-exp {
 	font-size: 12px;
-	color: #888888;
+	color: #888;
 	margin: 0;
 }
 .coupon-action {
@@ -482,13 +489,6 @@ h1,
 	color: #0b6b4d;
 	border: 1px solid #e0e0e0;
 }
-.badge-done {
-	background: #e8f7ef;
-	color: #14b888;
-}
-.coupon-card.redeemed {
-	opacity: 0.6;
-}
 
 /* ==== home.css ==== */
 .map-area {
@@ -507,23 +507,6 @@ h1,
 	max-width: 100vw;
 	border: 0;
 	display: block;
-}
-.search-bar-area {
-	margin: 32px auto;
-}
-.search-bar-area input {
-	border: none;
-	outline: none;
-	height: 80%;
-	width: 80%;
-	margin-left: 16px;
-	font-size: 1rem;
-	background: transparent;
-}
-.search-icon {
-	width: 28px;
-	margin-right: 16px;
-	fill: #14b888;
 }
 /* merged ai-suggest: funpage.css + home.css + search.css (final margin/padding from search) */
 .spot-divider {
@@ -696,40 +679,10 @@ h1,
 }
 
 /* ==== logout.css ==== */
-.logout-grid-container {
-	display: flex;
-	gap: 20%;
-	margin-bottom: 20px;
-}
-.logout-button-cancel {
-	width: 100%;
-	padding: 10px 0;
-	background: #eee;
-	color: #000;
-	border: none;
-	border-radius: 6px;
-	font-size: 17px;
-	cursor: pointer;
-	font-weight: bold;
-	transition: background-color 0.2s;
-}
-.logout-button-cancel:hover,
 .profile-edit-avatar-group label:hover,
 .profile-edit-button-cancel:hover,
 .subscription-confirm-button-back:hover {
 	background: #ddd;
-}
-.logout-button-confirm {
-	width: 100%;
-	padding: 10px 0;
-	background: #14b888;
-	color: #fff;
-	border: none;
-	border-radius: 6px;
-	font-size: 17px;
-	cursor: pointer;
-	font-weight: bold;
-	transition: background-color 0.2s;
 }
 #achievement_title {
 	font-size: 1.5em;
@@ -749,10 +702,6 @@ h1,
 	color: #000;
 	z-index: 500;
 }
-.post-titlebar h1 {
-	text-align: center;
-	width: 100%;
-}
 .post-titlebar-update {
 	position: absolute;
 	right: 5%;
@@ -771,20 +720,6 @@ h1,
 	font-weight: 700;
 	font-size: 13px;
 }
-.composer {
-	display: flex;
-	gap: 12px;
-	margin-bottom: 16px;
-}
-.composer-left .avatar {
-	width: 48px;
-	height: 48px;
-	box-sizing: border-box;
-	border-radius: 20%;
-	background: #fff;
-	object-fit: cover;
-	display: block;
-}
 .post-avatar {
 	width: 40px;
 	height: 40px;
@@ -793,52 +728,6 @@ h1,
 	background: #fff;
 	object-fit: cover;
 	display: block;
-}
-.composer-right {
-	flex: 1;
-	padding: 12px;
-}
-.composer-right textarea {
-	width: 100%;
-	min-height: 56px;
-	resize: none;
-	border: 0;
-	outline: none;
-	font-size: 15px;
-	background: transparent;
-}
-.composer-controls {
-	display: flex;
-	gap: 8px;
-	align-items: center;
-	margin-top: 8px;
-}
-.file-btn {
-	background: #eee;
-	padding: 6px 8px;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 13px;
-}
-.file-btn input {
-	display: none;
-}
-.post-submit {
-	margin-left: auto;
-	background: #14b888;
-	color: #fff;
-	border: 0;
-	padding: 8px 12px;
-	border-radius: 6px;
-	cursor: pointer;
-	font-weight: 700;
-}
-.composer-preview img {
-	width: 100%;
-	max-height: 300px;
-	object-fit: cover;
-	border-radius: 8px;
-	margin-top: 8px;
 }
 .feed {
 	display: flex;
@@ -850,7 +739,7 @@ h1,
 	padding: 12px;
 	margin: 0 auto;
 	> div:first-of-type {
-		color: #ddcc00;
+		color: #dc0;
 		margin-top: 8px;
 	}
 	> div:last-of-type {
@@ -883,43 +772,6 @@ h1,
 	border-radius: 8px;
 	margin-top: 8px;
 }
-.post-actions {
-	display: flex;
-	gap: 8px;
-	margin-top: 8px;
-}
-.post-actions button {
-	background: transparent;
-	border: 1px solid rgba(0, 0, 0, 0.06);
-	padding: 8px 10px;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 14px;
-}
-.post-actions .btn-like.active {
-	background: rgba(20, 184, 136, 0.12);
-	border-color: rgba(20, 184, 136, 0.2);
-}
-.comments {
-	margin-top: 10px;
-	border-top: 1px dashed rgba(0, 0, 0, 0.06);
-	padding-top: 8px;
-}
-.comments-list .comment-item {
-	padding: 6px 0;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.02);
-}
-.comments-form {
-	display: flex;
-	gap: 8px;
-	margin-top: 8px;
-}
-.comment-input {
-	flex: 1;
-	padding: 8px;
-	border-radius: 8px;
-	border: 1px solid #e6e6e6;
-}
 .comment-send {
 	padding: 8px 10px;
 	background: #f22727;
@@ -932,7 +784,6 @@ h1,
 
 /* ==== profile.css ==== */
 .profile-container {
-	width: 80%;
 	margin: 20px auto;
 	margin-bottom: 10px;
 	padding: 1% 5% 1% 5%;
@@ -955,7 +806,7 @@ h1,
 }
 .profile-avatar {
 	width: 130px;
-	height: 130px;
+	aspect-ratio: 1/1;
 	border-radius: 20%;
 	overflow: hidden;
 	background: rgba(255, 255, 255, 0.08);
@@ -1007,7 +858,7 @@ h1,
 
 /* ==== coupon-QR.css ==== */
 .main-area.coupon-area-background {
-	background: #ffffff;
+	background: #fff;
 }
 .coupon-titlebar {
 	background-image: linear-gradient(#eee 80%, transparent);
@@ -1055,7 +906,7 @@ h1,
 	min-height: 545px;
 	margin: 12px 0 0;
 	padding: 12px 6% 0;
-	background: #ffffff;
+	background: #fff;
 	border-radius: 0;
 	box-shadow: none;
 	color: #0b6b4d;
@@ -1113,23 +964,6 @@ h1,
 	font-size: 24px;
 	cursor: pointer;
 }
-.coupon-use-button-active {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	border-radius: 999px;
-	background: #d1ffe5;
-	color: #14b888;
-	box-shadow: 0 8px 20px rgba(6, 24, 16, 0.06);
-	overflow: hidden;
-	border: 3px solid rgba(20, 184, 136, 0.12);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	font-weight: 800;
-	font-size: 16px;
-}
 .qr-modal-close-btn.confirm {
 	margin-top: 5%;
 }
@@ -1152,34 +986,6 @@ h1,
 }
 .qr-overlay.show {
 	display: flex;
-}
-.qr-panel {
-	width: min(92%, 420px);
-	background: #fff;
-	padding: 20px;
-	border-radius: 12px;
-	box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
-	text-align: center;
-	position: relative;
-}
-.qr-close {
-	position: absolute;
-	right: 10px;
-	top: 8px;
-	background: transparent;
-	border: 0;
-	font-size: 24px;
-	line-height: 1;
-	cursor: pointer;
-}
-.qr-image-wrap {
-	margin: 12px 0;
-}
-.qr-image-wrap img {
-	width: 220px;
-	height: 220px;
-	object-fit: contain;
-	display: inline-block;
 }
 @keyframes overlayFadeIn {
 	from {
@@ -1211,17 +1017,6 @@ h1,
 		transform: translateY(0) scale(1);
 	}
 }
-.qr-modal-close {
-	position: absolute;
-	right: 10px;
-	top: 8px;
-	background: transparent;
-	border: none;
-	font-size: 26px;
-	line-height: 1;
-	cursor: pointer;
-	color: #666;
-}
 .qr-modal-title {
 	margin: 6px 0;
 	color: #0b6b4d;
@@ -1244,11 +1039,6 @@ h1,
 	margin: 0 auto;
 	image-rendering: pixelated;
 }
-.qr-modal-hint {
-	margin-top: 10px;
-	color: #666;
-	font-size: 13px;
-}
 .qr-modal-actions {
 	margin-top: 12px;
 }
@@ -1264,17 +1054,12 @@ h1,
 
 /* ==== funpage.css ==== */
 .general-box.checkin-box {
-	width: 80%;
 	margin: 40px auto;
 	padding: 1% 5% 1% 5%;
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	cursor: pointer;
-}
-.general-box.checkin-box h2 {
-	text-align: center;
-	width: 100%;
 }
 .marker-icon {
 	width: 15%; /* 親の幅に対する15%表示 */
@@ -1284,14 +1069,9 @@ h1,
 }
 
 .general-box.achievement {
-	width: 90%;
 	margin: 40px auto 80px; /* 上は checkin と同じ、下はボトムバー回避 */
 	padding: 1% 5% 5% 5%;
 	box-sizing: border-box;
-}
-.general-box.achievement h2 {
-	text-align: center;
-	width: 100%;
 }
 /* 灰色の線（タイトルの下） */
 .general-box.divider {
@@ -1428,7 +1208,7 @@ h1,
 	border-radius: 12px;
 	background: #000;
 }
-#qr-video {
+#qr_video {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
@@ -1447,7 +1227,7 @@ h1,
 	color: #666;
 	font-size: 13px;
 }
-#scanner-status {
+#scanner_status {
 	margin-top: 15px;
 	font-weight: bold;
 }
@@ -1456,17 +1236,6 @@ h1,
 }
 .kmn-mt {
 	margin-top: 12px;
-}
-.checkin-qr-close-btn {
-	display: inline-block;
-	background: #14b888;
-	color: #fff;
-	padding: 8px 14px;
-	border-radius: 8px;
-	text-decoration: none;
-	border: none;
-	font-weight: 700;
-	cursor: pointer;
 }
 
 /* ==== profile-edit.css ==== */
@@ -1516,12 +1285,6 @@ h1,
 }
 
 /* ==== subscription-confirm.css ==== */
-.subscription-confirm-container h3 {
-	font-weight: normal;
-	color: #333;
-}
-.subscription-confirm-container li,
-.subscription-form-container li,
 .form-error {
 	text-align: left;
 }
@@ -1565,6 +1328,7 @@ h1,
 	font-weight: bold;
 	transition: background-color 0.2s;
 }
+
 .form-detail {
 	color: gray;
 	font-size: 0.8rem;
@@ -1573,12 +1337,11 @@ h1,
 .apikey {
 	color: gray;
 	font-size: 90%;
-}
-
-.apikey > input {
-	width: 60%;
-	font-family: monospace;
-	font-size: 70%;
+	> input {
+		width: 60%;
+		font-family: monospace;
+		font-size: 70%;
+	}
 }
 
 /* admin.blade.php */
@@ -1645,21 +1408,6 @@ h1,
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-}
-
-.spot-detail-image {
-	width: 100%;
-	height: 100%;
-	object-fit: cover; /* 画像比率を維持してトリミング */
-	transition: transform 0.3s ease;
-	max-height: 420px;
-}
-
-.spot-detail-image:hover {
-	transform: scale(1.02);
-}
-
-.spot-detail-image-wrapper {
 	> #dialog {
 		border: 0;
 		padding: 0;
@@ -1673,6 +1421,18 @@ h1,
 	> #dialog::backdrop {
 		background: rgba(0, 0, 0, 0.75);
 	}
+}
+
+.spot-detail-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* 画像比率を維持してトリミング */
+	transition: transform 0.3s ease;
+	max-height: 420px;
+}
+
+.spot-detail-image:hover {
+	transform: scale(1.02);
 }
 
 .spot-detail-card > div:last-child > * > h2 {
