@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'スポット詳細')
+@section('title', $spot->name)
 
 @push('scripts')
 @vite(['resources/ts/detail.ts'])

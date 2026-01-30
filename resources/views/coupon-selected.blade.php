@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'クーポン詳細')
+@section('title', $coupon->name)
 
 @push('scripts')
 @vite(['resources/ts/coupon_selected.ts'])
