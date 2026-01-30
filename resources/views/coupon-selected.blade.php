@@ -13,7 +13,11 @@
 	</div>
 
 	{{-- HERO（上部の大きな画像） --}}
-	<section class="hero">
+	<section class="hero"
+		@if (is_null($coupon->spot->img_ext))
+			style="visibility:hidden"
+		@endif
+	>
 		<img src="{{ isset($coupon->spot->img_ext) ? asset('storage/spots/' . $coupon->spot->id . '.' . $coupon->spot->img_ext) : asset('images/no-image.svg') }}" alt="{{ $coupon->spot->name }}" class="hero-img">
 	</section>
 
