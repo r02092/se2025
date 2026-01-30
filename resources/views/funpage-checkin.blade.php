@@ -10,13 +10,13 @@
 <div class="main-area">
 	<h1>チェックイン</h1>
 
-	<div id="checkin-qr-overlay" class="general-box scanner-container checkin-qr-overlay">
+	<div id="checkin_qr_overlay" class="general-box scanner-container checkin-qr-overlay">
 		<p class="checkin-qr-sub">
 			設置されている二次元コードを読み取ってください。
 		</p>
 		{{-- 1. カメラ映像を表示するビデオタグを追加 --}}
 		<div class="video-wrapper">
-			<video id="qr-video"></video>
+			<video id="qr_video"></video>
 			{{-- スキャン範囲を示すガイド枠（任意） --}}
 			<div class="scan-guide"></div>
 		</div>
@@ -24,7 +24,7 @@
 			三隅の四角がはっきり映るようにしてください。
 		</p>
 
-		<p id="scanner-status">カメラを起動中……</p>
+		<p id="scanner_status">カメラを起動中……</p>
 
 		<div class="button-group">
 			<button type="button" class="btn btn-secondary" onclick="location.href='{{ route('funpage') }}'">
