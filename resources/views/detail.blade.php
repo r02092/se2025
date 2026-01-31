@@ -62,7 +62,7 @@
 					<a href="https://www.google.com/maps/search/?api=1&query={{ $spot->lat }},{{ $spot->lng }}"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="btn btn-primary btn-big spot-detail-btn">
+					class="a-btn spot-detail-btn">
 						Google マップで見る
 					</a>
 				</div>
@@ -73,7 +73,7 @@
                 <div>
                     <h2>関連キーワード</h2>
                     <div class="spot-detail-keywords">
-                        @foreach($spot->keywords as $keyword)
+                        @foreach ($spot->keywords as $keyword)
                             {{-- ▼▼▼ 変更箇所: span を a タグに変えて検索ページへリンク ▼▼▼ --}}
                             <a href="{{ route('search', ['destination' => $keyword->keyword]) }}"
                                class="spot-detail-keyword-tag"
@@ -109,7 +109,7 @@
 		{{-- 口コミ一覧 --}}
 		@if($spot->reviews->isNotEmpty())
 		<div class="spot-detail-review-list">
-				@foreach($spot->reviews as $review)
+				@foreach ($spot->reviews as $review)
 				<div class="spot-detail-review-item">
 					<div class="spot-detail-review-header">
 						{{-- ユーザー名（Reviewモデルのuserメソッド経由） --}}
@@ -118,7 +118,7 @@
 					</div>
 					<div class="review-stars">
 						{{-- 評価の星表示 --}}
-						@for($i = 1; $i <= 5; $i++)
+						@for ($i = 1; $i <= 5; $i++)
 							@if($i <= $review->rate) ★ @else <span>★</span> @endif
 						@endfor
 					</div>

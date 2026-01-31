@@ -47,7 +47,7 @@
 		@if(isset($coupons[2]))
 		<section id="{{ $coupons[1] }}" aria-label="{{ $coupons[0] }}クーポン">
 			<h2>{{ $coupons[0] }}クーポン</h2>
-			@foreach($coupons[2] as $coupon)
+			@foreach ($coupons[2] as $coupon)
 			<article class="general-box coupon-card"
 					 data-category="{{ $coupon[1] }}"
 					 onclick="location.href='{{ route('coupon.show', $coupon[0]->id) }}'"

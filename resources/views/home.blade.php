@@ -116,7 +116,7 @@
 	<div class="spot-list home-spot" aria-label="人気のスポット一覧">
 
 		@if(count($displaySpots) > 0)
-			@foreach($displaySpots as $index => $spot)
+			@foreach ($displaySpots as $index => $spot)
 				<a class="spot-item" href="{{ route('detail', ['id' => $spot->id]) }}">
 
 					{{-- 順位バッジ --}}

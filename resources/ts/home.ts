@@ -1,5 +1,6 @@
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+import addSuggestHandler from "./add_suggest_handler";
 
 const icon = new Image();
 icon.src = "/images/spot_icon.svg";
@@ -82,68 +83,5 @@ for (const i of document.querySelectorAll("[id^='tab_btn_']")) {
 for (const i of document.querySelectorAll(
 	"#form_area_ai > form > div > input",
 )) {
-	i.addEventListener("input", async e => {
-		const input = e.currentTarget as HTMLInputElement;
-		if (input.dataset.suggest !== undefined) return;
-		input.dataset.suggest = "";
-		const suggestElem = document.getElementById(
-			input.id + "_suggest",
-		) as HTMLDivElement;
-		suggestElem.innerHTML = "";
-		const res = await (await fetch("/filtering?keyword=" + input.value)).json();
-		input.className = "home-input-suggested";
-		res.forEach(
-			(j: {
-				id: number;
-				name: string;
-				description: string;
-				img_ext: string | null;
-				keywords: {
-					id: number;
-					spot_id: number;
-					keyword: string;
-					created_at: string | null;
-					updated_at: string | null;
-					deleted_at: string | null;
-				}[];
-			}) => {
-				const spotElem = document.createElement("div");
-				const spotNameElem = document.createElement("div");
-				spotNameElem.innerHTML = j.name.replace(
-					input.value,
-					"<span>" + input.value + "</span>",
-				);
-				spotElem.appendChild(spotNameElem);
-				const keywordsElem = document.createElement("div");
-				j.keywords.forEach(k => {
-					if (k.keyword.indexOf(input.value) >= 0) {
-						const keywordElem = document.createElement("div");
-						keywordElem.innerHTML = k.keyword.replace(
-							input.value,
-							"<span>" + input.value + "</span>",
-						);
-						keywordsElem.appendChild(keywordElem);
-					}
-				});
-				spotElem.appendChild(keywordsElem);
-				spotElem.addEventListener("click", e => {
-					input.value = (
-						(e.currentTarget as HTMLDivElement).firstChild as HTMLDivElement
-					).textContent;
-					suggestElem.innerHTML = "";
-					input.className = "";
-				});
-				suggestElem.appendChild(spotElem);
-			},
-		);
-		delete input.dataset.suggest;
-	});
-	i.addEventListener("focusout", async e => {
-		const input = e.target as HTMLInputElement;
-		await new Promise(r => setTimeout(r, 99));
-		(
-			document.getElementById(input.id + "_suggest") as HTMLDivElement
-		).innerHTML = "";
-		input.className = "";
-	});
+	addSuggestHandler(i as HTMLInputElement);
 }

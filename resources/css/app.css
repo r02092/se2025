@@ -272,7 +272,8 @@ h1,
 .profile-edit-container input[type="text"],
 .profile-edit-container input[type="password"],
 .subscription-form-container input[type="text"],
-.subscription-form-container input[type="number"] {
+.subscription-form-container input[type="number"],
+.edit > article > form > input[type="datetime-local"] {
 	width: 90%;
 	padding: 10px;
 	margin-bottom: 16px;
@@ -282,6 +283,7 @@ h1,
 	background: #fafafa;
 }
 .form-container button[type="submit"],
+a.a-btn,
 .photo-file::file-selector-button {
 	width: 100%;
 	padding: 10px 0;
@@ -292,6 +294,7 @@ h1,
 	font-size: 17px;
 	cursor: pointer;
 	font-weight: bold;
+	line-height: 1.8;
 	transition: background-color 0.2s;
 }
 .form-container button[type="submit"]:hover,
@@ -300,6 +303,7 @@ h1,
 .profile-button-subscription:hover,
 .profile-edit-container button[type="submit"]:hover,
 .subscription-form-container button[type="submit"]:hover,
+a.a-btn:hover,
 .spot-detail-btn:hover,
 .btn-green:hover,
 .btn-login-link:hover {
@@ -1305,7 +1309,7 @@ h1,
 
 /* ==== subscription-form.css ==== */
 .subscription-form-container select,
-.spot-edit > article > form > select {
+.edit > article > form > select {
 	width: 80%;
 	padding: 10px;
 	margin-bottom: 16px;
@@ -1450,24 +1454,24 @@ h1,
 	padding: 12px;
 }
 
-.spot-detail-btn {
+a.a-btn {
 	display: block;
-	margin-top: 16px;
-	width: 100%;
 	text-align: center;
 	text-decoration: none;
-	box-sizing: border-box;
-	transition: background-color 0.2s;
 }
 
-#form_area_ai > form > div > div > div > div:last-child,
+.spot-detail-btn {
+	margin-top: 16px;
+}
+
+div[id$="_suggest"] > div > div:last-child,
 .spot-detail-keywords {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.5rem;
 }
 
-#form_area_ai > form > div > div > div > div:last-child > div,
+div[id$="_suggest"] > div > div:last-child > div,
 .spot-detail-keyword-tag {
 	background: #f8f9fa;
 	border: 1px solid #dee2e6;
@@ -1477,7 +1481,7 @@ h1,
 	color: #666;
 }
 
-#form_area_ai > form > div > div > div > div:last-child > div::before,
+div[id$="_suggest"] > div > div:last-child > div::before,
 .spot-detail-keyword-tag::before {
 	content: "#";
 	color: #999;
@@ -1680,35 +1684,46 @@ h1,
 		margin-bottom: 5px;
 	}
 	> div {
-		position: absolute;
-		border: 0 solid #93c5fd;
-		border-width: 0 1px;
-		width: 100%;
-		max-height: 9rem;
-		overflow: scroll;
-		background: #fff;
-		box-sizing: border-box;
-		z-index: 11;
+		border-color: #93c5fd;
 		> div {
-			display: flex;
-			justify-content: space-between;
-			padding: 10px;
-			border-bottom: 1px solid #93c5fd;
-			transition: background-color 0.2s;
-			> div:first-child {
-				padding: 0.3rem 0;
-			}
-			> div:last-child {
-				justify-content: end;
-			}
-			span {
-				font-weight: bold;
-			}
-		}
-		> div:hover {
-			background: #eee;
+			border-color: inherit;
 		}
 	}
+}
+
+div[id$="_suggest"] {
+	position: absolute;
+	border: 1px solid #ccc;
+	border-top: 0;
+	width: 100%;
+	max-height: 9rem;
+	overflow: scroll;
+	background: #fff;
+	box-sizing: border-box;
+	z-index: 11;
+	> div {
+		display: flex;
+		justify-content: space-between;
+		padding: 10px;
+		border-bottom: 1px solid #ccc;
+		transition: background-color 0.2s;
+		> div:first-child {
+			padding: 0.3rem 0;
+		}
+		> div:last-child {
+			justify-content: end;
+		}
+		span {
+			font-weight: bold;
+		}
+	}
+	> div:hover {
+		background: #eee;
+	}
+}
+
+div[id$="_suggest"]:empty {
+	border-bottom: 0;
 }
 
 #form_area_ai > form > div > label > span:not(.form-detail),
@@ -1717,7 +1732,7 @@ h1,
 	font-size: 0.8rem;
 }
 
-.home-input-suggested {
+.input-spot-suggested {
 	border-radius: 4px 4px 0 0 !important;
 }
 
@@ -2012,12 +2027,24 @@ iframe {
 	margin: 16px auto;
 }
 
-.spot-edit > article {
+.edit > article {
 	margin: 0 auto;
-	> form:first-child > button {
-		margin: 16px 0;
+	> form {
+		> button {
+			margin: 16px 0;
+		}
+		> div {
+			position: relative;
+			width: calc(90% + 22px);
+			margin: 0 auto;
+			> input[id^="cond_"] {
+				width: 100%;
+				margin-bottom: 0;
+				box-sizing: border-box;
+			}
+		}
 	}
-	> form:not([enctype="multipart/form-data"]) {
+	> form[action$="/delete"] {
 		> button {
 			background: #f22727;
 		}
@@ -2035,4 +2062,13 @@ iframe {
 [id^="qr_"] {
 	image-rendering: pixelated;
 	width: 9rem;
+}
+
+.coupon-edit-header {
+	text-align: center;
+	margin-bottom: 40px;
+	color: #666;
+	> span {
+		font-weight: bold;
+	}
 }

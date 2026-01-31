@@ -5,7 +5,7 @@
 @section('content')
 <h1>ユーザー一覧</h1>
 <section class="coupon-list">
-	@foreach($users as $user)
+	@foreach ($users as $user)
 	<article class="general-box coupon-card" tabindex="0" role="article" onclick="location.href='{{ route('admin.user.detail', ['id' => $user->id]) }}'" style="cursor: pointer;">
 		<img class="coupon-thumb" src="{{ $user->icon_url }}">
 		<div class="coupon-info">
@@ -13,7 +13,7 @@
 			<p class="coupon-desc">
 				ID: {{ $user->id }}<br>
 				ログイン名: {{ $user->login_name }}<br>
-				種別: 
+				種別:
 				@if($user->permission === 0)
 					管理者
 				@elseif($user->permission === 1)

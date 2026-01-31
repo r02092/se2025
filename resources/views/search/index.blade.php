@@ -80,7 +80,7 @@
 	{{-- 検索結果リスト --}}
 	<div class="search-results">
 		@if(count($spots) > 0)
-			@foreach($spots as $spot)
+			@foreach ($spots as $spot)
 				<div class="general-box result-card">
 
 					{{-- カード全体リンク --}}
@@ -107,7 +107,7 @@
 								{{-- objectタグでリンクの入れ子エラーを回避 --}}
 								<object>
 									<div style="margin-top: 8px;">
-										@foreach($spot->keywords as $keywordObj)
+										@foreach ($spot->keywords as $keywordObj)
 											{{-- ▼▼▼ 修正: $keywordObj->keyword で文字だけを取り出す ▼▼▼ --}}
 											<a href="{{ request()->fullUrlWithQuery([
 													'destination' => $keywordObj->keyword,
