@@ -1929,6 +1929,10 @@ iframe {
 			}
 		}
 	}
+	span {
+		background: linear-gradient(transparent 60%, #fde047 60%);
+		font-weight: bold;
+	}
 }
 
 /* 画像エリアのスタイル */
