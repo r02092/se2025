@@ -4,19 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Photo;
+use App\Traits\ImgValidateTrait;
 
 class PostFormController extends Controller
 {
+    use ImgValidateTrait;
     function post(Request $request)
     {
         $post = new Photo();
         $file = $request->file('photo');
-        if (!$file->isValid()) {
-            return redirect()
-                ->back()
-                ->withErrors([
-                    'error' => '画像ファイルが不正です。',
-                ]);
+        if ($error = $this->validateImg($file)) {
+            return redirect()->back()->withErrors($error);
         }
         $post->user_id = auth()->id();
         if (

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Traits\ToStringTrait;
+use App\Traits\ImgValidateTrait;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Spot;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 class EditSpotController extends Controller
 {
     use ToStringTrait;
+    use ImgValidateTrait;
 
     const DISPLAY_NUM = 5;
     public function get($page)
@@ -86,17 +88,23 @@ class EditSpotController extends Controller
         $spot->name = $request->name;
         $spot->type = intval($request->type);
         if ($file = $request->file('img')) {
-            if ($file->isValid()) {
-                if ($spot->img_ext) {
-                    Storage::delete(
-                        'spots/' . $spot->id . '.' . $spot->img_ext,
-                        'public',
-                    );
-                }
-                $ext = $file->getClientOriginalExtension();
-                $file->storeAs('spots/', $spot->id . '.' . $ext, 'public');
-                $spot->img_ext = $ext;
+            if ($error = $this->validateImg($file)) {
+                return response()->json(
+                    [
+                        'error' => $error,
+                    ],
+                    400,
+                );
             }
+            if ($spot->img_ext) {
+                Storage::delete(
+                    'spots/' . $spot->id . '.' . $spot->img_ext,
+                    'public',
+                );
+            }
+            $ext = $file->getClientOriginalExtension();
+            $file->storeAs('spots/', $spot->id . '.' . $ext, 'public');
+            $spot->img_ext = $ext;
         }
         $spot->description = $request->description;
         $spot->postal_code = $request->pc;

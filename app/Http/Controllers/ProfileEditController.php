@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage; // 追加
+use App\Traits\ImgValidateTrait;
 
 /**
  * MC09: プロフィール編集画面構成モジュール
  */
 class ProfileEditController extends Controller
 {
+    use ImgValidateTrait;
     /**
      * プロフィール編集画面を表示する (GET)
      */
@@ -59,30 +61,10 @@ class ProfileEditController extends Controller
         $file = $request->file('icon');
 
         if ($file) {
-            // アップロードエラーのチェック
-            if (!$file->isValid()) {
-                $errorMsg = $file->getErrorMessage();
-                // PHP設定(upload_max_filesize)によるサイズオーバーの特定
-                if ($file->getError() == UPLOAD_ERR_INI_SIZE) {
-                    $errorMsg =
-                        '画像のサイズが大きすぎます(2MB以下の画像を使用してください)。';
-                }
+            $error = $this->validateImg($file);
 
-                return redirect()
-                    ->back()
-                    ->withErrors([
-                        'icon' => 'アップロードエラー: ' . $errorMsg,
-                    ]);
-            }
-
-            // バリデーション (MIMEタイプなど)
-            $validator = \Illuminate\Support\Facades\Validator::make(
-                ['icon' => $file],
-                ['icon' => 'image|mimes:jpeg,png,jpg,gif|max:2048'], // 2MB制限
-            );
-
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator);
+            if ($error) {
+                return redirect()->back()->withErrors($error);
             }
 
             $extension = $file->getClientOriginalExtension();
