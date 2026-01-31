@@ -38,7 +38,7 @@ class ProfileEditController extends Controller
                 ->back()
                 ->withErrors([
                     'icon' =>
-                        'アップロードされたファイルのサイズが大きすぎます。設定を確認してください(post_max_size)。',
+                        'アップロードされたファイルのサイズが大きすぎます。',
                 ]);
         }
 
