@@ -1,10 +1,5 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
-    "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
-    "license": "MIT",
     "require": {
         "php": "^8.2",
         "bacon/bacon-qr-code": "^3.0",
@@ -13,12 +8,10 @@
         "laravel/socialite": "^5.24",
         "laravel/tinker": "^2.10.1",
         "pragmarx/google2fa-laravel": "^2.3",
-        "pragmarx/google2fa-qrcode": "^3.0",
         "setasign/fpdi": "^2.6",
         "setasign/tfpdf": "^1.33"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23",
         "larastan/larastan": "^3.0",
         "laravel/pail": "^1.2.2",
         "mockery/mockery": "^1.6",

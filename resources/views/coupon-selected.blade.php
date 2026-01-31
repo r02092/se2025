@@ -76,7 +76,7 @@
 		</div>
 	</div>
 </div>
-<div id="coupon_overlay" class="qr-overlay" aria-hidden="true" style="display:none">
+<div id="qr_overlay" class="qr-overlay" aria-hidden="true" style="display:none">
 	<div
 		class="qr-modal"
 		role="dialog"

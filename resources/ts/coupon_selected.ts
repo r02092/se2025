@@ -21,9 +21,8 @@ async function showCoupon() {
 			})
 		).json();
 		if (res.key) {
-			(
-				document.getElementById("coupon_overlay") as HTMLDivElement
-			).style.display = "flex";
+			(document.getElementById("qr_overlay") as HTMLDivElement).style.display =
+				"flex";
 			const imgElem = document.getElementById("coupon_qr") as HTMLImageElement;
 			imgElem.src = await QRCode.toDataURL("scenetrip:coupon/" + res.key, {
 				scale: 1,

@@ -43,10 +43,9 @@
 
 		$regex = '/(' . implode('|', $patterns) . ')/iu';
 
-		// 蛍光ペン風スタイル
 		return preg_replace(
 			$regex,
-			'<span style="background:linear-gradient(transparent 60%, #fde047 60%); font-weight:bold;">$1</span>',
+			'<span>$1</span>',
 			e($text)
 		);
 	}
