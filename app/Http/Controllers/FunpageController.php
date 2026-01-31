@@ -10,7 +10,7 @@ class FunpageController extends Controller
     public function get()
     {
         return view('funpage', [
-            'stamps' => Stamp::where('user_id', Auth::user()->id)
+            'stamps' => Stamp::where('user_id', Auth::id())
                 ->with('spot')
                 ->get(),
         ]);

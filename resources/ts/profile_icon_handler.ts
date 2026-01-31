@@ -8,7 +8,7 @@ export default function (
 
 		if (!file) return;
 
-		// 2MB limit (bytes)
+		// 2MiB limit (bytes)
 		const LIMIT = 2 * 1024 * 1024;
 
 		if (file.size <= LIMIT) {
@@ -78,7 +78,7 @@ export default function (
 
 						if (blob.size > LIMIT) {
 							alert(
-								"画像サイズが大きすぎます。自動圧縮しても2MB以下になりませんでした。別の画像を選択してください。",
+								"画像サイズが大きすぎます。自動圧縮しても2MiB以下になりませんでした。別の画像を選択してください。",
 							);
 							fileInput.value = ""; // Clear
 							return;

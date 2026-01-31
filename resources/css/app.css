@@ -282,7 +282,7 @@ h1,
 	font-size: 16px;
 	background: #fafafa;
 }
-.form-container button[type="submit"],
+.form-container button,
 a.a-btn,
 .photo-file::file-selector-button {
 	width: 100%;
@@ -1030,7 +1030,8 @@ a.a-btn:hover,
 	font-size: 1.17em;
 	font-weight: bold;
 }
-.qr-modal-sub {
+.qr-modal-sub,
+.checkin-qr-sub {
 	color: #666;
 	font-size: 14px;
 	margin-bottom: 12px;
@@ -1195,11 +1196,6 @@ a.a-btn:hover,
 	padding: 20px;
 	opacity: 0;
 	transition: opacity 0.3s;
-}
-.checkin-qr-sub {
-	color: #666;
-	font-size: 14px;
-	margin-bottom: 12px;
 }
 .video-wrapper {
 	position: relative;
@@ -1454,6 +1450,10 @@ a.a-btn:hover,
 	padding: 12px;
 }
 
+.general-box div[id="map"] {
+	border-radius: 8px;
+}
+
 a.a-btn {
 	display: block;
 	text-align: center;
@@ -1558,7 +1558,7 @@ div[id$="_suggest"] > div > div:last-child > div::before,
 }
 
 .spot-detail-form-group {
-	margin-bottom: 1.5rem;
+	margin-bottom: 16px;
 }
 
 .spot-detail-form-label {
@@ -1581,6 +1581,10 @@ div[id$="_suggest"] > div > div:last-child > div::before,
 .spot-detail-form-input:focus {
 	outline: none;
 	border-color: #3498db;
+}
+
+.spot-detail-btn-submit {
+	margin-bottom: 16px;
 }
 
 .terms-content {
