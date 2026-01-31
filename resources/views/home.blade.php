@@ -57,19 +57,19 @@
 					</div>
 
 					<div>
-						<label for="ai_departure">出発地 <span>（どちらか必須）</span></label>
+						<label for="ai_departure">出発地<span>（どちらか必須）</span></label>
 						<input type="text" id="ai_departure" name="departure" placeholder="例: 高知駅" autocomplete="off">
 						<div id="ai_departure_suggest"></div>
 					</div>
 
 					<div>
-						<label for="ai_destination">目的地 <span>（どちらか必須）</span></label>
+						<label for="ai_destination">目的地<span>（どちらか必須）</span></label>
 						<input type="text" id="ai_destination" name="destination" placeholder="例: 桂浜" autocomplete="off">
 						<div id="ai_destination_suggest"></div>
 					</div>
 
 					<div>
-						<label for="ai_prompt">質問内容 <span class="form-detail">（空欄の場合、特に条件を絞らずおすすめのスポットを提案します）</span></label>
+						<label for="ai_prompt">質問内容<span class="form-detail">（空欄の場合、特に条件を絞らずおすすめのスポットを提案します）</span></label>
 						<input type="text" id="ai_prompt" name="prompt" placeholder="例: この間にある観光スポットを推薦して" />
 					</div>
 
