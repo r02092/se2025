@@ -105,7 +105,7 @@
 							@if(!empty($spot->keywords))
 								{{-- objectタグでリンクの入れ子エラーを回避 --}}
 								<object>
-									<div style="margin-top: 8px;">
+									<div>
 										@foreach ($spot->keywords as $keywordObj)
 											{{-- ▼▼▼ 修正: $keywordObj->keyword で文字だけを取り出す ▼▼▼ --}}
 											<a href="{{ request()->fullUrlWithQuery([
@@ -113,9 +113,8 @@
 													'keyword' => null,
 													'id' => null,
 													'ids' => null
-												]) }}"
-											   style="text-decoration: none; display: inline-block;">
-												<span style="background: #f3f4f6; color: #555; padding: 2px 8px; border-radius: 4px; font-size: 0.9rem; margin-right: 5px; margin-bottom: 5px; display: inline-block;">
+												]) }}">
+												<span>
 													{{-- ハイライト関数にも keyword カラムを渡す --}}
 													# {!! highlightKeywords($keywordObj->keyword, $destination) !!}
 												</span>
