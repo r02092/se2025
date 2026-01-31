@@ -1030,7 +1030,8 @@ a.a-btn:hover,
 	font-size: 1.17em;
 	font-weight: bold;
 }
-.qr-modal-sub {
+.qr-modal-sub,
+.checkin-qr-sub {
 	color: #666;
 	font-size: 14px;
 	margin-bottom: 12px;
@@ -1195,11 +1196,6 @@ a.a-btn:hover,
 	padding: 20px;
 	opacity: 0;
 	transition: opacity 0.3s;
-}
-.checkin-qr-sub {
-	color: #666;
-	font-size: 14px;
-	margin-bottom: 12px;
 }
 .video-wrapper {
 	position: relative;
