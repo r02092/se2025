@@ -282,8 +282,9 @@ h1,
 	font-size: 16px;
 	background: #fafafa;
 }
-.form-container button,
+.form-container button[type="submit"],
 a.a-btn,
+#location_btn,
 .photo-file::file-selector-button {
 	width: 100%;
 	padding: 10px 0;
@@ -1919,29 +1920,23 @@ iframe {
 			line-height: 1.6;
 			margin-bottom: 15px;
 		}
-		> object > div {
-			margin-top: 8px;
-			> a {
-				text-decoration: none;
-				display: inline-block;
-				> span {
-					background: #f3f4f6;
-					color: #555;
-					padding: 2px 8px;
-					border-radius: 4px;
-					font-size: 0.9rem;
-					margin-right: 5px;
-					margin-bottom: 5px;
-					display: inline-block;
-				}
+		> div {
+			margin-bottom: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			> span {
+				font-size: 0.8rem;
+				background: #f3f4f6;
+				color: #555;
+				padding: 4px 10px;
+				border-radius: 20px;
 			}
 		}
-		> h2 > span,
-		> p > span,
-		> object > div > a > span > span {
-			background: linear-gradient(transparent 60%, #fde047 60%);
-			font-weight: bold;
-		}
+	}
+	span {
+		background: linear-gradient(transparent 60%, #fde047 60%);
+		font-weight: bold;
 	}
 }
 
