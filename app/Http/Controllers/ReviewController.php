@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Review;
 use Illuminate\Http\Request;
+use App\Models\Review;
+use Illuminate\Support\Facades\Auth;
+
 class ReviewController extends Controller
 {
     /**
@@ -30,7 +32,7 @@ class ReviewController extends Controller
         // データベースに投稿内容を保存する
         Review::create([
             'spot_id' => $request->input('spot_id'),
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'rate' => $request->input('rate'),
             'comment' => $request->input('comment'),
             'views' => 0,

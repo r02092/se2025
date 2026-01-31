@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Photo;
+use Illuminate\Support\Facades\Auth;
 use App\Traits\ImgValidateTrait;
 
 class PostFormController extends Controller
@@ -16,7 +17,7 @@ class PostFormController extends Controller
         if ($error = $this->validateImg($file)) {
             return redirect()->back()->withErrors($error);
         }
-        $post->user_id = auth()->id();
+        $post->user_id = Auth::id();
         if (
             !preg_match(
                 '/^\[(\d+.\d+),(\d+.\d+)\]$/',

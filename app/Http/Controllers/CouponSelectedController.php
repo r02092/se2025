@@ -24,11 +24,11 @@ class CouponSelectedController extends Controller
             'type' => $this->spotTypeToString($coupon->spot->type),
             'available' =>
                 !$coupon->cond_spot_id ||
-                Stamp::where('user_id', Auth::user()->id)
+                Stamp::where('user_id', Auth::id())
                     ->where('spot_id', $coupon->cond_spot_id)
                     ->count(),
             'active' => UserCoupon::where('coupon_id', $coupon->id)
-                ->where('user_id', Auth::user()->id)
+                ->where('user_id', Auth::id())
                 ->count(),
         ]);
     }

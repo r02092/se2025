@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AiApiRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Query;
 use App\Models\Spot;
 use App\Models\Keyword;
@@ -20,7 +21,7 @@ class AiApiController extends Controller
     {
         // 1. ログ保存
         Query::create([
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'query' => $request->input('chat'),
             'from_spot_id' => $request->input('from'),
             'to_spot_id' => $request->input('to'),

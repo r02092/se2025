@@ -12,7 +12,7 @@ class EditCouponController extends Controller
     public function get($spotId)
     {
         $spot = Spot::find($spotId);
-        if (Auth::user()->id !== $spot->user_id) {
+        if (Auth::id() !== $spot->user_id) {
             return response()->json(
                 [
                     'error' => '権限がありません。',
@@ -48,7 +48,7 @@ class EditCouponController extends Controller
             $coupon = new Coupon();
             $coupon->spot_id = $spotId;
         }
-        if (Auth::user()->id !== Spot::find($coupon->spot_id)->user_id) {
+        if (Auth::id() !== Spot::find($coupon->spot_id)->user_id) {
             return response()->json(
                 [
                     'error' => '権限がありません。',
@@ -67,7 +67,7 @@ class EditCouponController extends Controller
     public function delete(Request $request)
     {
         $coupon = Coupon::with('spot')->find($request->id);
-        if (Auth::user()->id !== $coupon->spot->user_id) {
+        if (Auth::id() !== $coupon->spot->user_id) {
             return response()->json(
                 [
                     'error' => '権限がありません。',

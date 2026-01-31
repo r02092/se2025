@@ -40,7 +40,7 @@ class CouponController extends Controller
                         'active',
                         Coupon::whereIn(
                             'id',
-                            UserCoupon::where('user_id', Auth::user()->id)
+                            UserCoupon::where('user_id', Auth::id())
                                 ->where('is_used', false)
                                 ->pluck('coupon_id')
                                 ->toArray(),
@@ -51,7 +51,7 @@ class CouponController extends Controller
                         'available',
                         Coupon::whereNotIn(
                             'id',
-                            UserCoupon::where('user_id', Auth::user()->id)
+                            UserCoupon::where('user_id', Auth::id())
                                 ->pluck('coupon_id')
                                 ->toArray(),
                         ),

@@ -20,7 +20,7 @@ class CouponCheckApiController extends Controller
         if (!$userCoupon) {
             return response('不正なクーポンです。', 400);
         }
-        if (Auth::user()->id !== $userCoupon->coupon->spot->user_id) {
+        if (Auth::id() !== $userCoupon->coupon->spot->user_id) {
             return response('他の事業者が発行したクーポンです。', 400);
         }
         $expiresAt = $userCoupon->coupon->expires_at;

@@ -22,7 +22,7 @@ class EditSpotController extends Controller
                 [
                     'page' => $page,
                     'spots' => (Auth::user()->permission
-                        ? Spot::where('user_id', Auth::user()->id)
+                        ? Spot::where('user_id', Auth::id())
                         : Spot::with('user')
                     )
                         ->offset($page * self::DISPLAY_NUM)
@@ -31,7 +31,7 @@ class EditSpotController extends Controller
                     'types' => $this->types,
                     'enablePlans' => Auth::user()->permission
                         ? array_map(function ($v) {
-                            return Spot::where('user_id', Auth::user()->id)
+                            return Spot::where('user_id', Auth::id())
                                 ->where('plan', $v)
                                 ->count() <
                                 [
@@ -55,7 +55,7 @@ class EditSpotController extends Controller
     {
         if (isset($request->id)) {
             $spot = Spot::find($request->id);
-            if (Auth::user()->id !== $spot->user_id) {
+            if (Auth::id() !== $spot->user_id) {
                 return response()->json(
                     [
                         'error' => '権限がありません。',
@@ -65,10 +65,10 @@ class EditSpotController extends Controller
             }
         } else {
             $spot = new Spot();
-            $spot->user_id = Auth::user()->id;
+            $spot->user_id = Auth::id();
             $spot->plan = $request->plan;
             if (
-                Spot::where('user_id', Auth::user()->id)
+                Spot::where('user_id', Auth::id())
                     ->where('plan', $spot->plan)
                     ->count() >=
                 [Auth::user()->num_plan_std, Auth::user()->num_plan_prm][
@@ -126,7 +126,7 @@ class EditSpotController extends Controller
     public function delete(Request $request)
     {
         $spot = Spot::find($request->id);
-        if (Auth::user()->id !== $spot->user_id) {
+        if (Auth::id() !== $spot->user_id) {
             return response()->json(
                 [
                     'error' => '権限がありません。',
