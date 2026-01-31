@@ -21,10 +21,8 @@
 		</div>
 		<label class="spot-detail-form-label">位置</label>
 		<input type="hidden" name="coord">
-		<div class="map-area spot-detail-form-group">
-			<div id="map"></div>
-		</div>
-		<button type="button" id="location_btn" class="btn btn-primary btn-big spot-detail-btn spot-detail-form-group">
+		<div id="map"></div>
+		<button type="button" id="location_btn" class="btn spot-detail-btn spot-detail-form-group photo-form-btn">
 			現在地を入力
 		</button>
 

@@ -55,9 +55,7 @@
 			{{-- スポットの場所 --}}
 			<section>
 				<h2>場所</h2>
-				<div class="map-area">
-					<div id="map" data-lng="{{ $spot->lng }}" data-lat="{{ $spot->lat }}"></div>
-				</div>
+				<div id="map" data-lng="{{ $spot->lng }}" data-lat="{{ $spot->lat }}"></div>
 				<div>
 					<a href="https://www.google.com/maps/search/?api=1&query={{ $spot->lat }},{{ $spot->lng }}"
 					target="_blank"
