@@ -39,7 +39,8 @@ type RdJsonDiagnostic = {
 			);
 		});
 	});
-	const containerArgs = ["exec", "-i", "se2025_app_1"];
+	if (!diff.length) process.exit();
+	const containerArgs = ["compose", "exec", "app"];
 	const eslintLinter = new ESLint();
 	const diagnostics = JSON.parse(
 		await (
