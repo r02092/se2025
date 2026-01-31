@@ -2030,6 +2030,14 @@ iframe {
 .edit > article {
 	margin: 0 auto;
 	> form {
+		> div[id^="map_"] {
+			border-radius: 8px;
+			height: 240px;
+		}
+		> img[id^="qr_"] {
+			image-rendering: pixelated;
+			width: 9rem;
+		}
 		> button {
 			margin: 16px 0;
 		}
@@ -2052,16 +2060,6 @@ iframe {
 			background: #aa1b1b;
 		}
 	}
-}
-
-[id^="map_"] {
-	border-radius: 8px;
-	height: 240px;
-}
-
-[id^="qr_"] {
-	image-rendering: pixelated;
-	width: 9rem;
 }
 
 .coupon-edit-header {
