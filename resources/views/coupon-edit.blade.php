@@ -10,7 +10,7 @@
 <h1>クーポン作成・編集</h1>
 <div class="coupon-edit-header"><span>対象スポット</span>: <a href="{{ route('detail', ['id' => $spot->id]) }}">{{ $spot->name }}</a></div>
 <section class="coupon-list edit">
-	@for($i = -1; $i < count($coupons); $i++)
+	@for ($i = -1; $i < count($coupons); $i++)
 	@php
 		if ($i + 1) {
 			$coupon = $coupons[$i];

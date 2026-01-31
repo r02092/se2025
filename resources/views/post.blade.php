@@ -21,7 +21,7 @@
 
 {{-- フィード（投稿カードをここに差し込む） --}}
 <section id="feed" class="feed">
-	@foreach($posts ?? [] as $post)
+	@foreach ($posts ?? [] as $post)
 	<article class="general-box post-card">
 		<header class="post-head">
 			<img class="post-avatar" src="{{ asset('storage/icons/' . $post['data']->user->id . '.' . $post['data']->user->icon_ext) }}" alt="avatar">

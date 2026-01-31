@@ -16,7 +16,7 @@
 	</div>
 @endif
 <section class="coupon-list edit">
-	@for($i = -1; $i < count($spots); $i++)
+	@for ($i = -1; $i < count($spots); $i++)
 	@php
 		if ($i + 1) {
 			$spot = $spots[$i];
@@ -43,7 +43,7 @@
 			<label for="type_{{ $spot->id }}">種別</label>
 			<div class="sort-select">
 				<select id="type_{{ $spot->id }}" name="type">
-					@foreach($types as $value => $type)
+					@foreach ($types as $value => $type)
 						<option value="{{ $value }}"{{ $spot->type === $value ? ' selected' : '' }}>{{ $type }}</option>
 					@endforeach
 				</select>
@@ -86,7 +86,7 @@
 			<div id="map_{{ $spot->id }}" data-lng="{{ $spot->lng }}" data-lat="{{ $spot->lat }}"></div>
 			<label for="plan_{{ $spot->id }}">プラン<span class="form-detail-strong">（変更する場合はスポット自体を削除する必要があります）</span></label>
 			<select id="plan_{{ $spot->id }}" name="plan"{{ $i + 1 ? ' disabled' : ''}}>
-				@foreach(['スタンダード', 'プレミアム'] as $value => $plan)
+				@foreach (['スタンダード', 'プレミアム'] as $value => $plan)
 					<option value="{{ $value }}"{{ ($spot->plan === $value || ($value === 1 && $enablePlans === [false, true]) ? ' selected' : '') . ($i + 1 || $enablePlans[$value] ? '' : ' disabled') }}>{{ $plan }}プラン</option>
 				@endforeach
 			</select>
