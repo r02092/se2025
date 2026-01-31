@@ -99,27 +99,6 @@ class ProfileEditController extends Controller
             );
         }
 
-        // 4. 画像（アイコン）の保存処理
-        if ($request->hasFile('icon')) {
-            $file = $request->file('icon');
-            if ($file->isValid()) {
-                // 古い画像があれば削除
-                if ($user->icon_ext) {
-                    Storage::delete(
-                        'public/icons/' . $user->id . '.' . $user->icon_ext,
-                    );
-                }
-                $extension = $file->getClientOriginalExtension();
-                // ファイル名を「ユーザーID.拡張子」にする
-                $fileName = $user->id . '.' . $extension;
-                // storage/app/public/icons に保存
-                $file->storeAs('public/icons', $fileName);
-
-                // DBに拡張子を記録（設計書の icon_ext カラム）
-                $user->icon_ext = $extension;
-            }
-        }
-
         $user->save();
 
         // 4. 更新完了画面（または編集画面）へ遷移
