@@ -299,12 +299,13 @@ a.a-btn,
 	transition: background-color 0.2s;
 }
 .form-container button[type="submit"]:hover,
-.photo-file::file-selector-button:hover,
 .profile-button-edit:hover,
 .profile-button-subscription:hover,
 .profile-edit-container button[type="submit"]:hover,
 .subscription-form-container button[type="submit"]:hover,
 a.a-btn:hover,
+.photo-file::file-selector-button:hover,
+#location_btn:hover,
 .spot-detail-btn:hover,
 .btn-green:hover,
 .btn-login-link:hover {
@@ -1920,23 +1921,29 @@ iframe {
 			line-height: 1.6;
 			margin-bottom: 15px;
 		}
-		> div {
-			margin-bottom: 20px;
-			display: flex;
-			flex-wrap: wrap;
-			gap: 8px;
-			> span {
-				font-size: 0.8rem;
-				background: #f3f4f6;
-				color: #555;
-				padding: 4px 10px;
-				border-radius: 20px;
+		> object > div {
+			margin-top: 8px;
+			> a {
+				text-decoration: none;
+				display: inline-block;
+				> span {
+					background: #f3f4f6;
+					color: #555;
+					padding: 2px 8px;
+					border-radius: 4px;
+					font-size: 0.9rem;
+					margin-right: 5px;
+					margin-bottom: 5px;
+					display: inline-block;
+				}
 			}
 		}
-	}
-	span {
-		background: linear-gradient(transparent 60%, #fde047 60%);
-		font-weight: bold;
+		> h2 > span,
+		> p > span,
+		> object > div > a > span > span {
+			background: linear-gradient(transparent 60%, #fde047 60%);
+			font-weight: bold;
+		}
 	}
 }
 
