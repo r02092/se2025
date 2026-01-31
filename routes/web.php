@@ -26,6 +26,7 @@ use App\Http\Controllers\DataController;
 use App\Http\Controllers\AiApiController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\EditCouponController;
 use App\Http\Controllers\CouponCheckApiController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\AdminUgcController;
@@ -230,6 +231,20 @@ Route::middleware(['auth'])
         Route::get('/invoice', [InvoiceController::class, 'get'])->name(
             'business.invoice',
         );
+
+        Route::get('/coupon/{id}', [EditCouponController::class, 'get'])->name(
+            'business.coupon',
+        );
+
+        Route::post('/coupon/update', [
+            EditCouponController::class,
+            'update',
+        ])->name('business.coupon.upd');
+
+        Route::post('/coupon/delete', [
+            EditCouponController::class,
+            'delete',
+        ])->name('business.coupon.del');
 
         Route::post('/coupon/api', [
             CouponCheckApiController::class,

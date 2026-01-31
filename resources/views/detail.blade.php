@@ -62,7 +62,7 @@
 					<a href="https://www.google.com/maps/search/?api=1&query={{ $spot->lat }},{{ $spot->lng }}"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="btn btn-primary btn-big spot-detail-btn">
+					class="a-btn spot-detail-btn">
 						Google マップで見る
 					</a>
 				</div>

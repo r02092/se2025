@@ -15,7 +15,7 @@
 		</a>
 	</div>
 @endif
-<section class="coupon-list spot-edit">
+<section class="coupon-list edit">
 	@for($i = -1; $i < count($spots); $i++)
 	@php
 		if ($i + 1) {
@@ -104,6 +104,9 @@
 			<button type="submit">{{ $i + 1 ? '更新' : '作成' }}</button>
 		</form>
 		@if ($i + 1)
+		<a href="{{ route('business.coupon', $spot->id) }}" class="a-btn">
+			クーポンを管理
+		</a>
 		<form action="{{ route('business.spots.del') }}" method="POST">
 			@csrf
 			<input type="hidden" name="id" value="{{ $spot->id }}">
