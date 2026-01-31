@@ -40,6 +40,7 @@ class EditUserController extends Controller
         $request->validate([
             'id' => 'required|integer|exists:users,id',
             'name' => 'required|string|max:255',
+            'login_id' => 'required|string|max:255',
             'permission' => 'required|integer|between:0,2',
             'num_plan_std' => 'required|integer|min:0',
             'num_plan_prm' => 'required|integer|min:0',
