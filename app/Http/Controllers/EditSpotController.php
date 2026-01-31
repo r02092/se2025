@@ -53,6 +53,14 @@ class EditSpotController extends Controller
     {
         if (isset($request->id)) {
             $spot = Spot::find($request->id);
+            if (Auth::user()->id !== $spot->user_id) {
+                return response()->json(
+                    [
+                        'error' => '権限がありません。',
+                    ],
+                    403,
+                );
+            }
         } else {
             $spot = new Spot();
             $spot->user_id = Auth::user()->id;
@@ -109,7 +117,16 @@ class EditSpotController extends Controller
     }
     public function delete(Request $request)
     {
-        Spot::find($request->id)->delete();
+        $spot = Spot::find($request->id);
+        if (Auth::user()->id !== $spot->user_id) {
+            return response()->json(
+                [
+                    'error' => '権限がありません。',
+                ],
+                403,
+            );
+        }
+        $spot->delete();
         return redirect()->route('business.spots', 0);
     }
 }

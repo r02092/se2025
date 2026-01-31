@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Spot;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,14 @@ class EditCouponController extends Controller
     public function get($spotId)
     {
         $spot = Spot::find($spotId);
+        if (Auth::user()->id !== $spot->user_id) {
+            return response()->json(
+                [
+                    'error' => '権限がありません。',
+                ],
+                403,
+            );
+        }
         return view('coupon-edit', [
             'spot' => $spot,
             'coupons' => $spot->coupons
@@ -39,6 +48,14 @@ class EditCouponController extends Controller
             $coupon = new Coupon();
             $coupon->spot_id = $spotId;
         }
+        if (Auth::user()->id !== Spot::find($coupon->spot_id)->user_id) {
+            return response()->json(
+                [
+                    'error' => '権限がありません。',
+                ],
+                403,
+            );
+        }
         $coupon->name = $request->name;
         if ($condSpot = Spot::where('name', $request->cond)->first()) {
             $coupon->cond_spot_id = $condSpot->id;
@@ -49,7 +66,15 @@ class EditCouponController extends Controller
     }
     public function delete(Request $request)
     {
-        $coupon = Coupon::find($request->id);
+        $coupon = Coupon::with('spot')->find($request->id);
+        if (Auth::user()->id !== $coupon->spot->user_id) {
+            return response()->json(
+                [
+                    'error' => '権限がありません。',
+                ],
+                403,
+            );
+        }
         $spotId = $coupon->spot_id;
         $coupon->delete();
         return redirect()->route('business.coupon', $spotId);
