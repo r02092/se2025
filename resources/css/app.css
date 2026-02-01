@@ -700,13 +700,11 @@ a.a-btn:hover,
 
 /* ==== post.css ==== */
 .post-titlebar {
-	background-image: linear-gradient(#eee 70%, transparent);
 	display: flex;
 	align-items: center;
 	box-sizing: border-box;
 	width: 100vw;
 	color: #000;
-	z-index: 500;
 }
 .post-titlebar-update {
 	position: absolute;
@@ -867,7 +865,7 @@ a.a-btn:hover,
 	background: #fff;
 }
 .coupon-titlebar {
-	background-image: linear-gradient(#eee 80%, transparent);
+	background: linear-gradient(#eee 80%, transparent);
 	height: 100px;
 	margin: 42px 0 20px;
 	display: flex;
@@ -1651,7 +1649,7 @@ div[id$="_suggest"] > div > div:last-child > div::before,
 /* ログインボタン用 */
 .btn-login-link {
 	display: inline-block;
-	background-color: #108a66;
+	background: #108a66;
 	color: white;
 	padding: 10px 20px;
 	border-radius: 4px;
