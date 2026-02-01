@@ -31,29 +31,35 @@ class EditUserController extends Controller
     {
         // 1. 入力内容のバリデーション
         $request->validate([
-            'id' => 'required|integer|exists:users,id',
-            'name' => 'required|string|max:255',
-            'login_id' => 'required|string|max:255',
-            'permission' => 'required|integer|between:0,2',
-            'num_plan_std' => 'required|integer|min:0',
-            'num_plan_prm' => 'required|integer|min:0',
-            'postal_code' => 'nullable|integer',
-            'addr_city' => 'nullable|integer',
-            'addr_detail' => 'nullable|string|max:255',
+            'id' => ['required', 'integer', 'exists:users,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'login_name' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:App\Models\User,login_name',
+            ],
+            'permission' => ['required', 'integer', 'between:0,2'],
+            'num_plan_std' => ['required', 'integer', 'between:0,4294967295'],
+            'num_plan_prm' => ['required', 'integer', 'between:0,4294967295'],
+            'post_code' => ['required', 'digits:7'], // ハイフンなし7桁
+            'city' => ['required', 'integer', 'between:1100,47999'],
+            'address' => ['required', 'string', 'max:255'],
         ]);
 
         $user = User::find($request->input('id'));
 
         // 2. 利用者モジュールを用いて利用者編集処理を実行
         $user->name = $request->input('name');
+        $user->name = $request->input('login_name');
         $user->permission = $request->input('permission');
         $user->num_plan_std = $request->input('num_plan_std');
         $user->num_plan_prm = $request->input('num_plan_prm');
 
         // 住所情報の更新（任意項目）
         $user->postal_code = $request->input('postal_code');
-        $user->addr_city = $request->input('addr_city');
-        $user->addr_detail = $request->input('addr_detail');
+        $user->addr_city = $request->input('city');
+        $user->addr_detail = $request->input('address');
 
         // 保存
         if ($user->save()) {
