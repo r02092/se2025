@@ -25,6 +25,7 @@ use App\Http\Controllers\AiApiController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UserListController;
+use App\Http\Controllers\EditUserController;
 use App\Http\Controllers\AdminUgcController;
 use App\Http\Controllers\InsertUserController;
 
@@ -252,9 +253,19 @@ Route::middleware(['auth'])
             'admin.ugc.del',
         );
 
-        Route::get('/user/{id}', function ($id) {
-            return view('admin.user-detail');
-        })->name('user.detail');
+        Route::get('/user/{id}', [EditUserController::class, 'edit'])->name(
+            'admin.user.detail',
+        );
+
+        Route::post('/user/update', [
+            EditUserController::class,
+            'update',
+        ])->name('admin.user.update');
+
+        Route::post('/user/delete', [
+            EditUserController::class,
+            'delete',
+        ])->name('admin.user.delete');
 
         Route::resource('users', InsertUserController::class)
             ->only(['create', 'store'])
