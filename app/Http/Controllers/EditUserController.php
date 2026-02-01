@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Traits\ToStringTrait;
 
 /**
  * MA05: 利用者編集画面構成モジュール
  */
 class EditUserController extends Controller
 {
-    use ToStringTrait;
     /**
      * 利用者編集画面を表示する (GET)
      */
@@ -19,14 +17,9 @@ class EditUserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $postal_code_str = $this->postalCodeToString($user->postal_code);
-        $addr_city_str = $this->cityToString($user->addr_city);
-
-        return view('user-detail', [
-            'user' => $user,
-            'postal_code_str' => $postal_code_str,
-            'addr_city_str' => $addr_city_str,
-        ]);
+        return view('user-detail', ['user' => $user])->with(
+            $this->selectPrefsCities(),
+        );
     }
 
     /**
