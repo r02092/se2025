@@ -700,13 +700,11 @@ a.a-btn:hover,
 
 /* ==== post.css ==== */
 .post-titlebar {
-	background: linear-gradient(#eee 70%, transparent);
 	display: flex;
 	align-items: center;
 	box-sizing: border-box;
 	width: 100vw;
 	color: #000;
-	z-index: 500;
 }
 .post-titlebar-update {
 	position: absolute;
