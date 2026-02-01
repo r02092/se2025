@@ -261,6 +261,7 @@ h1 {
 .form-container input[type="email"],
 .form-container input[type="password"],
 .profile-edit-container input[type="text"],
+.profile-edit-container input[type="number"],
 .profile-edit-container input[type="password"],
 .subscription-form-container input[type="text"],
 .subscription-form-container input[type="number"] {
@@ -1550,6 +1551,7 @@ h1 {
 
 /* ==== subscription-form.css ==== */
 .subscription-form-container select,
+.profile-edit-container select,
 .spot-edit > article > form > select {
 	width: 80%;
 	padding: 10px;
