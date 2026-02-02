@@ -270,6 +270,7 @@ h1,
 .form-container input[type="text"],
 .form-container input[type="password"],
 .profile-edit-container input[type="text"],
+.profile-edit-container input[type="number"],
 .profile-edit-container input[type="password"],
 .subscription-form-container input[type="text"],
 .subscription-form-container input[type="number"],
@@ -1306,6 +1307,7 @@ a.a-btn:hover,
 
 /* ==== subscription-form.css ==== */
 .subscription-form-container select,
+.profile-edit-container select,
 .edit > article > form > select {
 	width: 80%;
 	padding: 10px;
