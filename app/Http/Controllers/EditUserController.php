@@ -62,7 +62,7 @@ class EditUserController extends Controller
             'permission' => ['required', 'integer', 'between:0,2'],
             'num_plan_std' => ['required', 'integer', 'between:0,4294967295'],
             'num_plan_prm' => ['required', 'integer', 'between:0,4294967295'],
-            'postal_code' => ['required', 'digits:7'], // ハイフンなし7桁
+            'post_code' => ['required', 'digits:7'], // ハイフンなし7桁
             'city' => ['required', 'integer', 'between:1100,47999'],
             'address' => ['required', 'string', 'max:255'],
         ]);
@@ -83,7 +83,7 @@ class EditUserController extends Controller
 
         if ($user->permission == User::PERMISSION_BUSINESS) {
             // 住所情報の更新（任意項目）
-            $user->postal_code = $request->input('postal_code');
+            $user->postal_code = $request->input('post_code');
             $user->addr_city = $request->input('city');
             $user->addr_detail = $request->input('address');
         }

@@ -114,8 +114,8 @@
 		<div style="padding-left: 3rem;">
 			@if($user->permission == App\Models\User::PERMISSION_BUSINESS)
 				{{-- 郵便番号 --}}
-				<label for="postal_code">郵便番号<span class="form-detail">（ハイフンなし）</span></label>
-				<input type="text" id="post_code" name="postal_code" required value="{{ old('postal_code', $user->postal_code) }}">
+				<label for="post_code">郵便番号<span class="form-detail">（ハイフンなし）</span></label>
+				<input type="text" id="post_code" name="post_code" required value="{{ old('post_code', $user->postal_code) }}">
 				<button type="button" id="pc2addrbtn" class="btn btn-secondary" style="width: 30%; font-size: 0.8rem">
 					郵便番号から住所を自動入力
 				</button>
@@ -146,7 +146,7 @@
 			@else
 				事業者ではないため未設定
 				{{-- サーバー側で検証が通るようにダミーの値を埋め込んでおく --}}
-				<input type="hidden" name="postal_code" value="0000000">
+				<input type="hidden" name="post_code" value="0000000">
 				<input type="hidden" name="city" value="1100">
 				<input type="hidden" name="address" value="----">
 			@endif
