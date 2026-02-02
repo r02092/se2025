@@ -43,10 +43,11 @@ export default function (inputElem: HTMLInputElement) {
 					}
 				});
 				spotElem.appendChild(keywordsElem);
+				spotElem.addEventListener("mousedown", e => {
+					e.preventDefault();
+				});
 				spotElem.addEventListener("click", e => {
-					input.value = (
-						(e.currentTarget as HTMLDivElement).firstChild as HTMLDivElement
-					).textContent;
+					input.value = spotNameElem.textContent || "";
 					suggestElem.innerHTML = "";
 					input.className = "";
 				});
