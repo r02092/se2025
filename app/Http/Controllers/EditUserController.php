@@ -29,12 +29,21 @@ class EditUserController extends Controller
 
     public function delete(Request $request)
     {
+        $request->validate([
+            'id' => ['required', 'integer', 'exists:users,id'],
+        ]);
+
         $id = $request->input('id');
+        $user = User::find($id);
+        $fileName = $id . '.' . $user->icon_ext;
 
+        // ユーザ削除
         User::findOrFail($id)->delete();
-        Storage::delete('public/icons/' . $user->id . '.' . $user->icon_ext);
 
-        return redirect()->route('admin.user.list');
+        // 画像削除
+        Storage::disk('public')->delete('icons/' . $fileName);
+
+        return redirect()->route('admin.users.list');
     }
 
     /**

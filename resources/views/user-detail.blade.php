@@ -175,6 +175,7 @@
 	<h3> </h3>
 	<form action="{{ route('admin.user.delete') }}" method="POST">
 		@csrf
+		<input type="hidden" name="id" value="{{ $user->id }}">
 		<button type="submit" class="profile-button-subscription" style="background: red;" onclick="return confirm('この投稿を削除しますか?')">
 			ユーザーを削除
 		</button>
