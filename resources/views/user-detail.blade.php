@@ -92,13 +92,23 @@
 			>承認済み事業者</option>
 		</select>
 
-		{{-- スタンダードプランの件約数 --}}
-		<label for="num_plan_std">スタンダードプランの契約数</label>
-		<input type="number" id="num_plan_std" name="num_plan_std" min="0" max="4294967295" required value="{{ old('num_plan_std', $user->num_plan_std) }}">
+		<label>プラン契約数</label>
+		<div style="padding-left: 3rem;">
+			@if($user->permission == App\Models\User::PERMISSION_BUSINESS)
+				{{-- スタンダードプランの件約数 --}}
+				<label for="num_plan_std">スタンダードプランの契約数</label>
+				<input type="number" id="num_plan_std" name="num_plan_std" min="0" max="4294967295" required value="{{ old('num_plan_std', $user->num_plan_std) }}">
 
-		{{-- プレミアムプランの件約数 --}}
-		<label for="num_plan_prm">プレミアムプランの契約数</label>
-		<input type="number" id="num_plan_prm" name="num_plan_prm" min="0" max="4294967295" required value="{{ old('num_plan_prm', $user->num_plan_prm) }}">
+				{{-- プレミアムプランの件約数 --}}
+				<label for="num_plan_prm">プレミアムプランの契約数</label>
+				<input type="number" id="num_plan_prm" name="num_plan_prm" min="0" max="4294967295" required value="{{ old('num_plan_prm', $user->num_plan_prm) }}">
+			@else
+				事業者ではないため未設定
+				{{-- サーバー側で検証が通るようにダミーの値を埋め込んでおく --}}
+				<input type="hidden" name="num_plan_std" value="0">
+				<input type="hidden" name="num_plan_prm" value="0">
+			@endif
+		</div>
 
 		<label>住所情報</label>
 		<div style="padding-left: 3rem;">
