@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Models\User;
 use App\Traits\ToStringTrait;
-use Illuminate\Validation\Rule;
 
 /**
  * MA05: 利用者編集画面構成モジュール
@@ -106,16 +106,19 @@ class EditUserController extends Controller
 
     private function storeIcon(User $user, UploadedFile $file): void
     {
-        // 古い画像があれば削除
-        if ($user->icon_ext) {
-            Storage::delete(
-                'public/icons/' . $user->id . '.' . $user->icon_ext,
-            );
-        }
-        $extension = $file->getClientOriginalExtension();
+        // 古い拡張子
+        $oldExt = $user->icon_ext;
+        // 新しい拡張子
+        $ext = $file->getClientOriginalExtension();
         // ファイル名を「ユーザーID.拡張子」にする
-        $fileName = $user->id . '.' . $extension;
+        $fileName = $user->id . '.' . $ext;
+
+        // 古い画像があれば削除
+        if (isset($oldExt)) {
+            $oldFileName = $user->id . '.' . $oldExt;
+            Storage::disk('public')->delete('icons/' . $oldFileName);
+        }
         // storage/app/public/icons に保存
-        $file->storeAs('public/icons', $fileName);
+        $file->storeAs('icons', $fileName, 'public');
     }
 }

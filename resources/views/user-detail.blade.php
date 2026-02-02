@@ -31,7 +31,7 @@
 	@endif
 
 	{{-- 修正：画像送信のために enctype="multipart/form-data" を追加 --}}
-	<form method="POST" action="{{ route('admin.user.update') }}" enctype="multipart/form-data">
+	<form method="POST" action="{{ route('admin.user.update') }}" id="user_detail" enctype="multipart/form-data" data-perm="{{ $user->permission }}">
 		@csrf
 
 		<div class="profile-edit-avatar-group">
