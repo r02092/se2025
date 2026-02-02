@@ -19,17 +19,6 @@
 <div class="general-box profile-edit-container" style="margin-bottom: 100px;">
 	<h2 class="h2">ユーザ情報編集</h1>
 
-	{{-- エラー表示用（デバッグに役立ちます） --}}
-	@if ($errors->any())
-		<div class="error-msg">
-			<ul>
-				@foreach ($errors->all() as $error)
-					<li>{{ $error }}</li>
-				@endforeach
-			</ul>
-		</div>
-	@endif
-
 	{{-- 修正：画像送信のために enctype="multipart/form-data" を追加 --}}
 	<form method="POST" action="{{ route('admin.user.update') }}" id="user_detail" enctype="multipart/form-data" data-perm="{{ $user->permission }}">
 		@csrf
@@ -52,8 +41,8 @@
 			<label for="avatar_img">画像をアップロード</label>
 		</div>
 
-		<label for="username">表示名</label>
 		{{-- 重要：nameを 'name' に変更 --}}
+		<label for="username">表示名</label>
 		<input
 			type="text"
 			id="username"
@@ -61,6 +50,9 @@
 			required
 			value="{{ old('name', $user->name) }}"
 		>
+		@error('username')
+			<div>{{ $message }}</div>
+		@enderror
 
 		{{-- ログインID編集 --}}
 		<label for="login_name">ログインID</label>
@@ -71,6 +63,9 @@
 			required
 			value="{{ old('login_name', $user->login_name) }}"
 		>
+		@error('login_name')
+			<div>{{ $message }}</div>
+		@enderror
 
 		{{-- 種別編集 --}}
 		<label for="pet-select">種別</label>
@@ -91,6 +86,9 @@
 				@endif
 			>承認済み事業者</option>
 		</select>
+		@error('permission')
+			<div>{{ $message }}</div>
+		@enderror
 
 		<label>プラン契約数</label>
 		<div style="padding-left: 3rem;">
@@ -98,10 +96,16 @@
 				{{-- スタンダードプランの件約数 --}}
 				<label for="num_plan_std">スタンダードプランの契約数</label>
 				<input type="number" id="num_plan_std" name="num_plan_std" min="0" max="4294967295" required value="{{ old('num_plan_std', $user->num_plan_std) }}">
+				@error('num_plan_std')
+					<div>{{ $message }}</div>
+				@enderror
 
 				{{-- プレミアムプランの件約数 --}}
 				<label for="num_plan_prm">プレミアムプランの契約数</label>
 				<input type="number" id="num_plan_prm" name="num_plan_prm" min="0" max="4294967295" required value="{{ old('num_plan_prm', $user->num_plan_prm) }}">
+				@error('num_plan_prm')
+					<div>{{ $message }}</div>
+				@enderror
 			@else
 				事業者ではないため未設定
 				{{-- サーバー側で検証が通るようにダミーの値を埋め込んでおく --}}
@@ -116,6 +120,9 @@
 				{{-- 郵便番号 --}}
 				<label for="post_code">郵便番号<span class="form-detail">（ハイフンなし）</span></label>
 				<input type="text" id="post_code" name="post_code" required value="{{ old('post_code', $user->postal_code) }}">
+				@error('post_code')
+					<div>{{ $message }}</div>
+				@enderror
 				<button type="button" id="pc2addrbtn" class="btn btn-secondary" style="width: 30%; font-size: 0.8rem">
 					郵便番号から住所を自動入力
 				</button>
@@ -143,6 +150,9 @@
 				{{-- 住所 --}}
 				<label for="address">住所<span class="form-detail">（市区町村名より後のみ）</span></label>
 				<input type="text" id="address" name="address" value="{{ old('address', $user->addr_detail) }}">
+				@error('address')
+					<div>{{ $message }}</div>
+				@enderror
 			@else
 				事業者ではないため未設定
 				{{-- サーバー側で検証が通るようにダミーの値を埋め込んでおく --}}
