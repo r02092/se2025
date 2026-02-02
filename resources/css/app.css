@@ -401,6 +401,7 @@ a.a-btn:hover,
 		transform 0.12s ease,
 		box-shadow 0.12s ease;
 	position: relative;
+	margin-bottom: 10px;
 }
 .coupon-card:focus {
 	outline: 3px solid rgba(20, 184, 136, 0.18);
