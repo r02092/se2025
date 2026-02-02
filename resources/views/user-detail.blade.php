@@ -3,7 +3,7 @@
 @section('title', 'ユーザー詳細')
 
 @push('scripts')
-@vite(['resources/ts/user-detail.ts'])
+@vite(['resources/ts/user_detail.ts'])
 @endpush
 
 @section('content')
