@@ -109,7 +109,11 @@ if (!overlay) {
 					}),
 				});
 				const data = await response.json();
-				alert(data.message || data.error);
+				alert(
+					data.error ||
+						data.message +
+							(data.coupon_result?.success ? data.coupon_result.message : ""),
+				);
 				window.location.href = "/funpage"; // 実績画面に戻る
 			},
 			err => {
