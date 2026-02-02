@@ -21,7 +21,7 @@ for (const id of overlayCandidates) {
 if (!overlay) {
 	console.error("オーバーレイ要素が見つかりません。");
 } else {
-	const video = document.getElementById("qr-video") as HTMLVideoElement;
+	const video = document.getElementById("qr_video") as HTMLVideoElement;
 	const statusMessage = document.getElementById(
 		"scanner_status",
 	) as HTMLParagraphElement;
