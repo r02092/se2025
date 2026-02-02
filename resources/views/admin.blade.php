@@ -13,7 +13,7 @@
 	<h2>管理メニュー</h2>
 	<div class="spot-divider" aria-hidden="true"></div>
 
-	<!-- <div class="column-menu"> -->
+	{{-- <div class="column-menu"> --}}
 		<button class="settings-button" onclick="location.href = '{{ route('admin.users.list') }}'">
 			ユーザー一覧
 		</button>
@@ -24,6 +24,10 @@
 
 		<button class="settings-button" onclick="location.href = '{{ route('business.spots', 0) }}'">
 			スポット作成・編集
+		</button>
+
+		<button class="settings-button" onclick="location.href = '{{ route('funpage') }}'">
+			クーポン読み取り（お楽しみ機能画面へ移動）
 		</button>
 
 		<button class="settings-button" onclick="location.href = '{{ route('business.data') }}'">

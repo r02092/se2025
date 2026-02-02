@@ -43,10 +43,9 @@
 
 		$regex = '/(' . implode('|', $patterns) . ')/iu';
 
-		// 蛍光ペン風スタイル
 		return preg_replace(
 			$regex,
-			'<span style="background:linear-gradient(transparent 60%, #fde047 60%); font-weight:bold;">$1</span>',
+			'<span>$1</span>',
 			e($text)
 		);
 	}
@@ -80,7 +79,7 @@
 	{{-- 検索結果リスト --}}
 	<div class="search-results">
 		@if(count($spots) > 0)
-			@foreach($spots as $spot)
+			@foreach ($spots as $spot)
 				<div class="general-box result-card">
 
 					{{-- カード全体リンク --}}
@@ -88,7 +87,7 @@
 
 						{{-- 画像エリア --}}
 						<div class="spot-image-div">
-							<img src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
+							<img src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.svg') }}"
 								 alt="{{ $spot->name }}"
 								 class="spot-image">
 						</div>
@@ -106,17 +105,16 @@
 							@if(!empty($spot->keywords))
 								{{-- objectタグでリンクの入れ子エラーを回避 --}}
 								<object>
-									<div style="margin-top: 8px;">
-										@foreach($spot->keywords as $keywordObj)
+									<div>
+										@foreach ($spot->keywords as $keywordObj)
 											{{-- ▼▼▼ 修正: $keywordObj->keyword で文字だけを取り出す ▼▼▼ --}}
 											<a href="{{ request()->fullUrlWithQuery([
 													'destination' => $keywordObj->keyword,
 													'keyword' => null,
 													'id' => null,
 													'ids' => null
-												]) }}"
-											   style="text-decoration: none; display: inline-block;">
-												<span style="background: #f3f4f6; color: #555; padding: 2px 8px; border-radius: 4px; font-size: 0.9rem; margin-right: 5px; margin-bottom: 5px; display: inline-block;">
+												]) }}">
+												<span>
 													{{-- ハイライト関数にも keyword カラムを渡す --}}
 													# {!! highlightKeywords($keywordObj->keyword, $destination) !!}
 												</span>

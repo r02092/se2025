@@ -15,8 +15,8 @@
 		</a>
 	</div>
 @endif
-<section class="coupon-list spot-edit">
-	@for($i = -1; $i < count($spots); $i++)
+<section class="coupon-list edit">
+	@for ($i = -1; $i < count($spots); $i++)
 	@php
 		if ($i + 1) {
 			$spot = $spots[$i];
@@ -43,14 +43,14 @@
 			<label for="type_{{ $spot->id }}">種別</label>
 			<div class="sort-select">
 				<select id="type_{{ $spot->id }}" name="type">
-					@foreach($types as $value => $type)
+					@foreach ($types as $value => $type)
 						<option value="{{ $value }}"{{ $spot->type === $value ? ' selected' : '' }}>{{ $type }}</option>
 					@endforeach
 				</select>
 			</div>
 			<label for="img_{{ $spot->id }}">画像</label>
 			<img
-				src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
+				src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.svg') }}"
 				id="img_preview_{{ $spot->id }}" class="post-image"
 			>
 			<input type="file" id="img_{{ $spot->id }}" name="img" class="photo-file" accept="image/*">
@@ -86,7 +86,7 @@
 			<div id="map_{{ $spot->id }}" data-lng="{{ $spot->lng }}" data-lat="{{ $spot->lat }}"></div>
 			<label for="plan_{{ $spot->id }}">プラン<span class="form-detail-strong">（変更する場合はスポット自体を削除する必要があります）</span></label>
 			<select id="plan_{{ $spot->id }}" name="plan"{{ $i + 1 ? ' disabled' : ''}}>
-				@foreach(['スタンダード', 'プレミアム'] as $value => $plan)
+				@foreach (['スタンダード', 'プレミアム'] as $value => $plan)
 					<option value="{{ $value }}"{{ ($spot->plan === $value || ($value === 1 && $enablePlans === [false, true]) ? ' selected' : '') . ($i + 1 || $enablePlans[$value] ? '' : ' disabled') }}>{{ $plan }}プラン</option>
 				@endforeach
 			</select>
@@ -100,10 +100,13 @@
 			@php
 				$user = $spot->user ?? Auth::user()
 			@endphp
-			<a href="{{ route('user.detail', $user->id) }}">{{ $user->name }}</a>
+			<a href="{{ route('admin.user.detail', $user->id) }}">{{ $user->name }}</a>
 			<button type="submit">{{ $i + 1 ? '更新' : '作成' }}</button>
 		</form>
 		@if ($i + 1)
+		<a href="{{ route('business.coupon', $spot->id) }}" class="a-btn">
+			クーポンを管理
+		</a>
 		<form action="{{ route('business.spots.del') }}" method="POST">
 			@csrf
 			<input type="hidden" name="id" value="{{ $spot->id }}">

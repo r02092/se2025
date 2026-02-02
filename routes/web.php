@@ -7,6 +7,8 @@ use App\Http\Controllers\PostMapController;
 use App\Http\Controllers\PostFormController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\CouponSelectedController;
+use App\Http\Controllers\CouponApiController;
 use App\Http\Controllers\FunpageController;
 use App\Http\Controllers\CheckinApiController;
 use App\Http\Controllers\TermsController;
@@ -24,6 +26,8 @@ use App\Http\Controllers\DataController;
 use App\Http\Controllers\AiApiController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\EditCouponController;
+use App\Http\Controllers\CouponCheckApiController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\EditUserController;
 use App\Http\Controllers\AdminUgcController;
@@ -55,9 +59,13 @@ Route::get('/detail', [DetailController::class, 'index'])->name('detail');
 
 Route::get('/coupon', [CouponController::class, 'get'])->name('coupon');
 
-Route::get('/coupon/{id}', function ($id) {
-    return view('coupon-selected');
-})->name('coupon.show');
+Route::get('/coupon/{id}', [CouponSelectedController::class, 'get'])->name(
+    'coupon.show',
+);
+
+Route::post('/coupon/api', [CouponApiController::class, 'use'])->name(
+    'coupon.api',
+);
 
 Route::get('/coupon/{id}/qr', function ($id) {
     return view('coupon-qr');
@@ -152,15 +160,7 @@ Route::middleware(['auth'])->group(function () {
         'ai.plan',
     );
 
-    // ▼▼▼ 追加: AI検索処理 (Webルートに移動) ▼▼▼
-    // JavaScriptから叩くためのルートです
-    Route::post('/ai-search', [AiApiController::class, 'post'])->name(
-        'ai.search',
-    );
-
     Route::post('/ai', [AiApiController::class, 'post'])->name('ai');
-
-    // お楽しみ機能（操作系があればここに追加）
 
     // 事業者申込
     Route::get('/subscription', [
@@ -232,6 +232,25 @@ Route::middleware(['auth'])
         Route::get('/invoice', [InvoiceController::class, 'get'])->name(
             'business.invoice',
         );
+
+        Route::get('/coupon/{id}', [EditCouponController::class, 'get'])->name(
+            'business.coupon',
+        );
+
+        Route::post('/coupon/update', [
+            EditCouponController::class,
+            'update',
+        ])->name('business.coupon.upd');
+
+        Route::post('/coupon/delete', [
+            EditCouponController::class,
+            'delete',
+        ])->name('business.coupon.del');
+
+        Route::post('/coupon/api', [
+            CouponCheckApiController::class,
+            'post',
+        ])->name('business.coupon.api');
     });
 
 // 管理者専用ルート

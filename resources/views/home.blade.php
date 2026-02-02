@@ -57,23 +57,23 @@
 					</div>
 
 					<div>
-						<label for="ai_departure">出発地 <span>（どちらか必須）</span></label>
+						<label for="ai_departure">出発地<span>（どちらか必須）</span></label>
 						<input type="text" id="ai_departure" name="departure" placeholder="例: 高知駅" autocomplete="off">
 						<div id="ai_departure_suggest"></div>
 					</div>
 
 					<div>
-						<label for="ai_destination">目的地 <span>（どちらか必須）</span></label>
+						<label for="ai_destination">目的地<span>（どちらか必須）</span></label>
 						<input type="text" id="ai_destination" name="destination" placeholder="例: 桂浜" autocomplete="off">
 						<div id="ai_destination_suggest"></div>
 					</div>
 
 					<div>
-						<label for="ai_prompt">質問内容 <span class="form-detail">（空欄の場合、特に条件を絞らずおすすめのスポットを提案します）</span></label>
+						<label for="ai_prompt">質問内容<span class="form-detail">（空欄の場合、特に条件を絞らずおすすめのスポットを提案します）</span></label>
 						<input type="text" id="ai_prompt" name="prompt" placeholder="例: この間にある観光スポットを推薦して" />
 					</div>
 
-					<button type="submit" style="width:100%; padding:12px; border:none; cursor:pointer; background: linear-gradient(to right, #2563eb, #7c3aed); color: white; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+					<button type="submit" style="width:100%; padding:12px; border:none; cursor:pointer; background: #2563eb; color: white; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
 						AIにおすすめを聞く
 					</button>
 				</form>
@@ -116,7 +116,7 @@
 	<div class="spot-list home-spot" aria-label="人気のスポット一覧">
 
 		@if(count($displaySpots) > 0)
-			@foreach($displaySpots as $index => $spot)
+			@foreach ($displaySpots as $index => $spot)
 				<a class="spot-item" href="{{ route('detail', ['id' => $spot->id]) }}">
 
 					{{-- 順位バッジ --}}
@@ -125,7 +125,7 @@
 					</div>
 
 					<img class="spot-thumb"
-						 src="{{ isset($spot->img_ext) ? ('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.png') }}"
+						 src="{{ isset($spot->img_ext) ? asset('storage/spots/' . $spot->id . '.' . $spot->img_ext) : asset('images/no-image.svg') }}"
 						 alt="{{ $spot->name }}"
 						 onmouseover="this.style.opacity='0.8'"
 						 onmouseout="this.style.opacity='1.0'">

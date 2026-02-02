@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -10,14 +12,14 @@ class InsertUserController extends Controller
 {
     public function create()
     {
-        if (auth()->user()->permission !== User::PERMISSION_ADMIN) {
+        if (Auth::user()->permission !== User::PERMISSION_ADMIN) {
             abort(403);
         }
         return view('admin.users.create');
     }
     public function store(Request $request)
     {
-        if (auth()->user()->permission !== User::PERMISSION_ADMIN) {
+        if (Auth::user()->permission !== User::PERMISSION_ADMIN) {
             abort(403);
         }
         $validated = $request->validate([

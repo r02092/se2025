@@ -6,7 +6,7 @@
 <div class="post-titlebar">
 	<h1>UGC監視・管理</h1>
 	<div class="post-titlebar-update">
-		<button type="button" onclick="location.href = '{{ route('post') }}'">
+		<button type="button" onclick="location.href = '{{ route('admin.ugc', ['page' => $page]) }}'">
 			内容更新
 		</button>
 	</div>
@@ -19,15 +19,15 @@
 	</div>
 @endif
 
-<!-- フィード（投稿カードをここに差し込む） -->
+{{-- フィード（投稿カードをここに差し込む） --}}
 <section id="feed" class="feed">
-	@foreach($posts ?? [] as $post)
+	@foreach ($posts ?? [] as $post)
 	<article class="general-box post-card">
 		<header class="post-head">
 			<img class="post-avatar" src="{{ asset('storage/icons/' . $post['data']->user->id . '.' . $post['data']->user->icon_ext) }}" alt="avatar">
 			<div class="post-meta">
 				<div class="post-author">{{ $post['data']->user->name }}</div>
-				<div class="post-time">{{ $post['data']->created_at->diffForHumans() }}</div>
+				<div>{{ $post['data']->created_at->diffForHumans() }}</div>
 			</div>
 		</header>
 		@if($post['data']->img_ext)
@@ -38,7 +38,7 @@
 		<div>
 			種別: {{ $post['type'] !== 'photo' ? '口コミ' : '写真' }}<br>
 			ID: {{ $post['data']->id }}<br>
-			投稿者: <a href="{{ route('user.detail', $post['data']->user->id) }}">{{ $post['data']->user->name }}</a><br>
+			投稿者: <a href="{{ route('admin.user.detail', $post['data']->user->id) }}">{{ $post['data']->user->name }}</a><br>
 			@if($post['type'] !== 'photo')
 			閲覧数: {{ $post['data']->views }}<br>
 			@else

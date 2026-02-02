@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Traits\ToStringTrait;
+use App\Traits\ImgValidateTrait;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Spot;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 class EditSpotController extends Controller
 {
     use ToStringTrait;
+    use ImgValidateTrait;
 
     const DISPLAY_NUM = 5;
     public function get($page)
@@ -20,7 +22,7 @@ class EditSpotController extends Controller
                 [
                     'page' => $page,
                     'spots' => (Auth::user()->permission
-                        ? Spot::where('user_id', Auth::user()->id)
+                        ? Spot::where('user_id', Auth::id())
                         : Spot::with('user')
                     )
                         ->offset($page * self::DISPLAY_NUM)
@@ -29,7 +31,7 @@ class EditSpotController extends Controller
                     'types' => $this->types,
                     'enablePlans' => Auth::user()->permission
                         ? array_map(function ($v) {
-                            return Spot::where('user_id', Auth::user()->id)
+                            return Spot::where('user_id', Auth::id())
                                 ->where('plan', $v)
                                 ->count() <
                                 [
@@ -53,12 +55,20 @@ class EditSpotController extends Controller
     {
         if (isset($request->id)) {
             $spot = Spot::find($request->id);
+            if (Auth::id() !== $spot->user_id) {
+                return response()->json(
+                    [
+                        'error' => '権限がありません。',
+                    ],
+                    403,
+                );
+            }
         } else {
             $spot = new Spot();
-            $spot->user_id = Auth::user()->id;
+            $spot->user_id = Auth::id();
             $spot->plan = $request->plan;
             if (
-                Spot::where('user_id', Auth::user()->id)
+                Spot::where('user_id', Auth::id())
                     ->where('plan', $spot->plan)
                     ->count() >=
                 [Auth::user()->num_plan_std, Auth::user()->num_plan_prm][
@@ -78,17 +88,23 @@ class EditSpotController extends Controller
         $spot->name = $request->name;
         $spot->type = intval($request->type);
         if ($file = $request->file('img')) {
-            if ($file->isValid()) {
-                if ($spot->img_ext) {
-                    Storage::delete(
-                        'spots/' . $spot->id . '.' . $spot->img_ext,
-                        'public',
-                    );
-                }
-                $ext = $file->getClientOriginalExtension();
-                $file->storeAs('spots/', $spot->id . '.' . $ext, 'public');
-                $spot->img_ext = $ext;
+            if ($error = $this->validateImg($file)) {
+                return response()->json(
+                    [
+                        'error' => $error,
+                    ],
+                    400,
+                );
             }
+            if ($spot->img_ext) {
+                Storage::delete(
+                    'spots/' . $spot->id . '.' . $spot->img_ext,
+                    'public',
+                );
+            }
+            $ext = $file->getClientOriginalExtension();
+            $file->storeAs('spots/', $spot->id . '.' . $ext, 'public');
+            $spot->img_ext = $ext;
         }
         $spot->description = $request->description;
         $spot->postal_code = $request->pc;
@@ -109,7 +125,16 @@ class EditSpotController extends Controller
     }
     public function delete(Request $request)
     {
-        Spot::find($request->id)->delete();
+        $spot = Spot::find($request->id);
+        if (Auth::id() !== $spot->user_id) {
+            return response()->json(
+                [
+                    'error' => '権限がありません。',
+                ],
+                403,
+            );
+        }
+        $spot->delete();
         return redirect()->route('business.spots', 0);
     }
 }

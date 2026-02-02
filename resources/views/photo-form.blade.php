@@ -15,16 +15,15 @@
 		<label for="photo" class="spot-detail-form-label">写真</label>
 		<img id="photo_preview" class="photo-preview">
 		<input type="file" id="photo" name="photo" class="photo-file spot-detail-form-group" accept="image/*">
+		<p class="qr-modal-sub">写真にEXIF情報として位置情報が含まれている場合、後の入力欄にその位置情報が自動で入力されます。</p>
 		<div class="spot-detail-form-group">
 			<label for="comment" class="spot-detail-form-label">コメント</label>
 			<textarea name="comment" id="comment" rows="4" class="spot-detail-form-input" placeholder="写真の説明など、写真に関してコメントを書きましょう" required></textarea>
 		</div>
 		<label class="spot-detail-form-label">位置</label>
 		<input type="hidden" name="coord">
-		<div class="map-area spot-detail-form-group">
-			<div id="map"></div>
-		</div>
-		<button type="button" id="location_btn" class="btn btn-primary btn-big spot-detail-btn spot-detail-form-group">
+		<div id="map"></div>
+		<button type="button" id="location_btn" class="btn spot-detail-btn spot-detail-form-group photo-form-btn">
 			現在地を入力
 		</button>
 

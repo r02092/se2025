@@ -21,7 +21,6 @@ export default defineConfig(({mode}) => {
 					"resources/ts/photo.ts",
 					"resources/ts/photo_form.ts",
 					"resources/ts/coupon.ts",
-					"resources/ts/coupon_qr.ts",
 					"resources/ts/coupon_selected.ts",
 					"resources/ts/funpage_checkin.ts",
 					"resources/ts/spot_edit.ts",
