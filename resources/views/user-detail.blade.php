@@ -74,7 +74,7 @@
 
 		{{-- 種別編集 --}}
 		<label for="pet-select">種別</label>
-		<select name="pets" id="pet-select" value={{ 1 }}>
+		<select name="permission" id="pet-select">
 			<option value="{{ \App\Models\User::PERMISSION_ADMIN }}"
 				@if($user->permission == \App\Models\User::PERMISSION_ADMIN)
 					selected
@@ -102,13 +102,10 @@
 
 		<label>住所情報</label>
 		<div style="padding-left: 3rem;">
-			@if(isset($user->postal_code))
+			@if($user->permission == App\Models\User::PERMISSION_BUSINESS)
 				{{-- 郵便番号 --}}
-				{{-- <div>
-					住所情報を削除したい場合、郵便番号を0000000に設定してください
-				</div> --}}
-				<label for="post_code">郵便番号<span class="form-detail">（ハイフンなし）</span></label>
-				<input type="text" id="post_code" name="post_code" required value="{{ old('post_code', $user->postal_code) }}">
+				<label for="postal_code">郵便番号<span class="form-detail">（ハイフンなし）</span></label>
+				<input type="text" id="post_code" name="postal_code" required value="{{ old('postal_code', $user->postal_code) }}">
 				<button type="button" id="pc2addrbtn" class="btn btn-secondary" style="width: 30%; font-size: 0.8rem">
 					郵便番号から住所を自動入力
 				</button>
@@ -117,7 +114,7 @@
 				<label for="pref_select">都道府県</label>
 				<select name="pref" id="pref_select" required>\
 					@foreach ($prefs as $prefId => $prefName)
-						<option value="{{ $prefId }}" {{ old('pref') === $prefId ? 'selected' : '' }}>
+						<option value="{{ $prefId }}" {{ old('pref', intdiv($user->addr_city, 1000)) == $prefId ? 'selected' : '' }}>
 							{{ $prefName }}
 						</option>
 					@endforeach
@@ -127,7 +124,7 @@
 				<label for="city_select">市区町村</label>
 				<select name="city" id="city_select" required>\
 					@foreach ($cities as $cityId => $cityName)
-						<option value="{{ $cityId }}" {{ old('city', $user->addr_city) === $cityId ? 'selected' : '' }}>
+						<option value="{{ $cityId }}" {{ $user->addr_city == $cityId ? 'selected' : '' }}>
 							{{ $cityName }}
 						</option>
 					@endforeach
@@ -137,8 +134,9 @@
 				<label for="address">住所<span class="form-detail">（市区町村名より後のみ）</span></label>
 				<input type="text" id="address" name="address" value="{{ old('address', $user->addr_detail) }}">
 			@else
-				未設定
+				事業者ではないため未設定
 				{{-- サーバー側で検証が通るようにダミーの値を埋め込んでおく --}}
+				<input type="hidden" name="postal_code" value="0000000">
 				<input type="hidden" name="city" value="1100">
 				<input type="hidden" name="address" value="----">
 			@endif
