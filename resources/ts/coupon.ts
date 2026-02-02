@@ -8,10 +8,49 @@ const availableSection = document.getElementById(
 	"available_coupons",
 ) as HTMLElement | null;
 const live = document.getElementById("view_live") as HTMLElement | null;
+const sortSelect = document.getElementById("sort") as HTMLSelectElement | null;
 
 // カテゴリフィルター用
 const chips = document.querySelectorAll(".chip[data-cat]");
 const couponCards = document.querySelectorAll(".coupon-card[data-category]");
+
+// 並び替え関数
+function applySorting(sortType: string): void {
+	const availableSection = document.getElementById("available_coupons");
+	if (!availableSection) return;
+
+	const cards = Array.from(availableSection.querySelectorAll(".coupon-card"));
+
+	cards.sort((a, b) => {
+		if (sortType === "new") {
+			// 新着順（作成日時の降順）
+			const aCreated = parseInt(a.getAttribute("data-created") || "0");
+			const bCreated = parseInt(b.getAttribute("data-created") || "0");
+			return bCreated - aCreated;
+		} else if (sortType === "exp") {
+			// 期限が近い順（有効期限の昇順）
+			const aExpires = parseInt(a.getAttribute("data-expires") || "9999999999");
+			const bExpires = parseInt(b.getAttribute("data-expires") || "9999999999");
+			return aExpires - bExpires;
+		}
+		return 0;
+	});
+
+	// 並び替えたカードを再配置
+	cards.forEach(card => {
+		availableSection.appendChild(card);
+	});
+}
+
+// 並び替えセレクトのイベント
+if (sortSelect) {
+	sortSelect.addEventListener("change", () => {
+		applySorting(sortSelect.value);
+	});
+
+	// 初期並び替えを適用
+	applySorting(sortSelect.value);
+}
 
 // カテゴリフィルター関数
 function applyCategoryFilter(category: string): void {

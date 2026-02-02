@@ -17,27 +17,17 @@
 			<button class="chip" data-cat="観光" aria-pressed="false">観光</button>
 			<button class="chip" data-cat="体験アクティビティ" aria-pressed="false">体験アクティビティ</button>
 			<button class="chip" data-cat="宿泊" aria-pressed="false">宿泊</button>
+			<button class="chip" data-cat="その他" aria-pressed="false">その他</button>
 		</div>
 
 		<div class="sort-wrap">
 			<div class="sort-select">
 				<label for="sort">並び替え</label>
 				<select id="sort" name="sort">
-					<option value="recommended">おすすめ順</option>
 					<option value="new">新着順</option>
 					<option value="exp">期限が近い順</option>
 				</select>
 			</div>
-
-			<div class="sort-select" style="margin-left: 12px">
-				<label for="view_select">表示</label>
-				<select id="view_select" name="view-select" aria-controls="active-coupons available-coupons" aria-label="クーポン表示切替">
-					<option value="all">すべて</option>
-					<option value="active">現在利用中のクーポン</option>
-					<option value="available">利用可能なクーポン</option>
-				</select>
-			</div>
-
 			<div id="view_live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 		</div>
 	</div>
@@ -50,6 +40,8 @@
 			@foreach ($coupons[2] as $coupon)
 			<article class="general-box coupon-card"
 					 data-category="{{ $coupon[1] }}"
+					 data-created="{{ $coupon[0]->created_at ? $coupon[0]->created_at->timestamp : 0 }}"
+					 data-expires="{{ $coupon[0]->expires_at ? $coupon[0]->expires_at->timestamp : 9999999999 }}"
 					 onclick="location.href='{{ route('coupon.show', $coupon[0]->id) }}'"
 			>
 				<img class="coupon-thumb" src="{{ isset($coupon[0]->spot->img_ext) ? asset('storage/spots/' . $coupon[0]->spot->id . '.' . $coupon[0]->spot->img_ext) : asset('images/no-image.svg') }}" alt="{{ $coupon[0]->spot->name }}">
