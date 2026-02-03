@@ -131,7 +131,7 @@
 		@endif
 
 		{{-- 口コミ投稿フォーム --}}
-		<div class="form-container general-box">
+		<div class="spot-detail-review-list">
 			<h3 style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.1rem;">口コミを投稿する</h3>
 
 			{{-- ログイン済みの場合のみ表示 --}}

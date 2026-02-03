@@ -285,6 +285,7 @@ h1,
 }
 .form-container button[type="submit"],
 a.a-btn,
+.spot-detail-btn-submit,
 #location_btn,
 .photo-file::file-selector-button {
 	width: 100%;
@@ -305,6 +306,7 @@ a.a-btn,
 .profile-edit-container button[type="submit"]:hover,
 .subscription-form-container button[type="submit"]:hover,
 a.a-btn:hover,
+.spot-detail-btn-submit:hover,
 .photo-file::file-selector-button:hover,
 #location_btn:hover,
 .spot-detail-btn:hover,
@@ -1503,7 +1505,7 @@ div[id$="_suggest"] > div > div:last-child > div::before,
 }
 
 .spot-detail-average-rate {
-	font-size: 4vw;
+	font-size: 1.6rem;
 	font-weight: bold;
 	color: #f1c40f;
 }
@@ -1553,6 +1555,10 @@ div[id$="_suggest"] > div > div:last-child > div::before,
 			overflow-wrap: break-word;
 		}
 	}
+}
+
+.spot-detail-review-list:last-child {
+	margin-bottom: 0;
 }
 
 .review-stars {
