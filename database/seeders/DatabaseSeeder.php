@@ -1793,7 +1793,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'spot_id' => 30,
-                'keyword' => '寅さん地蔵',
+                'keyword' => '男はつらいよ',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -2278,6 +2278,12 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'spot_id' => 70,
+                'keyword' => 'それいけ！アンパンマン',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'spot_id' => 71, // 琴ヶ浜
                 'keyword' => 'あんぱん',
                 'created_at' => now(),
@@ -2292,6 +2298,12 @@ class DatabaseSeeder extends Seeder
             [
                 'spot_id' => 73, // やなせたかしロード
                 'keyword' => 'あんぱん',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'spot_id' => 73,
+                'keyword' => 'それいけ！アンパンマン',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
