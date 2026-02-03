@@ -114,10 +114,8 @@
 													'id' => null,
 													'ids' => null
 												]) }}">
-												<span>
-													{{-- ハイライト関数にも keyword カラムを渡す --}}
-													# {!! highlightKeywords($keywordObj->keyword, $destination) !!}
-												</span>
+												{{-- ハイライト関数にも keyword カラムを渡す --}}
+												{!! highlightKeywords($keywordObj->keyword, $destination) !!}
 											</a>
 										@endforeach
 									</div>
