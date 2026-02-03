@@ -1469,6 +1469,7 @@ a.a-btn {
 	margin-top: 16px;
 }
 
+.result-link > div:last-child > object > div,
 div[id$="_suggest"] > div > div:last-child,
 .spot-detail-keywords {
 	display: flex;
@@ -1476,6 +1477,7 @@ div[id$="_suggest"] > div > div:last-child,
 	gap: 0.5rem;
 }
 
+.result-link > div:last-child > object > div > a,
 div[id$="_suggest"] > div > div:last-child > div,
 .spot-detail-keyword-tag {
 	background: #f8f9fa;
@@ -1486,6 +1488,7 @@ div[id$="_suggest"] > div > div:last-child > div,
 	color: #666;
 }
 
+.result-link > div:last-child > object > div > a::before,
 div[id$="_suggest"] > div > div:last-child > div::before,
 .spot-detail-keyword-tag::before {
 	content: "#";
@@ -1931,23 +1934,13 @@ iframe {
 		> object > div {
 			margin-top: 8px;
 			> a {
+				color: #555;
 				text-decoration: none;
-				display: inline-block;
-				> span {
-					background: #f3f4f6;
-					color: #555;
-					padding: 2px 8px;
-					border-radius: 4px;
-					font-size: 0.9rem;
-					margin-right: 5px;
-					margin-bottom: 5px;
-					display: inline-block;
-				}
 			}
 		}
 		> h2 > span,
 		> p > span,
-		> object > div > a > span > span {
+		> object > div > a > span {
 			background: linear-gradient(transparent 60%, #fde047 60%);
 			font-weight: bold;
 		}
