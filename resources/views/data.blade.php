@@ -6,10 +6,10 @@
 <h1>観光データ</h1>
 @foreach ($data as $spots)
 <div class="general-box ai-suggest">
-	<h2>人気の{{ $spots[0] }}</h2>
+	<h2>{{ $spots[0] }}</h2>
 	<div class="spot-divider" aria-hidden="true"></div>
 
-	<div class="spot-list" aria-label="人気のスポット一覧">
+	<div class="spot-list" aria-label="{{ $spots[0] }}一覧">
 		@foreach ($spots[2] as $spot)
 		<a class="spot-item" href="{{ route('detail', ['id' => $spot->spot->id]) }}">
 			<img
