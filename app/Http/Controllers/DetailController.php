@@ -22,6 +22,12 @@ class DetailController extends Controller
             'reviews.user',
         ])->findOrFail($request->id);
 
+        // 口コミの閲覧数を増やす
+        $spot->reviews->each(function ($item, $key) {
+            $item->views++;
+            $item->save();
+        });
+
         // カテゴリの文字列を取得
         $typeStr = $this->spotTypeToString($spot->type);
 
