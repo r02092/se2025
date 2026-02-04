@@ -495,6 +495,10 @@ a.a-btn:hover,
 }
 .btn-secondary {
 	background: #666;
+	transition: background-color 0.2s;
+}
+.btn-secondary:hover {
+	background: #444;
 }
 .btn-logout {
 	background: #f22727;
