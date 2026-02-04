@@ -1530,7 +1530,7 @@ class DatabaseSeeder extends Seeder
                 'addr_detail' => '土佐山田町宮ノ口１８５',
                 'description' =>
                     '高知県の公立大学のキャンパス。香美市の自然豊かな環境にあり、システム工学群、理工学群、情報学群、データ＆イノベーション学群といった工学系の学群に所属する学生が多く通っている。',
-                'img_ext' => null,
+                'img_ext' => 'jpg',
                 'stamp_key' => 7706594806898409028, // デモンストレーションのために固定
                 'shows' => 0,
                 'created_at' => now(),
