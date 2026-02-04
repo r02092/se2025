@@ -2369,6 +2369,13 @@ class DatabaseSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'spot_id' => 79,
+                'keyword' =>
+                    'ずっと受けたかった ソフトウェアエンジニアリングの授業',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
         DB::table('reviews')->insert([
             [
