@@ -1086,6 +1086,14 @@ a.a-btn:hover,
 	gap: 10px;
 	cursor: pointer;
 }
+.checkin-box > .a-btn {
+	display: flex;
+	justify-content: center;
+	margin: 20px 0;
+	> div {
+		height: 0;
+	}
+}
 .marker-icon {
 	width: 15%; /* 親の幅に対する15%表示 */
 	min-width: 30px; /* モバイルや小画面対策で最小値も入れると良い */
