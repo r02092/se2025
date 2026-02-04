@@ -809,9 +809,15 @@ a.a-btn:hover,
 }
 .profile-subscription-container {
 	margin: 80px auto;
-	margin-top: 10px;
 	padding: 1% 5% 1% 5%;
 	text-align: center;
+	> .profile-button-subscription {
+		margin: 20px auto;
+		background: #f22727;
+	}
+	> .profile-button-subscription:hover {
+		background: #aa1b1b;
+	}
 }
 .profile-avatar-group {
 	display: flex;

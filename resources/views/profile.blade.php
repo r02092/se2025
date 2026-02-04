@@ -41,15 +41,16 @@
 	@endif
 </div>
 
-<div class="general-box profile-subscription-container">
+@if (Auth::user()->permission == \App\Models\User::PERMISSION_USER)
+<div class="general-box profile-container">
 	<h3>事業者申込</h3>
 	<button class="profile-button-subscription" onclick="location.href = '{{ route('subscription.form') }}'">
 		登録
 	</button>
 </div>
+@endif
 <div class="general-box profile-subscription-container">
-	<h3>  </h3>
-	<button class="profile-button-subscription" style="background-color: red;" onclick="location.href = '{{ route('logout') }}'">
+	<button class="profile-button-subscription" onclick="location.href = '{{ route('logout') }}'">
 		ログアウト
 	</button>
 </div>
