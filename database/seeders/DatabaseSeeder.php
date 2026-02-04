@@ -1518,6 +1518,24 @@ class DatabaseSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'user_id' => 1,
+                'plan' => 1,
+                'type' => 5,
+                'name' => '高知工科大学 香美キャンパス',
+                'lng' => $this->encodeLng(133.719998),
+                'lat' => $this->encodeLat(33.620661),
+                'postal_code' => 7828502,
+                'addr_city' => 39212, // 四万十町
+                'addr_detail' => '土佐山田町宮ノ口１８５',
+                'description' =>
+                    '高知県の公立大学。香美市の自然豊かな環境にあり、システム工学、理工学、情報、データ＆イノベーションといった工学系中心の学群生が通っています。',
+                'img_ext' => null,
+                'stamp_key' => $this->randKey(),
+                'shows' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
         DB::table('keywords')->insert([
             [
