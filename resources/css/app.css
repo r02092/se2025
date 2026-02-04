@@ -2114,3 +2114,7 @@ iframe {
 		font-weight: bold;
 	}
 }
+
+.users-list > article:not(:first-child) {
+	cursor: pointer;
+}
