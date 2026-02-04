@@ -11,5 +11,9 @@
 <div class="gradient-top"></div>
 
 <div id="map" style="padding: 0; height: calc(100vh - (var(--header-height) + var(--bottom-bar-height)));"></div>
-<a href="{{ route('post.form') }}" class="photo-btn"></a>
+@auth
+	<a href="{{ route('post.form') }}" class="photo-btn"></a>
+@else
+	<a href="{{ route('login') }}" class="photo-btn"></a>
+@endauth
 @endsection
