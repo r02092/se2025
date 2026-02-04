@@ -498,6 +498,11 @@ a.a-btn:hover,
 }
 .btn-logout {
 	background: #f22727;
+	transition: background-color 0.2s;
+}
+.btn-logout:hover,
+.comment-send:hover {
+	background: #aa1b1b;
 }
 .btn-big {
 	width: 96px;
@@ -798,6 +803,7 @@ a.a-btn:hover,
 	border-radius: 8px;
 	cursor: pointer;
 	margin-top: 16px;
+	transition: background-color 0.2s;
 }
 
 /* ==== profile.css ==== */
