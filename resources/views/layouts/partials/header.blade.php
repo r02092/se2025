@@ -16,7 +16,7 @@
 			</a>
 		@else
 			<button type="button" onclick="location.href = '{{ route('login') }}'">
-				ログイン
+				ログイン/会員登録
 			</button>
 		@endauth
 	</div>
