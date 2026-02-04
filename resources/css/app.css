@@ -511,12 +511,6 @@ a.a-btn:hover,
 	width: 96px;
 	padding: 10px;
 }
-.btn-ghost {
-	width: 100%;
-	background: transparent;
-	color: #0b6b4d;
-	border: 1px solid #e0e0e0;
-}
 
 /* ==== home.css ==== */
 .map-area {
