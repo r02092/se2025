@@ -45,18 +45,23 @@ class DatabaseSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'login_name' => 'hekiku_ramen',
-                'password' => password_hash('password', PASSWORD_ARGON2ID),
-                'permission' => 2,
-                'name' => '中華そば 碧空',
-                'provider' => 0,
-                'icon_ext' => 'jpg',
-                'num_plan_std' => 1,
-                'num_plan_prm' => 0,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+        ]);
+        DB::table('users')->insert([
+            'login_name' => 'hekiku_ramen',
+            'password' => password_hash('password', PASSWORD_ARGON2ID),
+            'permission' => 2,
+            'name' => '中華そば 碧空',
+            'provider' => 0,
+            'icon_ext' => 'jpg',
+            'num_plan_std' => 1,
+            'num_plan_prm' => 0,
+            'postal_code' => 7820003,
+            'addr_city' => 39212,
+            'addr_detail' => '土佐山田町宮ノ口１８５',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('users')->insert([
             [
                 'login_name' => 'tsuruhashi04',
                 'password' => password_hash('password', PASSWORD_ARGON2ID),
