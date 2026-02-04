@@ -89,7 +89,7 @@
 					</p>
 					{{-- ログインボタン (クラスで統一色を適用) --}}
 					<a href="{{ route('login') }}" class="btn-login-link">
-						ログイン画面へ
+						ログイン/会員登録画面へ
 					</a>
 				</div>
 			@endguest
