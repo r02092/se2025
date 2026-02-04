@@ -2,8 +2,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-	<h1>利用者追加</h1>
+<div class="general-box form-container">
+	<h1>ユーザー追加</h1>
 	@if (session('success'))
 		<div class="alert alert-success">
 			{{ session('success') }}

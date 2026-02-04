@@ -30,7 +30,10 @@ class InvoiceController extends Controller
         $pdf->SetFontSize(10.5);
         $pdf->Write(6, $this->postalCodeToString($user->postal_code));
         $pdf->Ln();
-        $pdf->Write(6, $this->cityToString($user->addr_city));
+        $pdf->Write(
+            6,
+            $this->cityToString($user->addr_city) . $user->addr_detail,
+        );
         $pdf->Ln();
         $pdf->SetXY(27, 53);
         $pdf->Cell(

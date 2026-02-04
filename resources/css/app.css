@@ -60,7 +60,7 @@ h1,
 	display: flex;
 	flex-direction: column;
 	text-align: center;
-	padding: 1% 5% 1% 5%;
+	padding: 1% 5%;
 }
 
 /* Header Bar */
@@ -297,7 +297,8 @@ h1,
 a.a-btn,
 .spot-detail-btn-submit,
 #location_btn,
-.photo-file::file-selector-button {
+.photo-file::file-selector-button,
+.users-btn {
 	width: 100%;
 	padding: 10px 0;
 	background: #14b888;
@@ -321,7 +322,8 @@ a.a-btn:hover,
 #location_btn:hover,
 .spot-detail-btn:hover,
 .btn-green:hover,
-.btn-login-link:hover {
+.btn-login-link:hover,
+.users-btn:hover {
 	background: #108a66;
 }
 
@@ -490,24 +492,24 @@ a.a-btn:hover,
 	border: none;
 	cursor: pointer;
 }
-.btn-primary {
-	background: #14b888;
-}
 .btn-secondary {
 	background: #666;
+	transition: background-color 0.2s;
+}
+.btn-secondary:hover {
+	background: #444;
 }
 .btn-logout {
 	background: #f22727;
+	transition: background-color 0.2s;
+}
+.btn-logout:hover,
+.comment-send:hover {
+	background: #aa1b1b;
 }
 .btn-big {
 	width: 96px;
 	padding: 10px;
-}
-.btn-ghost {
-	width: 100%;
-	background: transparent;
-	color: #0b6b4d;
-	border: 1px solid #e0e0e0;
 }
 
 /* ==== home.css ==== */
@@ -798,20 +800,27 @@ a.a-btn:hover,
 	border-radius: 8px;
 	cursor: pointer;
 	margin-top: 16px;
+	transition: background-color 0.2s;
 }
 
 /* ==== profile.css ==== */
 .profile-container {
 	margin: 20px auto;
 	margin-bottom: 10px;
-	padding: 1% 5% 1% 5%;
+	padding: 1% 5%;
 	text-align: center;
 }
 .profile-subscription-container {
 	margin: 80px auto;
-	margin-top: 10px;
-	padding: 1% 5% 1% 5%;
+	padding: 1% 5%;
 	text-align: center;
+	> .profile-button-subscription {
+		margin: 20px auto;
+		background: #f22727;
+	}
+	> .profile-button-subscription:hover {
+		background: #aa1b1b;
+	}
 }
 .profile-avatar-group {
 	display: flex;
@@ -1074,11 +1083,19 @@ a.a-btn:hover,
 /* ==== funpage.css ==== */
 .general-box.checkin-box {
 	margin: 40px auto;
-	padding: 1% 5% 1% 5%;
+	padding: 1% 5%;
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	cursor: pointer;
+}
+.checkin-box > .a-btn {
+	display: flex;
+	justify-content: center;
+	margin: 20px 0;
+	> div {
+		height: 0;
+	}
 }
 .marker-icon {
 	width: 15%; /* 親の幅に対する15%表示 */
@@ -1320,7 +1337,8 @@ a.a-btn:hover,
 /* ==== subscription-form.css ==== */
 .subscription-form-container select,
 .profile-edit-container select,
-.edit > article > form > select {
+.edit > article > form > select,
+select#permission {
 	width: 80%;
 	padding: 10px;
 	margin-bottom: 16px;
@@ -2095,4 +2113,8 @@ iframe {
 	> span {
 		font-weight: bold;
 	}
+}
+
+.users-list > article:not(:first-child) {
+	cursor: pointer;
 }
