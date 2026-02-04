@@ -1526,10 +1526,10 @@ class DatabaseSeeder extends Seeder
                 'lng' => $this->encodeLng(133.719998),
                 'lat' => $this->encodeLat(33.620661),
                 'postal_code' => 7828502,
-                'addr_city' => 39212, // 四万十町
+                'addr_city' => 39212,
                 'addr_detail' => '土佐山田町宮ノ口１８５',
                 'description' =>
-                    '高知県の公立大学。香美市の自然豊かな環境にあり、システム工学、理工学、情報、データ＆イノベーションといった工学系中心の学群生が通っています。',
+                    '高知県の公立大学のキャンパス。香美市の自然豊かな環境にあり、システム工学群、理工学群、情報学群、データ＆イノベーション学群といった工学系の学群に所属する学生が多く通っている。',
                 'img_ext' => null,
                 'stamp_key' => $this->randKey(),
                 'shows' => 0,
