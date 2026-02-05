@@ -17,17 +17,17 @@ class CheckinApiTest extends TestCase
     public function test_checkin_success_with_valid_data(): void
     {
         $user = User::find(6);
-        $spot = Spot::find(2);
+        $spot = Spot::find(79);
 
         $response = $this->actingAs($user)->postJson('/api/checkin', [
             'stamp_key' => $spot->stamp_key,
-            'lat' => 33.504458, // スポットと全く同じ位置
-            'lng' => 133.906497,
+            'lat' => 33.620661, // スポットと全く同じ位置
+            'lng' => 133.719998,
         ]);
 
         $response->assertStatus(200)->assertJson([
             'message' => 'チェックインに成功しました。',
-            'spot_name' => 'ごめん・なはり線',
+            'spot_name' => '高知工科大学 香美キャンパス',
             'coupon_result' => [
                 'success' => true,
             ],
@@ -36,7 +36,7 @@ class CheckinApiTest extends TestCase
         // スタンプが記録されたか
         $this->assertDatabaseHas('stamps', [
             'user_id' => 6,
-            'spot_id' => 2,
+            'spot_id' => 79,
         ]);
     }
 
