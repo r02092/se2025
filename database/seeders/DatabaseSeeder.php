@@ -2429,7 +2429,7 @@ class DatabaseSeeder extends Seeder
             [
                 'spot_id' => 4,
                 'name' => 'はりまや橋通行料 50% OFF',
-                'cond_spot_id' => 2,
+                'cond_spot_id' => 79,
                 'expires_at' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
