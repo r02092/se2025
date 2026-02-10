@@ -15,7 +15,7 @@ class SubscriptionTest extends TestCase
         $response = $this->post(route('subscription.store'), [
             'post_code' => 7820003,
             'city' => 39212,
-            'address' => '土佐山田町宮ノ口185',
+            'address' => '土佐山田町宮ノ口１８５',
             'num_plan_std' => 2,
             'num_plan_prm' => 1,
         ]);
@@ -23,7 +23,7 @@ class SubscriptionTest extends TestCase
             'id' => 2,
             'postal_code' => 7820003,
             'addr_city' => 39212,
-            'addr_detail' => '土佐山田町宮ノ口185',
+            'addr_detail' => '土佐山田町宮ノ口１８５',
             'num_plan_std' => 2,
             'num_plan_prm' => 1,
             'permission' => 2,
